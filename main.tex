@@ -1,0 +1,175 @@
+%-------------------------------------------------------------------------------------
+%Set up document class and basic formatting
+%-------------------------------------------------------------------------------------
+
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, 
+            vmargin = 18mm, 
+            hmargin = 15mm, 
+            bindingoffset = 25mm, 
+            includehead,
+            headheight = 10mm
+            ]{geometry}
+\usepackage{caption,subcaption}
+\usepackage{setspace}
+\usepackage{graphicx}
+\graphicspath{{figure/}} % change path to make importing figures less annoying
+\usepackage[]{fancyhdr}
+\usepackage{placeins}
+\usepackage{subfiles}
+%-------------------------------------------------------------------------------------
+% Import packages to make physics, units, and fractions look pretty
+%-------------------------------------------------------------------------------------
+\usepackage{amsmath, amssymb, physics, siunitx,nicefrac}
+\DeclareSIUnit{\pixel}{\text{pixel}}
+
+
+
+%-------------------------------------------------------------------------------------
+% Make the outline chapter have flexible numbers of subheading
+%-------------------------------------------------------------------------------------
+\usepackage{enumitem}
+
+\setlistdepth{9}
+
+\setlist[itemize,1]{label=\ding{108}}
+\setlist[itemize,2]{label=\ding{110}}
+\setlist[itemize,3]{label=\ding{117}}
+\setlist[itemize,4]{label=\ding{107}}
+\setlist[itemize,5]{label=$-$}
+\setlist[itemize,6]{label=$*$}
+\setlist[itemize,7]{label=$\ding{\bullet}$}
+\setlist[itemize,8]{label=$\bullet$}
+\setlist[itemize,9]{label=$\bullet$}
+
+\renewlist{itemize}{itemize}{9}
+\usepackage{pifont}
+%-------------------------------------------------------------------------------------
+%Set up bibliography, glossary etc.
+%-------------------------------------------------------------------------------------
+\usepackage[numbers]{natbib}
+\bibliographystyle{IEEEtranN}
+\usepackage[acronym,toc]{glossaries}
+\usepackage{bibunits}
+\usepackage{acronym}
+\usepackage{cleveref}
+
+%-------------------------------------------------------------------------------------
+% Wee function to draw a box around a region in an image, and label it
+%-------------------------------------------------------------------------------------
+
+\usepackage{tikz}
+%\annotatedFigureBoxCustom{bottom-left}{top-right}{label}{label-position}{box-color}{label-color}{border-color}{text-color}
+\newcommand*\annotatedFigureBoxCustom[8]{\draw[#5,thick] (#1) rectangle (#2);\node at (#4) [fill=#6,thick,shape=circle,draw=#7,inner sep=1.5pt,font = \tiny\sffamily,text=#8] {\textbf{#3}};} % fiddle with these the shape of box, corner style, line thickness etc
+%\annotatedFigureBox{bottom-left}{top-right}{label}{label-position}
+\newcommand*\annotatedFigureBox[4]{\annotatedFigureBoxCustom{#1}{#2}{#3}{#4}{red}{white}{black}{black}}
+
+\newcommand*\annotatedFigureText[4]{\node[draw=none, anchor=south west, text=#2, inner sep=0, text width=#3\linewidth,font=\sffamily] at (#1){#4};}
+
+\newenvironment{annotatedFigure}[1]{
+    \centering
+    \begin{tikzpicture}
+        \node[anchor=south west,inner sep=0] (image) at (0,0) {#1};
+        \begin{scope}[x={(image.south east)},y={(image.north west)}]}
+    {   \end{scope}
+    \end{tikzpicture}}
+\newcommand{\gridon}{\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
+                    \foreach \x in {0,1,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+                    \foreach \y in {0,1,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
+}
+%-------------------------------------------------------------------------------------
+%Put other packages here
+%-------------------------------------------------------------------------------------
+
+
+\usepackage{lipsum}
+\newcommand{\addcite}{\textcolor{blue}{[citation needed]}}
+
+%-------------------------------------------------------------------------------------
+%End preamble
+%-------------------------------------------------------------------------------------
+\begin{document}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[R]{\thepage}
+\fancyhead[L]{\leftmark}
+\include{chapters/titlepage}
+
+\onehalfspacing
+\chapter*{Abstract}
+\input{chapters/abstract.tex}
+
+\chapter*{Acknowledgements}
+\input{chapters/acknowledgements.tex}
+
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\chapter*{Publications}
+
+\begin{bibunit}
+    \renewcommand{\bibsection}{}
+    \makeatletter
+    \renewcommand\@biblabel[1]{\ding{108}}
+    \makeatother
+    %\def\bibfont{\small} %might remove this
+
+    \nocite{*}
+    \putbib[pubs.bib]
+    
+\end{bibunit}
+
+\chapter*{Declaration}
+
+\subfile{chapters/declaration.tex}
+
+\chapter*{Outline}
+\subfile{chapters/outline.tex}
+
+\chapter{Glossary}\label{chap:glossary}
+\subfile{chapters/acronyms.tex}
+
+
+\chapter{Introduction}\label{chap:intro}
+\subfile{chapters/introduction.tex}
+
+
+
+\chapter{En-Face Fluorescence Lifetime Imaging Ophthalmoscope}\label{chap:fliodevice}
+\subfile{chapters/fliodevice.tex}
+
+\chapter{FLIM Analysis Methods}\label{chap:flimanalysis}
+\subfile{chapters/flimanalysis.tex}
+
+\chapter{FLIO - In-Vitro Imaging Demonstrations}\label{chap:invitro}
+\subfile{chapters/flioinvitro.tex}
+
+
+\chapter{FLIO  - Ex-Vivo Imaging Demonstrations}\label{chap:exvivo}
+\subfile{chapters/flioexvivo.tex}
+
+\chapter{FLIO - In-Vivo Imaging Demonstrations}\label{chap:invivo}
+\subfile{chapters/flioinvivo.tex}
+
+
+\chapter{Spectrally Resolved Fluorescence Lifetime Imaging}\label{chap:sflim}
+\subfile{chapters/sflim.tex}
+
+
+\chapter{Novel Applications of TCSPC / Material Discrimination}\label{chap:materialdisc}
+\subfile{chapters/tcspc.tex}
+
+\chapter{Summary and Conclusions}\label{chap:conclusion}
+\subfile{chapters/conclusion}
+
+\newpage
+\chapter{Bibliography}
+\nocite{*}
+
+\renewcommand{\bibname}{References}
+\bibliography{bibliography.bib}
+
+\end{document}

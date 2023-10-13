@@ -1,0 +1,32 @@
+\section{Phasor Analysis}\label{sec:phasoranalysis}
+
+Phasor Analysis has arisen as a popular technique in FLIM literature \cite{digman2008phasor} which boasts improved computation times over standard fitting approaches and higher robustness to noise without forcing a fitting model onto the raw FLIM data. In principle this addresses the issue of fitting based approaches where the number of exponential fitted to often doesn't reflect the physical model of the emitted fluorescence but the number of lifetimes that can be accurately fitted to given the recorded photon fluxes as well as influence from the operator where often the order of a multi-exponential decay model is repeatedly increased (assuming appropriate photon fluxes) until the residuals of the fitting become uncorrelated.
+Briefly, phasor analysis utilises the phasor transform - where a vector $(s,g)$ is formed of the real (Eq.~\ref{eq:phasor-g}) and imaginary (Eq.~\ref{eq:phasor-g}) parts of a Fourier transformed fluorescence decay\footnotemark{} and maps that decay to a unique point on phasor space. This means unique fluorophores in a scene, with sufficiently distinct lifetimes, will form clusters in phasor space allowing for simple image segmentation. Additionally mixtures of fluorophores can be unmixed using the 
+\footnotetext{Predominantly, only the first harmonic ($n=1$) is used and unless otherwise specified this will be what is referred to.}
+\begin{align}
+    g_{n} &= \frac{ \int_{0}^{T}I(t)\cos(n\omega t)dt}{ \int_{0}^{T} I(t)dt} \equiv \frac{   \Re{   \mathcal{F}_{n} \big\{I(t)\big\} }  }    { \lvert\mathcal{F}_{0}\{I(t)\} \rvert} \label{eq:phasor-g}\\
+    s_{n} &= \frac{ \int_{0}^{T}I(t)\cos(n\omega t)dt}{ \int_{0}^{T} I(t)dt} \equiv \frac{\Im{ \mathcal{F}_{n} \big\{I(t)\big\}   }}{\lvert\mathcal{F}_{0}\{I(t)\} \rvert} \label{eq:phasor-s}
+\end{align}
+
+\begin{equation}
+    \tau = \frac{s_{1}}{g_{1}\omega}
+\end{equation}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.47\textwidth}
+        \centering
+        \includegraphics[width = \textwidth, trim = {0 0 18cm 0},clip]{figures/sflim/phasor-unmixing/PhasorTransform.pdf}
+        \caption{}
+        \label{subfig:phasortransforma}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.47\textwidth}
+        \centering
+        \includegraphics[width = \textwidth, trim = {18cm 0 0 0},clip]{figures/sflim/phasor-unmixing/PhasorTransform.pdf}
+        \caption{}
+        \label{subfig:phasortransformb}   
+    \end{subfigure}
+    \caption{The phasor transform maps fluorescence decays with unique lifetimes (\subref{subfig:phasortransforma}) onto a unique point in phasor space (\subref{subfig:phasortransformb}). In \subref{subfig:phasortransformb} phasor lying on the the solid black circle - referred to as the "universal semicircle" in literature - represents pure monoexponential decays.}
+    \label{fig:phasotransform}
+\end{figure}

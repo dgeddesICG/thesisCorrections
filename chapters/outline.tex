@@ -1,0 +1,190 @@
+\begin{itemize}
+    \item Introduction
+    \begin{itemize}
+        \item Motivation
+        \begin{itemize}
+            \item Earlier diagnosis of retinal disease improves patient outcomes, but current imaging techniques are either hindered by the pathophysiology of retinal disease or precision of quantitative measurements of biochemistry. In reflectance imaging and OCT defects in the retinal surface can only be imaged either when loss of vision has already been reported by the patient, or after damage to the retinal surface has already occurred. In the imaging of chemical changes, the ability to resolve and quantify retina biomarkers is hindered by phototoxicity, feint signal, high-noise and low contrast images, and fluorescent clutter. 
+            \item FLIM is an emerging technology that can, in principle, overcome the problem of poor chemical resolving power in fluorescence intensity imaging since the fluorescence lifetime is invariant to local fluorophore concentration. The fluorescence lifetime can also potentially reveal information about the local pH in the retina.
+            \item FLIO is a young field and the role of FLIO in ophthalmic imaging is still to be established. Using new generation SPAD arrays a high-street ophthalmoscope can be retrofitted to allow for FLIM, and spectrally resolved FLIM imaging of the retina to pave the route for lower cost device for regular monitoring of retinal metabolic health.
+        \end{itemize}
+        \item Background / FLIO review
+        \begin{itemize}
+            \item Morphology of the eye
+            \item Review of retinal diseases and their progression
+            \item Review of Imaging Modalities
+            \begin{itemize}
+                \item SLO vs. Fundus Camera - highlight differences, dealing with scattered light, and photon budgets
+                \item Structural Imaging Techniques - Widefield imaging (OPTOS), OCT
+                \item Chemical Imaging Techniques - Autofluorescence imaging, Fluorescein Angiography / Indocyanine Green imaging
+                \item Retinal Oximetry - review of the efficacy of measuring vascular oxygenation using spectral imaging.
+            \end{itemize}
+            \item FLIM
+            \begin{itemize}
+                \item Theory of Fluorescence lifetime imaging
+                \begin{itemize}
+                    \item Fluorescence is a radiative process involving the excitation, and subsequent decay, of singlet states within an atom / molecule (Jablonski diagram)
+                    \item Fluorescence decays follow an exponential decay process in the time domain. 
+                    \item Fluorescence lifetime is invariant to local fluorophore concentration (benefit for unmixing fluorophores) but is sensitive to local pH, and embedding matrix, temperature etc.
+                \end{itemize}
+                \item Time Domain FLIM
+                \begin{itemize}
+                    \item Time Domain FLIM measures photon arrivals using time correlated single photon counting. Typical setups consist of single pixel SPAD's and a Time-Analog-Converter or Time-Digital-Converter to correlate the detected photons with the pulse of a laser.
+                \end{itemize}
+                \item Frequency Domain Pulse
+                \begin{itemize}
+                    \item Fluorescence is excited using a amplitude modulated laser source (sine wave). The change in amplitude, and phases between detected photons and the laser pulse is then used to calculate the lifetime. 
+                    \item Detection is much more difficult than standard TCSPC in TD-FLIM and in order to resolve higher order exponential you need to modulate the amplitude of the excitation source with higher order harmonics
+                \end{itemize}
+                \item Time Gated FLIM
+                \begin{itemize}
+                    \item Instead of continuously recording the lag in intensity like FD-FLIM, or building histograms of photon arrival times the lifetime of a fluorophore can be determined by recording images over a multiple exposures throughout the fluorescence decay. The lifetime is then recovered by comparing the number of detected photons in each "gate" using the statistics of an exponential decay.
+                    \item For higher order exponential decays more gates are required - increasing noise due to the decreased photon counts in each gate.
+                \end{itemize}
+                \item Applications of FLIM
+                \begin{itemize}
+                    \item The bulk of biological research carried out using FLIM use labelling to provide better control of the expected fluorescence lifetimes - ditches the complex fluorescence models required for autofluorescence. Typically these dyes will be chosen to label specific cellular structures to provide contrast in lifetimes that couldn't normally be resolved using fluorescence intensity or would require more complex spectrally resolved fluorescence imaging and spectral unmixing alogrithms.
+                    \item FLIM can also be used to measure differences in pH, and detect changes in biomarkers such as the FAD/FADH or NAD/NADH redox reactions. In these cases the reduced, and oxidised forms exhibit similar emission spectra but different lifetimes.                   \item The Förster Resonance Energy Transfer effect can also be used in biological imaging. This technique involved having an acceptor fluorophore 'absorbing' some of the fluorescence from a donor fluorophore, in close proximity, and thus reducing the lifetime - akin to a damped harmonic oscillator. This intensity of the FRET'ing can be used to analyse protein-protein and protein-DNA interactions as well as measuring intramollecular distances.
+                \end{itemize}
+                \item Fluorescence Lifetime Imaging Opthalmoscopy
+                \begin{itemize}
+                    \item Literature in FLIO predominately originates from Dysli, Sauer, Hammer, and  Schweitzer 
+                    \item Device that is commonly used is a Heidelberg Spectralis SLO with modified imaging and illumination optics. Imaging arm features an IR detector, and 2 single-pixel SPADs and TCSPC modules.
+                    \item The two spads cover the different spectral bands <560nm and 560-700nm.
+                    \item They excite using a <100ps pulse length and rep rate of 80Mh at a wavelength of 470-488.
+                    \item Acquisition times are over 60s (increasing with patient age) so IR source and detector is used for co-registering retinal images.
+                    \item The device / technique has been used to study the connection between fluorescence lifetimes and the progression of retinal diseases. These studies are mostly qualitative - comparing lifetimes of a diseased patients and those of an age and gender matched health volunteer.
+                    \item Diseases with varying prominence were studying (high to low) AMD, DR, Stargardts Disease with varying success. 
+                    \item In Stargardts disease the characteristic flecks can be resolved earlier than standard clinical methods, and as the flecks grow the lifetime distribution changes.
+                    \item Patients with DR exhibit longer average fluorescence lifetimes than healthy patients. Weak correlation between HbA1c and lifetime.
+                    \item Conclusions from these articles are very qualitative, and speculative as to which fluorophores is responsible for the changes in the reported changes in lifetime.
+                    \item Measurements of the concentrations of retinal fluorophores can be used to evaluate retinal health, and improve the rigour of conclusions made about which fluorophore changes with the progression of disease. 
+                \end{itemize}
+            \end{itemize}
+        \item Objectives of Research
+        \begin{itemize}
+            \item construct a device for measureing in-vivo fluorescence lifetimes in the human retina
+            \item Develop techniques for discriminating individual fluorophores in the retina fro the purpose of quantifying retinal health - FAD is a biomarker for the local uptake of oxygen
+            \item Estimate the long-term potential of FLIO, and mapping specific fluorophores using modelling. This would take the form of modelling to investigate whether the limits of current techniques are due to technology (low res, low fill factor SPADs) or some biological limit (concentrations present in human eye, when excited at eye-safe intensities would not produce enough signal to unmix fluorophores in a reasonable acquisition period.
+        \end{itemize}
+        \end{itemize}
+    
+    \item En-face Fluorescence Lifetime Ophthalmoscope
+    \begin{itemize}
+        \item Fundus Camera Overview
+        \item Modifications - Illumination Arm
+        \begin{itemize}
+            \item Annular illumination and gullstrand principle
+            \item Annular mirror, and conjugate stops to remove corneal back reflections.
+            \item Description of supercontinuum laser and AOTF system.
+            \item Optical layout of fundus camera
+            \item Attempt 1 - injecting light via Xe flash lamp
+            \item Attempt 2 - injecting light via the filter wheel
+        \end{itemize}
+        \item Modifications - Imaging Arm
+        \begin{itemize}
+            \item Ray trace for SLR lens arrangement
+            \item Spectral Channels chosen
+            \item Fluorescence Intensity Camera and approx. field of view
+            \item SPAD Camera
+            \begin{itemize}
+                \item SPAD array has 192 X 128 pixels and 47ps temporal resolution. Has fill factor of 13 percent. TCSPC modules on a per pixel basis.
+                \item Operating Modes of SPAD
+                \begin{itemize}
+                    \item Standard H5 Mode - data acquisition is defined by the acquisition time, number of bins etc. Data output is a h5 containing the tcspc histogram for each pixel, approx fwhm, coarse lifetime (using horibas black boxy fitting), and integrated intensity
+                    \item Raw H5 Mode - Instead of single tcspc histogram per pixel, instead in raw mode the raw photon records are streamed to a H5 pixel. These photon records take the form of a 4byte string of digits indicating the pixel, and time bin the photon was detected in. This is further discretised into the individual "frames" which have a frequency of 11kHz which allows for building histograms over arbirtary time windows.
+                \end{itemize}
+                \end{itemize}
+            \end{itemize}
+        \end{itemize}
+        \item Safety Assessment
+        \begin{itemize}
+            \item Description of damage mechanisms when illuminating the retina. Photochemical or phototoxic damage occurs predominately in the shorted wavelengths and results in the generation of free radicals. The immune system then either sees these as foreign and removes the cells or the photorecepotors receive too much energy and die directly. In photo thermal damage light in the red wavelengths causes heating, and cavitation, of the humors at the retinal surface. This causes the retinal surface to be irreparably destroyed.
+            \item different safety documents were used to evaluate the safe emission levels of imaging at our excitation wavelength. 
+            \item detail calculations and measurements
+        \end{itemize}
+    \end{itemize}
+    \item FLIM Analysis Methods (Modelling)
+    \begin{itemize}
+        \item Summary of the Problem
+        \begin{itemize}
+            \item The raw tcspc histograms that are recorded in FLIM measurements are acutally a convolution of the systems temporal response and the fluorescence decay model exhibited by the sample (mono, bi, tri, etc). The noise inherent in the measurement need to be considered.
+            \item In the shot noise limited scenario the error inherent in an estimate of the lifetime can be calculated using the Fisher Information. For a given photon flux the accuracy of any recovered lifetime can be made
+        \end{itemize}
+        \item Reconvolution Based Fitting
+        \begin{itemize}
+            \item Fitting based approaches tend to either ignore the IRF, comprimising the shortest lifetimes that can be recorded and some accuracy
+            \item If the IRF ius taken into account then reconvolution based fitting is carried out. This process iteratively carrying out a least squares based fitting of a chosen fluorescence model and convolving this with a previously recorded IRF. This process is carried out over each pixel in the image to build a lifetime map.
+        \end{itemize}
+        \begin{itemize}
+            \item Reconv
+        \end{itemize}
+        \item Phasor Analysis
+        \item Gated \ Rapid Lifetime Techniques
+        \item Comparision of Techniques
+    \end{itemize}
+    \item In-Vitro Imaging Demonstrations
+    \begin{itemize}
+        \item Imaging of Convallaria
+        \item Imaging Multiple Fluorophores
+        \item Imaging Mixed Fluorophores
+    \end{itemize}
+    \item Ex-Vivo Imaging Demonstrations
+    \begin{itemize}
+        \item Perfused Rabbit Eye Experiments
+        \begin{itemize}
+            \item Rationale -
+            \begin{itemize}
+                \item In Ex-Vivo imaging there is no blood flow or metabolic activity - any FAD that was once in the retina is now gone. 
+                \item In Fluorescein Angiography, a strongly fluorescent dye is injected and circulates throughout the body up to the ophthalimic artery and into the veins, and vessels in the retina. In diagnostic ophthalmology this is used to detect any leakage of blood into the retinal tissue (dbl check biology).
+                \item This principle of dye perfusion Fluorescein Angiography can be applied in ex-vivo rabbit imaging allowing for more control over the imaging conditions i.e fluorophore being expressed, concentration, mixture of fluorophore.
+            \end{itemize}
+            \item Process
+            \begin{itemize}
+                \item Soon after death, the internal carotid of the rabbit is isolated, and cannulated. The head is then detached from the rest of the carcass and any leftover heparin from the sacrificing process is flushed using PBS. 
+                \item A syringe pump is used to perfuse the dye and is connected to the cannula through a length of pvc tubing (approx 20cm). The tubing is fixed to the imaging platform with around 10cm of slack to reduce strain on the cannula (reducing the risk of the cannula being pulled out)
+                \item The eyelids of the rabbits eye are then removed, being careful not to damage the cornea, to eliminate eyelash artefacts and obstructions from the eyelids.
+                \item The head is then positioned such that the pupil is centred on the objective lens of the fundus camera and the annulus projected onto the cornea comes into a sharp focus. 
+                \item The scientific camera / fluorescence intensity camera is then used to establish the focussing of the imaging arm. Once the correct dioptre correction is selected and the focus, using the focus knob on the fundus camera, is maximised then the SLR relay lenses can be adjusted for optimal image quality
+                \item brightfield images, and autofluorescence images are then recorded to give a baseline. A good quality autofluorescence image should show contrast between the blood vessels that appeared on the periphery of the retina in most rabbit  samples.
+                \item The syringe pump is then primed such that the dye appears just prior to the cannula i.e the tubing connecting the syringe pump to the cannula is filled with dye but none has begun to perfuse into the vasculature.
+                \item The FLIM camera is set up  to record in raw mode (continuous photon streams), and the fluorescence intensity camera is set up to record sequential frames, such that the acquisition periods cover the time required for the syringe pump to perfuse all the dye as well as a buffer either side.
+                \item After all the dye had been perfused a spectrally resolved FLIM data set is recorded as well as spectral images.
+            \end{itemize}
+            
+        \end{itemize}
+    \end{itemize}
+    \item In-Vivo Imaging Demonstrations
+    \begin{itemize}
+        \item Rat Imaging  @ UCL
+    \end{itemize}
+    \item FLIO Human Imaging (Maybe)
+    \item SFLIM
+    \begin{itemize}
+        \item Rationale
+        \begin{itemize}
+            \item Discriminating retinal fluorophores by either their spectral signature or intrinsic fluorescence lifetime enables the estimation of metabolic health - FAD is a biomarker linked to the local consumption of oxygen within biological structures. This is made difficult by the overlapping spectra, and similar lifetimes, exhibited by other endogenous fluorophores such as AGE, A2E / lipofuscin, and other bisretinoids.
+            \item The weak signal produced from exciting fluorescence in the eye requires the efficient use of the available signal.
+            \item Spectrally resolving the temporal decay of the fluorescence has been shown in literature for the blind unmixing in labelled samples but unmixing retinal autofluorescence will be more difficult motivating the need for efficient uses of the limited available signal.
+            \item The feasibility of using SFLIM for unmixing retinal fluorophores can be investigated, and the question of whether there is an insurmountable biological limit or a temporary limitation of technology (low fill factor, low resolution SPADS, low efficiency TCSPC)
+        \end{itemize}
+        \item Review of Spectral Unmixing Methods
+        \begin{itemize}
+            \item In spectral imaging and remote sensing the methods used to recover the endmembers spectra and relative abundances at their base consider the problem to be that of a linear combination of endmembers. 
+            \item Increasing the number of bands over a given bandwidth in principle should enhance the ability to discriminate overlapping spectra but in the case of a shot noise limited signal the relative noise in each wavelength channel is higher than the case of fewer but wider bands. The optimal number of bands is dependent on the expected endmembers and often the whole spectral window doesn't need to be sampled.
+            \item VCA, Vertex Component Analysis is a common unmixing method in remote sensing. Principle Components Analysis is performed over the entire image to produce a cloud of points over PC1 and PC2. The number of vertices in this cloud signifies the number of resolvable endmembers present in the signal. It is worth noting that for VCA to be successful there doesn't need to exist pixels that contain only a single endmember. The point cloud then has an N-polygon fitted, and the relative areas subtended by each point (pixel on image) signifies the relative abundance at each pixel.
+            \item Non-negative matrix factorisation is another popular methods seen in remote sensing. In this scenario the problem of linear unmixing is framed as solving for the eigenvalues (relative abundances). [need to do a lot more reading on this.]
+        \end{itemize}
+        \item Modelling
+        \item Experimental Demonstrations
+        \item Feasibility of Qauntifying Retinal Fluorophores
+        \item Conclusions
+    \end{itemize}
+    \item Novel Applications of TCSPC - Material Discrimination
+    \begin{itemize}
+        \item In the low light conditions of a modern battle field the ability to scan a scene and identify an enemy combatant behind an obscuration and determine whether or not they are armed would present a significant tactical advantage
+        \item TCSPC and SPAD's have been used for ranging purposes (LIDAR) but the material dependent temporal stretching of light, from a picosecond pulsed source, can be exploited with sufficient temporal resolution
+        \item Using a heuristically chosen exponential Gaussian the TCPSC histograms from reflected light incident on different materials can be fitted and the materials classified and identified.
+        \item maps of the different fitting parameters can be used to classify the stretching that occurs.
+        \item This technique has some possible applications in the eye (that were not explored) such as temporally filtering out back reflections from the cornea in trans-pupil illumination of the retina.
+    \end{itemize}
+\end{itemize}
