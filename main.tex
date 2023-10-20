@@ -23,6 +23,7 @@
 %-------------------------------------------------------------------------------------
 \usepackage{amsmath, amssymb, physics, siunitx,nicefrac}
 \DeclareSIUnit{\pixel}{\text{pixel}}
+\AtBeginDocument{\RenewCommandCopy\qty\SI}
 
 
 
@@ -60,6 +61,7 @@
 %-------------------------------------------------------------------------------------
 
 \usepackage{tikz}
+\usetikzlibrary{matrix,calc}
 %\annotatedFigureBoxCustom{bottom-left}{top-right}{label}{label-position}{box-color}{label-color}{border-color}{text-color}
 \newcommand*\annotatedFigureBoxCustom[8]{\draw[#5,thick] (#1) rectangle (#2);\node at (#4) [fill=#6,thick,shape=circle,draw=#7,inner sep=1.5pt,font = \tiny\sffamily,text=#8] {\textbf{#3}};} % fiddle with these the shape of box, corner style, line thickness etc
 %\annotatedFigureBox{bottom-left}{top-right}{label}{label-position}
@@ -85,7 +87,8 @@
 
 \usepackage{lipsum}
 \newcommand{\addcite}{\textcolor{blue}{[citation needed]}}
-
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 %-------------------------------------------------------------------------------------
 %End preamble
 %-------------------------------------------------------------------------------------

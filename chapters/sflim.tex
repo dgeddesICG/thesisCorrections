@@ -147,9 +147,9 @@ The results from these simulations, shown in Fig.~\ref{fig:retfitting}, illustra
 \FloatBarrier
 \subsection{Appraisal of Technique}
 To summarise, a method of recovering the relative concentrations of additive mixtures of retinal fluorophores AGE, A2E, and FAD using non-linear least squares fitting of a 6-exponential decay model was proposed and its sensitivity to these fluorophore concentrations, and photon shot noise, were investigated. It was found that even for unrealistically large photon fluxes the associated error in recovering these abundances was too large to reliably quantifying concentrations of key retinal biomarkers. Likewise, for photon fluxes commensurate with those published in literature~\cite{dysli2017fluorescence} the recovered abundances are almost entirely uncorrelated with the ground truth abundances. 
-In conclusion, unless technological advancements in SPAD array technology can improve the number of photons that can be recorded over the span of \SI{1}{\minute} by a factor of \num{e9} this method would not be suitable for quantifying concentrations of retinal fluorophores \textit{in-vivo}.
+In conclusion, unless advancements in SPAD array technology can improve the number of photons that can be recorded over the span of \SI{1}{\minute} by a factor of \num{e9} this method would not be suitable for quantifying concentrations of retinal fluorophores \textit{in-vivo}.
 \FloatBarrier
-\section{Phasor S-FLIM}
+\section{Phasor S-FLIM} \label{sec:phasor-sflim}
 As was discussed in Chapter \ref{sec:phasoranalysis}, phasor analysis presents as a fit free analysis tool for easy segmentation of flourophores but is a technique predominantly used for FLIM imaging of stained samples. To unmix combinations of fluorphores, the linear addition of phasors can be exploited such that the relative abundance of $N$ fluorophores can be unmixed using a technique akin to vertex component analysis where the phasors of the pure endmembers form the vertices of $N$-polygon and a fluorescence decay to be unmixed lies within that $N$-polygon (Fig. \ref{fig:phasorbiunmix} illustrates this for unmixing 2 fluorophores). The robustness of this method suffers from the same issues that plague lifetime based unmixing - sensitivity to noise and similarity in endmember lifetime model.
 
 
@@ -163,7 +163,7 @@ As was discussed in Chapter \ref{sec:phasoranalysis}, phasor analysis presents a
 To address these limitations, \citeauthor{scipioni2021phasor} developed a method which utilises phasor analysis and now the spectrally resolved fluorescence decay which boasts the ability to unmix fluorophores with no prior knowledge of either their spectral characteristics or the decay characteristics of the pure endmembers. While primarily intended for FLIM imaging of biological samples stained with dyes exhibiting well separated spectra and lifetime the capabilities of this technique for unmixing retinal fluorophores - exhibiting highly overlapping spectra and similar lifetimes - was investigated.
 \subsection{Phasor S-FLIM algorithim}
 The full algorithm is fully discussed in \citeauthor{scipioni2021phasor} and its associated supplementary material as well as multiple examples of imaging in biological samples but will be briefly outlined here.
-For a given spatial pixel $I(x,y)$ the fluorescence lifetimes are recorded over multiple discrete spectral bands and the fluorescence decays yielding $I(t,\lambda)$, these decays are then phasor transformed using the first harmonic (Eq. \ref{eq:phasor-g} and \ref{eq:phasor-s} evaluated at $n = 1$) and the spectral and temporal instrument response function is applied. Using these vertices, and a combination of PCA and fitting of generalised logistic function
+For a given spatial pixel $I(x,y)$ the fluorescence lifetimes are recorded over multiple discrete spectral bands and the fluorescence decays yielding $I(t,\lambda)$, these decays are then phasor transformed using the first harmonic (Eq. \ref{eq:phasor-g} and \ref{eq:phasor-s} evaluated at $n = 1$) and the spectral and temporal instrument response function is corrected for. The separate  spectral phasors, $g(\lambda)$ and $g(\lambda)$, coordinates are then weighted with principle components analysis (PCA) and fitted to a generalised double logistic function (Eq. \ref{dublog}). In the original published work the authors note that the performance of this method relies on the phasors of the pure endmembers being well separated in phasor space and as such it is best suited for labelled imaging where there is a more control over the spectral, and temporal fluorescence characteristics of the dyes used. Nevertheless, this algorithm was implemented for the application of unmixing retinal fluorophores. 
 
 
 
@@ -172,15 +172,21 @@ For a given spatial pixel $I(x,y)$ the fluorescence lifetimes are recorded over 
 
 \begin{figure}
     \centering
-    \includegraphics{}
-    \caption{Caption}
-    \label{fig:enter-label}
+    \includegraphics[width = 0.8\textwidth]{figures/sflim/phasor-unmixing/SpectralPhasors.pdf}
+    \caption{Fluorescence decay profiles, and emission spectra for retinal fluorophopres AGE, A2E, and FAD are shown in the top left and top right respectively with a an example additive mixture shown as the dashed grey line. The bottom panel shows the phasor representation of the spectrally resolved fluorescence decays of this mixture repented as circular markers where the colour represents the spectral band. The phasors of the endmembers FAD, AGE, and A2E are shown as magenta, orange, and cyan triangles respectively.}
+    \label{fig:spectralphasors}
 \end{figure}
 
 
+\begin{equation}
+    f(x)  =  I_{-\infty,1}   +\frac{  I_{+\infty,1} + \frac{  I_{+\infty,2} - I_{-\infty,1}  }{\big(1 - \exp[-g_{2}(x - \Delta x_{2})]\big)^{\nicefrac{1}{v_{2}}}} - I_{-\infty,1}}{\bigg(1 - \exp[-g_{1}(x - \Delta x_{1})]\bigg)^{\nicefrac{1}{v_{1}}}}\label{eq:dublog}
+\end{equation}
 
 
-
+This algorithm was tested using simulated data sets, similar to those shown in \ref{fig:sflimamaps}, which consisted of an additive mixture of retinal fluorophores without shot noise applied - to represent the theoretical maximal performance of the technique - and with shot noise to simulate large photon fluxes. These data sets were then analysed using the Phasor S-FLIM algorithm, and the errors were analysed using the same metric as before (Eq. \ref{eq:recerror}). Since this unmixing algorithm is blind the ordering of the endmembers was not consisted from pixel to pixel. This meant that for input data where the endmembers may be ordered [FAD, AGE, A2E] the outputted endmembers could be of the order [AGE, FAD, A2E] which resulted in severely degraded performance when comparing the unmixed abundances to the ground truths. To address this mis-ordering, the recovered spectra of an unmixed endmember can be assigned to its fluorophore (FAD, AGE or A2E) using Spectral Angle Map (SAM, $\theta_{SAM}$) where a recovered endmember that is incorrectly assigned a fluorophore would have a large $\theta_{SAM}$ angle and a correctly assigned fluorophore would have small $\theta_{SAM}$ angle.
+\begin{equation}
+    \theta_{SAM} = \arccos\Bigg(\frac{\mathbf{a}\cdot \mathbf{b}}{\lvert \mathbf{a} \rvert\,\lvert \mathbf{b} \rvert}\Bigg)\label{eq:sam}
+\end{equation}
 
 
 
@@ -193,7 +199,7 @@ For a given spatial pixel $I(x,y)$ the fluorescence lifetimes are recorded over 
 
 
 \FloatBarrier
-\section{Spectral Unmixing}
+\section{Spectral Unmixing}\label{sec:specunmix}
 In the field of remote sensing the technique of spectral imaging is used for example, to separate buildings, from foliage, from rivers in the scene by their unique spectral signatures - buildings will appear spectrally flat, foliage will peak in the green, and rivers and water features will peak in the blue spectral regions. This is achieved by assuming in each pixel of an image, the recorded intensity is comprised of an additive mixture of pure endmembers, with unique spectral signatures) and concentrations or relative abundances.
 \begin{align}
     I(x,y) = I_{0}\sum^{N}_{n \geq}\alpha_{n}S_{n}(\lambda) \text{ such that } \sum_{n \geq 1}^{N}\alpha_{n} = 1 \text{ and } \int_{0}^{\infty}S_{n}d\lambda = 1
@@ -202,7 +208,7 @@ These relative abundances, $\alpha_{n}$, can be recovered by recording images ov
 \\
 For assessing the suitability of this method for unmixing retinal fluorophores the simplest method - matrix inversion - is considered. For a given spatial pixel with endmember abundances, $\mathbf{a}(n)$ and known endmember spectras, $\mathbf{S}(\lambda,n)$ the spectral measurements $\mathbf{m}(\lambda)$ are simply a linear mixture: 
 \begin{align}
-    \mathbf{M} &= \mathbf{S}\mathbf{a}
+    \mathbf{M} &= \mathbf{S}\mathbf{a}\label{eq:specmix}
 \end{align}
 \begin{align}
     \mathbf{S} &= \begin{bmatrix} S_{0}(\lambda_{0}) & S_{0}(\lambda_{1}) & \cdots & S_{0}(\lambda_{j})\\ S_{1}(\lambda_{0}) & S_{1}(\lambda_{1}) & \cdots & S_{1}(\lambda_{j}) \\ \vdots & \vdots & \ddots & \vdots \\ S_{n}(\lambda_{0}) & S_{n}(\lambda_{1}) & \cdots & S_{n}(\lambda_{j}) \end{bmatrix} &
@@ -229,14 +235,112 @@ As was previously mentioned, overlapping endmember spectra, and noise in the spe
 \end{align}
 Additionally there is a established rule-of-thumb which states, generally, that a condition number $\kappa(\mathbf{S}) \propto 10^{k}$ results in a loss of precision of $k$ digits \cite{cheney2012numerical}. For recovering the abundances of retinal fluorophores, which will vary between \qtyrange{0}{100}{\percent} or \numrange{0}{1}, a condition number of $\kappa(\mathbf{S}) < 10^{2}$ is required to have an error of less than \SI{10}{\percent}. Using this rule-of-thumb the detection scheme for unmixing retinal fluorophores can be optimised to minimise sensitivity to low photon fluxes and also minimise the overall image acquisition time through reducing the number of spectral bands that images are recorded over.
 
-\subsection{Unmixing Results}
-\subsubsection{Common Dyes}
-\subsubsection{Retinal Fluorophores}
+
 \subsection{Conclusions}
 
 
+
 \FloatBarrier
-\section{SFLIM unmixing}
+\section{SFLIM unmixing using Tensor Inversions}
+As has been discussed so far in this thesis, a suitable method for unmixing retinal fluorophores has not been identified. In the case of lifetime unmixing the error in the recovered abundances for realistic photon fluxes proved this technique would not be suitable primarily due to the similarity in the fluorescence lifetimes of the three fluorophores of interest (AGE, FAD, and A2E). The same limitation applies to Phasor S-FLIM but was also exasperated by the high spectral overlap of AGE, FAD, and A2E as well as the requirement to record SFLIM images over prohibitively large number of noisy spectral bands resulting exceedingly long image acquisition times.
+\\
+A new method has been developed which treats the temporal domain of SFLIM data as a pseudo-'spectra' and extends the matrix inversion approach of standard spectra unmixing to include the temporal domain. This combines the unique fluorescence decay profile inherent to a fluorophore as well as its emission spectra to minimise the effects of the high spectral and temporal overlap of retinal fluorophores. 
+This new tensor based approach is constructed similarly to the matrix inversion method (Eq.~\ref{eq:specmix}) and is shown in Eq.~\ref{eq:tensmix}\footnotemark but briefly: the matrix containing the spectral characteristic of a pure endmember is replaced with a third-order tensor, $\mathcal{A}$, containing the spectrally resolved fluorescence decay of the pure endmembers; the array of spectral measurements is replaced with a matrix of spectrally resolved FLIM measurements, $\mathbf{M}$; the endmember abundances are still a simple vector, $\mathbf{x}$, where the endmember abundances all sum to unity.
+\begin{align}
+    \mathcal{A}\bullet_{3}\mathbf{x} &= \mathbf{M} \label{eq:tensmix}
+\end{align}
+\footnotetext{The operator "$\bullet_{3}$" represents the Tucker product along the third mode but in the case for the tensor $\mathcal{A}$,and vector $\mathbf{x}$ this numerically similar to a scalar product along the third dimension of $\mathcal{A}$. A more detailed description is given in \ref{subsec:tensoraside}}
+\begin{figure}[h]
+\centering
+
+\begin{tikzpicture}[every node/.style={anchor=north east,fill=white}, scale = 3]
+\matrix (mA) [draw,matrix of math nodes]
+{
+\mathcal{A}_{0}(\lambda_{0}, t_{i}) & \mathcal{A}_{0}(\lambda_{1}, t_{i}) & \cdots & \mathcal{A}_{0}(\lambda_{j}, t_{i}) \\
+\mathcal{A}_{1}(\lambda_{0}, t_{i}) & \mathcal{A}_{1}(\lambda_{1}, t_{i}) & \cdots & \mathcal{A}_{1}(\lambda_{j}, t_{i}) \\
+\vdots & \vdots & \ddots & \vdots \\
+\mathcal{A}_{n}(\lambda_{0}, t_{i}) & \mathcal{A}_{n}(\lambda_{1}, t_{i}) & \cdots & \mathcal{A}_{n}(\lambda_{j}, t_{i}) \\
+};
+
+\matrix (mB) [draw,matrix of math nodes] at ($(mA.south west)+(3em,1.5em)$)
+{
+\mathcal{A}_{0}(\lambda_{0}, t_{1}) & \mathcal{A}_{0}(\lambda_{1}, t_{1}) & \cdots & \mathcal{A}_{0}(\lambda_{j}, t_{1}) \\
+\mathcal{A}_{1}(\lambda_{0}, t_{1}) & \mathcal{A}_{1}(\lambda_{1}, t_{1}) & \cdots & \mathcal{A}_{1}(\lambda_{j}, t_{1}) \\
+\vdots & \vdots & \ddots & \vdots \\
+\mathcal{A}_{n}(\lambda_{0}, t_{1}) & \mathcal{A}_{n}(\lambda_{1}, t_{1}) & \cdots & \mathcal{A}_{n}(\lambda_{j}, t_{1}) \\
+};
+
+\matrix (mC) [draw,matrix of math nodes] at ($(mB.south west)+(3em,1.5em)$)
+{
+\mathcal{A}_{0}(\lambda_{0}, t_{0}) & \mathcal{A}_{0}(\lambda_{1}, t_{0}) & \cdots & \mathcal{A}_{0}(\lambda_{j}, t_{0}) \\
+\mathcal{A}_{1}(\lambda_{0}, t_{0}) & \mathcal{A}_{1}(\lambda_{1}, t_{0}) & \cdots & \mathcal{A}_{1}(\lambda_{j}, t_{0}) \\
+\vdots & \vdots & \ddots & \vdots \\
+\mathcal{A}_{n}(\lambda_{0}, t_{0}) & \mathcal{A}_{n}(\lambda_{1}, t_{0}) & \cdots & \mathcal{A}_{n}(\lambda_{j}, t_{0}) \\
+};
+
+\draw[dashed](mA.north east)--(mC.north east);
+\draw[dashed](mA.north west)--(mC.north west);
+\draw[dashed](mA.south east)--(mC.south east);
+\draw[thick,-stealth] ([xshift=1ex]mC.south east) -- ([xshift=1ex]mA.south east)
+  node[midway,below] {t};
+ \draw[thick,-stealth] ([yshift=-1ex]mC.south west) -- 
+  ([yshift=-1ex]mC.south east) node[midway,below] {$\lambda$};
+ \draw[thick,-stealth] ([xshift=-1ex]mC.north west)
+   -- ([xshift=-1ex]mC.south west) node[midway,above,rotate=90] {n};
+  
+\end{tikzpicture}
+
+
+\caption{Visualisation of the $\mathcal{A}$ tensor in Eq.~\ref{eq:tensmix} composed of,$n$, unique endmembers with known spectra ($\lambda$ - axis) and fluorescence decay profiles ($t$ - axis).}
+\label{fig:tensor}
+\end{figure}
+
+\subsection{SFLIM Unmixing method}
+The mathematics used to carry out the matrix inversion method in \ref{sec:specunmix} are only well defined for matrices, vectors, and scalars i.e mathematical objects with 2 dimensions or fewer. This tensor based method utilises the work of~\citeauthor{brazell2013solving} which sought to extend the mathematical frameworks behind solving linear systems of equations to multi-linear systems of equations with the main contribution of this publication being their defining, and determining, the Moore-Penrose pseudo-inverses of higher-order tensors as well as describing a robust least-squares solving method using these inverses~\cite{brazell2013solving}.
+The SFLIM unmixing method operates as follows, and is adapted from~\citeauthor{brazell2013solving}.
+For the endmember tensors, $\mathcal{A}\in \mathbb{R}^{I \times J \times K}$, matrix of SFLIM measurements, $\mathbf{M}$, with, $I$ time bins, $J$, spectral measurements, and $K$ endmembers the optimal recovered relative abundances , $\mathbf{x}\in \mathbb{R}^{K}$, would satisfy the following minimisation:
+\begin{equation}
+    \mathbf{x} = \textit{min}\bigg\{\lvert\lvert \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M} \rvert\rvert_{F} \bigg\}
+\end{equation}
+For a least squares method there is then the minimising function $\varphi(\mathbf{x}) = \big\lvert\big\lvert \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}\big\rvert\big\rvert_{F}^{2}$ with a Jacobian, $\nabla\varphi(\mathbf{x})$. An estimator of the relative abundances, $\bar{\mathbf{x}}$ can then be found at the critical point where $\nabla\varphi(\bar{\mathbf{x}}) = 0$.
+First, an analytical expression for the Jacobian, $\nabla\varphi(\mathbf{x})$ is found by expanding $\varphi(\mathbf{x})$ using the identy of the Frobenius norm for order-2 tensors - $\big\lvert\big\lvert \mathbf{B} \big\rvert\big\rvert_{F}^{2} = \langle \mathbf{B}, \mathbf{B}\rangle \equiv \mathbf{B}^{T}\mathbf{B}$.
+\begin{align}
+    \varphi(\mathbf{x}) &= \langle\mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}, \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}\rangle \\
+    &= (\mathcal{A}\bullet_{3}\mathbf{x})^{T}(\mathcal{A}\bullet_{3}\mathbf{x}) - 2\mathbf{M}^{T}(\mathcal{A}\bullet_{3}\mathbf{x}) +  \mathbf{M}^{T}\mathbf{M}
+\end{align}
+The Jacobian, $\nabla\varphi(\bar{\mathbf{x}})$ is then found: 
+\begin{align}
+    \nabla\varphi(\mathbf{x}) = \pdv{\varphi(\mathbf{x})}{\mathbf{x}} = 2\mathcal{A}^{T} \ast_{2} \mathcal{A}\bullet_{3}\mathbf{x} - 2\mathcal{A}^{T}\ast_{2}\mathbf{M} \label{eq:jacfunc}
+\end{align}
+Next, using this expression for $\nabla\varphi(\mathbf{x})$, and the assumption that $(\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}$ is square and non-singular i.e its inverse exists,  the estimator is then found by solving  $\nabla\varphi(\bar{\mathbf{x}}) = 0$:
+\begin{align}
+    \nabla\varphi(\bar{\mathbf{x}}) = 0 &= \mathcal{A}^{T} \ast_{2} \mathcal{A}\bullet_{3}\bar{\mathbf{x}} - \mathcal{A}^{T}\ast_{2}\mathbf{M}\\
+    \mathcal{A}^{T} \ast_{2} \mathcal{A}\bullet_{3}\bar{\mathbf{x}} &= \mathcal{A}^{T}\ast_{2}\mathbf{M}\\
+    (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}(\mathcal{A}^{T} \ast_{2} \mathcal{A})\bullet_{3}\bar{\mathbf{x}} &= (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}\ast_{2}\mathbf{M}
+\end{align}
+For $\mathbf{B} = \mathcal{A}^{T} \ast_{2} \mathcal{A}$, $\mathbf{B}$ is a matrix as thus has the property: $\mathbf{B}^{-1}\ast_{2}\mathbf{B} = \mathbb{I}_{K} $ yielding a final expression for $\bar{\mathbf{x}}$:
+\begin{align}
+        \mathbb{I}\bullet_{3}\bar{\mathbf{x}} &= (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}\ast_{2}\mathbf{M}\\
+        \implies \bar{\mathbf{x}} &= (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}\ast_{2}\mathbf{M} \label{eq:xbar}
+\end{align}
+Using this mathematical framework the SFLIM unmixing method can be implemented in a least-minimisation package which will be robust and computationally efficient given the analytical Jacobian, defined in Eq.~\ref{eq:jacfunc}, and a close estimate of the optimal solution defined in Eq.~\ref{eq:xbar}. The algorithm is described in Alg.~\ref{alg:sflim} and is implemented using \textit{einsum} library of Python's \textit{numpy} package for the calculations of the Einstein products $\ast_{2}$ and the Tucker Mode products $\bullet_{3}$:
+\begin{algorithm}
+    \caption{Algorithm for recovering endmember abundances from spectral FLIM data}
+    \label{alg:sflim}
+    \begin{algorithmic}
+        \Procedure{Cost Function - $\varphi$}{$\mathcal{A}, \mathbf{M}, \mathbf{x}_{in}$}
+        \State $\mathcal{A}\bullet_{3}\mathbf{x}_{in} \gets \textit{einsum}[ijk,k \rightarrow ij](\mathcal{A},\mathbf{x}_{in})$
+        \State $\varphi \gets \sqrt{\sum_{i,j,k}^{I,J,K}\lvert\mathcal{A}\bullet_{3}\mathbf{x}_{in} - \mathbf{M}\rvert}^{2}$
+        \EndProcedure
+        \Procedure{Jacobian - $\nabla\varphi$}{$\mathcal{A}, \mathbf{M}, \mathbf{x}_{in}$}
+        \State $\mathcal{A}^{T} \gets \text{permute axes of } \mathcal{A} : ijk \rightarrow kij$
+        \State $\mathcal{A}\bullet_{3}\mathbf{x}_{in} \gets \textit{einsum}[ijk,k \rightarrow ij](\mathcal{A},\mathbf{x}_{in})$
+        \State $\mathcal{A}^{T}$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Mathematical Aside}\label{subsec:tensoraside}
 
 
 
