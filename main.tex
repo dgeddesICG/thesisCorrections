@@ -18,12 +18,15 @@
 \usepackage[]{fancyhdr}
 \usepackage{placeins}
 \usepackage{subfiles}
+\usepackage{appendix}
 %-------------------------------------------------------------------------------------
 % Import packages to make physics, units, and fractions look pretty
 %-------------------------------------------------------------------------------------
-\usepackage{amsmath, amssymb, physics, siunitx,nicefrac}
-\DeclareSIUnit{\pixel}{\text{pixel}}
+\usepackage{amsmath, amssymb, physics,nicefrac}
+\usepackage{siunitx}
 \AtBeginDocument{\RenewCommandCopy\qty\SI}
+\DeclareSIUnit{\pixel}{\text{pixel}}
+
 
 
 
@@ -89,6 +92,7 @@
 \newcommand{\addcite}{\textcolor{blue}{[citation needed]}}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{tensor}
 %-------------------------------------------------------------------------------------
 %End preamble
 %-------------------------------------------------------------------------------------
@@ -142,20 +146,20 @@
 
 
 \chapter{En-Face Fluorescence Lifetime Imaging Ophthalmoscope}\label{chap:fliodevice}
-\subfile{chapters/fliodevice.tex}
+%\subfile{chapters/fliodevice.tex}
 
 \chapter{FLIM Analysis Methods}\label{chap:flimanalysis}
 \subfile{chapters/flimanalysis.tex}
 
 \chapter{FLIO - In-Vitro Imaging Demonstrations}\label{chap:invitro}
-\subfile{chapters/flioinvitro.tex}
+%\subfile{chapters/flioinvitro.tex}
 
 
 \chapter{FLIO  - Ex-Vivo Imaging Demonstrations}\label{chap:exvivo}
-\subfile{chapters/flioexvivo.tex}
+%\subfile{chapters/flioexvivo.tex}
 
 \chapter{FLIO - In-Vivo Imaging Demonstrations}\label{chap:invivo}
-\subfile{chapters/flioinvivo.tex}
+%\subfile{chapters/flioinvivo.tex}
 
 
 \chapter{Spectrally Resolved Fluorescence Lifetime Imaging}\label{chap:sflim}
@@ -163,15 +167,20 @@
 
 
 \chapter{Novel Applications of TCSPC / Material Discrimination}\label{chap:materialdisc}
-\subfile{chapters/tcspc.tex}
+%\subfile{chapters/tcspc.tex}
 
 \chapter{Summary and Conclusions}\label{chap:conclusion}
-\subfile{chapters/conclusion}
+\subfile{chapters/conclusion.tex}
 
-\newpage
-\chapter{Bibliography}
+
+\begin{appendices}
+\chapter{Appendix}
+\subfile{chapters/appendix.tex}
+\end{appendices}
+
+
+\chapter*{Bibliography}
 \nocite{*}
-
 \renewcommand{\bibname}{References}
 \bibliography{bibliography.bib}
 

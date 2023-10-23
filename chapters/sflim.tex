@@ -3,8 +3,12 @@ The ability to discriminate and quantify the concentration of biomarkers such as
 Techniques to used in this recovery are centred on discriminating fluorophores using their distinct spectral signatures or their intrinsic fluorescence lifetime. However, the combination of overlapping spectra, complex decay models required for fitting, and clutter in the eye corrupting the already weak return signal motivates the requirement for efficient and robust unmixing methods.
 \\
 In this chapter, the suitability and performance of existing un-mixing methods: spectral un-mixing through matrix inversion; abundance recovery through fitted lifetimes, blind unmixing with phasor-SFLIM are compared and a new, fit free, technique for unmixing SFLIM data using tensor inversion is developed and evaluated. To assess the performance of these techniques the error in the un-mixed abundance of a fluorophores is evaluated as the relative abundance of the fluorophore is varied between \num{0} and \num{1} as well as over multiple photon fluxes and spectral bands. The condition number for spectral umixing with matrix inversion and SFLIM unmxing are also compared for different sample scenarios to assess the strengths of this new technique and conclude whether measuring fluorescence lifetimes increases capabilities to quantify retinal fluorophores and if the limit lies in the complexities of the biology or a technological limit of SPAD detectors.
+
+\section{Retinal FAD concentration}\label{sec:retfad}
 \textcolor{blue}{Add in section summarising our requirements for a successful unmixing method}
-\section{Lifetime Unmixing}
+
+
+\section{Lifetime Unmixing}\label{sec:lifeunmix}
 In principle, retinal fluorophores could be quantified using only measurements of the fluorescence lifetime in a single spectral band - potentially negating the need the lengthy image acquisition periods associated with recorded sequential images over multiple detection bands - however an increased number of fluorophores requires more complex, noise sensitive, fitting models and prohibitively large photon fluxes. The 3 biomarkers of interest in this thesis (FAD, AGE, and A2E/Lipofuscin) all exhibit biexponential decay profiles (see Table \ref{tab:retlifetimes}) meaning that in order to fully recover the fluorophore abundance a 6-exponential fit is required.
 
 
@@ -163,7 +167,7 @@ As was discussed in Chapter \ref{sec:phasoranalysis}, phasor analysis presents a
 To address these limitations, \citeauthor{scipioni2021phasor} developed a method which utilises phasor analysis and now the spectrally resolved fluorescence decay which boasts the ability to unmix fluorophores with no prior knowledge of either their spectral characteristics or the decay characteristics of the pure endmembers. While primarily intended for FLIM imaging of biological samples stained with dyes exhibiting well separated spectra and lifetime the capabilities of this technique for unmixing retinal fluorophores - exhibiting highly overlapping spectra and similar lifetimes - was investigated.
 \subsection{Phasor S-FLIM algorithim}
 The full algorithm is fully discussed in \citeauthor{scipioni2021phasor} and its associated supplementary material as well as multiple examples of imaging in biological samples but will be briefly outlined here.
-For a given spatial pixel $I(x,y)$ the fluorescence lifetimes are recorded over multiple discrete spectral bands and the fluorescence decays yielding $I(t,\lambda)$, these decays are then phasor transformed using the first harmonic (Eq. \ref{eq:phasor-g} and \ref{eq:phasor-s} evaluated at $n = 1$) and the spectral and temporal instrument response function is corrected for. The separate  spectral phasors, $g(\lambda)$ and $g(\lambda)$, coordinates are then weighted with principle components analysis (PCA) and fitted to a generalised double logistic function (Eq. \ref{dublog}). In the original published work the authors note that the performance of this method relies on the phasors of the pure endmembers being well separated in phasor space and as such it is best suited for labelled imaging where there is a more control over the spectral, and temporal fluorescence characteristics of the dyes used. Nevertheless, this algorithm was implemented for the application of unmixing retinal fluorophores. 
+For a given spatial pixel $I(x,y)$ the fluorescence lifetimes are recorded over multiple discrete spectral bands and the fluorescence decays yielding $I(t,\lambda)$, these decays are then phasor transformed using the first harmonic (Eq. \ref{eq:phasor-g} and \ref{eq:phasor-s} evaluated at $n = 1$) and the spectral and temporal instrument response function is corrected for. The separate  spectral phasors, $g(\lambda)$ and $g(\lambda)$, coordinates are then weighted with principle components analysis (PCA) and fitted to a generalised double logistic function (Eq. \ref{eq:dublog}). In the original published work the authors note that the performance of this method relies on the phasors of the pure endmembers being well separated in phasor space and as such it is best suited for labelled imaging where there is a more control over the spectral, and temporal fluorescence characteristics of the dyes used. Nevertheless, this algorithm was implemented for the application of unmixing retinal fluorophores. 
 
 
 
@@ -244,12 +248,12 @@ Additionally there is a established rule-of-thumb which states, generally, that 
 \section{SFLIM unmixing using Tensor Inversions}
 As has been discussed so far in this thesis, a suitable method for unmixing retinal fluorophores has not been identified. In the case of lifetime unmixing the error in the recovered abundances for realistic photon fluxes proved this technique would not be suitable primarily due to the similarity in the fluorescence lifetimes of the three fluorophores of interest (AGE, FAD, and A2E). The same limitation applies to Phasor S-FLIM but was also exasperated by the high spectral overlap of AGE, FAD, and A2E as well as the requirement to record SFLIM images over prohibitively large number of noisy spectral bands resulting exceedingly long image acquisition times.
 \\
-A new method has been developed which treats the temporal domain of SFLIM data as a pseudo-'spectra' and extends the matrix inversion approach of standard spectra unmixing to include the temporal domain. This combines the unique fluorescence decay profile inherent to a fluorophore as well as its emission spectra to minimise the effects of the high spectral and temporal overlap of retinal fluorophores. 
-This new tensor based approach is constructed similarly to the matrix inversion method (Eq.~\ref{eq:specmix}) and is shown in Eq.~\ref{eq:tensmix}\footnotemark but briefly: the matrix containing the spectral characteristic of a pure endmember is replaced with a third-order tensor, $\mathcal{A}$, containing the spectrally resolved fluorescence decay of the pure endmembers; the array of spectral measurements is replaced with a matrix of spectrally resolved FLIM measurements, $\mathbf{M}$; the endmember abundances are still a simple vector, $\mathbf{x}$, where the endmember abundances all sum to unity.
+A new method has been developed which treats the temporal domain of SFLIM data as a pseudo-`spectra' and extends the matrix inversion approach of standard spectra unmixing to include the temporal domain. This combines the unique fluorescence decay profile inherent to a fluorophore as well as its emission spectra to minimise the effects of the high spectral and temporal overlap of retinal fluorophores. 
+This new tensor based approach is constructed similarly to the matrix inversion method (Eq.~\ref{eq:specmix}) and is shown in Eq.~\ref{eq:tensmix}\,\footnotemark\, but briefly: the matrix containing the spectral characteristic of a pure endmember is replaced with a third-order tensor, $\mathcal{A}$, containing the spectrally resolved fluorescence decay of the pure endmembers; the array of spectral measurements is replaced with a matrix of spectrally resolved FLIM measurements, $\mathbf{M}$; the endmember abundances are still a simple vector, $\mathbf{x}$, where the endmember abundances all sum to unity.
 \begin{align}
     \mathcal{A}\bullet_{3}\mathbf{x} &= \mathbf{M} \label{eq:tensmix}
 \end{align}
-\footnotetext{The operator "$\bullet_{3}$" represents the Tucker product along the third mode but in the case for the tensor $\mathcal{A}$,and vector $\mathbf{x}$ this numerically similar to a scalar product along the third dimension of $\mathcal{A}$. A more detailed description is given in \ref{subsec:tensoraside}}
+\footnotetext{The operator ``$\bullet_{3}$'' represents the Tucker product along the third mode but in the case for the tensor $\mathcal{A}$,and vector $\mathbf{x}$ this numerically similar to a scalar product along the third dimension of $\mathcal{A}$. A more detailed description is given in \ref{app:tensor}}
 \begin{figure}[h]
 \centering
 
@@ -323,25 +327,51 @@ For $\mathbf{B} = \mathcal{A}^{T} \ast_{2} \mathcal{A}$, $\mathbf{B}$ is a matri
         \mathbb{I}\bullet_{3}\bar{\mathbf{x}} &= (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}\ast_{2}\mathbf{M}\\
         \implies \bar{\mathbf{x}} &= (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}\ast_{2}\mathbf{M} \label{eq:xbar}
 \end{align}
-Using this mathematical framework the SFLIM unmixing method can be implemented in a least-minimisation package which will be robust and computationally efficient given the analytical Jacobian, defined in Eq.~\ref{eq:jacfunc}, and a close estimate of the optimal solution defined in Eq.~\ref{eq:xbar}. The algorithm is described in Alg.~\ref{alg:sflim} and is implemented using \textit{einsum} library of Python's \textit{numpy} package for the calculations of the Einstein products $\ast_{2}$ and the Tucker Mode products $\bullet_{3}$:
+
+Using this mathematical framework the above SFLIM unmixing method, shown in Alg.~\ref{alg:sflim} is implemented in \textit{python} using a combination of least-squares minimisation as well as Einstein Summations to represent the Einsten Prodcuts, $\ast_{2}$, and the Tucker Mode Products, $\bullet_{3}$. The use of a least squares minimiser with the Jacobian (Eq.~\ref{eq:jacfunc}) and Estimator (Eq.~\ref{eq:xbar}) functions account for the high noise typically associated with SFLIM measurements as well as the similarity of the endmembers in the $\mathcal{A}$ tensor. For well conditioned and low noise problems the estimator $\bar{\mathbf{x}}$ can be evaluated directly to recover the relative abundance of endmembers.
 \begin{algorithm}
-    \caption{Algorithm for recovering endmember abundances from spectral FLIM data}
+    \caption{Algorithm for recovering endmember abundances from spectral FLIM data for a single spatial pixel}
     \label{alg:sflim}
     \begin{algorithmic}
+    \Require$ \mathcal{A} \in \mathbb{R}^{I \times J \times K}\mbox{, } \mathbf{M} \in \mathbb{R}^{I \times J} $\mbox{ where $I = t$ - axis, $J = \lambda$ - axis, and $K =n$ - axis}
+    \Require $\sum_{i,j}^{I,J}\mathcal{A} = 1$
+    \Procedure{Least-Squares Minimisation}{$\mathcal{A}, \mathbf{M}$}
+        \State $\mathbf{x}_{min} \gets \textit{least\textunderscore squares}(\text{Cost Function, Jacobian, Estimator})$
+        \State $\mathbf{x}_{opt} = \nicefrac{\mathbf{x}_{min}}{\sum_{k}^{K}\mathbf{x}_{min}}$
+    \EndProcedure
         \Procedure{Cost Function - $\varphi$}{$\mathcal{A}, \mathbf{M}, \mathbf{x}_{in}$}
-        \State $\mathcal{A}\bullet_{3}\mathbf{x}_{in} \gets \textit{einsum}[ijk,k \rightarrow ij](\mathcal{A},\mathbf{x}_{in})$
-        \State $\varphi \gets \sqrt{\sum_{i,j,k}^{I,J,K}\lvert\mathcal{A}\bullet_{3}\mathbf{x}_{in} - \mathbf{M}\rvert}^{2}$
+            \State $\mathcal{A}\bullet_{3}\mathbf{x}_{in} \gets \textit{einsum}[ijk,k \rightarrow ij](\mathcal{A},\mathbf{x}_{in})$
+            \State $\varphi \gets \sqrt{\sum_{i,j,k}^{I,J,K}\lvert\mathcal{A}\bullet_{3}\mathbf{x}_{in} - \mathbf{M}\rvert}^{2}$
         \EndProcedure
         \Procedure{Jacobian - $\nabla\varphi$}{$\mathcal{A}, \mathbf{M}, \mathbf{x}_{in}$}
-        \State $\mathcal{A}^{T} \gets \text{permute axes of } \mathcal{A} : ijk \rightarrow kij$
-        \State $\mathcal{A}\bullet_{3}\mathbf{x}_{in} \gets \textit{einsum}[ijk,k \rightarrow ij](\mathcal{A},\mathbf{x}_{in})$
-        \State $\mathcal{A}^{T}$
+            \State $\mathcal{A}^{T} \gets \text{permute axes of } \mathcal{A} : ijk \rightarrow kij$
+            \State $\mathcal{A}\bullet_{3}\mathbf{x}_{in} \gets \textit{einsum}[ijk,k \rightarrow ij](\mathcal{A},\mathbf{x}_{in})$
+            \State $\mathcal{A}^{T}\ast_{2}\mathcal{A}\bullet_{3}\mathbf{x}_{in} \gets \textit{einsum}[ijk,jk \rightarrow i](\mathcal{A}^{T}, \mathcal{A}\bullet_{3}\mathbf{x}_{in})$
+            \State $\mathcal{A}^{T}\,\ast_{2}\mathbf{M} \gets \textit{einsum}[ijk,jk \rightarrow i](\mathcal{A}^{T},M)$
+            \State $\nabla\varphi \gets 2\mathcal{A}^{T}\ast_{2}\mathcal{A}\bullet_{3}\mathbf{x}_{in} - 2\mathcal{A}^{T}\,\ast_{2}\mathbf{M}$
+        \EndProcedure
+        \Procedure{Estimator - $\bar{\mathbf{x}}$}{$\mathcal{A}, \mathbf{M}$}
+            \State $\mathcal{A}^{T} \gets \text{permute axes of } \mathcal{A} : ijk \rightarrow kij$ 
+            \State $\mathcal{A}^{T}\ast_{2}\mathcal{A} \gets \textit{einsum}[ijk,jkl,il](\mathcal{A}^{T}, \mathcal{A})$
+            \State $\mathcal{B} \gets (\mathcal{A}^{T}\ast_{2}\mathcal{A})^{-1}$
+            \State $\mathcal{B}\ast_{2}\mathcal{A}^{T} \gets \textit{einsum}[ij, jkl \rightarrow ikl](\mathcal{B}, \mathcal{A}^{T})$
+            \State $\bar{\mathbf{x}} \gets \textit{einsum}[ijk, jk \rightarrow i](\mathcal{B}\ast_{2}\mathcal{A}^{T},\mathbf{M})$
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
 
-\subsubsection{Mathematical Aside}\label{subsec:tensoraside}
+\subsection{Evaluation of Performance}
+The performance of this method can be defined using not only the sensitivity to noise used in the previous sections (Sec.~\ref{sec:lifeunmix},~\ref{sec:phasor-sflim},~\ref{sec:specunmix}) but also using the condition number which allows for quick evaluations of performance over different band numbers as well as comparing this SFLIM based method with typical spectral unmixing or gated-FLIM techniques. 
+The tensor condition number is calculated in much the same was as the conventional matrix condition number (Eq.~\ref{eq:matcondnum}) except now the Frobenius norm is used rather than the $L^{2}$-norm which is restricted to 2 dimensions. Using the Frobenious norm also allows for the condition number of a matrix inversion process to be quantitatively compared to that of a tensor based inversion process.
+\begin{equation}\label{eq:tensorinv}
+    \mathcal{A}^{+} = (\mathcal{A}^{T}\ast_{2}\mathcal{A})^{-1}\ast_{2}\mathcal{A}
+\end{equation}
+\begin{equation}\label{eq:tensorcondnum}
+    \kappa(\mathcal{A}) = \lvert\lvert \mathcal{A} \rvert \rvert_{F} \lvert\lvert \mathcal{A}^{+} \rvert \rvert_{F}
+\end{equation}
+\subsection{Suitability for Different Unmixing scenarios}
+To ascertain the optimal use cases for this technique and reveal any deficiencies simulations involving fluorophores exhibiting different spectral and temporal characteristics were created to capture the 4 different scenarios that would be encountered in label free imaging: Well separated spectra and lifetimes; well separated spectra and similar lifetimes; overlapping spectra and well separated lifetimes; and finally overlapping spectra and similar lifetimes.
+For these 4 scenarios mono-exponential fluorescence decays were simulated with Gaussian spectra, filtered using contiguous, rectangular filters that span a given wavelength range.
+\subsubsection{Retinal Fluorophores}
 
-
-
-
+\FloatBarrier
