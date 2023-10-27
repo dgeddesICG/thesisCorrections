@@ -221,14 +221,95 @@ As was previously mentioned, overlapping endmember spectra, and noise in the spe
 \begin{align}
     \bigg\lvert\bigg\lvert \frac{\delta \mathbf{a}}{\mathbf{a}} \bigg\rvert\bigg\rvert \leq \kappa(\mathbf{S})\bigg\lvert\bigg\lvert \frac{\delta \mathbf{m}}{\mathbf{m}} \bigg\rvert\bigg\rvert
 \end{align}
+\subsection{Optimisation of detection bands for retinal fluorophores}\label{sec:specunmixopt}
 Additionally this condition number can utilised to optimise the 2 predominant approaches to recording spectral images: contiguous bands of equal width that span a designated wavelength range - this approach evenly samples the spectra with lower sensitivity to noise but sacrifices spectral resolution/specificity; and multiple narrower discrete bands which are chosen for the scene and the endmembers to be recovered in order to maximise the spectral specificity and reduce image acquisition time.
-A simple exhaustive search for the optimal detection bands for unmixing retinal fluorophores was carried out to find the optimum location of the \num{6} detection bands for the S-FLIO system described in Chap.~\ref{chap:fliodevice}. The fluorescence emission bandwidth (\qtyrange{500}{700}{\nm}) that the S-FLIO system can image over was divided into \num{40} contiguous, \SI{5}{\nm} wide, bands and the condition number was calculated for each of the $\binom{40}{6} \approxeq \num{3.8e6}$ possible detection configurations. The band configuration resulting in the lowest condition number was compared to the 6 detection bands that were heuristically chosen previously - \qtylist{500;510;530;560;590;630}{\nm}.
+A simple exhaustive search for the optimal detection bands for unmixing retinal fluorophores was carried out to find the optimum location of the \num{6} detection bands for the S-FLIO system described in Chap.~\ref{chap:fliodevice}. The fluorescence emission bandwidth (\qtyrange{500}{700}{\nm}) that the S-FLIO system can image over was divided into \num{40} contiguous, \SI{5}{\nm} wide, bands and the condition number was calculated for each of the $\binom{40}{6} \approxeq \num{3.8e6}$ possible detection configurations. This yields an optimal set of filters with cut-on wavelengths of \qtylist{500;535;630;640;655;660}{\nm} with a matrix condition number of $\kappa = \num{8.101}$ indicating an at most one digit of precision will be lost whereas the heuristically chosen bands with cut-on wavelengths of \qtylist{500;510;530;560;590;630}{\nm} gives a larger condition number of $\kappa = \num{10.761}$.
+\begin{equation}\label{eq:nchoosek}
+    \binom{n}{m} = \frac{n!}{k!(n-k)!}
+\end{equation}
+\begin{figure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width = \textwidth]{figures/sflim/spectral-unmixing/HeuristicBandsSpectra.pdf}
+        \subcaption{}
+        \label{subfig:retspectraheurstic}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width = \textwidth]{figures/sflim/spectral-unmixing/MatrixBandsSpectra.pdf}
+        \subcaption{}
+        \label{subfig:retspectraopt}
+    \end{subfigure}
+    
+    \caption{Detection bands for spectral imaging superimposed onto fluorescence emission spectra of AGE, FAD, and A2E (blue, green and red lines , respectively) where (\subref{subfig:retspectraheurstic}) represents the bands chosen heuristically for the \textit{ex-vivo} rat imaging and (\subref{subfig:retspectraopt}) represents the bands which minimise the matrix condition number.}
+    \label{fig:retspectrabands}
+\end{figure}
+Now, the performance of these two detection schemes can then be compared using the above abundance maps with  noiseless data and data consisting of \num{e5} detected photons and their associated shot noise as shown in Figs.~\ref{fig:spectunmixheursiticbands} and~\ref{fig:spectunmixoptbands}. 
+
+\begin{equation}\label{eq:RMSerror}
+    \mathbf{\epsilon}_{RMS} = \sqrt{\frac{\sum_{n \geq 1}^{N}\mathbf{\epsilon}^{2}}{N}}
+\end{equation}
+
+\begin{figure}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width = 0.65\textwidth]{figures/sflim/spectral-unmixing/SpectUnmixHeuristicBandsNoiseless.pdf}
+        \subcaption{}
+        \label{subfig:heuristbandsnoiseless}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width = 0.65\textwidth]{figures/sflim/spectral-unmixing/SpectUnmixHeuristicBands1e5.pdf}
+        \subcaption{}
+        \label{subfig:heuristbands1e5}
+    \end{subfigure}
+    \caption{Relative abundances of retinal fluorophores recovered using spectral unmixing and 6 detection bands using heuristically chosen band locations under (\subref{subfig:heuristbandsnoiseless}) noiseless conditions and (\subref{subfig:heuristbands1e5}) \num{e5} photons with shot noise applied. For both (\subref{subfig:heuristbandsnoiseless}) and (\subref{subfig:heuristbands1e5}) the top rows represent the ground truth abundances, the middle rows are the recovered abundances, and the bottom row is the error defined using Eq.~\ref{eq:recerror}.}
+    \label{fig:spectunmixheursiticbands}
+\end{figure}
 
 
+\begin{figure}
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width = 0.62\textwidth]{figures/sflim/spectral-unmixing/SpectUnmixOptBandsNoiseless.pdf}
+        \subcaption{}
+        \label{subfig:optbandsnoiseless}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width = 0.62\textwidth]{figures/sflim/spectral-unmixing/SpectUnmixOptBands1e5.pdf}
+        \subcaption{}
+        \label{subfig:optbands1e5}
+    \end{subfigure}
+    
+    \caption{Relative abundances of retinal fluorophores recovered using spectral unmixing and 6 detection bands optimised such that the matrix condition number is minimised under (\subref{subfig:optbandsnoiseless}) noiseless conditions and (\subref{subfig:optbands1e5}) \num{e5} photons with shot noise applied. For both (\subref{subfig:optbandsnoiseless}) and (\subref{subfig:optbands1e5})  the top rows represent the ground truth abundances, the middle rows are the recovered abundances, and the bottom row is the error defined using Eq.~\ref{eq:recerror}.}
+    \label{fig:spectunmixoptbands}
+\end{figure}
+
+The errors in the noiseless unmixing are negligible (\num{1e-18}) and is supported by the vanishingly small RMS error: AGE = \SI{2.87e-12}{\percent}, A2E = \SI{1.04e-12}{\percent}, and FAD = \SI{5.00e-12}{\percent}. For the case of noise affected spectra - the error in the unmixing, and the difference in condition number becomes apparent where the RMS errors for optimised bands are up to \SI{4}{\percent} lower (Tab.~\ref{tab:spectunmixrms}).
+
+\begin{table}
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        & AGE (\unit{\percent}) & A2E (\unit{\percent}) & FAD (\unit{\percent})\\
+        \hline
+        Opt. Bands - Noiseless & \num{2.87e-12} & \num{1.04e-12} & \num{5.00e-12}\\
+        Opt. Bands - \num{e5} photons & \num{50.0} & \num{16.6} & \num{91.8}\\ 
+         Heuristic Bands - Noiseless & \num{2.87e-12} & \num{1.04e-12} & \num{5.00e-12} \\
+         Heuristic Bands - \num{e5} photons & \num{50.7} & \num{16.5} & \num{95.2} \\
+         \hline
+    \end{tabular}
+    \caption{RMS errors of spectrally unmixing retinal fluorophores using matrix inversions using the heuristically chosen bands described in Chap.~\ref{chap:fliodevice} and bands chosen such that the matrix condition number is minimised under noiseless and shot noise affected conditions (\num{e5} photons)}
+    \label{tab:spectunmixrms}
+\end{table}
 
 \subsection{Conclusions}
-
-
+While spectral unmixing can in principle be used to unmix retinal fluorophores the large RMS error when unmixing FAD limits its efficacy for estimating the concentration of FAD in the retina beyond confirming the presence of FAD in a mixture of retinal fluorohpores. The RMS errors in the unmixing process also validate the bands that were chosen heuristically to coincide with the isobestic and non-isobestic points of the spectras of AGE, A2E, and FAD however the optimisation process could be improved to account for fluorescence emission filters with non-rectangular spectral response as well as the overall spectral response of the FLIO device. This simulation also only pinpoints the ideal detection bands within \SI{5}{\nm} increasing the resolution of this optimisation non-linearly increases the possible number of filter combinations and thus the computation time.
+These results also highlights the key question of this thesis - ``What benefit do fluorescence lifetime bring to assessing retinal health'' which is addressed in the next section.
 
 \FloatBarrier
 \section{SFLIM unmixing using Tensor Inversions}
@@ -359,14 +440,29 @@ The tensor condition number is calculated in much the same was as the convention
 
 \FloatBarrier
 \subsection{Unmixing Retinal Fluorophores}
-The abundance maps used in previous section (Sec.~\ref{sec:lifeunmix},\ref{sec:phasor-sflim},\ref{sec:specunmix}) can be used to assess the efficacy of this S-FLIM unmixing method when unmixing retinal fluorophores and compare it to Phasor S-FLIM and traditional spectral unmixing using matrix inversions. The condition number can also be used to compare these different unmixing methods as well optimise the number and location of the spectral bands and other detection schemes such as time gated FLIM () and a scheme where the noisiest time bins are discarded and not used in the unmixing process. This is a similar approach taken where fitting fluorescence decays for TCSPC FLIM data where robustness to noise in the fitting process is exchanged for decreased ability to resolve complex decay models. To simulate gated FLIM data fluorescence decays are first generated then integrated over two contiguous time windows (See Fig.~\ref{figintro:tgflim}) to form the two gated images. For these simulations a gate width of \SI{2}{\ns} was chosen and is commensurate with literature \addcite
+The abundance maps used in previous section (Sec.~\ref{sec:lifeunmix},~\ref{sec:phasor-sflim},~\ref{sec:specunmix}) can be used to assess the efficacy of this S-FLIM unmixing method when unmixing retinal fluorophores and compare it to Phasor S-FLIM and traditional spectral unmixing using matrix inversions. The condition number can also be used to compare these different unmixing methods as well optimise the number and location of the spectral bands and other detection schemes such as time gated FLIM (Sec.~\ref{sec:gatedflim}) and a scheme where the noisiest time bins are discarded and not used in the unmixing process. This is a similar approach taken where fitting fluorescence decays for TCSPC FLIM data where robustness to noise in the fitting process is exchanged for decreased ability to resolve complex decay models. To simulate gated FLIM data fluorescence decays are first generated then integrated over two contiguous time windows (See Fig.~\ref{figintro:tgflim}) to form the two gated images. For these simulations a gate width of \SI{2}{\ns} was chosen and is commensurate with literature \addcite
+
+\subsubsection{Optimisation of Detection Scheme for Retinal Fluorophores}
+Since this new method now incorporates the unique temporal decay of each fluorophore this brings about a new dimensions that the fluorophores can be discriminated in. The spectral bands that the SFLIM data is recorded over should be re-optimised since some bands that might not provide much spectral information might give a large amount in the temporal domain relative to other bands. Similarly the different FLIM detection: standard TCSPC FLIM, gated FLIM, and truncated TCSPC FLIM schemes can be optimised using the same approach in Sec.~\ref{sec:specunmixopt} and compared with the heuristically chosen detection bands.
 
 
-
-\subsubsection{Optimisation of discrete detection bands}
-
-
-\subsubsection{Sensitivity to noise}
+\begin{table}
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \multicolumn{2}{|c|}{Optimised} & \multicolumn{2}{|c|}{Heuristic}\\
+        \hline
+        Method & $\kappa$ & Method & $\kappa$\\
+        \hline
+        $T$ & \num{7.684} & $T$ & \num{9.439} \\
+        $T_{gated}$ & \num{8.005} & $T_{gated}$ & \num{10.287} \\
+        $T_{trunc}$ & \num{7.708} & $T_{trunc}$ & \num{9.488} \\
+        $S$ & \num{8.107} & $S$ & \num{10.761}\\
+        \hline  
+    \end{tabular}
+    \caption{Condition numbers, $\kappa$, for unmixing retinal fluorophores using tensor based and matrix based unmixing methods where: $T$ refers to the tensor based inversion method, $T_{gated}$ referes to the gated FLIM detection scheme consisting of 2 contiguous \SI{2}{\ns} gates, $T_{trunc}$ is a modifcation to the tensor inversion method where teh final \num{100}, typically noisier, time bins are excluded, and finally $S$ is the spectral unmixing method using matrix inversions.}
+    \label{tab:optcondnums} 
+\end{table}
 
 
 \subsubsection{Suitability for Different Unmixing scenarios}
