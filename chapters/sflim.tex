@@ -167,12 +167,7 @@ As was discussed in Chapter \ref{sec:phasoranalysis}, phasor analysis presents a
 To address these limitations, \citeauthor{scipioni2021phasor} developed a method which utilises phasor analysis and now the spectrally resolved fluorescence decay which boasts the ability to unmix fluorophores with no prior knowledge of either their spectral characteristics or the decay characteristics of the pure endmembers. While primarily intended for FLIM imaging of biological samples stained with dyes exhibiting well separated spectra and lifetime the capabilities of this technique for unmixing retinal fluorophores - exhibiting highly overlapping spectra and similar lifetimes - was investigated.
 \subsection{Phasor S-FLIM algorithim}
 The full algorithm is fully discussed in \citeauthor{scipioni2021phasor} and its associated supplementary material as well as multiple examples of imaging in biological samples but will be briefly outlined here.
-For a given spatial pixel $I(x,y)$ the fluorescence lifetimes are recorded over multiple discrete spectral bands and the fluorescence decays yielding $I(t,\lambda)$, these decays are then phasor transformed using the first harmonic (Eq. \ref{eq:phasor-g} and \ref{eq:phasor-s} evaluated at $n = 1$) and the spectral and temporal instrument response function is corrected for. The separate  spectral phasors, $g(\lambda)$ and $g(\lambda)$, coordinates are then weighted with principle components analysis (PCA) and fitted to a generalised double logistic function (Eq. \ref{eq:dublog}). In the original published work the authors note that the performance of this method relies on the phasors of the pure endmembers being well separated in phasor space and as such it is best suited for labelled imaging where there is a more control over the spectral, and temporal fluorescence characteristics of the dyes used. Nevertheless, this algorithm was implemented for the application of unmixing retinal fluorophores. 
-
-
-
-
-
+For a given spatial pixel $I(x,y)$ the fluorescence lifetimes are recorded over multiple discrete spectral bands and the fluorescence decays yielding $I(t,\lambda)$, these decays are then phasor transformed using the first harmonic (Eq.~\ref{eq:phasor-g} and Eq.~\ref{eq:phasor-s} evaluated at $n = 1$) and the spectral and temporal instrument response function is corrected for. The separate  spectral phasors, $g(\lambda)$ and $g(\lambda)$, coordinates are then weighted with principle components analysis (PCA) and fitted to a generalised double logistic function (Eq.~\ref{eq:dublog}). In the original published work the authors note that the performance of this method relies on the phasors of the pure endmembers being well separated in phasor space and as such it is best suited for labelled imaging where there is a more control over the spectral, and temporal fluorescence characteristics of the dyes used. Nevertheless, this algorithm was implemented for the application of unmixing retinal fluorophores. 
 
 \begin{figure}
     \centering
@@ -186,21 +181,10 @@ For a given spatial pixel $I(x,y)$ the fluorescence lifetimes are recorded over 
     f(x)  =  I_{-\infty,1}   +\frac{  I_{+\infty,1} + \frac{  I_{+\infty,2} - I_{-\infty,1}  }{\big(1 - \exp[-g_{2}(x - \Delta x_{2})]\big)^{\nicefrac{1}{v_{2}}}} - I_{-\infty,1}}{\bigg(1 - \exp[-g_{1}(x - \Delta x_{1})]\bigg)^{\nicefrac{1}{v_{1}}}}\label{eq:dublog}
 \end{equation}
 
-
-This algorithm was tested using simulated data sets, similar to those shown in \ref{fig:sflimamaps}, which consisted of an additive mixture of retinal fluorophores without shot noise applied - to represent the theoretical maximal performance of the technique - and with shot noise to simulate large photon fluxes. These data sets were then analysed using the Phasor S-FLIM algorithm, and the errors were analysed using the same metric as before (Eq. \ref{eq:recerror}). Since this unmixing algorithm is blind the ordering of the endmembers was not consisted from pixel to pixel. This meant that for input data where the endmembers may be ordered [FAD, AGE, A2E] the outputted endmembers could be of the order [AGE, FAD, A2E] which resulted in severely degraded performance when comparing the unmixed abundances to the ground truths. To address this mis-ordering, the recovered spectra of an unmixed endmember can be assigned to its fluorophore (FAD, AGE or A2E) using Spectral Angle Map (SAM, $\theta_{SAM}$) where a recovered endmember that is incorrectly assigned a fluorophore would have a large $\theta_{SAM}$ angle and a correctly assigned fluorophore would have small $\theta_{SAM}$ angle.
+This algorithm was tested using simulated data sets, similar to those shown in Fig.~\ref{fig:sflimamaps}, which consisted of an additive mixture of retinal fluorophores without shot noise applied - to represent the theoretical maximal performance of the technique - and with shot noise to simulate large photon fluxes. These data sets were then analysed using the Phasor S-FLIM algorithm, and the errors were analysed using the same metric as before (Eq.~\ref{eq:recerror}). Since this unmixing algorithm is blind the ordering of the endmembers was not consisted from pixel to pixel. This meant that for input data where the endmembers may be ordered [FAD, AGE, A2E] the outputted endmembers could be of the order [AGE, FAD, A2E] which resulted in severely degraded performance when comparing the unmixed abundances to the ground truths. To address this mis-ordering, the recovered spectra of an unmixed endmember can be assigned to its fluorophore (FAD, AGE or A2E) using Spectral Angle Map (SAM, $\theta_{SAM}$) where a recovered endmember that is incorrectly assigned a fluorophore would have a large $\theta_{SAM}$ angle and a correctly assigned fluorophore would have small $\theta_{SAM}$ angle.
 \begin{equation}
     \theta_{SAM} = \arccos\Bigg(\frac{\mathbf{a}\cdot \mathbf{b}}{\lvert \mathbf{a} \rvert\,\lvert \mathbf{b} \rvert}\Bigg)\label{eq:sam}
 \end{equation}
-
-
-
-
-
-
-
-
-
-
 
 \FloatBarrier
 \section{Spectral Unmixing}\label{sec:specunmix}
@@ -223,21 +207,23 @@ The recovered endmember abundances, $\bar{\mathbf{a}}$ are then found using a si
 \begin{align}
     \bar{\mathbf{a}} &= \mathbf{S}^{-1}\mathbf{m} \label{eq:matinv}
 \end{align}
-For over determined systems - where the number of spectral measurements is greater than the number of unknown endmember abundances ($\lambda > n $)  - the matrix $\mathbf{S}$ is non-square and so the inverse $\mathbf{S}^{-1}$ doesn't exist. The Moore-Penrose Pseudo Inverse, denoted as $\mathbf{S}^{+}$ (Eq. \ref{eq:mpinvmatrix}), extends some useful properties of the traditional inverse (Eq. \ref{eq:mpinvidentity}):
+For over determined systems - where the number of spectral measurements is greater than the number of unknown endmember abundances ($\lambda > n $)  - the matrix $\mathbf{S}$ is non-square and so the inverse $\mathbf{S}^{-1}$ doesn't exist. The Moore-Penrose Pseudo Inverse, denoted as $\mathbf{S}^{+}$ (Eq.~\ref{eq:mpinvmatrix}), extends some useful properties of the traditional inverse (Eq.~\ref{eq:mpinvidentity}):
 \begin{align}
     \mathbf{S}^{+} &= (\mathbf{S}^{T}\mathbf{S})^{-1}\mathbf{S}^{T} \label{eq:mpinvmatrix}
 \end{align}
 \begin{align}
     \mathbf{A}^{-1} &: \mathbf{A}^{-1}\mathbf{A} = \mathbb{I} \implies \mathbf{A}^{+}: \mathbf{A}\mathbf{A}^{+}\mathbf{A} = \mathbf{A} \label{eq:mpinvidentity}
 \end{align}
-As was previously mentioned, overlapping endmember spectra, and noise in the spectral measurements results in the abundances recovered using Eq. \ref{eq:matinv} deviating from the ground truth abundances. In practice, these ground truth abundances cannot be reliably known and so the metric of the matrix condition number (Eq. \ref{eq:matcondnum}) is used to estimate how noise and errors in measurements manifest in the recovered abundances. The matrix condition number captures how invertible the matrix $\mathbf{S}$ is will be dependent on the endmember spectra that are being unmixed, the number of detection bands as well as the location of these bands and their width.
+As was previously mentioned, overlapping endmember spectra, and noise in the spectral measurements results in the abundances recovered using Eq.~\ref{eq:matinv} deviating from the ground truth abundances. In practice, these ground truth abundances cannot be reliably known and so the metric of the matrix condition number (Eq.~\ref{eq:matcondnum}) is used to estimate how noise and errors in measurements influence the recovered abundances. The matrix condition number captures how invertible the matrix $\mathbf{S}$ is and will be dependent on the endmember spectra that are being unmixed, the number of detection bands as well as the location of these bands and their width. Generally a condition number of $\kappa(\mathbf{S}) \propto 10^{k}$ results in a loss of precision of $k$ digits~\cite{cheney2012numerical}. For recovering the abundances of retinal fluorophores, which will vary between \qtyrange{0}{100}{\percent} or \numrange{0}{1}, a condition number of $\kappa(\mathbf{S}) < \num{e2}$ is required to have an error of less than \SI{10}{\percent}.
 \begin{align}
     \kappa(\mathbf{S}) = \big\lvert\big\lvert \mathbf{S} \big\rvert\big\rvert_{F}\big\lvert\big\lvert \mathbf{S}^{+} \big\rvert\big\rvert_{F} \label{eq:matcondnum}
 \end{align}
 \begin{align}
     \bigg\lvert\bigg\lvert \frac{\delta \mathbf{a}}{\mathbf{a}} \bigg\rvert\bigg\rvert \leq \kappa(\mathbf{S})\bigg\lvert\bigg\lvert \frac{\delta \mathbf{m}}{\mathbf{m}} \bigg\rvert\bigg\rvert
 \end{align}
-Additionally there is a established rule-of-thumb which states, generally, that a condition number $\kappa(\mathbf{S}) \propto 10^{k}$ results in a loss of precision of $k$ digits \cite{cheney2012numerical}. For recovering the abundances of retinal fluorophores, which will vary between \qtyrange{0}{100}{\percent} or \numrange{0}{1}, a condition number of $\kappa(\mathbf{S}) < 10^{2}$ is required to have an error of less than \SI{10}{\percent}. Using this rule-of-thumb the detection scheme for unmixing retinal fluorophores can be optimised to minimise sensitivity to low photon fluxes and also minimise the overall image acquisition time through reducing the number of spectral bands that images are recorded over.
+Additionally this condition number can utilised to optimise the 2 predominant approaches to recording spectral images: contiguous bands of equal width that span a designated wavelength range - this approach evenly samples the spectra with lower sensitivity to noise but sacrifices spectral resolution/specificity; and multiple narrower discrete bands which are chosen for the scene and the endmembers to be recovered in order to maximise the spectral specificity and reduce image acquisition time.
+A simple exhaustive search for the optimal detection bands for unmixing retinal fluorophores was carried out to find the optimum location of the \num{6} detection bands for the S-FLIO system described in Chap.~\ref{chap:fliodevice}. The fluorescence emission bandwidth (\qtyrange{500}{700}{\nm}) that the S-FLIO system can image over was divided into \num{40} contiguous, \SI{5}{\nm} wide, bands and the condition number was calculated for each of the $\binom{40}{6} \approxeq \num{3.8e6}$ possible detection configurations. The band configuration resulting in the lowest condition number was compared to the 6 detection bands that were heuristically chosen previously - \qtylist{500;510;530;560;590;630}{\nm}.
+
 
 
 \subsection{Conclusions}
@@ -253,7 +239,7 @@ This new tensor based approach is constructed similarly to the matrix inversion 
 \begin{align}
     \mathcal{A}\bullet_{3}\mathbf{x} &= \mathbf{M} \label{eq:tensmix}
 \end{align}
-\footnotetext{The operator ``$\bullet_{3}$'' represents the Tucker product along the third mode but in the case for the tensor $\mathcal{A}$,and vector $\mathbf{x}$ this numerically similar to a scalar product along the third dimension of $\mathcal{A}$. A more detailed description is given in \ref{app:tensor}}
+\footnotetext{The operator ``$\bullet_{3}$'' represents the Tucker product along the third mode but in the case for the tensor $\mathcal{A}$,and vector $\mathbf{x}$ this numerically similar to a scalar product along the third dimension of $\mathcal{A}$. A more detailed description is given in App.~\ref{app:tensor}}
 \begin{figure}[h]
 \centering
 
@@ -328,7 +314,7 @@ For $\mathbf{B} = \mathcal{A}^{T} \ast_{2} \mathcal{A}$, $\mathbf{B}$ is a matri
         \implies \bar{\mathbf{x}} &= (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}\ast_{2}\mathbf{M} \label{eq:xbar}
 \end{align}
 
-Using this mathematical framework the above SFLIM unmixing method, shown in Alg.~\ref{alg:sflim} is implemented in \textit{python} using a combination of least-squares minimisation as well as Einstein Summations to represent the Einsten Prodcuts, $\ast_{2}$, and the Tucker Mode Products, $\bullet_{3}$. The use of a least squares minimiser with the Jacobian (Eq.~\ref{eq:jacfunc}) and Estimator (Eq.~\ref{eq:xbar}) functions account for the high noise typically associated with SFLIM measurements as well as the similarity of the endmembers in the $\mathcal{A}$ tensor. For well conditioned and low noise problems the estimator $\bar{\mathbf{x}}$ can be evaluated directly to recover the relative abundance of endmembers.
+Using this mathematical framework the above SFLIM unmixing method, shown in Alg.~\ref{alg:sflim} is implemented in \textit{python} using a combination of least-squares minimisation as well as Einstein Summations to represent the Einsten Prodcuts, $\ast_{2}$, and the Tucker Mode Products, $\bullet_{3}$ (See. App.~\ref{app:tensor}). The use of a least-squares minimiser with the Jacobian (Eq.~\ref{eq:jacfunc}) and Estimator (Eq.~\ref{eq:xbar}) functions account for the high noise typically associated with SFLIM measurements as well as the similarity of the endmembers in the $\mathcal{A}$ tensor. For well conditioned and low noise problems the estimator $\bar{\mathbf{x}}$ can be evaluated directly to recover the relative abundance of endmembers.
 \begin{algorithm}
     \caption{Algorithm for recovering endmember abundances from spectral FLIM data for a single spatial pixel}
     \label{alg:sflim}
@@ -369,9 +355,23 @@ The tensor condition number is calculated in much the same was as the convention
 \begin{equation}\label{eq:tensorcondnum}
     \kappa(\mathcal{A}) = \lvert\lvert \mathcal{A} \rvert \rvert_{F} \lvert\lvert \mathcal{A}^{+} \rvert \rvert_{F}
 \end{equation}
-\subsection{Suitability for Different Unmixing scenarios}
+
+
+\FloatBarrier
+\subsection{Unmixing Retinal Fluorophores}
+The abundance maps used in previous section (Sec.~\ref{sec:lifeunmix},\ref{sec:phasor-sflim},\ref{sec:specunmix}) can be used to assess the efficacy of this S-FLIM unmixing method when unmixing retinal fluorophores and compare it to Phasor S-FLIM and traditional spectral unmixing using matrix inversions. The condition number can also be used to compare these different unmixing methods as well optimise the number and location of the spectral bands and other detection schemes such as time gated FLIM () and a scheme where the noisiest time bins are discarded and not used in the unmixing process. This is a similar approach taken where fitting fluorescence decays for TCSPC FLIM data where robustness to noise in the fitting process is exchanged for decreased ability to resolve complex decay models. To simulate gated FLIM data fluorescence decays are first generated then integrated over two contiguous time windows (See Fig.~\ref{figintro:tgflim}) to form the two gated images. For these simulations a gate width of \SI{2}{\ns} was chosen and is commensurate with literature \addcite
+
+
+
+\subsubsection{Optimisation of discrete detection bands}
+
+
+\subsubsection{Sensitivity to noise}
+
+
+\subsubsection{Suitability for Different Unmixing scenarios}
 To ascertain the optimal use cases for this technique and reveal any deficiencies simulations involving fluorophores exhibiting different spectral and temporal characteristics were created to capture the 4 different scenarios that would be encountered in label free imaging: Well separated spectra and lifetimes; well separated spectra and similar lifetimes; overlapping spectra and well separated lifetimes; and finally overlapping spectra and similar lifetimes.
 For these 4 scenarios mono-exponential fluorescence decays were simulated with Gaussian spectra, filtered using contiguous, rectangular filters that span a given wavelength range.
-\subsubsection{Retinal Fluorophores}
+
 
 \FloatBarrier

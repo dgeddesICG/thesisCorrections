@@ -1,0 +1,23 @@
+\section{Construction of \textit{En-face} S-FLIO system}
+\section{Evaluation of Performance}
+\begin{itemize}
+    \item We need good spatial resolution, and signal to noise ratio in the high resolution camera to account for movement of the eye
+    \item SPAD has much fewer pixels and much larger spatial resolution (influenced by the irregular sparse array architecture) and there is a magnification difference so as long as spatial res of the registration camera is 5-10X the FLIMera and we can register with a 5 pixels then our registration will be limited by he quantisation of the digital imaging system
+    \item The purpose of this device is to proof of concept the measurement of FAD in the retina using lifetimes - not construct a diffraction limited system.
+    \item to quantify the spatial resolution of the system we can use the knife edge test consisting of a fluorescent slide (gives a uniform scene) that has a slanted hard edge places in front of it all housed in an artificial eye
+    \item calibration is achieved by replacing the edge with an Allen key with known diameter. The number of pixels between the parallel edges yield the pixel to um conversion factor i.e the width and height that a single pixel subtends on the retina.
+    \item this test evaluate the spatial resolution by averaging an aliased edge (in the case of the FLIMera - pixels are small enough on the FI camera that optics is the limit not quantisation) to yield the Edge Spread Function. Differential of the ESF is the LSF and the spatial resolution is defined as the FWHM of this LSF after a Gaussian has been fitted.
+    \item This was repeated through multiple foci's to ascertain where the best focus is and what is its spatial resolution
+    \item on the FI camera the spatial resolution is 40um and for the FLIMera it is 400um.
+    \item This resolution is larger than what was previously reported in the Harvey, McNaught artificial eye paper (spatial res was $\approx 15$um) which uses the same artificial eye and an optically similar imaging system (fundus camera with SLR lenses in a imaging relay config to focus the image onto a scientific camera.
+    \item The system is optically limited but the source is likely to originate in misalignment of the SLR lenses, other optical elements in the beam path etc. 
+    \item To attempt to ascertain the source of these issues the fundus camera was set up to image the room with some targets attached to the wall at infinity and optical elements (emission filter, beam splitter) and the spatial resolution was estimated using the risetime method
+    \begin{itemize}
+        \item spatial res $\approx$ width in pixels between 90 and 10 percent of the fast edge
+    \end{itemize}
+    \item this was then compared to two much simpler imaging systems - and iphone 13, and the thorcam with an SLR lens attached set to the same scene.
+    \item CONCLUSION: spatial resolution is X and this is sufficient for co-registering images with the FLIMera. There are multiple sources of aberration in the system that can be harming our spatial res that could be eliminated given the a significant time investment but since a good signal to noise ratio is favored over diffraction limited (or near it) this is sufficient.
+\end{itemize}
+
+
+\section{Motion Registration}
