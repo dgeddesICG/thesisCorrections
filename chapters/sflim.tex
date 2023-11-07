@@ -1,3 +1,4 @@
+\setstretch{2}
 \section{Rationale}
 The ability to discriminate and quantify the concentration of biomarkers such as FAD and NADH would allow the mapping of metabolic health within the retina enabling disease detection to occur at the genesis of biochemical dysfunction rather than at the point where, often permanent, physical damage becomes apparent in the patients central vision. 
 Techniques to used in this recovery are centred on discriminating fluorophores using their distinct spectral signatures or their intrinsic fluorescence lifetime. However, the combination of overlapping spectra, complex decay models required for fitting, and clutter in the eye corrupting the already weak return signal motivates the requirement for efficient and robust unmixing methods.
@@ -6,7 +7,14 @@ In this chapter, the suitability and performance of existing un-mixing methods: 
 
 \section{Retinal FAD concentration}\label{sec:retfad}
 \textcolor{blue}{Add in section summarising our requirements for a successful unmixing method}
-
+\begin{itemize}
+    \item FAD is a biomarker that is linked with the metabolising of oxygen in surrounding tissue
+    \item quantifying and longitudinally monitoring the concentration of FAD can allow for diagnosis of disease / decline in retinal health at the first signs of biochemical dysfunction - before structural damage occurs to the retina where symptoms of lost vision become apparent
+    \item The ground truth value for FAD is not known but we can put some bounds on it and estimate the relative contribution FAD makes to any detected fluorescence signal from the retina
+    \item Estimate FAD concentration using similar approach to Heather McEwan did for her undergrad project
+    \item use this estimate to link the relative contribution of FAD in the fluorescence signal to its absolute concentration. 
+    \item propose suitable error bounds for the unmixed concetration of FAD
+\end{itemize}
 
 \section{Lifetime Unmixing}\label{sec:lifeunmix}
 In principle, retinal fluorophores could be quantified using only measurements of the fluorescence lifetime in a single spectral band - potentially negating the need the lengthy image acquisition periods associated with recorded sequential images over multiple detection bands - however an increased number of fluorophores requires more complex, noise sensitive, fitting models and prohibitively large photon fluxes. The 3 biomarkers of interest in this thesis (FAD, AGE, and A2E/Lipofuscin) all exhibit biexponential decay profiles (see Table \ref{tab:retlifetimes}) meaning that in order to fully recover the fluorophore abundance a 6-exponential fit is required.
@@ -186,6 +194,12 @@ This algorithm was tested using simulated data sets, similar to those shown in F
     \theta_{SAM} = \arccos\Bigg(\frac{\mathbf{a}\cdot \mathbf{b}}{\lvert \mathbf{a} \rvert\,\lvert \mathbf{b} \rvert}\Bigg)\label{eq:sam}
 \end{equation}
 
+\subsection{To Do}
+\begin{itemize}
+    \item Abundance maps for noiseless data and data with shot noise (1e4 - 1e5 photons per pixel) to show that Phasor S-FLIM isn't suitable for unmixing retinal fluorophores. 
+    \item This is because Phasor S-FLIM is best suited for stained samples where dyes can be chosen such that they are spectrally narrow and well seperated and largely different lifetimes - i.e. the endmembers are far away from each other in phasor space. Retinal fluorophores have similar fluorescence lifetimes and broad overlapping spectra so the performance of the unmixing is severely detoriated.
+    \item conclusion: this technique is not suitable for unmixing retinal fluorophores
+\end{itemize}
 \FloatBarrier
 \section{Spectral Unmixing}\label{sec:specunmix}
 In the field of remote sensing the technique of spectral imaging is used for example, to separate buildings, from foliage, from rivers in the scene by their unique spectral signatures - buildings will appear spectrally flat, foliage will peak in the green, and rivers and water features will peak in the blue spectral regions. This is achieved by assuming in each pixel of an image, the recorded intensity is comprised of an additive mixture of pure endmembers, with unique spectral signatures) and concentrations or relative abundances.
@@ -443,7 +457,9 @@ The tensor condition number is calculated in much the same was as the convention
 The abundance maps used in previous section (Sec.~\ref{sec:lifeunmix},~\ref{sec:phasor-sflim},~\ref{sec:specunmix}) can be used to assess the efficacy of this S-FLIM unmixing method when unmixing retinal fluorophores and compare it to Phasor S-FLIM and traditional spectral unmixing using matrix inversions. The condition number can also be used to compare these different unmixing methods as well optimise the number and location of the spectral bands and other detection schemes such as time gated FLIM (Sec.~\ref{sec:gatedflim}) and a scheme where the noisiest time bins are discarded and not used in the unmixing process. This is a similar approach taken where fitting fluorescence decays for TCSPC FLIM data where robustness to noise in the fitting process is exchanged for decreased ability to resolve complex decay models. To simulate gated FLIM data fluorescence decays are first generated then integrated over two contiguous time windows (See Fig.~\ref{figintro:tgflim}) to form the two gated images. For these simulations a gate width of \SI{2}{\ns} was chosen and is commensurate with literature \addcite
 
 \subsubsection{Optimisation of Detection Scheme for Retinal Fluorophores}
-Since this new method now incorporates the unique temporal decay of each fluorophore this brings about a new dimensions that the fluorophores can be discriminated in. The spectral bands that the SFLIM data is recorded over should be re-optimised since some bands that might not provide much spectral information might give a large amount in the temporal domain relative to other bands. Similarly the different FLIM detection: standard TCSPC FLIM, gated FLIM, and truncated TCSPC FLIM schemes can be optimised using the same approach in Sec.~\ref{sec:specunmixopt} and compared with the heuristically chosen detection bands.
+Since this new tensor based method now incorporates the temporal decays as well as the spectral signatures of each fluorophore - resulting in another dimension to discriminate fluorophores in - the optimal detection bands may by different to that of just spectral unmixing. This could be, in part, due to some spectral bands exhibiting high overlap in the spectral domain  - which would ordinarily cause the unmixing problem to be ill-conditioned and highly sensitive to noise - but be very easily differentiable in the temporal domain.
+The aforementioned optimisation procedure was then repeated for this SFLIM unmixing method for standard TCSPC based SFLIM measurements as well as gated FLIM detection consisting of 2 contiguous, \SI{2}{\ns} wide gates and and a truncated TCSPC based scheme where the nosiest bins are excluded - typically this is the final \numrange{50}{100} bins. The results of this optimisation shown in Fig.~\ref{fig:tensoroptbands} shows slightly different band locations to those optimised for spectral unmixing (See. Fig.~\ref{fig:spectunmixoptbands}) with the band positioned at \SI{630}{\nm} now having its cut-on wavelength shifted to \SI{670}{\nm} to optimise tensor unmixing (Fig.~\ref{subfig:optbandstensor}). The truncated tensor unmixing method (Fig.~\ref{subfig:optbandstrunc}) shares the same optimal band locations with standard tensor unmixing but the gated detection scheme is optimised when the band located at \SI{670}{\nm} is moved to \SI{665}{\nm}. This tensor unmixing method also appears to have increased performance over spectral unmixing and is displayed not only in a reduced condition number (See Tab.~\ref{tab:optcondnums}) but also a lower RMS-error when simulated data with \num{e5} photons is unmixing 
+
 
 
 \begin{table}
@@ -460,14 +476,86 @@ Since this new method now incorporates the unique temporal decay of each fluorop
         $S$ & \num{8.107} & $S$ & \num{10.761}\\
         \hline  
     \end{tabular}
-    \caption{Condition numbers, $\kappa$, for unmixing retinal fluorophores using tensor based and matrix based unmixing methods where: $T$ refers to the tensor based inversion method, $T_{gated}$ referes to the gated FLIM detection scheme consisting of 2 contiguous \SI{2}{\ns} gates, $T_{trunc}$ is a modifcation to the tensor inversion method where teh final \num{100}, typically noisier, time bins are excluded, and finally $S$ is the spectral unmixing method using matrix inversions.}
+    \caption{Condition numbers, $\kappa$, for unmixing retinal fluorophores using tensor based and matrix based unmixing methods where: $T$ refers to the tensor based inversion method, $T_{gated}$ refers to the gated FLIM detection scheme consisting of 2 contiguous \SI{2}{\ns} gates, $T_{trunc}$ is a modification to the tensor inversion method where the final \num{100}, typically noisier, time bins are excluded, and finally $S$ is the spectral unmixing method using matrix inversions.}
     \label{tab:optcondnums} 
 \end{table}
 
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width = 0.6\textwidth]{figures/sflim/tensor-unmixing/TensorBandsSpectra.pdf}
+        \subcaption{}
+        \label{subfig:optbandstensor}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width = 0.6\textwidth]{figures/sflim/tensor-unmixing/GatedBandsSpectra.pdf}
+        \subcaption{}
+        \label{subfig:optbandsgated}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[width = 0.6\textwidth]{figures/sflim/tensor-unmixing/TruncBandsSpectra.pdf}
+        \subcaption{}
+        \label{subfig:optbandstrunc}
+    \end{subfigure}
+    \caption{Optimised detection bands for unmixing retinal fluorophores using SFLIM measurements with the tensor based based inversion method. (\subref{subfig:optbandstensor}) shows the optimised bands for the tensor inversion method for TCSPC SFLIM data, (\subref{subfig:optbandsgated}) shows a slightly different detection scheme for a gated SFLIM detection scheme consisting of 2 contiguous gates of width \SI{2}{\ns}, and (\subref{subfig:optbandstrunc}) shows the optimal bands for a TCSPC detection scheme where the final 100 time bins are excluded.}
+    \label{fig:tensoroptbands}
+\end{figure}
+
+
+
+\begin{table}[]
+    \centering
+    \subfloat[][]
+    {
+        \begin{tabular}{|c|S[round-mode = figures, round-precision = 3]|S[round-mode = figures, round-precision = 3]|}
+        \hline
+        Method & $\kappa$ & $\delta\kappa$ \\
+        \hline
+        $T$ & \num{7.732364723572154} & \num{0.048781109014293556}\\
+        $T_{gated}$ & \num{8.034532947070025} & \num{0.029613222974138154}\\
+        $T_{trunc}$ & \num{7.758354669052182} & \num{0.050714853225379386}\\
+        \hline
+        \end{tabular}
+        \label{subtab:tenscondspec}
+    }
+    \subfloat[][]
+    {
+        \begin{tabular}{|c|S[round-mode = figures, round-precision = 3]|S[round-mode = figures, round-precision = 3]|}
+        \hline
+        Method & $\kappa$ & $\delta\kappa$ \\
+        \hline
+        $S_{tensor}$ & \num{8.157564497662399} & \num{0.05702337605193364}\\
+        $S_{gated}$ & \num{8.144941211643271} & \num{0.04440009003280565}\\
+        $S_{trunc}$ & \num{8.157564497662399} & \num{0.05702337605193364}\\
+        \hline
+        \end{tabular}
+        \label{subtab:speccondnumtensor}
+    }
+    \caption{Condition Number calculated using the optimal bands for the different detection schemes. (\subref{subtab:tenscondspec}) shows the condition number,$\kappa$, for the different tensor based schemes -Standard TCSPC SFLIM ($T$), Gated FLIM ($T_{gated}$), truncated SFLIM ($T_{trunc}$)) calculated using the bands optimised for Spectral unmixing. (\subref{subtab:speccondnumtensor}) where the condition number for the spectral unmixing method is calculated using the optimal bands for tensor based methods. The value, $\delta\kappa$, represents the difference between the highlighted method and the optimal bands for that unmixing method i.e. for $S_{gated}$, $\delta\kappa = S_{gated} - S_{opt}$ where $S_{opt}$ is the optimal bands for a spectral unmixing method (Tab.~\ref{tab:optcondnums}) and a positive $\delta\kappa$ indicates increased sensitivity to noise.}
+    \label{tab:condnumoptmix}
+\end{table}
 
 \subsubsection{Suitability for Different Unmixing scenarios}
 To ascertain the optimal use cases for this technique and reveal any deficiencies simulations involving fluorophores exhibiting different spectral and temporal characteristics were created to capture the 4 different scenarios that would be encountered in label free imaging: Well separated spectra and lifetimes; well separated spectra and similar lifetimes; overlapping spectra and well separated lifetimes; and finally overlapping spectra and similar lifetimes.
 For these 4 scenarios mono-exponential fluorescence decays were simulated with Gaussian spectra, filtered using contiguous, rectangular filters that span a given wavelength range.
 
+\begin{itemize}
+    \item Put in plots for condition number as a function of band number for the 4 situations highlighted above
+    \item plots suggest that Tensor Inversion could be a flexible, multipurpose analysis method and could be further developed by incorporated techniques from spectral unmixing such as VCA, NMF, etc. to potentially make this a blind unmixing method
+\end{itemize}
+\section{Conclusion}
+\begin{itemize}
+    \item The feasibility of unmixing FAD, and quantifying its concentration, from spectrally resolved fluorescence lifetime data was investigated and multiple approaches were compared.
+    \item Phasor -SFLIM is unsuitable due to the phasor of retinal fluorophores being located close together within phasor space. The effects of noise can mean the phasors of two retinal fluorophores can overlap and thus can't be discriminated from one another
+    \item A new technique called Tensor inversion was developed which mimics spectral unmixing but is capable of unmixing retinal fluorophores from SFLIM data with the same performance as standard spectral unmixing. 
+    \item The effects of shot noise are what predominatly affect the accuracy of the unmxing method when compared to spectral unmixing. For equal photon fluxes fewer measurements (spectral imaging) carry comparatively less noise than a larger number of measurements (SFLIM)
+    \item The techniques suitability may then lie in SFLIM imaging of stained samples or stain free imaging scenarios where the endogenous fluorophores exhibit less severe overlap in the spectral and temporal domain when compared to retinal fluorophores. 
+    \item Further work on in-vivo samples is required to fully characterise the technique - rat eye, perfused rabbit eyes, stained samples etc.
+\end{itemize}
 
 \FloatBarrier

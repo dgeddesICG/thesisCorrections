@@ -1,3 +1,27 @@
+\setstretch{2}
+\section{outline}
+\begin{itemize}
+    \item back scattered light from a short pulse of light incident on a surface experiences some material dependent temporal broadening
+    \item \citeauthor{patterson1989time}~\cite{patterson1989time} proposed this idea for non-contact deep tissue imaging.
+    \item Being able to discriminate materials using this opto-temporal broadening has many applications in defensive situations
+    \item IR images is incapable of imaging through glass windows, lidar sensors can only give a depth map using time-off-flight sensing. 
+    Using single photon counting one could in principle additionally detect a human behind an obscurant verify if they are an enemy combatant with a weapon using the opto-temporal characteristics of materials like flesh and the various metallic alloys found in guns. 
+    \item For applications to retinal imaging, this technique could form a part of an imaging system where the opto temporal broadening is used to discriminate a patients face from their eyes allowing the formation of retinal images from a distance. The time-of-flight nature of the TCSPC imaging could also facilitate the filtering of corneal reflections and lens fluorescence although a detector with a temporal resolution lower than the FLIMera can offer as well as a laser source iwth
+        \begin{itemize}
+            \item Diameter of the eye is 24mm. Total path difference between a retinal image and a corneal reflection is 48mm X 1.337 (refractive index of vitreous humour) = 64mm $\approx$ 213ps. 
+            \item peaks would appear with a separation of 213ps. In order to distinguish this difference one would need to a SPAD + imaging system with an impulse response function much narrower than this
+            \item There's probably some metric akin to the Rayleigh criterion I can use to be more quantitative about this.
+        \end{itemize}
+    \item A proof of concept imaging system using an SLR lens attached to the SPAD array to image a scene from X m away with an approx field of view of Y cm x Z cm was epi-illuminated using the super-continuum source. Epi-illumination was chosen to allow for greater flexibility of the illuminated field of view and minimise direct reflections onto the SPAD array.
+    \item TCSPC data was recorded of several subjects including: flesh, aluminium, a plaster bust of Max Planck, a glass teapot, a human hand, and plant matter. 
+    \item For the glass teapot both surfaces could be resolved from the TCSPC histograms
+    \item In the case of the human hand and the plant subject the illumination wavelength was varied to also allow some spectral discrimination. Allowing for the spectral properties of an object to be linked to the 
+    \item An exponentially modified Gaussian function was heuristically chosen to model the detected TCPSC histograms corresponding to the back scattered light. One could derive an analytical function for this back scattered light using the properties of the laser pulse (Gaussian pulse with FWHM of around 100ps) and a suitable treatment of the radiation transfer function but this exponentially modified Gaussian approach results in a good fit (using chi squared as the metric) for a wide range of materials.
+    \item Paul also investigated the use of neural networks and machine learning for a fit free approach to material discrimination using a combination of our experimental data and simulated data with varying SNR's
+\end{itemize}
+
+
+
 \section{Rationale}
 
 \section{Theory}

@@ -1,4 +1,10 @@
+\setstretch{2}
+
 \section{Construction of \textit{En-face} S-FLIO system}
+
+
+
+
 \section{Evaluation of Performance}
 \begin{itemize}
     \item We need good spatial resolution, and signal to noise ratio in the high resolution camera to account for movement of the eye
@@ -7,17 +13,47 @@
     \item to quantify the spatial resolution of the system we can use the knife edge test consisting of a fluorescent slide (gives a uniform scene) that has a slanted hard edge places in front of it all housed in an artificial eye
     \item calibration is achieved by replacing the edge with an Allen key with known diameter. The number of pixels between the parallel edges yield the pixel to um conversion factor i.e the width and height that a single pixel subtends on the retina.
     \item this test evaluate the spatial resolution by averaging an aliased edge (in the case of the FLIMera - pixels are small enough on the FI camera that optics is the limit not quantisation) to yield the Edge Spread Function. Differential of the ESF is the LSF and the spatial resolution is defined as the FWHM of this LSF after a Gaussian has been fitted.
-    \item This was repeated through multiple foci's to ascertain where the best focus is and what is its spatial resolution
+    \item This was repeated through multiple foci to ascertain where the best focus is and what is its spatial resolution
     \item on the FI camera the spatial resolution is 40um and for the FLIMera it is 400um.
-    \item This resolution is larger than what was previously reported in the Harvey, McNaught artificial eye paper (spatial res was $\approx 15$um) which uses the same artificial eye and an optically similar imaging system (fundus camera with SLR lenses in a imaging relay config to focus the image onto a scientific camera.
+    \item This resolution is larger than what was previously reported in the Harvey, McNaught artificial eye paper (spatial res was $\approx 15$um) which uses the same artificial eye and an optically similar imaging system (fundus camera with SLR lenses in a imaging relay configuragtion to focus the image onto a scientific camera.
     \item The system is optically limited but the source is likely to originate in misalignment of the SLR lenses, other optical elements in the beam path etc. 
-    \item To attempt to ascertain the source of these issues the fundus camera was set up to image the room with some targets attached to the wall at infinity and optical elements (emission filter, beam splitter) and the spatial resolution was estimated using the risetime method
+    \item To attempt to ascertain the source of these issues the fundus camera was set up to image the room with some targets attached to the wall at infinity and optical elements (emission filter, beam splitter) and the spatial resolution was estimated using the rise-time method
     \begin{itemize}
         \item spatial res $\approx$ width in pixels between 90 and 10 percent of the fast edge
     \end{itemize}
-    \item this was then compared to two much simpler imaging systems - and iphone 13, and the thorcam with an SLR lens attached set to the same scene.
-    \item CONCLUSION: spatial resolution is X and this is sufficient for co-registering images with the FLIMera. There are multiple sources of aberration in the system that can be harming our spatial res that could be eliminated given the a significant time investment but since a good signal to noise ratio is favored over diffraction limited (or near it) this is sufficient.
+    \item this was then compared to two much simpler imaging systems - and iPhone 13, and the thorcam with an SLR lens attached set to the same scene.
+    \item CONCLUSION: spatial resolution is X and this is sufficient for co-registering images with the FLIMera. There are multiple sources of aberration in the system that can be harming our spatial res that could be eliminated given the a significant time investment but since a good signal to noise ratio is favoured over diffraction limited (or near it) this is sufficient.
 \end{itemize}
 
 
 \section{Motion Registration}
+\begin{itemize}
+    \item When imaging animals \textit{in-vivo} there will always some movement of the subjects eye in the form of quick, jerk-like, movements - saccade which see the eye move across a range of 25degrees in a period on the order of 200ms; and slow drifts from the ideal fixation point.
+    \item Over the minute long acquisition period required for \textit{in-vivo} imaging this results in a blurred image devoid of any discernible features.
+    \item To compensate for this the sCMOS camera is configured to record sequences of images over the FLIMera's acquisition period. The translation and rotation between consecutive frames can be extracted and can be applied to the FLIMera to result in a single high quality fluorescence lifetime image.
+    \item To begin, first the mapping between the two camera must be found. 
+    \begin{align*}
+        I_{FLIM}(x,y) &= \mathbf{A}I_{scmos}(x',y')
+    \end{align*}
+    where the mapping $\mathbf{A}$ can be considered to be a simple affine transform.
+    \item A generalised affine transform is composed for 4 other principle transformations in the form of Translation, Magnification/Scaling, Rotation, and Shear. In the FLIO system shear can be excluded since it is not significantly present in our images and any small amounts of shear can be embodied into rotation, scale, and translation. 
+    \item Phase cross-correlation is used to perform this registration
+    \item Registration was performed using images of convalaria mounted in an eye-phantom as well as an USAF target imaged at infinity that are recorded using the sCMOS camera and integrated intensity images from the FLIMera
+    \begin{itemize}
+        \item First, the scale and rotation transformations between the two images is calculated.
+        \item Both images have a Butterworth bandpass filter and a Hanning window applied to amplify the contrast in the edges of the convalaria slide and USAF.
+        \item A 2D FFT and then a log-polar transform are then applied to both images and the translation between these resulting power spectra are found
+        \item A translation in the horizontal direction represents the scaling factor and a translation in the vertical direction represents a rotation between the images
+        \item An interpolation based up scaling factor is applied to these images in order to increase the accuracy of the recovery of the scaling and rotation
+        \item The scaling and rotation is then applied to the to FLIMera image using an affine warp
+        \item the translation between images is then found using phase - cross - correlation on the now rotation and scale corrected integrated FLimage being careful to preserve the image origin as the top right corner of the image.
+        \item The final Affine transform can then constructed from the recovered scale, rotation, and translation matrices which is then applied to the original, uncorrected, integrated FLIMimage. 
+        \item To crudely assess the accuracy of the registration the sCMOS image and the integrated image can be mapped to the Red and Green channels of a RGB image (after converting to an 8bit image and normalising to produce similarly bright intense images)
+        \item Using the USAF target, this process is repeated and using a line profile through identical regions the registration can be quantitatively compared using a cross-correlation of he resulting line profiles.
+        \item Insert results
+        \item static registration can be performed with single pixel precision.
+    \end{itemize}
+\item For a moving eye there is only translation and minute amounts of rotation between frames. 
+\item A convallaria sample was positioned in the the eye phantom once again and was now slowly moved over a 1 minute acquisition time where during the first 30 seconds it was left still to allow adequate signal for static registration.
+\item the translation between successive frames was calculated, was combined with the affine map previously found, and applied to the raw photon streams.
+\end{itemize}
