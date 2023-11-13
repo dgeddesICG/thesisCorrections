@@ -21,13 +21,50 @@
 \end{itemize}
 
 
-
+\FloatBarrier
 \section{Rationale}
-
+Throughout this thesis the technique of TCPSC has been utilised to resolve the temporal decays of excited fluorophores in the retina. However, the ability to count single photons and their arrival time can be exploited for other purposes beyond time-of-flight ranging which boasts a resolution of Xmm \addcite. Namely, the temporal broadening experienced by a back scattered or reflected ultra short pulse of light is explored for use in remote sensing to discriminate materials in a scene~\cite{patterson1989time}. Primarily this technique was potential defence applications where an unknown combatant could be identified through an obscurant like a glass window as well as if they are armed using the unique opto-temporal characteristics of a person and a weapon (steel) where ordinarily, infrared imaging systems are incapable of imaging through standard window glass due its inherent low transmission in the infrared spectrum. \addcite.
+\FloatBarrier
 \section{Theory}
+When impinged on a medium a photon is either reflected off the medium, transmitted further into the medium, or absorbed with a probability of being re-emitted as a fluorescence or phosphorescence photon. Upon repeated scattering events - successive transmission and reflection - the trajectory of light within the medium becomes diffuse meaning that the distance that photons travel within the medium before being re-emitted towards a detector - yielding differing photon arrival times than those initially reflected from the medium. For a ultra-short pulse of light with a pulse width on the order of \SI{100}{\ps} these material dependent scattering properties result in a small but measurable broadening on the order also on the order of \qtyrange{50}{200}{\ps}.
+This opto-temporal broadening has been previously employed by \citeauthor{patterson1989time} for the application of non-invasive deep tissue imaging also using picosecond laser pulses and a single pixel detector for performing the TCPSC~\cite{patterson1989time}. 
+In this thesis, this opto-temporal broadening is investigated as function of material where it is suspected that more densely packed, homogeneous, and reflective materials such as aluminium or steel will show almost no temporal broadening but softer organic materials such as flesh where the mean distance that photons traverse before being re-emitted will be larger - will exhibit different broadening properties. 
+This temporal broadening measured using the FLIMera SPAD array is characterised using a least-squares fitting  of the TCPSC histograms with an Exponentially-Modified Gaussian (Eq.~\ref{eq:expgauss}) which resembles a Gaussian multiplied by the complimentary error function, $\Erfc(z) = 1 - \Erf(z)$ (Eq.~\ref{eq:erf})  In practice the parameters in this model encapsulate the dominant properties of the time dependent distribution of photon arrival times, $t$, such as the width, $\sigma$, the mean arrival time $\mu$, the skew of the distribution, $\alpha$, and the amplitude of the distribution, $A$.
+\begin{equation}\label{eq:expgauss}
+    I(t) = \frac{A}{\sigma\sqrt{2\pi}}\exp\Bigg(\frac{-(t-\mu)^{2}}{2\sigma^{2}}\Bigg)\Erfc\Bigg(-\frac{\alpha(t-\mu)}{\sigma\sqrt{2\pi}}\Bigg)
+\end{equation}
+\begin{equation}\label{eq:erf}
+    \Erf(z) = \frac{2}{\sqrt{\pi}}\int_{0}^{\infty}\exp(-x^{2})dx
+\end{equation}
+From the plots below recorded of  Aluminium this Exponentially Modifed approximates the data well
 
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/TCSPC/ExpGaussExample.pdf}
+    \caption{. Example TCSPC histogram recorded from a \SI{100}{\ps} \SI{700}{\nm}, pulse of light back scattered off a block of Aluminium where red 'x's denote the detected photon counts, and the black line is the line of best yielded when fitting with a Exponentially modified Gaussian (Eq.~\ref{eq:expgauss})}
+    \label{fig:expgauss}
+\end{figure}
+\FloatBarrier
+\section{Imaging System}
+To record images for the purpose of material discrimination an imaging system was constructed, as shown in Fig.~\ref{fig:tcspcimagingsystem}, where a pulsed super continuum white light source (NKT SuperK EX12W) was filtered using an AOTF to bath illuminate a scene that is located $\approx \SI{2}{\metre}$ from the laser source. A \SI{100}{\milli\metre} focal length lens (\SI{1}{\arcsecond} diameter) is positioned to produce a spot size with a diameter between \qtyrange{10}{20}{\centi\metre} to allow for imaging larger objects in a scene at the cost of spatial resolution. The back scattered light is then imaged onto the FLIMera SPAD array using a \SI{58}{\milli\metre} diameter SLR lens with adjustable focal length between \qtyrange{28}{80}{\milli\metre}. By adjusting the focal length of this SLR lens the FOV of the FLIMera's \SI{3.2}{\milli\metre} sensor can by filled by objects ranging from \qtyrange{8}{22}{\centi\metre} in diameter (using Eq.~\ref{eq:objheight}\footnotemark) which for initial experiments involving a glass teapot ($\approx \SI{15}{\centi\metre}$ across, a collage of different materials, and a human hand ($\approx \SI{15}{\centi\metre}$)
+\footnotetext{where $x_{0} = \SI{2}{\metre}, y_{i} = \SI{3.2}{\milli\metre}$ and, $f = \qtylist{28;80}{\milli\metre}$}
+
+\begin{equation}\label{eq:objheight}
+    x_{0} = \frac{y_{o}f}{y_{i}}
+\end{equation}
+
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/TCSPC/TCSPCimagingSetup.pdf}
+    \caption{Diagram of imaging system used for material discrimination experiments using TCSPC. A pulsed white light super continuum source (NKT SuperK), filtered with an AOTF, is used to to bath illuminate the scene $\approx \SI{2}{\metre}$ from the source. A \SI{100}{\milli\metre} focal length lens (\SI{1}{\arcsecond} diameter) focus the fibre output of the laser source and by adjusting the position of the lens, $d$ with respect to the source, the spot size produced can be adjusted. An SLR lens with adjustable focal length \qtyrange{28}{80}{\milli\metre} and diameter \SI{58}{\milli\metre} images the scene onto the FLIMera.} 
+    \label{fig:tcspcimagingsystem}
+\end{figure}
+
+\FloatBarrier
 \section{Material Discrimination}
 
+\FloatBarrier
 \section{Depth Imaging using SPAD arrays}
 
+\FloatBarrier
 \section{Imaging through Obscurations}
