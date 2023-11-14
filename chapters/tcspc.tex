@@ -29,19 +29,25 @@ Throughout this thesis the technique of TCPSC has been utilised to resolve the t
 When impinged on a medium a photon is either reflected off the medium, transmitted further into the medium, or absorbed with a probability of being re-emitted as a fluorescence or phosphorescence photon. Upon repeated scattering events - successive transmission and reflection - the trajectory of light within the medium becomes diffuse meaning that the distance that photons travel within the medium before being re-emitted towards a detector - yielding differing photon arrival times than those initially reflected from the medium. For a ultra-short pulse of light with a pulse width on the order of \SI{100}{\ps} these material dependent scattering properties result in a small but measurable broadening on the order also on the order of \qtyrange{50}{200}{\ps}.
 This opto-temporal broadening has been previously employed by \citeauthor{patterson1989time} for the application of non-invasive deep tissue imaging also using picosecond laser pulses and a single pixel detector for performing the TCPSC~\cite{patterson1989time}. 
 In this thesis, this opto-temporal broadening is investigated as function of material where it is suspected that more densely packed, homogeneous, and reflective materials such as aluminium or steel will show almost no temporal broadening but softer organic materials such as flesh where the mean distance that photons traverse before being re-emitted will be larger - will exhibit different broadening properties. 
-This temporal broadening measured using the FLIMera SPAD array is characterised using a least-squares fitting  of the TCPSC histograms with an Exponentially-Modified Gaussian (Eq.~\ref{eq:expgauss}) which resembles a Gaussian multiplied by the complimentary error function, $\Erfc(z) = 1 - \Erf(z)$ (Eq.~\ref{eq:erf})  In practice the parameters in this model encapsulate the dominant properties of the time dependent distribution of photon arrival times, $t$, such as the width, $\sigma$, the mean arrival time $\mu$, the skew of the distribution, $\alpha$, and the amplitude of the distribution, $A$.
+This temporal broadening measured using the FLIMera SPAD array is characterised using a least-squares fitting  of the TCPSC histograms with an Exponentially-Modified Gaussian (Eq.~\ref{eq:expgauss}) which resembles a Gaussian multiplied by the complimentary error function, $\Erfc(z) = 1 - \Erf(z)$ (Eq.~\ref{eq:erf})  In practice the parameters in this model encapsulate the dominant properties of the time dependent distribution of photon arrival times, $t$, such as the width, $\sigma$, the mean arrival time $\mu$, the skew of the distribution, $\alpha$, and the amplitude of the distribution, $A$. 
+
+
 \begin{equation}\label{eq:expgauss}
-    I(t) = \frac{A}{\sigma\sqrt{2\pi}}\exp\Bigg(\frac{-(t-\mu)^{2}}{2\sigma^{2}}\Bigg)\Erfc\Bigg(-\frac{\alpha(t-\mu)}{\sigma\sqrt{2\pi}}\Bigg)
+    I(t, A, \mu, \sigma, \alpha) = \frac{A}{\sigma\sqrt{2\pi}}\exp\Bigg(\frac{-(t-\mu)^{2}}{2\sigma^{2}}\Bigg)\Erfc\Bigg(-\frac{\alpha(t-\mu)}{\sigma\sqrt{2\pi}}\Bigg)
 \end{equation}
 \begin{equation}\label{eq:erf}
     \Erf(z) = \frac{2}{\sqrt{\pi}}\int_{0}^{\infty}\exp(-x^{2})dx
 \end{equation}
-From the plots below recorded of  Aluminium this Exponentially Modifed approximates the data well
 
+An example shown in Fig.~\ref{fig:expgauss} consisting of TCSPC data recorded of back scattered light incident on an Aluminium block illuminated with a \SI{100}{ps} pulse width and wavelength of \SI{700}{\nano\metre} is fitted using a least-squares fitting routine and the Exponential Gaussian model gives fitted parameters of $A = \num[round-mode = figures, round-precision = 3]{10.43737301}$, $\mu = \num[round-mode = figures, round-precision = 3]{22.19703607}$, $\sigma = \num[round-mode = figures, round-precision = 3]{0.16858335}$, and $\alpha = \num[round-mode = figures, round-precision = 3]{0.16858335}$. To assess the appropriateness of this fitting model the reduced $\chi^{2}$ (Eq.~\ref{eq:redchi2}) was calculated using the photon counts, $y$, line of best fit $f(t, \overrightarrow\phi)$, and the degrees of freedom ,$N-P = 55 \text{ samples} - 4 \text{ fitted parameters} = 51$. For the example fit in Fig.~\ref{fig:expgauss} $\chi^{2}_{red} = \num[round-mode = figures, round-precision = 3]{6.682903784142764}$. indicates a the Exponential Gaussian model fits the data well since $\chi^{2}_{red} \not\gg 1$.
+
+\begin{equation}\label{eq:redchi2}
+    \chi^{2}_{red} = \frac{\sum_{n = 1}^{N}(y_{n} - f_{n}(t, \overrightarrow\phi))^{2}}{N-P}
+\end{equation}
 \begin{figure}
     \centering
     \includegraphics[width = 0.8\textwidth]{figures/TCSPC/ExpGaussExample.pdf}
-    \caption{. Example TCSPC histogram recorded from a \SI{100}{\ps} \SI{700}{\nm}, pulse of light back scattered off a block of Aluminium where red 'x's denote the detected photon counts, and the black line is the line of best yielded when fitting with a Exponentially modified Gaussian (Eq.~\ref{eq:expgauss})}
+    \caption{. Example TCSPC histogram recorded from a  \SI{700}{\nm} \SI{100}{\ps}, pulse of light back scattered off a block of Aluminium where red 'x's denote the detected photon counts, and the black line is the line of best yielded when fitting with a Exponentially modified Gaussian (Eq.~\ref{eq:expgauss})}
     \label{fig:expgauss}
 \end{figure}
 \FloatBarrier
@@ -56,9 +62,11 @@ To record images for the purpose of material discrimination an imaging system wa
 \begin{figure}
     \centering
     \includegraphics[width = 0.8\textwidth]{figures/TCSPC/TCSPCimagingSetup.pdf}
-    \caption{Diagram of imaging system used for material discrimination experiments using TCSPC. A pulsed white light super continuum source (NKT SuperK), filtered with an AOTF, is used to to bath illuminate the scene $\approx \SI{2}{\metre}$ from the source. A \SI{100}{\milli\metre} focal length lens (\SI{1}{\arcsecond} diameter) focus the fibre output of the laser source and by adjusting the position of the lens, $d$ with respect to the source, the spot size produced can be adjusted. An SLR lens with adjustable focal length \qtyrange{28}{80}{\milli\metre} and diameter \SI{58}{\milli\metre} images the scene onto the FLIMera.} 
+    \caption{Diagram of imaging system used for material discrimination experiments using TCSPC. A pulsed white light super continuum source (NKT SuperK), filtered with an AOTF, is used to to flood illuminate the scene $\approx \SI{2}{\metre}$ from the source. A \SI{100}{\milli\metre} focal length lens (\SI{1}{\arcsecond} diameter) focus the fibre output of the laser source and by adjusting the position of the lens, $d$ with respect to the source, the spot size produced can be adjusted. An SLR lens with adjustable focal length \qtyrange{28}{80}{\milli\metre} and diameter \SI{58}{\milli\metre} images the scene onto the FLIMera. Image of Lord Kelvin from Royal Society of Edinburgh~\cite{LordKelvin}.} 
     \label{fig:tcspcimagingsystem}
 \end{figure}
+
+
 
 \FloatBarrier
 \section{Material Discrimination}

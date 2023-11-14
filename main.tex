@@ -28,7 +28,7 @@
 \DeclareSIUnit{\pixel}{\text{pixel}}
 \DeclareMathOperator{\Erfc}{Erfc}
 \DeclareMathOperator{\Erf}{Erf}
-
+\usepackage{centernot,cancel}
 
 %-------------------------------------------------------------------------------------
 % Make the outline chapter have flexible numbers of subheading
@@ -52,13 +52,15 @@
 %-------------------------------------------------------------------------------------
 %Set up bibliography, glossary etc.
 %-------------------------------------------------------------------------------------
+\usepackage{IEEEtrantools}
 \usepackage[numbers]{natbib}
 \bibliographystyle{IEEEtranN}
+
 \usepackage[acronym,toc]{glossaries}
 \usepackage{bibunits}
 \usepackage{acronym}
 \usepackage{cleveref}
-
+\usepackage{notoccite}
 %-------------------------------------------------------------------------------------
 % Wee function to draw a box around a region in an image, and label it
 %-------------------------------------------------------------------------------------
@@ -97,6 +99,8 @@
 %End preamble
 %-------------------------------------------------------------------------------------
 \begin{document}
+\bstctlcite{IEEEexample:BSTcontrol}
+%\bstctlcite{bibliography:BSTcontrol}
 \pagestyle{fancy}
 \fancyhead{}
 \fancyhead[R]{\thepage}
