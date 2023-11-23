@@ -34,15 +34,40 @@ In the S-FLIO imaging system the affects of tremors can be ignored since their a
 
 
 \section{Phase-Cross-Correlation Image Registration}
-To register images between the sCMOS and FLIMera detectors first the mapping between the two detectors must be found such that a pixel on the FLIMera can be mapped to its corresponding pixel on the sCMOS camera. The affine transform describes this mapping in terms of magnification, $\mathbf{M}$, rotation, $R$, and translation $T$ and can be used since the transformation between the detectors and motion on the retina is rigid i.e parallel lines are preserved between the two cameras.
+To register images between the sCMOS and FLIMera detectors first the mapping, between the two detectors must be found such that a pixel on the FLIMera can be mapped to its corresponding pixel on the sCMOS camera. 
 
+
+
+This affine transform describes this mapping in terms of magnification rotation, and translation under the precondition the detectors and motion of the retina is rigid i.e parallel lines are preserved between the two cameras.
 \begin{equation}\label{eq:mapping}
     I_{FLIMera}(x,y) = \mathbf{A}I_{sCMOS}(x',y')
 \end{equation}
 
+
+
 \begin{equation}\label{eq:affine}
     \mathbf{A} = \mathbf{M}\mathbf{R}\mathbf{T}
 \end{equation}
+\begin{align}\label{eq:TransMatrices}
+    M &= \begin{bmatrix}
+        m_{x} & 0 & 0 \\
+        0 & m_{y} & 0 \\
+        0 & 0 & 1\\
+    \end{bmatrix}
+    &
+    R &= \begin{bmatrix}
+        \cos\theta & -\sin\theta & 0\\
+        \sin\theta & \sin\theta & 0\\
+        0 & 0 & 1\\
+    \end{bmatrix}
+    &
+    T &= \begin{bmatrix}
+        1 & 0 & \Delta x\\
+        0 & 1 & \Delta y\\
+        0 & 0 & 1
+    \end{bmatrix}
+\end{align}
+
 \begin{itemize}
     \item When imaging animals \textit{in-vivo} there will always some movement of the subjects eye in the form of quick, jerk-like, movements - saccade which see the eye move across a range of 25degrees in a period on the order of 200ms; and slow drifts from the ideal fixation point.
     \item Over the minute long acquisition period required for \textit{in-vivo} imaging this results in a blurred image devoid of any discernible features.
