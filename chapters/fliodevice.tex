@@ -26,25 +26,17 @@
 \end{itemize}
 
 
-\section{Motion Registration}
+\subsection{Motion Registration}
 The long acquisition times of over 1 minute required to record fluorescence decays, using the FLIMera, with a SNR high enough to allow discrimination of fluorophores introduces the challenge of compensating for the natural movements of the eye that occur when fixating for long periods of time. These eye movements result in a blurred with severely reduced contrast where features such as blood vessels will not be discernible. 
 \\
 These eye movements are referred to as fixational eye movements in literature and are categorised into three different types of movement: tremors which are high frequency movements (\SI{90}{\hertz}) with amplitude on order $<1$~arc-minute; drift which is a continuous random movement that occurs between tremors and saccades but with lower frequency ($<\SI{1}{\hertz}$) but longer duration ($>\SI{0.5}{\second}$) and larger in amplitude ($\approx 0.5$~degrees); and saccades which appear as fast jerks lasting \SI{25}{\milli\second} and occurring every \SI{2}{\second} of fixation time with varying amplitude~\cite{martinez2004role}.
 In the S-FLIO imaging system the affects of tremors can be ignored since their amplitude is much smaller than the angular resolution ($\approx 10$~arc-minutes) of our system tremors exhibit small enough amplitudes that they would be much smaller than the spatial resolution of the system. The resultant saccades and drift movements can be compensated by determining any translation between successive brightfield images recorded using the sCMOS camera at a high framerate (\SI{10}{\fps}) and short exposure time (\SI{30}{\milli\second}) and then applying the opposite translation to reconstructed frames from the FLIMera's raw mode which allows the readout of histograms at \SI{12}{\kilo\hertz}.
 
-
-\section{Phase-Cross-Correlation Image Registration}
-To register images between the sCMOS and FLIMera detectors first the mapping, between the two detectors must be found such that a pixel on the FLIMera can be mapped to its corresponding pixel on the sCMOS camera. 
-
-
-
-This affine transform describes this mapping in terms of magnification rotation, and translation under the precondition the detectors and motion of the retina is rigid i.e parallel lines are preserved between the two cameras.
+\subsection{Static Image Registration}
+To register images between the sCMOS and FLIMera detectors first the mapping, between the two detectors must be found such that a pixel on the FLIMera can be mapped to its corresponding pixel on the sCMOS camera. This mapping can be modeled as an affine transform (\cref{eq:mapping,eq:affine}) - since movement of the retina can be considered as rigid - which is compsed of four other principle transformation: Magnification, $\mathbf{M}(M_{x},m_{y})$; Rotation, $\mathbf{R}(\theta)$; Translation, $\mathbf{T}(\Delta x, \Delta y)$; and Shear, $\mathbf{S}(h_{x}, h_{y})$ (See Eq.~\ref{eq:TransMatrices}). For the FLIO system Shear was not significantly present in images and is omitted from the image registration process.
 \begin{equation}\label{eq:mapping}
     I_{FLIMera}(x,y) = \mathbf{A}I_{sCMOS}(x',y')
 \end{equation}
-
-
-
 \begin{equation}\label{eq:affine}
     \mathbf{A} = \mathbf{M}\mathbf{R}\mathbf{T}
 \end{equation}
@@ -67,6 +59,21 @@ This affine transform describes this mapping in terms of magnification rotation,
         0 & 0 & 1
     \end{bmatrix}
 \end{align}
+
+\subsubsection{Phase Cross-Correlation Image Registration}
+While feature based registration algorithms are currently employed for the purpose of registering retinal images these techniques are predominately used on collections of images with similar resolution, field of view, and magnification~\cite{chanwimaluang2006hybrid,faisan2011scanning}.  For registering low-resolution images - polluted by salt-and-pepper noise as well as numerous dead and hot pixels - to high-resolution brightfield images the phase cross-correlation based Fourier-Merlin algorithm is utilised \cite{padfield2011masked}.
+\\
+For a pair of images that are identical except for a offest i.e $I_{1}(x,y) = I_{2}(x+\Delta x, y + \Delta y)$ this translation can be found by computed from the location of the peak in the cross-correlation between two images.
+Similarly to find the magnification and rotation between a pair of images the previous approach albeit the images are FFT'd and then a log-polar transform is applied (\cref{eq:logpolar}). Under these transforms the effects of magnification and rotation now manifest as a translation in the $\rho$ and $\xi$ axes of the image.
+\begin{gather}
+    I(x,y) \rightarrow I(\rho,\xi)\\
+    \begin{aligned}\label{eq:logpolar}
+    \rho &= \arctan{\bigg(\frac{y}{x}\bigg)} &\xi &= \ln{(\sqrt{x^{2} + y^{2}})}
+    \end{aligned}  
+\end{gather}
+
+
+
 
 \begin{itemize}
     \item When imaging animals \textit{in-vivo} there will always some movement of the subjects eye in the form of quick, jerk-like, movements - saccade which see the eye move across a range of 25degrees in a period on the order of 200ms; and slow drifts from the ideal fixation point.
