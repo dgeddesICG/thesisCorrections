@@ -34,7 +34,7 @@ The S-FLIO device is based upon an off-the-shelf fundus camera which is then mod
 \subsection{Motion Registration}
 The long acquisition times of over 1 minute required to record fluorescence decays, using the FLIMera, with a SNR high enough to allow discrimination of fluorophores introduces the challenge of compensating for the natural movements of the eye that occur when fixating for long periods of time. These eye movements result in a blurred with severely reduced contrast where features such as blood vessels will not be discernible. 
 \\
-These eye movements are referred to as fixational eye movements in literature and are categorised into three different types of movement: tremors which are high frequency movements (\SI{90}{\hertz}) with amplitude on order $<1$~arc-minute; drift which is a continuous random movement that occurs between tremors and saccades but with lower frequency ($<\SI{1}{\hertz}$) but longer duration ($>\SI{0.5}{\second}$) and larger in amplitude ($\approx 0.5$~degrees); and saccades which appear as fast jerks lasting \SI{25}{\milli\second} and occurring every \SI{2}{\second} of fixation time with varying amplitude~\cite{martinez2004role}.
+These eye movements are categorised into three different types of movement: tremors which are high frequency movements (\SI{90}{\hertz}) with amplitude on order $<1$~arc-minute; drift which is a continuous random movement that occurs between tremors and saccades but with lower frequency ($<\SI{1}{\hertz}$) but longer duration ($>\SI{0.5}{\second}$) and larger in amplitude ($\approx 0.5$~degrees); and saccades which appear as fast jerks lasting \SI{25}{\milli\second} and occurring every \SI{2}{\second} of fixation time with varying amplitude~\cite{martinez2004role}.
 In the S-FLIO imaging system the affects of tremors are be ignored since their amplitude is much smaller than the angular resolution ($\approx 10$~arc-minutes) of our system tremors exhibit small enough amplitudes that they would be much smaller than the spatial resolution of the system. The resultant saccades and drift movements can be compensated by determining any translation between successive brightfield images recorded using the sCMOS camera at a high framerate (\SI{10}{\fps}) and short exposure time (\SI{30}{\milli\second}) and then applying the opposite translation to  histograms from the FLIMera that can be read out at up to \SI{12}{\kilo\hertz}.
 Mathematically this is modelled using the a Affine Transform which can be used to map the co-ordinates, in image space, for each pixel on the CMOS camera and the FLIMera.
 \begin{align}\label{eq:mapping}
@@ -82,8 +82,8 @@ Where the affine transform is composed of four separable transforms : Translatio
 \end{align}
 Using this affine transform the registration process can be further into separated into two stages: The affine transform, $\hat{\mathbf{A}}$ which defines the mapping between the two detectors for a static scene ; and a time dependent affine transform relating to translational motion in the retina, $\mathbf{A}(\Delta x(t), \Delta y(t))$.
 
-\subsection{Static Image Registration using Log-Polar Phase Cross-Correlation}
-\subsubsection{Theory}
+\subsection{Static Image Registration}
+\subsubsection{Fourier-Merlin Method}
 While feature based registration algorithms are currently employed for the purpose of registering retinal images these techniques are predominately used on collections of images with similar resolution, field of view, and magnification~\cite{chanwimaluang2006hybrid,faisan2011scanning}.  
 Since the FLIMera images exhibit high noise, as well as dead and hot pixels, and are of low resolution compared to the sCMOS brightfield images the Fourier Merlin algorithm has been utilised \cite{padfield2011masked} to register these image. The Fourier-Merlin uses the phase cross-correlation method of image registration in two stages where first the magnification and scaling between the images is recovered and corrected for and then finally any translational shifts is corrected.
 Briefly, the phase cross-correlation registration method identifies the translation between the two images, $k(x,y)$, and $l(x','y) = k(x+\Delta x, y + \Delta y)$ by finding the location of the peak of phase correlation, $\Omega$ between the two images. This is typically implemented using the FFT:
@@ -104,12 +104,47 @@ The parameters $\Delta m$ and $\Delta\theta$ can then be recovered using Equatio
 \end{align}
 \subsubsection{S-FLIO Device}
 The static calibration between the two detectors was then found using the above process and fluorescence images recorded of a United States Air Force (USAF) test target using the FLIMera and sCMOS camera in tandem. Images were recorded using the standard excitation wavelengths (\qtyrange{460}{467}{\nm}) and a \SI{500}{\nm} long pass to filter the excitation light with an integration time of \SI{10}{\second} to ensure a high SNR. For the images recorded with the FLIMera, the measured histograms were integrated over time to yield a intensity image and the  pixel aspect ratio is corrected for by twinning adjacent columns of pixels resulting in a image with resolution \qtyproduct[product-units=single]{192x252}{\pixel}.
-To find the affine transform between the two detectors $\hat{\mathbf{A}}$ the images were first filtered using a difference-of-Gaussian bandpass filter and a Hanning window to increase the contrast of the edges in the image
+Before the Fourier-Merlin algorithm was applied, the images were first filtered using a difference-of-Gaussian bandpass filter and a Hanning window to increase the contrast of edge features which gives a more prominent peak in the cross-correlation process. The scaling and rotation between the images was found using the FFT and log-polar transform process (shown in Fig. \ref{fig:USAFlp}) described above and returned values of $\Delta M = \num[round-mode = figures, round-precision = 3]{4.202255063883409}$ and $\Delta\theta = \SI[round-mode = figures, round-precision = 3]{-0.098775}{\degree}$
+
+
+% \begin{equation}
+%     \hat{\mathbf{A}} = \begin{bmatrix}
+%        4.20224882  & -
+%     \end{bmatrix}
+% \end{equation}
+
+%[[ 4.20224882e+00 -7.24446969e-03 -6.85635000e+03]
+% [ 7.24446969e-03  4.20224882e+00 -3.66397090e+03]
+% [ 0.00000000e+00  0.00000000e+00  1.00000000e+00]]
+
+
 
 \begin{figure}
     \centering
-    \includegraphics[width = 0.8\textwidth]{figures/sflio-device/AirForceTarget-RegisteredImage.pdf}
-    \caption{Cropped region of images recorded of a USAF test target using the S-FLIO device }
+    \begin{annotatedFigure}
+    {\includegraphics[width = 0.95\textwidth]{figures/sflio-device/LogPolarUSAF.pdf}}
+    \annotatedFigureText{0.16,0.86}{white}{0.3}{a)}
+    \annotatedFigureText{0.39,0.86}{white}{0.3}{b)}
+    \annotatedFigureText{0.63,0.86}{white}{0.3}{c)}
+    \annotatedFigureText{0.16,0.38}{white}{0.3}{d)}
+    \annotatedFigureText{0.39,0.38}{white}{0.3}{e)}
+    \annotatedFigureText{0.63,0.38}{white}{0.3}{f)}
+    
+    \end{annotatedFigure}
+    \caption{Caption}
+    \label{fig:USAFlp}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}
+        {\includegraphics[width = 0.85\textwidth]{figures/sflio-device/AirForceTarget-RegisteredImage.pdf}}
+        \annotatedFigureText{0.04,0.94}{black}{0.4}{a)}
+        \annotatedFigureText{0.04,0.50}{black}{0.4}{c)}
+        \annotatedFigureText{0.52,0.94}{black}{0.4}{b)}
+    \end{annotatedFigure}
+    \caption{Results of static image registration the sCMOS and FLIMera on the S-FLIO device using a USAF test target and the Fourier-Merlin algorithm for recovering scale, rotation, and translation transforms. a) Shows the original, high resolution, image recorded with the sCMOS camera; b) Shows the FLIMera image after being scaled, rotated, and translated using a affine transform and nearest neighbour interpolation. The accuracy of the registration process is assessed using the cross-correlation peak of two line profiles (cyan and magenta) through identical regions of a) and b) plotted in c) and yields an accuracy of 1 pixel}
     \label{fig:USAFregistered}
 \end{figure}
 
