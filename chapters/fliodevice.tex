@@ -171,13 +171,25 @@ to allow the the FLIMera to be synchronised to the sCMOS detector in time. After
 
 \begin{figure}
     \centering
-    \begin{annotatedFigure}
-    {\includegraphics[width = \textwidth]{figures/sflio-device/sCMOSRegistration.pdf}}
-    \annotatedFigureText{0.02,0.76}{white}{0.4}{a)}
-    \annotatedFigureText{0.265,0.76}{white}{0.4}{b)}
-    \annotatedFigureText{0.515,0.76}{white}{0.4}{c)}
-    \annotatedFigureText{0.765,0.76}{white}{0.4}{d)}
+    \begin{annotatedFigure}{\includegraphics[width = \linewidth, trim = {0.4cm, 1.1cm, 0.1cm, 0.3cm}, clip]{figures/sflio-device/sCMOSRegistration.pdf}}
+    \annotatedFigureText{0.01,0.76}{white}{0.4}{a)}
+    \annotatedFigureText{0.26,0.76}{white}{0.4}{b)}
+    \annotatedFigureText{0.51,0.76}{white}{0.4}{c)}
+    \annotatedFigureText{0.76,0.76}{white}{0.4}{d)}
     \end{annotatedFigure}
-    \caption{Caption}
+    \caption{Fluorescence intensity (a), and brightfield images recorded of \textit{Convallaria} mounted in a eye phantom (b),c), and d)). In b) the sample is held still for an initial \SI{30}{\second} before being translated in the X and Y axes throughout the remainder of a total \SI{2}{\minute} acquisition period to mimic the typical movements the human eye undergoes while fixating on a target. In c) the image is degraded by the movement over the entire acquisition period and in d) this motion is corrected for using phase-cross correlation to detect movement and an affine warp to correct it.}
     \label{fig:sCMOSreg}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = \linewidth, trim = {0.5cm, 1cm, 0.2cm, 0},clip]{figures/sflio-device/FLIMeraRegistration.pdf}}
+    \annotatedFigureText{0.015,0.77}{white}{0.4}{a)}
+    \annotatedFigureText{0.345,0.77}{white}{0.4}{b)}
+    \annotatedFigureText{0.675,0.77}{white}{0.4}{c)}
+
+    \end{annotatedFigure}
+    \caption{Demonstration of motion registration of time resolved fluorescence decays recorded with the FLIMera of a \textit{Convallaria} slide mounted in an eye phantom under going motion throughout a \SI{2}{\minute} acquisition period. Images are formed by integrating the histogram over time to mimic a fluorescence intensity image where: a) represents the entire \SI{2}{minute} acquisition period; b) is the initial \SI{30}{\second} where the sample is held still; and c) is the same \SI{2}{minute} period but with the motion corrected for using the movement detected in brightfield images (see Fig.`\ref{fig:sCMOSreg}).}
+    \label{fig:FLIMerareg}
 \end{figure}
