@@ -29,6 +29,31 @@ The S-FLIO device is based upon an off-the-shelf fundus camera which is then mod
     \item this was then compared to two much simpler imaging systems - and iPhone 13, and the thorcam with an SLR lens attached set to the same scene.
     \item CONCLUSION: spatial resolution is X and this is sufficient for co-registering images with the FLIMera. There are multiple sources of aberration in the system that can be harming our spatial res that could be eliminated given the a significant time investment but since a good signal to noise ratio is favoured over diffraction limited (or near it) this is sufficient.
 \end{itemize}
+\subsection{Spatial Resolution of S-FLIO device}
+While the purpose of this thesis is not to construct a diffraction limited retinal imaging system but to record fluorescence lifetime images and quantitatively measure the distribution of fluorophores across the retina - a spatial resolution, with respect to images recorded on the retina with the FLIMera, sufficient to resolve features, and markers, common with retinal disease is key. For example, as has been discussed in Sec.~\ref{intro:AMD} the average diameter of drusen, a common marker of disease progression in AMD, is on the order of YY - to resolve drusen with the FLIMera the spatial resolution of the S-FLIO system must be lower than this value. Additionally, the spatial resolution of both detectors will influence the accuracy required when reconstructing images from fluorescence histograms of a retina undergoing motion.
+\subsubsection{Spatial Resolution vs. Pixel Size}
+In a sampled imaging system the spatial resolution is not simply dictated by the size of a single pixel on the detector but instead how accurately the imaging system and detector can describe a scene e.g the retina. Due the optical characteristics of the eye and the aberrations inherent with the fundus camera and the additional optics required for fluorescence lifetime imaging as well as the sampled nature of the system this will be imperfect. Mathematically the response of the imaging system is denoted as Point-Spread Function (PSF) which describes how a point source in a scene is blurred in a recorded image. 
+\begin{equation}\label{eq:psf}
+    I_{IMAGE}(x,y) = PSF(x,y)\circledast I_{SCENE}(x',y')
+\end{equation}
+Additionally in the Fourier domain the Optical Transfer Function (OTF) or the approximately equivalent Modulation Transfer Function (MTF) can be used to described how well an imaging system resolves increasing spatial frequencies~\cite{vollmerhausen2000analysis}. Here the OTF and MTF are connected to the PSF by a Fourier transform.
+\begin{align}\label{eq:mtf}
+    J_{IMAGE}(\nu,\mu) &\approxeq MTF(\nu,\mu)\circledast K_{SCENE}(\nu',\mu')\\
+    MTF(\nu,\mu) &= \mathcal{F}\{PSF(x,y)\}(\nu,\mu)
+\end{align}
+Conventionally, the spatial resolution of an imaging system is defined by the full-width at half-maximum of the PSF or the spatial frequency where the MTF is half its maximum value. An example of a image blurred by a PSF is shown in \ref{fig:PSFsimulation} alongside its respective MTF.
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.4\textwidth]{figures/sflio-device/PSFMTFDiagram.jpeg}
+    \caption{TEMP. Here a sample image, a), has been blurred using a the simulated PSF shown in c) to produce the image in b). The resulting modulation transfer function is shown in d).}
+    \label{fig:PSFsimulation}
+\end{figure}
+
+\subsubsection{Knife Edge Test}
+The Knife-Edge test is a simple yet robust method of measuring the spatial resolution of an imaging system by determining the Edge-Spread Function from an image recorded of a sharp edge positioned in the object plane and rotated off-vertical or off-horizontal by a few degrees.
+
+
+
 
 
 \subsection{Motion Registration}
@@ -159,15 +184,34 @@ Where $N$ represents a reference frame and $\epsilon$ is a frame recorder later 
 \begin{align}
     I_{FLIMera}^{N+\epsilon} &= \hat{\mathbf{A}}^{-1}I_{sCMOS}^{N+\epsilon}(x,y)= \hat{\mathbf{A}}^{-1}\mathbf{A}(\Delta x_{\epsilon} ,\Delta y_{\epsilon})I_{sCMOS}^{N}(x,y) \nonumber\\
     I_{FLIMera}^{N+\epsilon} &= \hat{\mathbf{A}}^{-1}\mathbf{A}(\Delta x_{\epsilon} ,\Delta y_{\epsilon})\hat{\mathbf{A}}I_{FLIMera}^{N}(x',y')\nonumber\\
-    \therefore \mathbf{A}(\Delta x'_{\epsilon} ,\Delta y'_{\epsilon}) &= \hat{\mathbf{A}}^{-1}\mathbf{A}(\Delta x_{\epsilon} ,\Delta y_{\epsilon})\hat{\mathbf{A}}
+    \therefore \mathbf{A}(\Delta x'_{\epsilon} ,\Delta y'_{\epsilon}) &= \hat{\mathbf{A}}^{-1}\mathbf{A}(\Delta x_{\epsilon} ,\Delta y_{\epsilon})\hat{\mathbf{A}}\label{eq:FLIMerashifts}
 \end{align}  
 This approach can be further generalised for rotation, translation, or shear such that any affine transform, $\mathbf{A}(\Delta x, \Delta y, \theta, \Delta m, \Delta h)$, between two images recorded in the sCMOS imaging arm of the S-FLIO device can be converted into an equivalent transform of a FLIMera image:
 \begin{equation}
     \mathbf{A}(\Delta x', \Delta y', \theta', \Delta m', \Delta h') = \hat{\mathbf{A}}^{-1}\mathbf{A}((\Delta x, \Delta y, \theta, \Delta m, \Delta h))\hat{\mathbf{A}}
 \end{equation}
-\subsubsection{\textit{Ex-Vitro} Demonstration using \textit{Convallaria}}
-Before attempting \textit{in-vivo} imaging the accuracy of this reconstruction technique was assessed using a microscope slide containing a sample of \textit{Convallaria}, or more commonly known as Lilly of the Valley, was inserted into the retinal plane of a phantom eye and using a X-Y translation stage could be moved parallel to the retina plane - allowing saccade and drift eye movements to be emulated. This experiment was set up such that the laser shutter was initially closed for a short period of time at the start of the $\approx \SI{2}{\minute}$ acquisition period
-to allow the the FLIMera to be synchronised to the sCMOS detector in time. After the shutter was opened, and the slide was illuminated the sample remained still for $\approx \SI{30}{\second}$ before being translated in the X, Y, and then X and Y directions with movements mimicking saccade and drift for periods of $\approx \SI{30}{\second}$ each.
+\subsubsection{\textit{Ex-Vitro} Demonstration using \textit{Convallaria majalis}}
+The motion registration algorithm was demonstrated on a sample of \textit{Convallaria majalis} - referred to simply as Convallaria in the rest of the text - mounted in an eye phantom which could be moved within the X-Y plane Fig.~\ref{fig:ConvallariaEyePhantom} during the acquisition period to mimic the image degradation seen in images of the human retina. Over a \SI{2}{\minute} integration period the sample, excited between \qtyrange{460}{467}{\nm}, is held still, translated in X, Y, and then X and Y for periods of \SI{30}{\second} each. During this period the emitted fluorescence, filtered using a \SI{500}{\nm} long-pass filter, brightfield or fluorescence intensity images are continuously recorded - with integration time of \SI{30}{\ms} and frame rate of \SI{10}{\hertz} - in tandem with FLIM data using the FLIMera's RAW mode to readout histograms at a rate of \SI{24}{\kilo\hertz}. 
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.5\linewidth, trim = {2.25cm, 1cm, 1.5cm, 0.5cm}, clip]{figures/sflio-device/PhantomEyeFigConvallaria.pdf}
+    \caption{The natural movements of a fixated human eye was simulated using an eye phantom with a sample of Convallaria positioned at the retinal plane and mounted to a X-Y translation stage. Saccades and drift motions are then mimic by moving the Convallaria sample with an amplitude and velocity commensurate with published values~\cite{martinez2004role}. The phantom eye serves as an analogue to the human eye in that it uses a $f=\SI{24}{\mm}, d = \SI{8}{\mm}$ lens positioned \SI{24}{\mm} from its retinal plane. The cavity in the phantom eye is filled with water to emulate the refractive properties of the vitreous humour.}
+    \label{fig:ConvallariaEyePhantom}
+\end{figure}
+By initially having the laser shutter closed - sample is not illuminated - at the start of the acquisition period before illuminating the sample the FLIMera and sCMOS frames can then be synchronised by detecting the Heaviside like change in the photon flux, shown in Fig.~\ref{fig:flimerascmossync}, by finding the peak of the gradient of this photon flux. For the FLIMera, the low detected photon flux and high frame rate resulted in a noise dominated signal (Fig.~\ref{fig:flimerascmossync}a) where the frame at which the laser shutter was opened could not be readily discerned. A Butterworth filter is then used to remove the high frequency components of the signal revealing the step-like change from which the gradient could be calculated. When applying the Butterworth filter there is ordinarily some linear phase introduced into the filtered signal which would give a false location in the synchronisation process however, by using a forward and backward configuration, implemented using \textit{scipy}'s \texttt{filtfilt} function, the resulting filter does not introduce any unwanted phase to the filtered signal.
+
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width =\textwidth]{figures/sflio-device/flimerasync.pdf}}
+    \annotatedFigureText{0.015,0.93}{black}{0.4}{a)}
+    \annotatedFigureText{0.015,0.46}{black}{0.4}{b)}
+    \end{annotatedFigure}
+    \caption{The step-like change in the photon flux per frame, $\Phi(n)$, for the the FLIMera (a) and sCMOS detector (b), shown as the black line, is detected by finding the peak of the gradient, $d\Phi(n)/dn$, shown as the red line. For the FLIMera a Butterworth filter was applied to the raw signal, shown as the grey line in (a), to enable the frame when the laser shutter was opened to be resolved.}
+    \label{fig:flimerascmossync}
+\end{figure}
+
+Once this synchronisation process is complete the bright field or fluorescence intensity images recorded using the sCMOS detector are registered, using the above phase cross-correlation method, to the first filly illuminated image in the sequence (Fig.~\ref{fig:sCMOSreg}). The translational shifts in the brightfield or fluorescence intensity images are then converted to equivalent shifts on the FLIMera using Eq.~\ref{eq:FLIMerashifts} and applied to FLIMera histograms that cover the same time period as the sCMOS acquisition, $T = 1/\SI{10}{\hertz} = \SI{100}{\ms}$. When applying the shifts to each histogram a pixel mask is applied to eliminate the effect of "hot" pixels and faulty pixels on the fluorescence decay.
+This yields a single histogram spanning the entire \SI{2}{\minute} acquisition period that as shown in integrated images in Fig~\ref{fig:FLIMerareg} is now free of motion artefacts and the large primary ring as well as the first inner ring of vascular bundles can be resolved clearly and is identical to an image when the sample is held stationary albeit the edges of the vascular bundles appear softer indicating a slightly lower resolution in the recovered images.
 
 \begin{figure}
     \centering
@@ -180,16 +224,13 @@ to allow the the FLIMera to be synchronised to the sCMOS detector in time. After
     \caption{Fluorescence intensity (a), and brightfield images recorded of \textit{Convallaria} mounted in a eye phantom (b),c), and d)). In b) the sample is held still for an initial \SI{30}{\second} before being translated in the X and Y axes throughout the remainder of a total \SI{2}{\minute} acquisition period to mimic the typical movements the human eye undergoes while fixating on a target. In c) the image is degraded by the movement over the entire acquisition period and in d) this motion is corrected for using phase-cross correlation to detect movement and an affine warp to correct it.}
     \label{fig:sCMOSreg}
 \end{figure}
-
-
 \begin{figure}
     \centering
     \begin{annotatedFigure}{\includegraphics[width = \linewidth, trim = {0.5cm, 1cm, 0.2cm, 0},clip]{figures/sflio-device/FLIMeraRegistration.pdf}}
     \annotatedFigureText{0.015,0.77}{white}{0.4}{a)}
     \annotatedFigureText{0.345,0.77}{white}{0.4}{b)}
     \annotatedFigureText{0.675,0.77}{white}{0.4}{c)}
-
     \end{annotatedFigure}
-    \caption{Demonstration of motion registration of time resolved fluorescence decays recorded with the FLIMera of a \textit{Convallaria} slide mounted in an eye phantom under going motion throughout a \SI{2}{\minute} acquisition period. Images are formed by integrating the histogram over time to mimic a fluorescence intensity image where: a) represents the entire \SI{2}{minute} acquisition period; b) is the initial \SI{30}{\second} where the sample is held still; and c) is the same \SI{2}{minute} period but with the motion corrected for using the movement detected in brightfield images (see Fig.`\ref{fig:sCMOSreg}).}
+    \caption{Demonstration of motion registration of time resolved fluorescence decays recorded with the FLIMera of a \textit{Convallaria} slide mounted in an eye phantom under going motion throughout a \SI{2}{\minute} acquisition period. Images are formed by integrating the histogram over time to mimic a fluorescence intensity image where: a) represents the entire \SI{2}{minute} acquisition period; b) is the initial \SI{30}{\second} where the sample is held still; and c) is the same \SI{2}{minute} period but with the motion corrected for using the movement detected in brightfield images (see Fig.~\ref{fig:sCMOSreg}).}
     \label{fig:FLIMerareg}
 \end{figure}
