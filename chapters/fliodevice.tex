@@ -2,13 +2,13 @@
 
 \section{Construction of \textit{En-face} S-FLIO system}
 \subsection{Device Methodology}
-The S-FLIO device is based upon an off-the-shelf fundus camera (Topcon TRC 50-DX) which is ordinarily capable of recording imagges of the retina with an FOV of up to \SI{50}{\degree}
+The S-FLIO device is based upon an off-the-shelf fundus camera (Topcon TRC 50-DX) which is ordinarily capable of recording images of the retina with an FOV of up to \SI{50}{\degree}
 \subsubsection{Un-Modified TOPCON TRC-50dx}
 \begin{itemize}
     \item Un Modified Camera
     \begin{itemize}
         \item Start off with an imaging system with good optical performance
-        \item Greatly simplifies the design process - much much fewer optics to optimize
+        \item Greatly simplifies the design process - much much fewer optics to optimise
         \item Modifying existing equipment also simplifies the process of turning it into a commercial product - sold as an add on / upgrade of existing equipment
     \end{itemize}
     \item The TOPCON TRC 50-DX
@@ -26,11 +26,29 @@ The S-FLIO device is based upon an off-the-shelf fundus camera (Topcon TRC 50-DX
 \subsubsection{S-FLIO Imaging Requirements}
 \begin{itemize}
     \item Purpose is to enhance chemical sensing capabilities in retinal imaging using spectrally resolved fluorescence lifetime imaging
-    \item Photon flux is too low to register imaging on a frame by frame basis with the FLIMera alone - use a standard science grade detector to record high - quality images to extract the necessary registration.
+    \item Photon flux is too low to register images on a frame by frame basis with the FLIMera alone - use a standard science grade detector to record high - quality images to extract the necessary registration.
     \item Due to the low fill factor, and small detector size (192, 126) the inspection mode will illuminate a smaller area of around 35degrees. For ultrawidefield or widerfield imaging the patient can then scan their eye around
-    \item The retina will be illuminated using a 78 MHz laser to match the input requirements of the FLIMera. By using a super-continuum a 
+    \item The retina will be illuminated using a 78 MHz laser to match the input requirements of the FLIMera. By using a super-continuum source we can tune the excitation wavelength using an AOTF enabling increased selection of key retinal fluorophores, and mitigation of lens fluorescence.
+    \item The ultimate commercial consideration for this technique is imaging patients with short image acquisition times at eye-safe exposure levels - discussed in the section about eye safety. OPTOS systems acquire images in less than a second whereas reported FLIO measurements require 90s per spectral channel. Long FLIO integration times are driven be the low photon flux from the TCSPC method and the feint fluorescence signal produced by the retina. 
 \end{itemize}
-
+\subsubsection{Modification - Illumination Arm}
+\begin{itemize}
+    \item When considering designs of the illumination arm the annular illumination system was identified as a key feature to retain for recording high quality images and maximising the efficiency of injecting the excitation source into the existing imaging path
+    \item Diagram of rough illumination arm starting at the inspection lamp to the annular mirror and the objective lens.
+    \item In integrating additional optics into the existing illumination path there was significant difficulty because of the multiple aperture stops positioned conjugate to the surface of the cornea which reject light reflected from the cornea being imaged onto the detectors. The mechanism is that by not having light focused onto the cornea, it cannot be re-imaged.
+    \item Two possible locations and design methodologies were explored to mount the necessary optics to inject the excitation light
+    \begin{itemize}
+        \item A pair of plano-convex lenses to collimate the diverging light emitted from the lasers fibre output and then focus light onto a half inch dichroic beam splitter positioned 45 degrees to the direction of the beam path. By matching the NA of the existing Xe flash lamp the original field of view can be retained with minimal disruption to surrounding optics.
+        \item It was found that due to the high NA (>1.2) of the arc lamp and the multiple annular stops this resulted in significant vignetting of central and peripheral portion of the lasers Gaussian beam profile - inducing severe geometric losses, significantly reduced field of view using both illumination sources and significantly occluding the inspection lamp. Geometric losses meant that even forming a fluorescence intensity image of an artificial eye was not achievable without long acquisition times > 2s.
+        \item The illumination concept was then redesigned such that now a larger dichroic mirror could be placed at the location of the existing filter wheel where the beam profile of the existing illumination was slowly converging - allowing greater flexibility with the positioning of the optics. Further, the FOV of the illuminated area by the laser was reduced with the view of maximising the available laser power. A consequence of this design meant that a pair of aperture stops were to be removed which although would harm image quality in the bright-field however for fluorescence this is mitigated by the emission filter attenuating any corneal back reflections at the excitation wavelength leaving an insignificant amount of fluorescence originating of the cornea.
+        \item optical diagram of the setup.
+    \end{itemize}
+\end{itemize}
+\subsubsection{Modification - Imaging Arm}
+\begin{itemize}
+    \item for the imaging arm a 90:10 beamsplitter is used in conjunction with 3 SLR lenses to relay the image produced by the fundus camera to a Thorlabs Kiralux 8.9MP sensor which will be used to record images in either brightfield or in fluorescence for coregistration purposes and the Horiba FLIMera to record FLIM images. A linear cassette style filter wheel is fitted either in front of the 
+    \item table with specs of both detectors
+\end{itemize}
 
 \section{Evaluation of Performance}
 % \begin{itemize}
@@ -101,7 +119,7 @@ This process is shown in~\cref{fig:FIMTFresult,fig:FLMTFResult}, where in the an
 
 \begin{figure}
     \centering
-    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/sflio-device/FLKnifeEdgeFigure.pdf}}
+    \begin{annotatedFigure}{\includegraphics[width = 1\textwidth]{figures/sflio-device/FLKnifeEdgeFigure.pdf}}
     \annotatedFigureText{0.03,0.94}{black}{0.3}{a)}
     \annotatedFigureText{0.33,0.94}{black}{0.3}{b)}
     \annotatedFigureText{0.7,0.94}{black}{0.3}{c)}
