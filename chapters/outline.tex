@@ -67,42 +67,6 @@
             \item Estimate the long-term potential of FLIO, and mapping specific fluorophores using modelling. This would take the form of modelling to investigate whether the limits of current techniques are due to technology (low res, low fill factor SPADs) or some biological limit (concentrations present in human eye, when excited at eye-safe intensities would not produce enough signal to unmix fluorophores in a reasonable acquisition period.
         \end{itemize}
         \end{itemize}
-    
-    \item En-face Fluorescence Lifetime Ophthalmoscope
-    \begin{itemize}
-        \item Fundus Camera Overview
-        \item Modifications - Illumination Arm
-        \begin{itemize}
-            \item Annular illumination and gullstrand principle
-            \item Annular mirror, and conjugate stops to remove corneal back reflections.
-            \item Description of supercontinuum laser and AOTF system.
-            \item Optical layout of fundus camera
-            \item Attempt 1 - injecting light via Xe flash lamp
-            \item Attempt 2 - injecting light via the filter wheel
-        \end{itemize}
-        \item Modifications - Imaging Arm
-        \begin{itemize}
-            \item Ray trace for SLR lens arrangement
-            \item Spectral Channels chosen
-            \item Fluorescence Intensity Camera and approx. field of view
-            \item SPAD Camera
-            \begin{itemize}
-                \item SPAD array has 192 X 128 pixels and 47ps temporal resolution. Has fill factor of 13 percent. TCSPC modules on a per pixel basis.
-                \item Operating Modes of SPAD
-                \begin{itemize}
-                    \item Standard H5 Mode - data acquisition is defined by the acquisition time, number of bins etc. Data output is a h5 containing the tcspc histogram for each pixel, approx fwhm, coarse lifetime (using horibas black boxy fitting), and integrated intensity
-                    \item Raw H5 Mode - Instead of single tcspc histogram per pixel, instead in raw mode the raw photon records are streamed to a H5 pixel. These photon records take the form of a 4byte string of digits indicating the pixel, and time bin the photon was detected in. This is further discretised into the individual "frames" which have a frequency of 11kHz which allows for building histograms over arbirtary time windows.
-                \end{itemize}
-                \end{itemize}
-            \end{itemize}
-        \end{itemize}
-        \item Safety Assessment
-        \begin{itemize}
-            \item Description of damage mechanisms when illuminating the retina. Photochemical or phototoxic damage occurs predominately in the shorted wavelengths and results in the generation of free radicals. The immune system then either sees these as foreign and removes the cells or the photorecepotors receive too much energy and die directly. In photo thermal damage light in the red wavelengths causes heating, and cavitation, of the humors at the retinal surface. This causes the retinal surface to be irreparably destroyed.
-            \item different safety documents were used to evaluate the safe emission levels of imaging at our excitation wavelength. 
-            \item detail calculations and measurements
-        \end{itemize}
-    \end{itemize}
     \item FLIM Analysis Methods (Modelling)
     \begin{itemize}
         \item Summary of the Problem
@@ -187,4 +151,5 @@
         \item maps of the different fitting parameters can be used to classify the stretching that occurs.
         \item This technique has some possible applications in the eye (that were not explored) such as temporally filtering out back reflections from the cornea in trans-pupil illumination of the retina.
     \end{itemize}
+\end{itemize}
 \end{itemize}

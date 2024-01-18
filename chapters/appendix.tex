@@ -12,10 +12,10 @@ Operations between tensors are generalised using the Einstein summation or Einst
 \begin{align}
     \mathbf{C}\indices{_i_k} = \mathbf{A}\indices{_i_j}\mathbf{B}\indices{_j_k}\label{eq:matmulein}
 \end{align}
-"j" is the dummy index and is summed over, and element-wise multiplication is performed on the "i" and "k"  indices. 
+Here, ``j'' is the dummy index and is summed over, and element-wise multiplication is performed on the``i'' and ``k''  indices. 
 
 \subsection{Einstein Products}\label{subsec:einprod}
-Einstein or contracted product between two tensors can be used to contract specific indices. For example the Einstein $N$-Product over $N$ indices for two arbitrary tensors
+Einstein or contracted products between two tensors can be used to contract specific indices. For example the Einstein $N$-Product over $N$ indices for two arbitrary tensors
 $\mathcal{A} \in \mathbb{R}^{I_{i}\times\cdot\times I_{L}\times K_{1}\times\cdot\times K_{N}}$ and $\mathcal{B} \in \mathbb{R}^{K_{i}\times\cdot\times K_{N}\times J_{1}\times\cdot\times J_{M}}$ and is defined as follows:
 \begin{align}
     \bigg(\mathcal{A} \ast_{N} \mathcal{B}\bigg)_{i_{1}\cdots i_{L}j_{1}\cdots j_{M}} &=\sum\limits_{k_{1}\cdots k_{N}}\mathbf{a}_{i_{1}\cdots i_{L}k_{1}\cdots k_{N}}\mathbf{b}_{k_{1}\cdots k_{N}j_{1}\cdots j_{M}}
