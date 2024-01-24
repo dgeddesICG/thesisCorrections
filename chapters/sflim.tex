@@ -1,11 +1,9 @@
 \setstretch{2}
 \section{Rationale}
-The ability to discriminate and quantify the concentration of biomarkers such as FAD and NADH would allow the mapping of metabolic health within the retina enabling disease detection to occur at the genesis of biochemical dysfunction rather than at the point where, often permanent, physical damage becomes apparent in the patients central vision. 
-Techniques to used in this recovery are centred on discriminating fluorophores using their distinct spectral signatures or their intrinsic fluorescence lifetime. However, the combination of overlapping spectra, complex decay models required for fitting, and clutter in the eye corrupting the already weak return signal motivates the requirement for efficient and robust unmixing methods.
+The ability to discriminate and quantify the concentration of biomarkers such as FAD would enhance the assessment of retinal health and the detection of retinal disease at the stage of biochemical dysfunction rather than at the point where, often permanent, physical damage becomes apparent in the patients central vision. FAD are metabolites produced from the consumption of oxygen and by longitudinally mapping the concentration of these metabolites across the retina any abnormalities in oxygenation can signify the onset of retinal disease. In principle, the use of FAD as a biosensor for metabolic health is advantageous over existing retinal oximitery methods which measure vascular oxygen saturation and suffer from the magnitude of the error in the measurements is larger than the typical variation exhibited in the early stages of disease such Glaucoma \addcite
+Technique for discriminating fluorophores using their distinct spectral signatures or their intrinsic fluorescence lifetime do exist. However, the combination of overlapping spectra, complex decay models required for fitting, and clutter in the eye corrupting the already weak return signal causes prohibitively high error in the recovered fluorophore concentration motivates the requirement for efficient and robust unmixing methods.
 \\
 In this chapter, the suitability and performance of existing un-mixing methods: spectral un-mixing through matrix inversion; abundance recovery through fitted lifetimes, blind unmixing with phasor-SFLIM are compared and a new, fit free, technique for unmixing SFLIM data using tensor inversion is developed and evaluated. To assess the performance of these techniques the error in the un-mixed abundance of a fluorophores is evaluated as the relative abundance of the fluorophore is varied between \num{0} and \num{1} as well as over multiple photon fluxes and spectral bands. The condition number for spectral umixing with matrix inversion and SFLIM unmxing are also compared for different sample scenarios to assess the strengths of this new technique and conclude whether measuring fluorescence lifetimes increases capabilities to quantify retinal fluorophores and if the limit lies in the complexities of the biology or a technological limit of SPAD detectors.
-
-
 
 \section{Lifetime Unmixing}\label{sec:lifeunmix}
 In principle, retinal fluorophores could be quantified using only measurements of the fluorescence lifetime in a single spectral band - potentially negating the need the lengthy image acquisition periods associated with recorded sequential images over multiple detection bands - however an increased number of fluorophores requires more complex, noise sensitive, fitting models and prohibitively large photon fluxes. The 3 biomarkers of interest in this thesis (FAD, AGE, and A2E/Lipofuscin) all exhibit biexponential decay profiles (see \cref{tab:retlifetimes}) meaning that in order to fully recover the fluorophore abundance a 6-exponential fit is required.
@@ -180,16 +178,36 @@ For a given spatial pixel $I(x,y)$ the fluorescence lifetimes are recorded over 
     f(x)  =  I_{-\infty,1}   +\frac{  I_{+\infty,1} + \frac{  I_{+\infty,2} - I_{-\infty,1}  }{\big(1 - \exp[-g_{2}(x - \Delta x_{2})]\big)^{\nicefrac{1}{v_{2}}}} - I_{-\infty,1}}{\bigg(1 - \exp[-g_{1}(x - \Delta x_{1})]\bigg)^{\nicefrac{1}{v_{1}}}}\label{eq:dublog}
 \end{equation}
 
-This algorithm was tested using simulated data sets, similar to those shown in \cref{fig:sflimamaps}, which consisted of an additive mixture of retinal fluorophores without shot noise applied - to represent the theoretical maximal performance of the technique - and with shot noise to simulate large photon fluxes. These data sets were then analysed using the Phasor S-FLIM algorithm, and the errors were analysed using the same metric as before (\cref{eq:recerror}). Since this unmixing algorithm is blind the ordering of the endmembers was not consisted from pixel to pixel. This meant that for input data where the endmembers may be ordered [FAD, AGE, A2E] the outputted endmembers could be of the order [AGE, FAD, A2E] which resulted in severely degraded performance when comparing the unmixed abundances to the ground truths. To address this mis-ordering, the recovered spectra of an unmixed endmember can be assigned to its fluorophore (FAD, AGE or A2E) using Spectral Angle Map (SAM, $\theta_{SAM}$) where a recovered endmember that is incorrectly assigned a fluorophore would have a large $\theta_{SAM}$ angle and a correctly assigned fluorophore would have small $\theta_{SAM}$ angle.
+This algorithm was tested using simulated data sets, similar to those shown in \cref{fig:sflimamaps}, which consisted of an additive mixture of retinal fluorophores without shot noise applied - to represent the theoretical maximal performance of the technique - and with shot noise to simulate large photon fluxes. These data sets were then analysed using the Phasor S-FLIM algorithm, and the errors were analysed using the same metric as before (\cref{eq:recerror}). The blind nature of this unmixing method resulted in the ordering of the unmixed spectra being inconsistent from pixel-to-pixel and this subsequently was addressed by reordering the unmixed spectra based on their relative overlap with the endmember spectra (see \cref{eq:sam}). 
 \begin{equation}
-    \theta_{SAM} = \arccos\Bigg(\frac{\mathbf{a}\cdot \mathbf{b}}{\lvert \mathbf{a} \rvert\,\lvert \mathbf{b} \rvert}\Bigg)\label{eq:sam}
+    \varphi = \frac{\mathbf{a}\cdot \mathbf{b}}{\lvert \mathbf{a} \rvert\,\lvert \mathbf{b} \rvert}\label{eq:sam}
 \end{equation}
+Shown in \cref{fig:phasorresultnoiseless}, the phasor based approach suffers from large errors even under noiseless conditions - where no shot-noise has been applied - over all concentrations of FAD but this significantly pronounced at low fluorophore concentrations where the average error is \SI{100}{\percent}. This is due to the high overlap of FAD, and AGE in the both the spectral and temporal domain which results in phasors that are closely located within phasor space and degrades the ability of the algorithm to discriminate them. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/sflim/phasor-unmixing/PhasorNoiselessResults.pdf}
+    \caption{Caption}
+    \label{fig:phasorresultnoiseless}
+\end{figure}
+
+
+Further when shot-noise is applied this poor unmixing performance is repeated. In \cref{fig:phasorresultnoisy}, SFLIM measurements were simulated using 32 evenly spaced spectral bands and a total of \num{e6} photons in the entire measurement. For the recovery of FAD the exceedingly large errors are present at low concentrations and high relative concentrations of FAD resulting in an average error of \SI{224}{\percent}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/sflim/phasor-unmixing/PhasorResultsNoisy.pdf}
+    \caption{Caption}
+    \label{fig:phasorresultsnoisy}
+\end{figure}
+
+
+In literature, this method exhibits good un-mixing performance but only in dyed samples where there is flexibility in the fluorescence lifetime and spectral characteristics of the dyes used to ensure good separation in phasor space \cite{scipioni2021phasor}. The overlapping in the spectral and temporal domain of the chosen retinal fluorphores results in close proximity in phasor space and is evidenced by the poor unmixing performance in the above modelling (\cref{fig:phasorresultnoiseless}). The S-FLIM algorithm was deemed unsuitable for quantifying concentrations of FAD or even simply detecting its presence in retinal autofluorescence and thus was not pursued further.
 
 \subsection{To Do}
 \begin{itemize}
-    \item Abundance maps for noiseless data and data with shot noise (1e4 - 1e5 photons per pixel) to show that Phasor S-FLIM isn't suitable for unmixing retinal fluorophores. 
-    \item This is because Phasor S-FLIM is best suited for stained samples where dyes can be chosen such that they are spectrally narrow and well seperated and largely different lifetimes - i.e. the endmembers are far away from each other in phasor space. Retinal fluorophores have similar fluorescence lifetimes and broad overlapping spectra so the performance of the unmixing is severely detoriated.
-    \item conclusion: this technique is not suitable for unmixing retinal fluorophores
+    \item Add captions to plots
+    \item fix referenceing
 \end{itemize}
 \FloatBarrier
 \section{Spectral Unmixing}\label{sec:specunmix}
