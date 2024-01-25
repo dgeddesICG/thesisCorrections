@@ -45,20 +45,6 @@ Previous design iterations, shown in \cref{fig:IlluminationV1},used a similar de
     \caption{Initial attempt of coupling the supercontinuum excitation source into the existing illumination path of the fundus camera. The pulsed supercontinuum source is coupled into the existing optics using a $f_{1}$ to collimate the fibre output and a pair of plano-convex $f_{2,3}$ to focus this beam onto a dichroic mirror with the principle rays shown in a). The high NA of the fundus camera optics resulted in an irregular illumination pattern on an mechanical eye model, c) when compared to an image of the same mechanical eye illuminated by the existing Xenon flash lamp. In d) and e) the optics are shown attached to the 3D printed mount and integrated into the fundus camera. }
     \label{fig:IlluminationV1}
 \end{figure}
-
-% \begin{itemize}
-
-%     \item When considering designs of the illumination arm the annular illumination system was identified as a key feature to retain for recording high quality images and maximising the efficiency of injecting the excitation source into the existing imaging path
-%     \item Diagram of rough illumination arm starting at the inspection lamp to the annular mirror and the objective lens.
-%     \item In integrating additional optics into the existing illumination path there was significant difficulty because of the multiple aperture stops positioned conjugate to the surface of the cornea which reject light reflected from the cornea being imaged onto the detectors. The mechanism is that by not having light focused onto the cornea, it cannot be re-imaged.
-%     \item Two possible locations and design methodologies were explored to mount the necessary optics to inject the excitation light
-%     \begin{itemize}
-%         \item A pair of plano-convex lenses to collimate the diverging light emitted from the lasers fibre output and then focus light onto a half inch dichroic beam splitter positioned 45 degrees to the direction of the beam path. By matching the NA of the existing Xe flash lamp the original field of view can be retained with minimal disruption to surrounding optics.
-%         \item It was found that due to the high NA (>1.2) of the arc lamp and the multiple annular stops this resulted in significant vignetting of central and peripheral portion of the lasers Gaussian beam profile - inducing severe geometric losses, significantly reduced field of view using both illumination sources and significantly occluding the inspection lamp. Geometric losses meant that even forming a fluorescence intensity image of an artificial eye was not achievable without long acquisition times > 2s.
-%         \item The illumination concept was then redesigned such that now a larger dichroic mirror could be placed at the location of the existing filter wheel where the beam profile of the existing illumination was slowly converging - allowing greater flexibility with the positioning of the optics. Further, the FOV of the illuminated area by the laser was reduced with the view of maximising the available laser power. A consequence of this design meant that a pair of aperture stops were to be removed which although would harm image quality in the bright-field however for fluorescence this is mitigated by the emission filter attenuating any corneal back reflections at the excitation wavelength leaving an insignificant amount of fluorescence originating of the cornea.
-%         \item optical diagram of the setup.
-%     \end{itemize}
-% \end{itemize}
 \FloatBarrier
 \subsection{Modification - Imaging Arm}
 The imaging arm of the SFLIO uses a 
@@ -85,36 +71,24 @@ The imaging arm of the SFLIO uses a
 \end{itemize}
 \FloatBarrier
 \subsection{Safety Assessment}
+A critical design requirement for a retinal imaging device is that images should be recorded while posing minimal risk and discomfort to the patient. In the SFLIO device two similar pulsed-supercontinuum laser sources were used throughout this project which both have the capability of producing broadband light at high enough intensity's capable of causing irreparable damage many times over. As such, a full safety assessment was carried out, in collaboration with OPTOS, to determine the save exposure levels for the device and the necessary adaptions to show that the SFLIO device is safe for imaging \textit{in-vivo} human retinas. Although human imaging was not achieved in the duration of this project this assessment is still useful for determining the efficacy of our device in measuring retinal FAD when compated with the laser intensity required for detecting FAD in rats \textit{in-vivo}.
+\subsubsection{Damage Mechanisms in the Retina}
+When exposing the 
+
+\subsubsection{Safe Exposure Thresholds}
+
 \begin{itemize}
     \item The photon flux recorded in FLIMages is ultimately limited by not only the quantum efficiency of the retina in terms of producing fluorescence but also the limit of safe exposure in the retina. 
     \item There are two predominant damage mechanisms in the eye - the phototoxic effects, and photochemical effects.
     \item Phototoxic damage is caused by over exposure of short wavelength light which generates free radicals in the retina. The immune system then either sees these as foreign and removes the corrupted cells or the in extreme cases the photorecepots are over stimulated / absorbed too much energy and die directly.
     \item Photothermal damage occurs with long wavelength light whereby localised heating of the humours located at the retina surfaces cause acute cavitation destroying the retinal surface. 
     \item While human imaging was not achieved in the course of this project a full safety assessment was carried out to determine the safe exposure limits for the SFLIO device and inform the potential image integration times - which will only improve with future generations of SPAD arrays.
-    \item To obtain 
+    \item Two different safety standards were used 
 \end{itemize}
 \FloatBarrier
 \section{Evaluation of Performance}
 \subsection{Spectral Calibration}
 
-% \begin{itemize}
-%     \item We need good spatial resolution, and signal to noise ratio in the high resolution camera to account for movement of the eye
-%     \item SPAD has much fewer pixels and much larger spatial resolution (influenced by the irregular sparse array architecture) and there is a magnification difference so as long as spatial res of the registration camera is 5-10X the FLIMera and we can register with a 5 pixels then our registration will be limited by he quantisation of the digital imaging system
-%     \item The purpose of this device is to proof of concept the measurement of FAD in the retina using lifetimes - not construct a diffraction limited system.
-%     \item to quantify the spatial resolution of the system we can use the knife edge test consisting of a fluorescent slide (gives a uniform scene) that has a slanted hard edge places in front of it all housed in an artificial eye
-%     \item calibration is achieved by replacing the edge with an Allen key with known diameter. The number of pixels between the parallel edges yield the pixel to um conversion factor i.e the width and height that a single pixel subtends on the retina.
-%     \item this test evaluate the spatial resolution by averaging an aliased edge (in the case of the FLIMera - pixels are small enough on the FI camera that optics is the limit not quantisation) to yield the Edge Spread Function. Differential of the ESF is the LSF and the spatial resolution is defined as the FWHM of this LSF after a Gaussian has been fitted.
-%     \item This was repeated through multiple foci to ascertain where the best focus is and what is its spatial resolution
-%     \item on the FI camera the spatial resolution is 40um and for the FLIMera it is 400um.
-%     \item This resolution is larger than what was previously reported in the Harvey, McNaught artificial eye paper (spatial res was $\approx 15$um) which uses the same artificial eye and an optically similar imaging system (fundus camera with SLR lenses in a imaging relay configuration to focus the image onto a scientific camera.
-%     \item The system is optically limited but the source is likely to originate in misalignment of the SLR lenses, other optical elements in the beam path etc. 
-%     \item To attempt to ascertain the source of these issues the fundus camera was set up to image the room with some targets attached to the wall at infinity and optical elements (emission filter, beam splitter) and the spatial resolution was estimated using the rise-time method
-%     \begin{itemize}
-%         \item spatial res $\approx$ width in pixels between 90 and 10 percent of the fast edge
-%     \end{itemize}
-%     \item this was then compared to two much simpler imaging systems - and iPhone 13, and the thorcam with an SLR lens attached set to the same scene.
-%     \item CONCLUSION: spatial resolution is X and this is sufficient for co-registering images with the FLIMera. There are multiple sources of aberration in the system that can be harming our spatial res that could be eliminated given the a significant time investment but since a good signal to noise ratio is favoured over diffraction limited (or near it) this is sufficient.
-% \end{itemize}
 \subsection{Spatial Resolution of S-FLIO device}
 While the purpose of this thesis is not to construct a diffraction limited retinal imaging system but to record fluorescence lifetime images and quantitatively measure the distribution of fluorophores across the retina - a spatial resolution, with respect to images recorded on the retina with the FLIMera, sufficient to resolve features, and markers, common with retinal disease is key. For example, as has been discussed in \cref{intro:AMD}, the average diameter of drusen, a common marker of disease progression in AMD, is on the order of YY - to resolve drusen with the FLIMera the spatial resolution of the S-FLIO system must be lower than this value. Additionally, the spatial resolution of both detectors will influence the accuracy required when reconstructing images from fluorescence histograms of a retina undergoing motion. For a proportional difference in the spatial resolution $\nicefrac{\Delta r_{FLIMera}}{\Delta r_{sCMOS}} \leq M$ will require registration of images within a sub-pixel accuracy (with respect to the sCMOS detector) whereas for $\nicefrac{\Delta r_{FLIMera}}{\Delta r_{sCMOS}} > M$ the registration accuracy requirement is greater than a single pixel.
 \subsubsection{Spatial Resolution vs. Pixel Size}
