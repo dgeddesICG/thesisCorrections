@@ -71,11 +71,27 @@ The imaging arm of the SFLIO uses a
 \end{itemize}
 \FloatBarrier
 \subsection{Safety Assessment}
-A critical design requirement for a retinal imaging device is that images should be recorded while posing minimal risk and discomfort to the patient. In the SFLIO device two similar pulsed-supercontinuum laser sources were used throughout this project which both have the capability of producing broadband light at high enough intensity's capable of causing irreparable damage many times over. As such, a full safety assessment was carried out, in collaboration with OPTOS, to determine the save exposure levels for the device and the necessary adaptions to show that the SFLIO device is safe for imaging \textit{in-vivo} human retinas. Although human imaging was not achieved in the duration of this project this assessment is still useful for determining the efficacy of our device in measuring retinal FAD when compated with the laser intensity required for detecting FAD in rats \textit{in-vivo}.
-\subsubsection{Damage Mechanisms in the Retina}
-When exposing the 
+A critical design requirement for a retinal imaging device is that can should be recorded while posing minimal risk and discomfort to the patient. In the SFLIO device two similar pulsed-supercontinuum laser sources were used throughout this project which both have the capability of producing broadband light at an intensity capable of causing irreparable damage many times over. As such, a full safety assessment was carried out, in collaboration with OPTOS, to determine the save exposure levels and the required attenuation of the laser source such that even when operating at the sources maximum intensity the exposure at the retina is at a safe level. Although \textit{in-vivo} human imaging was not achieved in the duration of this project this assessment is still useful for determining the efficacy of our device in measuring retinal FAD when compared with the laser intensity required for detecting FAD in rats \textit{in-vivo}(\cref{chap:ratfad}).
+\subsubsection{Phototoxic and photothermal effects}
+When the eye is exposed to light there is two distinct, wavelength dependent, mechanisms from which damage can occur to retina or the other constituent parts of the eye - phototoxic and photothermal damage. Phototoxic or photochemical damage predominantly occurs at wavelengths shorter than \SI{500}{\nm} where absorbed photons cause oxidative reactions within the cells of the RPE, choroid, and the retina causing cellular death and with sufficient exposure results in permanent loss of vision~\cite{glickman2002phototoxicity}. Further, in the extreme UV range of the visible spectrum ($<\SI{200}{\nm}$) these absorbed photons can directly cause the breaking of covalent bonds and with pulse lengths shorter than \SI{1}{\micro\second}, tissue can be ablated - forming the basis of LASIK surgery whereby the cornea is reshaped to correct the refractive power of the eyes lens in cases of myopia, hyperopia, and astigmatism~\cite{reinstein2012history}. In photothermal damage longer wavelength photons cause heating of the tissue of varying severity where damage occurs from necrosis of the tissue or in the case of severe and rapid heating the vitreous humour cavitates the the retina surface causing lesions~\cite{glickman2002phototoxicity,roberts2001ocular}.
+The supercontinuum laser source used in the SFLIO device does not produce light in the extreme UV so photochemical ablation is not a concern however the risks due to photochemical oxidation or photothermal damage mechanisms are embodied within the safe exposure thresholds defined by the two different safety standard documents used to evaluate the device.
+
 
 \subsubsection{Safe Exposure Thresholds}
+To evaluate the safety of the SFLIO device two independent standards were utilised: the \citeauthor{ISO15004} standard describes the evaluation of safety for ophthalmic devices demarcated as either Group 1 devices where there is no risk of ocular damage and Group 2 where some risk does exist but is still safe to use under strict guidelines; and the \citeauthor{IEC60825} standard which is used to define the safety of laser systems designated from Class 1, which are considered eye-safe, up to Class 4B where even stray reflections from diffuse surfaces can pose a risk to eyesight\cite{ISO15004, IEC60825}. In the ISO standard the instrument was evaluated against the criteria for a Group 1 continuous wave device with the IEC document being used to evaluate the instrument as a Class 1 pulsed laser source. The IEC document contains stricter criteria for a pulsed sources and, unlike the ISO standard, considers the additional damage mechanisms arising from the use of a short pulse-length and high repetition rate laser source such as micro-cavitation, and self-focusing of the laser beam~\cite{rockwell2010ultrashort}.
+A detailed description of the procedure used determine the multiple safe exposure limits are listed in App. \textcolor{blue}{Need to figure how to pap the safety assessment into the appendix} however for both standards the exposure limits, the measured exposure, and the resulting safety factor are given and defined here.
+\paragraph*{\citeauthor{ISO15004}\\}
+In the ISO standard the SFLIO instrument is evaluated as a Group 1 device where the exposure limits for this classification are defined in terms of a wavelength dependent irradiance pertaining to each section of the eye - retina, cornea and lens, and the anterior segment. For each of these sections, where relevant, there are also weighting functions applied to account for the photothermal and photochemical damage mechanisms shown in
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = 0.8\textwidth]{figures/sflio-device/SafetyAssessmentSpectras.pdf}}
+    \annotatedFigureText{0,0.95}{black}{0.3}{a)} 
+    \annotatedFigureText{0.34,0.95}{black}{0.3}{b)} 
+    \annotatedFigureText{0.68,0.95}{black}{0.3}{c)} 
+    \end{annotatedFigure}
+    \caption{}
+    \label{fig:safetyspectra}
+\end{figure}
 
 \begin{itemize}
     \item The photon flux recorded in FLIMages is ultimately limited by not only the quantum efficiency of the retina in terms of producing fluorescence but also the limit of safe exposure in the retina. 
@@ -207,7 +223,7 @@ Mathematically this is modelled using the a Affine Transform which can be used t
      \end{bmatrix}\\
     \implies I_{FLIMera}(x,y) &= \mathbf{A}I_{sCMOS}(x',y')
 \end{align}
-Where the affine transform is composed of four separable transforms : Translation $\mathbf{T}(\Delta x, \Delta y)$, Magnification/Scaling, $\mathbf{M}(m_{x},m_{y})$; Rotation, $\mathbf{R}(\theta)$;and Shear, $\mathbf{S}(h_{x}, h_{y})$. In the images recorded using the S-FLIO system Shear was not significantly present of either the sCMOS camera or the FLIMera and is not considered in the registration process.
+Where the affine transform is composed of four separable transforms : Translation $\mathbf{T}(\Delta x, \Delta y)$; Magnification/Scaling, $\mathbf{M}(m_{x},m_{y})$; Rotation, $\mathbf{R}(\theta)$;and Shear, $\mathbf{S}(h_{x}, h_{y})$. In the images recorded using the S-FLIO system Shear was not significantly present of either the sCMOS camera or the FLIMera and is not considered in the registration process.
 \begin{equation}\label{eq:affine}
     \mathbf{A} = \mathbf{T}\mathbf{R}\mathbf{M}
 \end{equation}
