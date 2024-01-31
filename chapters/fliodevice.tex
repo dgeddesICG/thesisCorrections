@@ -5,7 +5,7 @@
 \subsubsection{S-FLIO Imaging System}
 As was outlined in \cref{sec:objresearch} the purpose of this project is to use the principles of fluorescence lifetime imaging and spectral fluorescence imaging to further develop capabilities of chemical sensing in the retina. This will be achieved using an off-the-shelf fundus camera modified to facilitate spectrally-resolved fluorescence lifetime measurements of the retina within the constraints that the device can image an FOV of at least \SI{20}{\degree}. While this field-of-view is generally considered to be narrow in ophthalmic imaging\footnotemark this device is to serve as an early prototype to establish the efficacy this new imaging technique however if a larger field-of-view is required multiple exposures across the retina can be recorded and stitched together. The total image acquisition time is also a key constraint in designing a retinal imaging device for routine assessments of retinal health and is fundamentally limited by the safe exposure levels of the illumination source and thus creating a photon starved regime.
 In the proposed SFLIO device the spectrally-resolved fluorescence lifetime measurements will be optimised using a wavelength tuneable excitation source to efficiently target key retinal fluorophores such as FAD, AGE, and A2E as well as new generation SPAD arrays which record these S-FLIM measurements in a series of snapshots. 
-\footnotetext{The OPTOS California OPTOS 200tx retinal imaging systems can record images with a \SI{200}{\degree} FOV equivalent to \SI{82}{\percent} coverage of the retinal surface}
+\footnotetext{The OPTOS California OPTOS 200tx retinal imaging systems can record images with a \SI{200}{\degree} FOV equivalent to \SI{82}{\percent} coverage of the retinal surface~\cite{kato2019quantitative}}
 
 \FloatBarrier
 \subsection{Conventional Fundus Camera}
@@ -71,17 +71,21 @@ The imaging arm of the SFLIO uses a
 \end{itemize}
 \FloatBarrier
 \subsection{Safety Assessment}
-A critical design requirement for a retinal imaging device is that can should be recorded while posing minimal risk and discomfort to the patient. In the SFLIO device two similar pulsed-supercontinuum laser sources were used throughout this project which both have the capability of producing broadband light at an intensity capable of causing irreparable damage many times over. As such, a full safety assessment was carried out, in collaboration with OPTOS, to determine the save exposure levels and the required attenuation of the laser source such that even when operating at the sources maximum intensity the exposure at the retina is at a safe level. Although \textit{in-vivo} human imaging was not achieved in the duration of this project this assessment is still useful for determining the efficacy of our device in measuring retinal FAD when compared with the laser intensity required for detecting FAD in rats \textit{in-vivo}(\cref{chap:ratfad}).
+A critical design requirement for a retinal imaging device is that can should be recorded while posing minimal risk and discomfort to the patient. In the SFLIO device two similar pulsed-supercontinuum laser sources were used throughout this project which both have the capability of producing broadband light at an intensity capable of causing irreparable damage many times over. As such, a full safety assessment was carried out, in collaboration with OPTOS, to determine the save exposure levels and the required attenuation of the laser source such that even when operating at the sources maximum intensity the exposure at the retina is at a safe level. Although \textit{in-vivo} human imaging was not achieved in the duration of this project this assessment is still useful for determining the efficacy of our device in measuring retinal FAD when compared with the laser intensity required for detecting FAD in rats \textit{in-vivo} (\cref{chap:ratfad}).
 \subsubsection{Phototoxic and photothermal effects}
 When the eye is exposed to light there is two distinct, wavelength dependent, mechanisms from which damage can occur to retina or the other constituent parts of the eye - phototoxic and photothermal damage. Phototoxic or photochemical damage predominantly occurs at wavelengths shorter than \SI{500}{\nm} where absorbed photons cause oxidative reactions within the cells of the RPE, choroid, and the retina causing cellular death and with sufficient exposure results in permanent loss of vision~\cite{glickman2002phototoxicity}. Further, in the extreme UV range of the visible spectrum ($<\SI{200}{\nm}$) these absorbed photons can directly cause the breaking of covalent bonds and with pulse lengths shorter than \SI{1}{\micro\second}, tissue can be ablated - forming the basis of LASIK surgery whereby the cornea is reshaped to correct the refractive power of the eyes lens in cases of myopia, hyperopia, and astigmatism~\cite{reinstein2012history}. In photothermal damage longer wavelength photons cause heating of the tissue of varying severity where damage occurs from necrosis of the tissue or in the case of severe and rapid heating the vitreous humour cavitates the the retina surface causing lesions~\cite{glickman2002phototoxicity,roberts2001ocular}.
 The supercontinuum laser source used in the SFLIO device does not produce light in the extreme UV so photochemical ablation is not a concern however the risks due to photochemical oxidation or photothermal damage mechanisms are embodied within the safe exposure thresholds defined by the two different safety standard documents used to evaluate the device.
 
-
+\FloatBarrier
 \subsubsection{Safe Exposure Thresholds}
 To evaluate the safety of the SFLIO device two independent standards were utilised: the \citeauthor{ISO15004} standard describes the evaluation of safety for ophthalmic devices demarcated as either Group 1 devices where there is no risk of ocular damage and Group 2 where some risk does exist but is still safe to use under strict guidelines; and the \citeauthor{IEC60825} standard which is used to define the safety of laser systems designated from Class 1, which are considered eye-safe, up to Class 4B where even stray reflections from diffuse surfaces can pose a risk to eyesight\cite{ISO15004, IEC60825}. In the ISO standard the instrument was evaluated against the criteria for a Group 1 continuous wave device with the IEC document being used to evaluate the instrument as a Class 1 pulsed laser source. The IEC document contains stricter criteria for a pulsed sources and, unlike the ISO standard, considers the additional damage mechanisms arising from the use of a short pulse-length and high repetition rate laser source such as micro-cavitation, and self-focusing of the laser beam~\cite{rockwell2010ultrashort}.
-A detailed description of the procedure used determine the multiple safe exposure limits are listed in App. \textcolor{blue}{Need to figure how to pap the safety assessment into the appendix} however for both standards the exposure limits, the measured exposure, and the resulting safety factor are given and defined here.
-\paragraph*{\citeauthor{ISO15004}\\}
-In the ISO standard the SFLIO instrument is evaluated as a Group 1 device where the exposure limits for this classification are defined in terms of a wavelength dependent irradiance pertaining to each section of the eye - retina, cornea and lens, and the anterior segment. For each of these sections, where relevant, there are also weighting functions applied to account for the photothermal and photochemical damage mechanisms shown in
+A detailed description of the procedure used determine the multiple safe exposure limits are listed in App.~\ref{app:sfliosafety} however for both standards the exposure limits, the measured exposure, and the resulting safety factor are given and defined here.
+\paragraph*{Continuous Wave - \citeauthor{ISO15004}\\}
+In the ISO standard the SFLIO instrument is evaluated as a Group 1 device where the exposure limits for this classification are defined in terms of a wavelength dependent irradiance, $E(\lambda)$, pertaining to a particular band of the visible spec each section of the eye - retina, cornea and lens, and the anterior segment. For each of these sections, where relevant, there are also weighting functions applied to account for the photothermal and photochemical damage mechanisms shown in \cref{fig:safetyspectra}c. In the safety assessment the spectral irradiance is defined using the power spectrum, $P(\lambda)$, and the area of the illuminated. 
+\begin{equation}\label{eq:irrad}
+    E(\lambda) = \frac{P(\lambda)}{Area} \cong \frac{P_{M}S(\lambda)}{\int_{0}^{\infty}S(\lambda)d\lambda}
+\end{equation}
+The power spectrum is measured by composing a measurement the spectra of the light emitted from the fundus camera with a measurement of the emitted power using a optical power meter. The optical power meter applies a wavelength-dependent bias function to over come the non-uniform response across the visible spectrum but since the bandwidth of the excitation is sufficiently narrow (FWHM $<\SI{11.5}{\nm}$ - see \ref{fig:safetyspectra}b) a single power measurement was recorded with the bias function set to be centred on \SI{468}{\nm} - the peak of the excitation. 
 \begin{figure}
     \centering
     \begin{annotatedFigure}{\includegraphics[width = 0.8\textwidth]{figures/sflio-device/SafetyAssessmentSpectras.pdf}}
@@ -89,24 +93,89 @@ In the ISO standard the SFLIO instrument is evaluated as a Group 1 device where 
     \annotatedFigureText{0.34,0.95}{black}{0.3}{b)} 
     \annotatedFigureText{0.68,0.95}{black}{0.3}{c)} 
     \end{annotatedFigure}
-    \caption{}
+    \caption{The spectral output of the broadband output of the supercontinuum source was resampled from the calibration report supplied with the source in a) and in b) the output is filtered between \qtyrange{460}{467}{\nm} using an AOTF and the emission incident on the retina is measured using a spectrometer. The hazard weighting functions using in the assessment of the SFLIO device as a Group 1 continuous wave ophthalmic device is shown.}
     \label{fig:safetyspectra}
 \end{figure}
+The safety thresholds shown in \cref{tab:conthresh} were calculated with the optical power measured when the laser source was set to its maximum power output - $P_{M} = \SI{1.1}{\milli\watt}$ which exceeds the safe exposure limits for a Group 1 device by a factor \num{20}. A neutral density filter with $\text{OD} = \num{1.3}$, calculated using \cref{eq:OD}  was fitted into the illumination arm to attenuate the optical power incident on the retina to eye-safe levels of $P_{M}=\SI{46}{\micro\watt}$ and the various safe exposure thresholds were recalculated with a safety factor defined as $\eta = \nicefrac{\text{Threshold}}{\text{Value}}$.
+\begin{equation}\label{eq:OD}
+    P = P_{0}~10^{-\text{OD}}
+\end{equation}
 
-\begin{itemize}
-    \item The photon flux recorded in FLIMages is ultimately limited by not only the quantum efficiency of the retina in terms of producing fluorescence but also the limit of safe exposure in the retina. 
-    \item There are two predominant damage mechanisms in the eye - the phototoxic effects, and photochemical effects.
-    \item Phototoxic damage is caused by over exposure of short wavelength light which generates free radicals in the retina. The immune system then either sees these as foreign and removes the corrupted cells or the in extreme cases the photorecepots are over stimulated / absorbed too much energy and die directly.
-    \item Photothermal damage occurs with long wavelength light whereby localised heating of the humours located at the retina surfaces cause acute cavitation destroying the retinal surface. 
-    \item While human imaging was not achieved in the course of this project a full safety assessment was carried out to determine the safe exposure limits for the SFLIO device and inform the potential image integration times - which will only improve with future generations of SPAD arrays.
-    \item Two different safety standards were used 
-\end{itemize}
+\begin{table}[ht]
+    \centering
+    \resizebox{0.98\textwidth}{!}{
+    \begin{tabular}{|p{3cm}|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Description} & \textbf{Symbol} & \textbf{Equation} & \textbf{Threshold} & \textbf{Measured} & \textbf{Unit} & \textbf{Safety Factor} & \textbf{Ref}\\
+        \hline
+        Weighted retinal irradiance & $E_{A-R}$ & $\sum_{350}^{700}E(\lambda)A(\lambda)\Delta\lambda$ & \num{220} & \num {178} & $\si{\micro\watt\per\centi\metre^{2}}$ & \num{1.24} & $5.3.1.3a$ \\
+        \hline
+        Unweighted corneal and lenticular infrared irradiance & $E_{IR-CL}$ & $\sum_{770}^{2500}E(\lambda)\Delta\lambda$ & \num{20} & \num{0.061} & $\si{\milli\watt\per\centi\metre^{2}}$ & \num{326} & $5.3.1.4$ \\
+        \hline
+        Unweighted anterior segment visible and infrared radiation irradiance & $E_{VIR-AS}$ & $\sum_{380}^{1200}E(\lambda)\Delta\lambda$ & \num{4} & \num{0.0026} & $\si{\watt\per\centi\metre^{2}}$ & \num{1565} & $5.4.1.5$\\
+        \hline
+        Weighted retinal visible and infrared thermal irradiance & $E_{VIR-R}$ & $\sum_{380}^{1400}E(\lambda)R(\lambda)\Delta\lambda$ & \num{0.7} & \num{0.00028} &$\si{\watt\per\centi\metre^{2}}$ & \num{2458} & $5.3.1.3a$ \\
+        \hline
+    \end{tabular}
+    }
+    \caption{Safe exposure limits for a Group 1 device under the \citeauthor{ISO15004} standard and the resulting exposure measured from the SFLIO device with the laser source operating at maximum power - filtered between \qtyrange{460}{467}{\nano\metre} - and a $\text{OD} = 1.3$ neutral density filter is fitted. The safety factor is calculated as $\nicefrac{\text{Threshold}}{\text{Value}}$. In the final column the reference to the equation to calculate the safe exposure limits is given.}
+    \label{tab:conthresh}
+\end{table}
+\paragraph*{Pulsed Source - \citeauthor{IEC60825}\\}
+In the IEC standard the safe exposure limits, termed as Accessible Emission Limits (AEL), are determined for a pulsed Class 1 laser source which is deemed safe for continuous exposure for up to 8 hours\cite{IEC60825}. Here the AELs are calculated in terms of the energy deposited by: a single pulse, a single pulse within a train of pulses - weighted by a safety factor; and the emission from \SI{100}{\second} worth averaged into a single pulse. The most pessimistic AEL is chosen for evaluation, $\text{AEL}_{s.p.T}$, and is compared against the power incident of $P=\SI{1.3}{\micro\watt}$ and converted to energy depositied per pulse - $E_{pulse} = P/f$ where $f$ is the repetitiion rate of the source.
+
+\begin{table}[h]
+    \centering
+    \resizebox{0.98\textwidth}{!}{
+    \begin{tabular}{|p{6cm}|c|c|c|c|}
+    \hline
+    Description & Symbol & Threshold (\si{\joule}) & Measured (\si{\joule}) & Safety Factor \\
+    \hline
+    Accessible Emission Limit for a single pulse &  $AEL_{single}$ & \num{7.7e-8} & \num{5.75e-13} & \num{1.3e5}\\
+    \hline
+    Accessible Emission Limit for a single pulse averaged over a period of 100s & $AEL_{s.p.T}$ &\num{1.1e-12} & \num{5.75e-13} & \num{1.91}\\
+    \hline
+    Accessible Emission Limit for a single pulse in a train of pulses & $AEL_{s.p.train}$ &\num{3.08e-8} & \num{5.75e-13} & \num{5e4}\\
+    \hline
+    \end{tabular}
+    }
+    \caption{Comparison of calculated Accessible Emission Limits (AEL's) for a Class 1 laser system, with the measured energy per pulse of the SFLIO system after attenuating emitted power onto the retina with a $\text{OD} = 1.3$ neutral density filter. The safety factor is calculated as $\nicefrac{\text{Threshold}}{\text{Value}}$}
+    \label{tab:pulsedvalues}
+\end{table}
+\subsubsection{Summary of Safety Assessment}
+In this safety assessment the SFLIO device was evaluated using two sets of safety standards where the excitation source is treated as both a continuous wave source, and a pulsed source. To ensure to safe operation when carrying out \textit{in-vivo} imaging of human eyes the $\text{OD}=1.3$ neutral density filter should be fitted to ensure that when the laser source is set to its maximum optical power output it the exposure is within the limits set out in both the \citeauthor{ISO15004} and \citeauthor{IEC60825}. Further, this magnitude of attenuate also results in a the emission produed by the SFLIO device to be lower than the limits of safe exposure by factors of 1.91 when treating the device as a Class 1 pulsed laser source and 1.24 the instrument is evaluated as a Group 1 continuous wave sourced ophthalmic device under the \citeauthor{ISO15004} and \citeauthor{IEC60825}, respectively. Nonetheless for imaging human retinas the optical power emitted from the SFLIO device should be regularly measured to ensure that these safety factors are not solely relied upon.
 \FloatBarrier
 \section{Evaluation of Performance}
 \subsection{Spectral Calibration}
 
+In performing spectrally resolved fluorescence lifetime measurements the recorded data will be influenced by the non-uniform spectral response of the imaging optics within the SFLIO device arising from the various anti-reflective coatings amongst other sources as well as the non-rectangular transmission functions of the spectra filters. To ensure accurate recover of fluorophore concentrations in the eye the spectral sensitivity of the system was measured to act as a calibration in the fluorophore discrimination process.
+For the SFLIO device the effective spectral response for each spectral band can be obtained from a two sets of measurements: a broadband Xenon white-light source is directed into the objective lens of the SFLIO device and for each spectral filter the spectra the transmitted spectra is measured with a spectrometer where the detector head is positioned in the place of the fundus camera; and a direct measurement of the light source to remove is influence from the previous measurement. 
+Mathematically the transmission function, $F_{n}$ for each of the $n$ band are recovered using \cref{eq:filttrans} where $I_n{\lambda}$ is the spectral measurement of the source through the fundus camera and $\alpha(\lambda)$ is the direct measurement of the light sources. 
+\begin{equation}\label{eq:filttrans}
+    F_{n}(\lambda) = \frac{I_{n}(\lambda)}{\alpha(\lambda)}
+\end{equation}
+This direct measurement of the light source serves the purpose of cancelling out the spectral sensitivity of the spectrometer, $D(\lambda)$, as well as the spectral response of the light source $S(\lambda)$.
+\begin{equation}
+    S(\lambda)D(\lambda) = \alpha(\lambda)
+\end{equation}
+\begin{equation}\label{}
+    I_{n}(\lambda) = S(\lambda)D(\lambda)(\lambda)F_{n}(\lambda)
+\end{equation}
+In
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/sflio-device/FilterTransmissionFunctions.pdf}
+    \caption{Caption}
+    \label{fig:filtfuncs}
+\end{figure}
+
+
+
+
+
+
 \subsection{Spatial Resolution of S-FLIO device}
-While the purpose of this thesis is not to construct a diffraction limited retinal imaging system but to record fluorescence lifetime images and quantitatively measure the distribution of fluorophores across the retina - a spatial resolution, with respect to images recorded on the retina with the FLIMera, sufficient to resolve features, and markers, common with retinal disease is key. For example, as has been discussed in \cref{intro:AMD}, the average diameter of drusen, a common marker of disease progression in AMD, is on the order of YY - to resolve drusen with the FLIMera the spatial resolution of the S-FLIO system must be lower than this value. Additionally, the spatial resolution of both detectors will influence the accuracy required when reconstructing images from fluorescence histograms of a retina undergoing motion. For a proportional difference in the spatial resolution $\nicefrac{\Delta r_{FLIMera}}{\Delta r_{sCMOS}} \leq M$ will require registration of images within a sub-pixel accuracy (with respect to the sCMOS detector) whereas for $\nicefrac{\Delta r_{FLIMera}}{\Delta r_{sCMOS}} > M$ the registration accuracy requirement is greater than a single pixel.
+While the purpose of this project was not to construct and demonstrate a diffraction-limited retinal imaging system but to record fluorescence lifetime images and quantitatively measure the distribution of fluorophores across the retina - a spatial resolution, with respect to images recorded on the retina with the FLIMera, sufficient to resolve features, and markers, common with retinal disease is key. For example, as has been discussed in \cref{intro:AMD}, the average diameter of drusen, a common marker of disease progression in AMD, is on the order of YY - to resolve drusen with the FLIMera the spatial resolution of the S-FLIO system must be lower than this value. Additionally, the spatial resolution of both detectors will influence the accuracy required when reconstructing images from fluorescence histograms of a retina undergoing motion. For a proportional difference in the spatial resolution $\nicefrac{\Delta r_{FLIMera}}{\Delta r_{sCMOS}} \leq M$ will require registration of images within a sub-pixel accuracy (with respect to the sCMOS detector) whereas for $\nicefrac{\Delta r_{FLIMera}}{\Delta r_{sCMOS}} > M$ the registration accuracy requirement is greater than a single pixel.
 \subsubsection{Spatial Resolution vs. Pixel Size}
 In a sampled imaging system the spatial resolution is not simply dictated by the size of a single pixel on the detector but instead how accurately the imaging system and detector can describe a scene e.g the retina. Due the optical characteristics of the eye and the aberrations inherent with the fundus camera and the additional optics required for fluorescence lifetime imaging as well as the sampled nature of the system this will be imperfect. Mathematically the response of the imaging system is denoted as Point-Spread Function (PSF) which describes how a point source in a scene is blurred in a recorded image. 
 \begin{equation}\label{eq:psf}

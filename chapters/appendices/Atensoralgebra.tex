@@ -1,9 +1,8 @@
 \setstretch{2}
-\section{Tensor Inversion Based Unmixing}\label{app:tensor}
 
 In this appendix the principles behind tensors and aforementioned tensor operations are explained as well as how they are used to evaluate the pseudo-inverse of the order-3 tensor, and the condition number of a tensor unmixing process. The definitions and identities are adapted from \citeauthor{brazell2013solving}.
 
-\subsection{Tensor Nomenclature}\label{subsec:tensnom}
+\section{Tensor Nomenclature}\label{subsec:tensnom}
 A tensor is a mathematical object that can have more than 2 dimensions and has the condition that it is invariant under changes to spatial coordinates. The dimensionality of a tensor is referred to as its order where an order-$n$ tensor has $n$-dimensions e.g. an order-$0$ tensor is a scalar, and order-$1$ tensor is a vector or array, and a order-$2$ tensor is a matrix. An order-3 tensor, $\mathcal{D}$ of real numbers with dimensions of length $I$,$J$, and $K$ would be notated as $\mathcal{D} \in \mathbb{R}^{I \times J \times K}$ and its individual entries are addressed using lowercase notation for the object and its indices: $\mathbf{d}_{ijk}$. Likewise, order-1 tensors are notated as lowercase bold and matrices, order-2 tensors, are notated with uppercase bold symbols but their individual entries are notated in the same way as order-3 tensors.
 Operations between tensors are generalised using the Einstein summation or Einstein notation conversions by summing over "free" indices which appear only once in an expression and element wise multiplications of entries in "dummy" indices that are repeated within an expression. To illustrate this the example in Eq.~\ref{eq:matmul} and Eq.~\ref{eq:matmulein} show multiplication of two matrices, $\mathbf{A} \in \mathbb{R}^{I \times J}$ and $\mathbf{B} \in \mathbb{R}^{J \times K}$ using standard indexed summations and Einstein notation where summation symbols are conventionally omitted for simplicity and brevity.
 \begin{align}
@@ -14,7 +13,7 @@ Operations between tensors are generalised using the Einstein summation or Einst
 \end{align}
 Here, ``j'' is the dummy index and is summed over, and element-wise multiplication is performed on the``i'' and ``k''  indices. 
 
-\subsection{Einstein Products}\label{subsec:einprod}
+\section{Einstein Products}\label{subsec:einprod}
 Einstein or contracted products between two tensors can be used to contract specific indices. For example the Einstein $N$-Product over $N$ indices for two arbitrary tensors
 $\mathcal{A} \in \mathbb{R}^{I_{i}\times\cdot\times I_{L}\times K_{1}\times\cdot\times K_{N}}$ and $\mathcal{B} \in \mathbb{R}^{K_{i}\times\cdot\times K_{N}\times J_{1}\times\cdot\times J_{M}}$ and is defined as follows:
 \begin{align}
@@ -26,16 +25,16 @@ For the implementation of the Tensor based SFLIM unmixing technique only the $\a
 \end{align}
 Here the to simplify notation the elements of the tensor transpose,$\mathcal{D}^{T}$, is notated as $\hat{\mathbf{d}}$ and for indices that are twinned they are denoted as $\tilde{\sigma}$ where $\tilde{\gamma}$ has same dimensions as $\gamma$ but is not to be treated as ``dummy'' indices.
 
-\subsection{Tucker N-Mode Product}\label{subsec:tuckermode}
+\section{Tucker N-Mode Product}\label{subsec:tuckermode}
 The Tucker N-Mode product is an extension of the Einstein Product in that it is simply a contracted sum (Einstein 1-Product) over a defined Mode of a Tensor but is now denoted using $\bullet_{N}$ instead of $\ast_{N}$.For a Tensor $\mathcal{T} \in \mathbb{R}^{I \times J \times K}$ then Mode 1 is the $i$-direction, Mode 2 is the $j$-direction, and Mode 3 is the $k$-direction.
 \\
-For this application only the Mode-3 product between a tensor and vector is considered and using the same tensor, $\mathcal{D}\in \mathbb{R}^{t \times \lambda \times \sigma}$, as above the mode 3 product with the vector $\mathbf{x} \in \mathbb{R}^{\sigma}$, denoted as $\bullet_{3}$  also evaluates to a vector (Eq.~\ref{eq:tuckmodeex}) and is akin to the dot product between a matrix and a vector.
+For this application only the Mode-3 product between a tensor and vector is considered and using the same tensor, $\mathcal{D}\in \mathbb{R}^{t \times \lambda \times \sigma}$, as above the mode 3 product with the vector $\mathbf{x} \in \mathbb{R}^{\sigma}$, denoted as $\bullet_{3}$  also evaluates to a vector (\cref{eq:tuckmodeex}) and is akin to the dot product between a matrix and a vector.
 \begin{align}
    \big(\mathcal{D}\bullet_{3}\mathbf{x}\big)_{\sigma} &= \sum_{t, \lambda}\mathbf{d}_{t \lambda \sigma}\mathbf{x}_{\sigma} \label{eq:tuckmodeex}
 \end{align}
 
-\subsection{Tensor Transpose}\label{sec:tenstrans}
-For Vectors and Matrices the transpose is well defined since there is only one permutation of a matrix or a vectors indices. However for an $N$ - dimensional tensor there are $N!$ permutations of the indices and therefore $N!$ valid transposes. For example an order-3 tensor has \num{6} different possible transposes (Tab.~\ref{tab:trans}). In \cite{brazell2013solving} they define the appropriate transposes for different multilinear systems of equations for the application for SFLIM unmixing the first entry of Tab.~\ref{tab:trans} is used for $\mathcal{A} \in \mathbb{R}^{t \times \lambda \times \sigma}$, $\mathbf{M}\in\mathbb{R}^{t \times \lambda}$, and $\mathbf{x} \in \mathbb{R}^{\sigma}$.  
+\section{Tensor Transpose}\label{sec:tenstrans}
+For Vectors and Matrices the transpose is well defined since there is only one permutation of a matrix or a vectors indices. However for an $N$ - dimensional tensor there are $N!$ permutations of the indices and therefore $N!$ valid transposes. For example an order-3 tensor has \num{6} different possible transposes (\cref{tab:trans}). In \citeauthor{brazell2013solving} they define the appropriate transposes for different multilinear systems of equations for the application for SFLIM unmixing the first entry of \cref{tab:trans} is used for $\mathcal{A} \in \mathbb{R}^{t \times \lambda \times \sigma}$, $\mathbf{M}\in\mathbb{R}^{t \times \lambda}$, and $\mathbf{x} \in \mathbb{R}^{\sigma}$.  
 \begin{table}[h]
     \centering
     \begin{tabular}{|c|c|c|c|}
@@ -62,3 +61,6 @@ For Vectors and Matrices the transpose is well defined since there is only one p
     \caption{Third order tensor transposes for various forms of multilinear systems. Reproduced from \citeauthor{brazell2013solving}\cite{brazell2013solving}}
     \label{tab:trans}
 \end{table}
+
+% \section{Safety Assessment for SFLIO Device}
+% \input{SafetyAssessment.tex}
