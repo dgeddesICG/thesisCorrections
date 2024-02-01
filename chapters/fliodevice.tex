@@ -47,13 +47,48 @@ Previous design iterations, shown in \cref{fig:IlluminationV1},used a similar de
 \end{figure}
 \FloatBarrier
 \subsection{Modification - Imaging Arm}
-The imaging arm of the SFLIO uses a 
+The imaging arm of the SFLIO device was designed to record fluorescence lifetime data using a the Horiba FLIMera SPAD array - referred to as the FLIMera herein - over a $\cong\SI{12}{\degree}$ field-of-view of the retina in parallel with a standard sCMOS detector (Thorlabs Kiralux) recording fluorescence intensity or brightfield images over a \SI{35}{\degree} field-of-view for the purpose of correcting for motion of the retina throughout the long image acquisition period. This configuration was constructed using three standard SLR lenses set up in a relay configuration, shown in \cref{fig:imagingoptics}, using lenses with focal lengths: $f=\SI{100}{\mm}$ to collimate the retinal image; $f = \SI{85}{\mm}$ to form the image on the sCMOS detector; and a $f = \SI{50}{\mm}$ lens to form the image on the FLIMera. A 2'' diameter plate beam-splitter is used to transmit \SI{10}{\percent} of the signal to the sCMOS camera and \SI{90}{\percent} to the FLIMera - this maximises the efficiency of the SFLIM measurements without degrading the quality of the registration images recorded with the sCMOS detector. Due to the difference in pixel-counts between the two detectors - $\qtyproduct{192 x 126}{\pixel}$ for the FLIMera and \qtyproduct{4096 x 2160}{\pixel} the field-of-view covered by the FLIMera was reduced by a linear factor of $\approx 3$ to improve the spatial resolution of the acquired images with the intention that if SFLIM images of larger areas of the retina the patient can fixate on their eyes away from centre.
+
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = 0.8\textwidth]{figures/sflio-device/FundusCameraOpticDiagram-ImagingOptics.pdf}}
+    \annotatedFigureText{0.69,0.38}{black}{0.4}{$r_{1}$}
+    \end{annotatedFigure}
+    \caption{Optical layoutt of the imaging optics in the SFLIO system. The retinal image }
+    \label{fig:imagingoptics}
+\end{figure}
+For recording spectrally resolved fluorescence lifetime images 5 different emission bandpass filters - forming 2 sets of 4 filters - are fitted into the filter allowing for fluorescence images to be recorded with the FLIMera while retaining the ability to record brightfield images with the sCMOS camera for increased photon throughput. These spectral filters were chosen to maximise light throughput while minimising error in discriminating retinal fluorophores (see \cref{sec:tensband}) and the central wavelengths and bandwiths are shown in \cref{tab:sflio-filts} where filters 4a and 4b refer to two filters identified in the optimisation process with near equal unmixing performance. For \textit{in-vivo} rat imaging either 4a or 4b were used in the measurement process resulting in 4 total spectral bands.
+
+\begin{table}
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Filter No.  & CWL (\si{\nm}) & FWHM (\si{\nm})\\
+        \hline
+        1 & 500 & 24\\
+        2 & 549 & 15\\
+        3 & 561 & 14\\
+        4a & 640 & 75\\
+        4b & 675 & 50\\
+        \hline
+    \end{tabular}
+    \caption{Spectral filters used in the SFLIO system for enhanced discrimination of retinal fluorophores from spectrally-resolved fluorescence lifetime measurements. In spectral-FLIM measurements only 4 filters are used where either filter 4a or 4b is used}
+    \label{tab:sflio-filts}
+\end{table}
+
+
+\subsection{Horiba FLIMera}
+\subsection{Detector Architecture}
+\subsection{TCSPC Acquisition Modes}
+
+
+
 \begin{itemize}
     \item for the imaging arm a 90:10 beamsplitter is used in conjunction with 3 commercial SLR lenses to relay the image produced by the fundus camera to a Thorlabs Kiralux 8.9MP sensor which will be used to record images in either brightfield or in fluorescence for co-registration purposes and the Horiba FLIMera to record FLIM images. A linear cassette style filter wheel is fitted either in front of the FLIMera for brightfield imaging with the sCMOS detector or 
     \item table with specs of both detectors
     \item SLR lenses were chosen to maximise image fidelity - having a flatter spatial frequency response - simplifying the optical design process and allowing for easy fine tuning of the focus, and aperture.
     \item magnification and focal lengths were based on calculations in second year progression report. 
-    \item The image is relay with a Vivitar f = 80mm lens, the SPAD is focused using a Nikon f = 50mm lens, the sCMOS is focused using a Cannon 135mm. 
+    \item The image is relay with a Vivitar f = 80mm lens, the SPAD is focused using a Nikon f = 50mm lens, the sCMOS is focused using a Cannon 85mm. 
     \item the Nikon lens is attached to the SPAD using Cmount threads tapped into a 3d printed mount that attaches to existing m3 threaded mounting holes on the FLIMera 
     \item Diagram showing the relative FOV on an image of the eye.
     \item The Horbia FLIMera SPAD array
@@ -147,33 +182,25 @@ In this safety assessment the SFLIO device was evaluated using two sets of safet
 \FloatBarrier
 \section{Evaluation of Performance}
 \subsection{Spectral Calibration}
-
-In performing spectrally resolved fluorescence lifetime measurements the recorded data will be influenced by the non-uniform spectral response of the imaging optics within the SFLIO device arising from the various anti-reflective coatings amongst other sources as well as the non-rectangular transmission functions of the spectra filters. To ensure accurate recover of fluorophore concentrations in the eye the spectral sensitivity of the system was measured to act as a calibration in the fluorophore discrimination process.
-For the SFLIO device the effective spectral response for each spectral band can be obtained from a two sets of measurements: a broadband Xenon white-light source is directed into the objective lens of the SFLIO device and for each spectral filter the spectra the transmitted spectra is measured with a spectrometer where the detector head is positioned in the place of the fundus camera; and a direct measurement of the light source to remove is influence from the previous measurement. 
-Mathematically the transmission function, $F_{n}$ for each of the $n$ band are recovered using \cref{eq:filttrans} where $I_n{\lambda}$ is the spectral measurement of the source through the fundus camera and $\alpha(\lambda)$ is the direct measurement of the light sources. 
+To ensure accurate and robust recovery of fluorophore concentrations from spectrally resolved fluorescence lifetime measurements the spectral response of both the imaging system - the optics of the fundus camera - and the non-rectangular response of the spectral filters must be calibrated. By not performing this calibration step the recorded spectra will deviate from the spectral output of the retinal autofluorescence signal yields false concentrations of retinal fluorophores. 
+In the SFLIO device the effective response for each spectral channel was measured using a spectrometer - where the detector head was placed at the image plane of the FLIMera - and a Xenon broadband white-light source illuminating through the objective lens of the SFLIO device. To account for the response of the light source, $S(\lambda)$ and the spectrometer itself,$D(\lambda)$- which is present in all measurements of the spectra filters - a direct measurement of the light source was recorded and is used in \cref{eq:filtcal,eq:filttrans} to recover the filter transmission functions through the imaging system, $F_{n}(\lambda)$, for each of the $n$ spectral bands. 
 \begin{equation}\label{eq:filttrans}
     F_{n}(\lambda) = \frac{I_{n}(\lambda)}{\alpha(\lambda)}
 \end{equation}
-This direct measurement of the light source serves the purpose of cancelling out the spectral sensitivity of the spectrometer, $D(\lambda)$, as well as the spectral response of the light source $S(\lambda)$.
-\begin{equation}
+\begin{equation}\label{eq:filtcal}
     S(\lambda)D(\lambda) = \alpha(\lambda)
 \end{equation}
-\begin{equation}\label{}
+\begin{equation}
     I_{n}(\lambda) = S(\lambda)D(\lambda)(\lambda)F_{n}(\lambda)
 \end{equation}
-In
+In \cref{fig:filtfuncs} the calibrated filter functions are shown after using \cref{eq:filtcal,eq:filttrans} and subtracting dark spectra to remove the influence of scattered background light. The non-uniformity in the spectral response of the fundus camera optics can be attributed to cumulative absorption from the anti-reflective coatings on each lens within the fundus camera itself as well as the SLR lenses and beam-splitter used to relay the retinal image to the FLIMera as well as the beam-splitter.
 \begin{figure}
     \centering
     \includegraphics[width = 0.8\textwidth]{figures/sflio-device/FilterTransmissionFunctions.pdf}
-    \caption{Caption}
+    \caption{The calibrated filter functions for each of the spectral filters are plotted (coloured lines) are used to account for the non-uniform response of the refractive optics within the fundus camera (dashed line) as well as the non-rectangular response of the spectral filters.}
     \label{fig:filtfuncs}
 \end{figure}
-
-
-
-
-
-
+\FloatBarrier
 \subsection{Spatial Resolution of S-FLIO device}
 While the purpose of this project was not to construct and demonstrate a diffraction-limited retinal imaging system but to record fluorescence lifetime images and quantitatively measure the distribution of fluorophores across the retina - a spatial resolution, with respect to images recorded on the retina with the FLIMera, sufficient to resolve features, and markers, common with retinal disease is key. For example, as has been discussed in \cref{intro:AMD}, the average diameter of drusen, a common marker of disease progression in AMD, is on the order of YY - to resolve drusen with the FLIMera the spatial resolution of the S-FLIO system must be lower than this value. Additionally, the spatial resolution of both detectors will influence the accuracy required when reconstructing images from fluorescence histograms of a retina undergoing motion. For a proportional difference in the spatial resolution $\nicefrac{\Delta r_{FLIMera}}{\Delta r_{sCMOS}} \leq M$ will require registration of images within a sub-pixel accuracy (with respect to the sCMOS detector) whereas for $\nicefrac{\Delta r_{FLIMera}}{\Delta r_{sCMOS}} > M$ the registration accuracy requirement is greater than a single pixel.
 \subsubsection{Spatial Resolution vs. Pixel Size}

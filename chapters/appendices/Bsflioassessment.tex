@@ -1,5 +1,5 @@
 In this appendix the safety of the SFLIO device is evaluated using the \citeauthor{IEC60825} and \citeauthor{ISO15004} safety documents and is split into multiple sections.~\cref{sec:sysdes} covers the modifications made to a standard imaging ophthalmoscope to allow fluorescence lifetime imaging.~\cref{sec:expthresh} will outline the potential damage mechanisms when illuminating the retina with a laser source and the methods for ensuring safe exposure levels.~\cref{sec:pulsedsafety} and ~\cref{sec:cwsafety} will evaluate the safety of our system under the criteria for a pulsed and continuous wave laser source, respectively.
-
+\FloatBarrier
 \section{System Design}\label{sec:sysdes}
 Fluorescence imaging is routinely used in the diagnosis, and monitoring of retinal disease by detecting changes in fluorescent biomarkers in the retina~\cite{bernstein2019fluorescence}. In principle, this allows for the enhanced detection of disease by instead of examining structural changes in the retina, after damage as already occurred, we can detect changes in the biochemistry. However, the feint signal produced by the fluorophores of interest is often swamped by more strongly fluorescing clutter this hinders abilities to quantify individual fluorophores and results in noisy images. 
 Spectral-Fluorescence Lifetime Imaging is a new technique which can discriminate mixtures of multiple fluorescent compounds using properties inherent to the respective fluorophore, namely its fluorescence emission spectra, and its fluorescence lifetime – the average time taken for a fluorophore to decay~\cite{scipioni2021phasor}.
@@ -31,11 +31,11 @@ To ensure safe operation, the laser source will be set to $100\%$ power output a
     \caption{Spectral output of NKT SuperK Extreme 12W supercontinuum laser used in modified fundus camera for fluorescence lifetime imaging of the retina.}
     \label{fig:nktspectra}
 \end{figure}
-
+\FloatBarrier
 \section{Exposure Thresholds}\label{sec:expthresh}
 Photochemical damage occurs predominately due to over exposure of short wavelength light where free radicals are created within cells of the RPE, the choroid, and the retina (See \cref{fig:anatomyeye}). These damaged cells are either removed as part of an immune response or die – resulting in loss of vision~\cite{glickman2002phototoxicity}. For our device the photochemical risk will be the most pertinent since we are exciting fluorescence between \SI{450}{\nano\metre} and \SI{480}{\nano\metre}.
 Photothermal damage occurs due to visible, and infrared light causing a rise in temperatures within the eye. In cases of extreme heating of the vitreous humour, the retina can be permanently damaged due to cavitation~\cite{roberts2001ocular}. The safe exposure limits specify which section of the eye they relate to: retina, corner, or the anterior segment as well as the mode of damage - phototoxic or photothermal.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width = 0.5\textwidth]{Safety Assessment/AnatomyofEye.png}
     \caption{Anatomy of the eye. The anterior segment is comprised of structures such as the cornea, iris, lens, and the ciliary body.}
@@ -46,14 +46,14 @@ Two sets of guidelines are used to determine the safety of our instrument. The B
 This set of guidelines is used to assess the safety of our device when treated as a continuous source under the restrictions for Group 1 devices. 
 The IEC 60825-1:2014 document is used to asses the safety of our instrument when considered as a pulsed source. While this document is not specifically intended for ophthalmic imaging devices it does provide more rigid definitions of safety thresholds that are better suited for the source used in our instrument - short wavelength, short pulse length, and high repetition rate. Here the safety thresholds pertain to the classification given to a laser. For example a class 1 laser is safe for direct exposure of over $\SI{8}{\hour}$ whereas a Class 2 laser is only safe up to direct exposures of $<\SI{0.25}{\second}$ due to the eyes blink response. Lasers that are Class 3 and above pose significant risk to eyesight from accidental reflections.
 In this safety assessment the criteria for a Class 1 laser system will be used to evaluate the safety of our device(See~\cref{sec:pulsedsafety}).
-
+\FloatBarrier
 \section{Pulsed Source Safety Assessment - IEC}\label{sec:pulsedsafety}
 For pulsed sources the IEC 60825-1:2014 document is used to assess the safety of our system using the criteria for a Class 1 laser system.
 \\
 The safety thresholds, or Accessible Emission Limits (AEL), for a Class 1 source are used to show our system is eye-safe - similar to he Group 1 demarcation used in the BS EN ISO 150004-2:2007 document. 
 The AEL's for pulsed sources are defined in three ways 1) The AEL for a single pulse, 2) The AEL for a single pulse in a train of pulses, and 3) The AEL over a defined time base. When assessing our system the most restrictive safety limit is used. Section 4.3f) of the safety guidelines are used to aid the calculation of these terms.
 
-\begin{table}[!h]
+\begin{table}[htbp]
     \centering
     \begin{tabular}{|c|c|c|c|c|}
         \hline
@@ -149,7 +149,7 @@ The accessible emission from the system - or the energy deposited onto the retin
 The NKT supercontinuum laser source used in our system has the potential to cause severe phototoxic, and photothermal damage due to its broadband emission - as shown in \cref{subfig:superk}. For the excitation of flourophores the this broadband emission is reduced down to a single \SI{11.5}{\nano\metre} FWHM band using an AOTF. The spectral output of the system is measured using a Ocean Optics Spectrometer to ensure non-desirable wavelengths are properly attenuated as shown in \cref{subfig:fcspectra}. The FWHM of the source is \SI{11.5}{\nano\metre} which is sufficiently narrow that it can be treated as a single wavelength for the purposes of measuring optical power and determining the accessible emission limits. 
 
 
-\begin{figure}[htb!]
+\begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
     \centering
@@ -185,7 +185,7 @@ Under Condition 3 the optical power was measured by positioning the \SI{7}{\mill
 \end{align}
 
 
-\begin{table}[h]
+\begin{table}[htbp]
     \centering
     \resizebox{0.98\textwidth}{!}{
     \begin{tabular}{|p{6cm}|c|c|c|c|}
@@ -202,7 +202,7 @@ Under Condition 3 the optical power was measured by positioning the \SI{7}{\mill
     \label{apptab:pulsedvalues}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[htbp]
     \centering
     \begin{tabular}{|c|c|c|}
     \hline
@@ -218,7 +218,7 @@ Under Condition 3 the optical power was measured by positioning the \SI{7}{\mill
     \label{apptab:angles}
 \end{table}
 
-\begin{table}[ht]
+\begin{table}[htbp]
     \centering
     \resizebox{0.98\textwidth}{!}{
         \begin{tabular}{|c|c|c|c|c|c|}
@@ -253,13 +253,13 @@ Under Condition 3 the optical power was measured by positioning the \SI{7}{\mill
 
 \subsection{Conclusion}
 Since we have demonstrated that the energy per pulse, $E_{pulse}$, emitted from our system is below the AEL's for a Class 1 device described in the IEC 60825-1:2014 we can conclude that our system satisfies the criteria for a Class 1 laser system and thus does not pose a risk to the eyesight of a patient/volunteer under normal imaging conditions.
-
+\FloatBarrier
 \section{Continuous Wave Source Safety Assessment- BS}\label{sec:cwsafety}
 The long image acquisition times required for FLIO imaging ($>\SI{20}{\second}$) coupled with the high repetition rate, short pulse length, and short wavelength mean that as per the ISO guidelines, the device should also be considered as a continuous wave source. The document breaks down the safe exposure limits to the specific damage mechanism, phototoxic or photo thermal, and to the particular section of the eye that is most likely to be damages: retina, cornea and lens, and the anterior segment.
 \\
 The phototoxic and photothermal damage mechanisms are wavelength dependent and this is represented in the calculations to determine the limits of safe exposures as the weighting functions $A(\lambda)$ for the photothermal damage mechanism and $R(\lambda)$ for the phototoxic damage mechanisms. These functions, shown in \cref{fig:hazardfunc}, are weighted towards the wavelengths where the eye is susceptible to damage e.g. phototoxic damage is more prevalent in the UV-to-blue wavelengths.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width = 0.6\textwidth]{Safety Assessment/HazardfunctionsPlot.png}
     \caption{Photothermal and Phototoxic hazard weighting functions used in the calculations of safe exposure limits for the retina. Reproduced from ISO 15004-2:2007 Annex1 Table A.1}
@@ -272,7 +272,7 @@ The safe exposure limit for the cornea and lens, $E_{IR-CL}$, is unweighted but 
 Likewise, the safe exposure limit for the anterior segment, $E_{VIR-R}$, is also unweighted.
 
 
-\begin{table}[ht]
+\begin{table}[htbp]
     \centering
     \resizebox{0.98\textwidth}{!}{
     \begin{tabular}{|p{6cm}|c|c|c|c|c|}
@@ -296,7 +296,7 @@ Likewise, the safe exposure limit for the anterior segment, $E_{VIR-R}$, is also
 With the laser source operating at maximum power, there is an optical power of $P_{M} = \SI{1.1}{\milli\watt}$, emitted from our system which is incident on the retina. The Weighted retinal irradiance, $E_{A-R}$, for this scenario is then $E_{A-R} = \SI{4245}{\micro\watt\per\centi\metre\squared}$ - exceeding the safe exposure limit by $\approx 20 \times$. A neutral density filter, of $\text{OD} = 1.3$ is fitted to attenuate the light emitted from the system to safe levels.
 The attenuated power is measured using the optical power meter to be $P_{M} = \SI{46}{\micro\watt}$. The various irradiances are calculated and shown in \cref{apptab:cwvalues}:
 
-\begin{table}[h]
+\begin{table}[htbp]
     \centering
     \resizebox{0.98\textwidth}{!}{
     \begin{tabular}{|p{6cm}|c|c|c|c|c|}
@@ -317,13 +317,13 @@ The attenuated power is measured using the optical power meter to be $P_{M} = \S
 \subsection{Conclusion}
 As can be seen from the above table (\cref{apptab:cwvalues}) the measured irradiances are below the thresholds for a Group 1 device. This means that our system satisfies the criteria described in the \citeauthor{ISO15004} for a Group 1 device and thus poses no risk to the eyesight of a volunteer/patient under normal imaging conditions.
 
-
+\FloatBarrier
 \section{Additional Information}
 \subsection{Calculation of Angular Subtense and Angle of Acceptance}\label{app:angularsubtense}
 
 The angular subtense of our system is defined as the angle subtended by the objective lens of the fundus camera and the cornea whereas the angle of acceptance is defined as the angle of subtended by the laser source, exiting the objective lens, and the cornea. This is illustrated in \cref{fig:appangularsubtense}. 
 \\
-\begin{figure}[htp]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width = 0.6\textwidth]{Safety Assessment/AngularSubtenseDiagram.pdf}
     \caption{The angular subtense of our imaging system, $\alpha$, is defined as the angle subtended by the objective lens of the fundus camera and the cornea of a volunteer/patient. The angle of acceptance, $\gamma$, is the angle subtended by the converging laser source and the cornea.}

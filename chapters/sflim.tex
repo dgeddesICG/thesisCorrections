@@ -436,7 +436,7 @@ Using this mathematical framework the above SFLIM unmixing method, shown in \cre
         \EndProcedure
         \Procedure{Estimator - $\bar{\mathbf{x}}$}{$\mathcal{A}, \mathbf{M}$}
             \State $\mathcal{A}^{T} \gets \text{permute axes of } \mathcal{A} : ijk \rightarrow kij$ 
-            \State $\mathcal{A}^{T}\ast_{2}\mathcal{A} \gets \textit{einsum}[ijk,jkl,il](\mathcal{A}^{T}, \mathcal{A})$
+            \State $\mathcal{A}^{T}\ast_{2}\mathcal{A} \gets \textit{einsum}[ijk,jkl \rightarrow il](\mathcal{A}^{T}, \mathcal{A})$
             \State $\mathcal{B} \gets (\mathcal{A}^{T}\ast_{2}\mathcal{A})^{-1}$
             \State $\mathcal{B}\ast_{2}\mathcal{A}^{T} \gets \textit{einsum}[ij, jkl \rightarrow ikl](\mathcal{B}, \mathcal{A}^{T})$
             \State $\bar{\mathbf{x}} \gets \textit{einsum}[ijk, jk \rightarrow i](\mathcal{B}\ast_{2}\mathcal{A}^{T},\mathbf{M})$
