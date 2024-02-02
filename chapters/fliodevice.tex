@@ -47,17 +47,15 @@ Previous design iterations, shown in \cref{fig:IlluminationV1},used a similar de
 \end{figure}
 \FloatBarrier
 \subsection{Modification - Imaging Arm}
-The imaging arm of the SFLIO device was designed to record fluorescence lifetime data using a the Horiba FLIMera SPAD array - referred to as the FLIMera herein - over a $\cong\SI{12}{\degree}$ field-of-view of the retina in parallel with a standard sCMOS detector (Thorlabs Kiralux) recording fluorescence intensity or brightfield images over a \SI{35}{\degree} field-of-view for the purpose of correcting for motion of the retina throughout the long image acquisition period. This configuration was constructed using three standard SLR lenses set up in a relay configuration, shown in \cref{fig:imagingoptics}, using lenses with focal lengths: $f=\SI{100}{\mm}$ to collimate the retinal image; $f = \SI{85}{\mm}$ to form the image on the sCMOS detector; and a $f = \SI{50}{\mm}$ lens to form the image on the FLIMera. A 2'' diameter plate beam-splitter is used to transmit \SI{10}{\percent} of the signal to the sCMOS camera and \SI{90}{\percent} to the FLIMera - this maximises the efficiency of the SFLIM measurements without degrading the quality of the registration images recorded with the sCMOS detector. Due to the difference in pixel-counts between the two detectors - $\qtyproduct{192 x 126}{\pixel}$ for the FLIMera and \qtyproduct{4096 x 2160}{\pixel} the field-of-view covered by the FLIMera was reduced by a linear factor of $\approx 3$ to improve the spatial resolution of the acquired images with the intention that if SFLIM images of larger areas of the retina the patient can fixate on their eyes away from centre.
+The imaging arm of the SFLIO device was designed to record fluorescence lifetime data using a the Horiba FLIMera SPAD array - referred to as the FLIMera herein - over a $\cong\SI{12}{\degree}$ field-of-view of the retina in parallel with a standard sCMOS detector (Thorlabs Kiralux) recording fluorescence intensity or brightfield images over a \SI{35}{\degree} field-of-view for the purpose of correcting for motion of the retina throughout the long image acquisition period. This configuration was constructed using three standard SLR lenses - chosen for their flat spatial frequency response, and ease of focus and aperture adjustment -  set up in a relay configuration, shown in \cref{fig:imagingoptics}, using lenses with focal lengths: $f=\SI{100}{\mm}$ to collimate the retinal image; $f = \SI{85}{\mm}$ to form the image on the sCMOS detector; and a $f = \SI{50}{\mm}$ lens to form the image on the FLIMera. A 2'' diameter plate beam-splitter is used to transmit \SI{10}{\percent} of the signal to the sCMOS camera and \SI{90}{\percent} to the FLIMera - this maximises the efficiency of the SFLIM measurements without degrading the quality of the registration images recorded with the sCMOS detector. Due to the difference in pixel-counts between the two detectors - $\qtyproduct{192 x 126}{\pixel}$ for the FLIMera and \qtyproduct{4096 x 2160}{\pixel} the field-of-view covered by the FLIMera was reduced by a linear factor of $\approx 3$ to improve the spatial resolution of the acquired images with the intention that if SFLIM images of larger areas of the retina the patient can fixate on their eyes away from centre.
 
 \begin{figure}
     \centering
-    \begin{annotatedFigure}{\includegraphics[width = 0.8\textwidth]{figures/sflio-device/FundusCameraOpticDiagram-ImagingOptics.pdf}}
-    \annotatedFigureText{0.69,0.38}{black}{0.4}{$r_{1}$}
-    \end{annotatedFigure}
-    \caption{Optical layoutt of the imaging optics in the SFLIO system. The retinal image }
+    \includegraphics[width = 0.9\textwidth]{figures/sflio-device/FundusCameraOpticDiagram-ImagingOptics.pdf}
+    \caption{Optical layout of the imaging arm of the SFLIO system. The retinal image at the image plane, $p_1$, is relayed using SLR lenses where: $f_1$ collimates the image; $f_{2}$ forms the reflected image from the 90:10 beam-splitter (BS) onto the FLIMera; and $f_{3}$ forms the transmitted image onto the sCMOS camera for co-registration of the moving retinal images. Registration images can be recorded using either in brightfield or fluorescence using a \SI{500}{\nm} long-pass filter at $p_{1}$ }
     \label{fig:imagingoptics}
 \end{figure}
-For recording spectrally resolved fluorescence lifetime images 5 different emission bandpass filters - forming 2 sets of 4 filters - are fitted into the filter allowing for fluorescence images to be recorded with the FLIMera while retaining the ability to record brightfield images with the sCMOS camera for increased photon throughput. These spectral filters were chosen to maximise light throughput while minimising error in discriminating retinal fluorophores (see \cref{sec:tensband}) and the central wavelengths and bandwiths are shown in \cref{tab:sflio-filts} where filters 4a and 4b refer to two filters identified in the optimisation process with near equal unmixing performance. For \textit{in-vivo} rat imaging either 4a or 4b were used in the measurement process resulting in 4 total spectral bands.
+For recording spectrally resolved fluorescence lifetime images 5 different emission bandpass filters - forming 2 sets of 4 filters - are fitted into the filter allowing for fluorescence images to be recorded with the FLIMera while retaining the ability to record brightfield or fluorescence intensity images (using an additional \SI{500}{\nm} long-pass filter) with the sCMOS camera for increased photon throughput. These spectral filters were chosen to maximise light throughput while minimising error in discriminating retinal fluorophores (see \cref{sec:tensband}) and the central wavelengths and bandwidths are shown in \cref{tab:sflio-filts} where filters 4a and 4b refer to two filters identified in the optimisation process with near equal unmixing performance. For \textit{in-vivo} rat imaging either 4a or 4b were used in the measurement process resulting in 4 total spectral bands.
 
 \begin{table}
     \centering
@@ -75,21 +73,48 @@ For recording spectrally resolved fluorescence lifetime images 5 different emiss
     \caption{Spectral filters used in the SFLIO system for enhanced discrimination of retinal fluorophores from spectrally-resolved fluorescence lifetime measurements. In spectral-FLIM measurements only 4 filters are used where either filter 4a or 4b is used}
     \label{tab:sflio-filts}
 \end{table}
-
-
+\FloatBarrier
 \subsection{Horiba FLIMera}
-\subsection{Detector Architecture}
-\subsection{TCSPC Acquisition Modes}
+\subsubsection{FLIMera Architecture}
+The FLIMera is used to record the widefield time-resolved fluorescence decays and comprised of an array of \qtyproduct{192 x 126}{\pixel} Single Photon Avalanche-Diodes with on pixel photon counting modules to enable TCSPC imaging across the full sensor with a temporal resolution of \SI{47}{\ps}. Based upon a similar architecture to SPAD array of \citeauthor{henderson2019192}the FLIMera has a pixel pitch of \qtyproduct{18.4 x 9.2}{\um} where half of each pixel is the photosensitive area - the SPAD  - and the other half is dedicated to the photon counting electronics an image sensor with an effective 2:1 pixel aspect ratio (see \cref{fig:SPADarch}) and fill factor of \SI{13}{\percent}~\cite{henderson2019192}. 
+\begin{figure}
+    \centering
+    \includegraphics[width= 0.5\textwidth]{figures/sflio-device/SPADarchitecture.png}
+    \caption{Schematic layout of the architecture used to produce the FLIMera sensor. The FLIMera features \qtyproduct{192 x 126}{\pixel} individual SPADs each with its own Time-to-Digital-Converter enabling TCSPC measurements with a pixel pitch of \qtyproduct{18.4 x 9.2}{\um} or equivalently a pixel aspect ratio of 2:1. Reproduced from \citeauthor{henderson2019192}\cite{henderson2019192}}
+    \label{fig:SPADarch}
+\end{figure}
+While this fill factor is low when compared to traditional - non-TCSPC - imagers it does represent an improvement in fill-factor and scalability of pixel counts over existing TCSPC imaging solutions \cite{cusini2022historical,gersbach2010high,ulku2018512}. Further this fill factor can be improved using a combination of micro-lens arrays to focus light incident within a pixel onto the photosensitive area of the pixel (see \cref{fig:SPADlayout}b) - increasing fill-factor \SI{42}{\percent} in the case of the FLIMera \cite{henderson2019192} - as well as a multilayered, back-illuminated, pixel architecture (see \cref{fig:SPADlayout}c) where the photon counting electronics are manufactured on the layer beneath the photosensitive area of the SPAD also enabling an increased.
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/sflio-device/SPADlayoutFigure.pdf}}
+    \annotatedFigureText{0.01,0.80}{black}{0.3}{a)}
+    \annotatedFigureText{0.32,0.8}{black}{0.3}{b)}
+    \annotatedFigureText{0.67,0.8}{black}{0.3}{c)}
+    \end{annotatedFigure}
+    \caption{The FLIMera features a low fill-factor of \SI{13}{\percent} due to the TDCs being located on the same plane as the SPADs (a). To improve this up to \SI{42}{\percent} a micro-lens can be placed over each pair of pixels to focus light that would ordinarily impinge a TDC - and not be detected - onto the photosensitive area of the pixel \SI{42}{\percent}. Additionally, a multilayered fabrication approach, shown in (c), where the SPADs are layered on top of the TDCs and connected using vias (red circles) - interconnects between layers - can be used to improve not only the fill-factor but potentially allow for higher pixel densities.}
+    \label{fig:SPADlayout}
+\end{figure}
+\FloatBarrier
+\subsubsection{TCSPC Acquisition Modes}
+The FLIMera offers two methods of acquisition: a default mode where a single XYT data cube is constructed spanning a predetermined acquisition window; and the ``raw'' mode where instead of outputting a single XYT data cube each photon detection event is streamed from the FLIMera at a rate of \SI{24}{\kilo\hertz} to form ``frames''. These photon records take the form of a \SI{4}{\byte} word which from the least to most significant bit contains the X (\SI{1}{\byte}), Y (\SI{1}{\byte}), and time bins (\SI{1.5}{\byte}) coordinate of the photon detection with the final \SI{4}{\bit} are used as a frame marker (1111) to denote the next frame in the acquisition or a photon record. This higher frame-rate mode comes at the penalty of larger file  where a \SI{2}{\minute} integration time in ``raw'' results in a \SI{25}{\giga\byte} compared to the $\approx\SI{25}{\mega\byte}$. Primarily, this mode enables time-evolving scenes to imaged and in the case of this project the movement of the retina throughout the acquisition period can be accommodated for (see \cref{sec:motionreg}). 
+\subsubsection{FLIMera Calibration}
+The FLIMera used in this project is still considered a pre-production model and as such the fabrication process of the sensor yields malfunctioning pixels. These malfunctioning pixels present as either ``dead'' pixels and do not produce a signal ()in response to impinged photons or ``screamers'' which produce a histogram resembling a DC signal. These errant pixels were removed from resulting FLIMera images using a binary pixel mask constructed by thresholding FLIMera datasets comprising of a scene with uniform fluorescence - a fluorescence microscope slide (Thorlabs - FSK4) - allowing most dead pixels and screamers to be identified as well as a dark frame to capture the remaining screamers and quantify the thermal noise.
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/sflio-device/PixelMask.pdf}}
+    \gridon
+    \annotatedFigureText{0.025,0.84}{white}{0.3}{a)}
+    \annotatedFigureText{0.35,1.0}{black}{0.3}{b)}
+    \annotatedFigureText{0.72,0.84}{white}{0.3}{d)}
+    \end{annotatedFigure}
+    \caption{Caption}
+    \label{fig:pixelmask}
+\end{figure}
+
 
 
 
 \begin{itemize}
-    \item for the imaging arm a 90:10 beamsplitter is used in conjunction with 3 commercial SLR lenses to relay the image produced by the fundus camera to a Thorlabs Kiralux 8.9MP sensor which will be used to record images in either brightfield or in fluorescence for co-registration purposes and the Horiba FLIMera to record FLIM images. A linear cassette style filter wheel is fitted either in front of the FLIMera for brightfield imaging with the sCMOS detector or 
-    \item table with specs of both detectors
-    \item SLR lenses were chosen to maximise image fidelity - having a flatter spatial frequency response - simplifying the optical design process and allowing for easy fine tuning of the focus, and aperture.
-    \item magnification and focal lengths were based on calculations in second year progression report. 
-    \item The image is relay with a Vivitar f = 80mm lens, the SPAD is focused using a Nikon f = 50mm lens, the sCMOS is focused using a Cannon 85mm. 
-    \item the Nikon lens is attached to the SPAD using Cmount threads tapped into a 3d printed mount that attaches to existing m3 threaded mounting holes on the FLIMera 
     \item Diagram showing the relative FOV on an image of the eye.
     \item The Horbia FLIMera SPAD array
     \begin{itemize}
@@ -157,7 +182,7 @@ The safety thresholds shown in \cref{tab:conthresh} were calculated with the opt
     \label{tab:conthresh}
 \end{table}
 \paragraph*{Pulsed Source - \citeauthor{IEC60825}\\}
-In the IEC standard the safe exposure limits, termed as Accessible Emission Limits (AEL), are determined for a pulsed Class 1 laser source which is deemed safe for continuous exposure for up to 8 hours\cite{IEC60825}. Here the AELs are calculated in terms of the energy deposited by: a single pulse, a single pulse within a train of pulses - weighted by a safety factor; and the emission from \SI{100}{\second} worth averaged into a single pulse. The most pessimistic AEL is chosen for evaluation, $\text{AEL}_{s.p.T}$, and is compared against the power incident of $P=\SI{1.3}{\micro\watt}$ and converted to energy depositied per pulse - $E_{pulse} = P/f$ where $f$ is the repetitiion rate of the source.
+In the IEC standard the safe exposure limits, termed as Accessible Emission Limits (AEL), are determined for a pulsed Class 1 laser source which is deemed safe for continuous exposure for up to 8 hours\cite{IEC60825}. Here the AELs are calculated in terms of the energy deposited by: a single pulse, a single pulse within a train of pulses - weighted by a safety factor; and the emission from \SI{100}{\second} worth averaged into a single pulse. The most pessimistic AEL is chosen for evaluation, $\text{AEL}_{s.p.T}$, and is compared against the power incident of $P=\SI{1.3}{\micro\watt}$ and converted to energy deposited per pulse - $E_{pulse} = P/f$ where $f$ is the repetition rate of the source.
 
 \begin{table}[h]
     \centering
@@ -299,7 +324,7 @@ The likely sources of the discrepancy in spatial resolution were hypothesised to
 \end{figure}
 
 \FloatBarrier
-\subsection{Motion Registration}
+\subsection{Motion Registration}\label{sec:motionreg}
 The long acquisition times of over 1 minute required to record fluorescence decays, using the FLIMera, with a SNR high enough to allow discrimination of fluorophores introduces the challenge of compensating for the natural movements of the eye that occur when fixating for long periods of time. These eye movements would result in a fluorescence lifetime image with severely reduced contrast where features such as blood vessels will not be discernible. Due to low number of photons recorded these movements cannot be corrected for using only integrated intensity images generated by the FLIMera at video rate and registered using conventional image registration algorithms to construct a single unblurred histogram.
 \\
 These eye movements are categorised into three different types of movement: tremors which are high frequency movements (\SI{90}{\hertz}) with amplitude on order $<1$~arc-minute; drift which is a continuous random movement that occurs between tremors and saccades but with lower frequency ($<\SI{1}{\hertz}$) but longer duration ($>\SI{0.5}{\second}$) and larger in amplitude ($\approx \SI{0.5}{degree}$); and saccades which appear as fast jerks lasting \SI{25}{\milli\second} and occurring every \SI{2}{\second} of fixation time with varying amplitude~\cite{martinez2004role}.
@@ -434,7 +459,7 @@ This approach can be further generalised for rotation, translation, or shear suc
     \mathbf{A}(\Delta x', \Delta y', \theta', \Delta m', \Delta h') = \hat{\mathbf{A}}^{-1}\mathbf{A}((\Delta x, \Delta y, \theta, \Delta m, \Delta h))\hat{\mathbf{A}}
 \end{equation}
 \subsubsection{\textit{Ex-Vitro} Demonstration using \textit{Convallaria majalis}}
-The motion registration algorithm was demonstrated on a sample of \textit{Convallaria majalis} - referred to simply as Convallaria in the rest of the text - mounted in an eye phantom which could be moved within the X-Y plane \cref{fig:ConvallariaEyePhantom} during the acquisition period to mimic the image degradation seen in images of the human retina. Over a \SI{2}{\minute} integration period the sample, excited between \qtyrange{460}{467}{\nm}, is held still, translated in X, Y, and then X and Y for periods of \SI{30}{\second} each. During this period the emitted fluorescence, filtered using a \SI{500}{\nm} long-pass filter, fluorescence intensity images are continuously recorded - with integration time of \SI{30}{\ms} and frame rate of \SI{10}{\hertz} - in tandem with FLIM data using the FLIMera's RAW mode to readout histograms at a rate of \SI{24}{\kilo\hertz}. 
+The motion registration algorithm was demonstrated on a sample of \textit{Convallaria majalis} - referred to simply as Convallaria in the rest of the text - mounted in an eye phantom (\cref{fig:ConvallariaEyePhantom}) which could be moved within the X-Y plane during the acquisition period to mimic the image degradation seen in images of the human retina. Over a \SI{2}{\minute} integration period the sample, excited between \qtyrange{460}{467}{\nm}, is held still, translated in X, Y, and then X and Y for periods of \SI{30}{\second} each. During this period the emitted fluorescence, filtered using a \SI{500}{\nm} long-pass filter, fluorescence intensity images are continuously recorded - with integration time of \SI{30}{\ms} and frame rate of \SI{10}{\hertz} - in tandem with FLIM data using the FLIMera's RAW mode to readout histograms at a rate of \SI{24}{\kilo\hertz}. 
 \begin{figure}
     \centering
     \includegraphics[width = 0.5\linewidth, trim = {2.25cm, 1cm, 1.5cm, 0.5cm}, clip]{figures/sflio-device/PhantomEyeFigConvallaria.pdf}
