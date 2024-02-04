@@ -98,18 +98,25 @@ While this fill factor is low when compared to traditional - non-TCSPC - imagers
 \subsubsection{TCSPC Acquisition Modes}
 The FLIMera offers two methods of acquisition: a default mode where a single XYT data cube is constructed spanning a predetermined acquisition window; and the ``raw'' mode where instead of outputting a single XYT data cube each photon detection event is streamed from the FLIMera at a rate of \SI{24}{\kilo\hertz} to form ``frames''. These photon records take the form of a \SI{4}{\byte} word which from the least to most significant bit contains the X (\SI{1}{\byte}), Y (\SI{1}{\byte}), and time bins (\SI{1.5}{\byte}) coordinate of the photon detection with the final \SI{4}{\bit} are used as a frame marker (1111) to denote the next frame in the acquisition or a photon record. This higher frame-rate mode comes at the penalty of larger file  where a \SI{2}{\minute} integration time in ``raw'' results in a \SI{25}{\giga\byte} compared to the $\approx\SI{25}{\mega\byte}$. Primarily, this mode enables time-evolving scenes to imaged and in the case of this project the movement of the retina throughout the acquisition period can be accommodated for (see \cref{sec:motionreg}). 
 \subsubsection{FLIMera Calibration}
-The FLIMera used in this project is still considered a pre-production model and as such the fabrication process of the sensor yields malfunctioning pixels. These malfunctioning pixels present as either ``dead'' pixels and do not produce a signal ()in response to impinged photons or ``screamers'' which produce a histogram resembling a DC signal. These errant pixels were removed from resulting FLIMera images using a binary pixel mask constructed by thresholding FLIMera datasets comprising of a scene with uniform fluorescence - a fluorescence microscope slide (Thorlabs - FSK4) - allowing most dead pixels and screamers to be identified as well as a dark frame to capture the remaining screamers and quantify the thermal noise.
+\paragraph*{Dead and Hot Pixel Masking\\}\label{sec:pixelmask}
+The FLIMera used in this project is still considered a pre-production model and as such the fabrication process of the sensor yields malfunctioning pixels. These malfunctioning pixels present as either ``dead'' pixels and do not produce a signal in response to impinged photons or ``screamers'' which produce a histogram resembling a DC signal. These errant pixels were removed from resulting FLIMera images using a binary pixel mask constructed by thresholding FLIMera datasets comprising of a scene with uniform fluorescence - a fluorescence microscope slide (Thorlabs - FSK4) - allowing most dead pixels and screamers to be identified. Any remaining further aberrant pixels are distinguished with a dark frame where only thermal noise is present.
+
+
 \begin{figure}
     \centering
-    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/sflio-device/PixelMask.pdf}}
-    \gridon
-    \annotatedFigureText{0.025,0.84}{white}{0.3}{a)}
-    \annotatedFigureText{0.35,1.0}{black}{0.3}{b)}
-    \annotatedFigureText{0.72,0.84}{white}{0.3}{d)}
+    \begin{annotatedFigure}{\includegraphics[width = 0.8\textwidth]{figures/sflio-device/FLIMERA-MASK-FIGURE.pdf}}
+    \gridon 
+    \annotatedFigureText{0.015,0.94}{black}{0.3}{a)}
+    \annotatedFigureText{0.5,0.94}{black}{0.3}{b)}
+    \annotatedFigureText{0.015, 0.4}{black}{0.3}{c)}
+    \annotatedFigureText{0.5, 0.4}{black}{0.3}{d)}
     \end{annotatedFigure}
-    \caption{Caption}
-    \label{fig:pixelmask}
+    \caption{To correct for malfunction pixels in the FLIMEra (dead and screamers) a uniformly fluorescent scene is imaged and (a) and a binary pixel mask is pproduced by thresholding the image (b). Dead pixel (blue line) produce no output while the signal of a screamer resembles a DC signal with Heaviside activation (purple) an results in an increased number of detected photons when compared to a typical functioning pixel (green line). The thresholding process to produce the pixel mask is performed using a histogram of the integrated photon counts where dead and screamers appear outside of the normally distributed intensities in the scene.}
+    \label{fig:pixel}
 \end{figure}
+
+\paragraph*{Time Misalignment\\}\label{sec:taling}
+Another artefact of the pre-production nature of the FLIMera is the misalignment in the time axis between functioning pixels. 
 
 
 
