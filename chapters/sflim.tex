@@ -333,8 +333,8 @@ These results also highlights the key question of this thesis - ``What benefit d
 \section{SFLIM unmixing using Tensor Inversions}
 As has been discussed so far in this thesis, a suitable method for unmixing retinal fluorophores has not been identified. In the case of lifetime unmixing the error in the recovered abundances for realistic photon fluxes proved this technique would not be suitable primarily due to the similarity in the fluorescence lifetimes of the three fluorophores of interest (AGE, FAD, and A2E). The same limitation applies to Phasor S-FLIM but was also exasperated by the high spectral overlap of AGE, FAD, and A2E as well as the requirement to record SFLIM images over prohibitively large number of noisy spectral bands resulting exceedingly long image acquisition times.
 \\
-A new method has been developed which treats the temporal domain of SFLIM data as a pseudo-`spectra' and extends the matrix inversion approach of standard spectra unmixing to include the temporal domain. This combines the unique fluorescence decay profile inherent to a fluorophore as well as its emission spectra to minimise the effects of the high spectral and temporal overlap of retinal fluorophores. 
-This new tensor based approach is constructed similarly to the matrix inversion method (\cref{eq:specmix}) and is shown in \cref{eq:tensmix}\,\footnotemark\, but briefly: the matrix containing the spectral characteristic of a pure endmember is replaced with a third-order tensor, $\mathcal{A}$, containing the spectrally resolved fluorescence decay of the pure endmembers; the array of spectral measurements is replaced with a matrix of spectrally resolved FLIM measurements, $\mathbf{M}$; the endmember abundances are still a simple vector, $\mathbf{x}$, where the endmember abundances all sum to unity.
+A new method has been developed which treats the temporal domain of SFLIM data as a pseudo-`spectra' and extends the matrix inversion approach of standard spectral unmixing to include the temporal domain. This combines the unique fluorescence decay profile inherent to a fluorophore as well as its emission spectra to minimise the effects of the high spectral and temporal overlap of retinal fluorophores. 
+This new tensor based approach is constructed similarly to the matrix inversion method (\cref{eq:specmix}) and is shown in \cref{eq:tensmix} where the necessary scalar product operation is replaced with its higher-dimensional equivalent\footnotemark. Briefly: the matrix containing the spectral characteristic of a pure endmember is replaced with a third-order tensor, $\mathcal{A}$, containing the spectrally-resolved fluorescence decays of the pure endmembers; the array of spectral measurements is replaced with a matrix of spectrally resolved FLIM measurements, $\mathbf{M}$; the endmember abundances are still a vector, $\mathbf{x}$, where the endmember abundances all sum to unity.
 \begin{align}
     \mathcal{A}\bullet_{3}\mathbf{x} &= \mathbf{M} \label{eq:tensmix}
 \end{align}
@@ -443,21 +443,17 @@ Using this mathematical framework the above SFLIM unmixing method, shown in \cre
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
-
-\subsection{Evaluation of Performance}
-The performance of this method can be defined using not only the sensitivity to noise used in the previous sections (\cref{sec:lifeunmix,sec:phasor-sflim,sec:specunmix}) but also using the condition number which allows for quick evaluations of performance over different band numbers as well as comparing this SFLIM based method with typical spectral unmixing or gated-FLIM techniques. 
-The tensor condition number is calculated in much the same was as the conventional matrix condition number (\cref{eq:matcondnum}) except now the Frobenius norm is used rather than the $L^{2}$-norm which is restricted to 2 dimensions. Using the Frobenious norm also allows for the condition number of a matrix inversion process to be quantitatively compared to that of a tensor based inversion process.
-\begin{equation}\label{eq:tensorinv}
-    \mathcal{A}^{+} = (\mathcal{A}^{T}\ast_{2}\mathcal{A})^{-1}\ast_{2}\mathcal{A}
+\FloatBarrier
+\subsection{Unmixing Retinal Fluorophores}\label{sec:tensband}
+The abundance maps used in previous section (\cref{sec:lifeunmix,sec:phasor-sflim,sec:specunmix}) can be used to assess the efficacy of this S-FLIM unmixing method when unmixing retinal fluorophores and compare it to Phasor S-FLIM and traditional spectral unmixing using matrix inversions. Since this new tensor based method now incorporates the temporal decays as well as the spectral signatures of each fluorophore - resulting in another dimension to discriminate fluorophores in - the optimal detection bands may be different to that of traditional spectral unmixing. This could be, in part, due to some endmembers exhibiting high overlap in the spectral domain - which would ordinarily cause the unmixing problem to be ill-conditioned and highly sensitive to noise - but be very easily separable in the temporal domain. A slightly different was employed for optimising the detection scheme for the Tensor - Based S-FLIM. From the promising results seen in the previously demonstrated simulations, the detection scheme was now optimised based upon commercially available bandpass filters from the Edmund Optics catalogue of \num{43} different filters with central wavelengths ranging from \qtyrange{500}{700}{\nano\metre} and with bandwidths from \qtyrange{14}{84}{\nano\metre}. The performance metrics used in this new optimisation were also adapted to reflect such that detection schemes were favoured based upon minimising the condition number and maximising optical throughput using the additional Figure's-of-Merit (FoM's): $\nicefrac{\sqrt{BW}}{\kappa}$ which represents the shot-noise limited scenario; and $\nicefrac{BW}{\kappa}$ where now the scheme is read-noise limited. Here $BW$ represents an estimation of the optical throughput by simply calculating the fraction of the spectra covered by the filter set, and as before $\kappa$ represents the tensor condition number~(\cref{eq:tensorcondnum}). This tensor condition number is calculated similarly to a matrix condition number~(\cref{eq:matcondnum}) however now the Frobenius norm is used instead of the $L^{2}$-norm using in matrix condition numbers and for a where for a order-3 tensor, $\mathcal{A}\in\mathbb{R}^{I \times J \times K}$ the norm is:
+\begin{equation}\label{eq:tensorfrob}
+    \lvert\lvert \mathcal{A} \rvert\rvert_{F} = \sqrt{\sum_{i = 1}^{m}\sum_{j = 1}^{n}\sum_{k = 1}^{p}\lvert\mathbf{a}_{ijk}\rvert^{2}}
 \end{equation}
+And with the extended Moore-Penrose inverses, $\mathcal{A}^{+} = (\mathcal{T}\ast_{2}\mathcal{A})^{-1}\ast_{2}\mathcal{A}$, the tensor condition number is then defined:
 \begin{equation}\label{eq:tensorcondnum}
     \kappa(\mathcal{A}) = \lvert\lvert \mathcal{A} \rvert \rvert_{F} \lvert\lvert \mathcal{A}^{+} \rvert \rvert_{F}
 \end{equation}
-
-\FloatBarrier
-\subsection{Unmixing Retinal Fluorophores}\label{sec:tensband}
-The abundance maps used in previous section (\cref{sec:lifeunmix,sec:phasor-sflim,sec:specunmix}) can be used to assess the efficacy of this S-FLIM unmixing method when unmixing retinal fluorophores and compare it to Phasor S-FLIM and traditional spectral unmixing using matrix inversions. Since this new tensor based method now incorporates the temporal decays as well as the spectral signatures of each fluorophore - resulting in another dimension to discriminate fluorophores in - the optimal detection bands may be different to that of traditional spectral unmixing. This could be, in part, due to some endmembers exhibiting high overlap in the spectral domain - which would ordinarily cause the unmixing problem to be ill-conditioned and highly sensitive to noise - but be very easily separable in the temporal domain. A slightly different was employed for optimising the detection scheme for the Tensor - Based S-FLIM. From the promising results seen in the previously demonstrated simulations, the detection scheme was now optimised based upon commercially available bandpass filters from the Edmund Optics catalogue of \num{43} different filters with central wavelengths ranging from \qtyrange{500}{700}{\nano\metre} and with bandwidths from \qtyrange{14}{84}{\nano\metre}. The performance metrics used in this new optimisation were also adapted to reflect such that detection schemes were favoured based upon minimising the condition number and maximising optical throughput using the additional Figure's-of-Merit (FoM's): $\nicefrac{\sqrt{BW}}{\kappa}$ which represents the shot-noise limited scenario; and $\nicefrac{BW}{\kappa}$ where now the scheme is read-noise limited. Here $BW$ represents an estimation of the optical throughput by simply calculating the fraction of the spectra covered by the filter set, and as before $\kappa$ represents the tensor condition number~(\cref{eq:tensorcondnum}). In the optimisation procedure the 2 FoM's and the tensor condition number were computed for each combination of 6 filters from the Edmund Optics Catalogue and of the $\approx 6$ million combinations the \num{100} combinations with the best performance were evaluated for their sensitivity to fluorophore concentration using the abundance maps described previously. Of these the combination of filters which produced the best RMS error (\cref{eq:RMSerror}) were chosen. As shown in \cref{fig:tensoptband} the optimisation procedure produced sets of filters with high spectral overlap but for the condition number metric the average RMS error was the lowest. In principle this results in redundant bands which would provide minimal gains in accuracy in the unmixing process at the expense of increased integration time and a higher average SNR due to the narrow bandwidth of the redundant filters. These overlapping filters were consolidated into a single band with a wider transmission window - reducing the number of bands from 6 to 4 where the three bands between \SI{500}{\nm} and \SI{575}{\nm} were retained. This final band was then re-optimised using the condition number and FoM , $\nicefrac{\sqrt{BW}}{\kappa}$, yielding the result in \cref{fig:tensoptband}d. While this approach does result in a slight increase in the RMS error in the recovery of FAD - $\epsilon_{FAD} = 0.724$ for the 4 filter set as opposed to $\epsilon_{FAD} = 0.618$ for the 6 filter set optimised for condition number - the higher optical throughput can either be leveraged for shorter SFLIM integration times or to increase the integration time per filter thus increasing the average SNR per spectral channel.
-
+In the optimisation procedure the 2 FoM's and the tensor condition number were computed for each combination of 6 filters from the Edmund Optics Catalogue and of the $\approx 6$ million combinations the \num{100} combinations with the best performance were evaluated for their sensitivity to fluorophore concentration using the abundance maps described previously. Of these the combination of filters which produced the best RMS error (\cref{eq:RMSerror}) were chosen. As shown in \cref{fig:tensoptband} the optimisation procedure produced sets of filters with high spectral overlap but for the condition number metric the average RMS error was the lowest. In principle this results in redundant bands which would provide minimal gains in accuracy in the unmixing process at the expense of increased integration time and a higher average SNR due to the narrow bandwidth of the redundant filters. These overlapping filters were consolidated into a single band with a wider transmission window - reducing the number of bands from 6 to 4 where the three bands between \SI{500}{\nm} and \SI{575}{\nm} were retained. This final band was then re-optimised using the condition number and FoM , $\nicefrac{\sqrt{BW}}{\kappa}$, yielding the result in \cref{fig:tensoptband}d. While this approach does result in a slight increase in the RMS error in the recovery of FAD - $\epsilon_{FAD} = 0.724$ for the 4 filter set as opposed to $\epsilon_{FAD} = 0.618$ for the 6 filter set optimised for condition number - the higher optical throughput can either be leveraged for shorter SFLIM integration times or to increase the integration time per filter thus increasing the average SNR per spectral channel.
 
 \begin{figure}
     \centering
@@ -471,7 +467,6 @@ The abundance maps used in previous section (\cref{sec:lifeunmix,sec:phasor-sfli
     \caption{Sets of 6 filters optimised for SFLIM unmixing using 3 different performance metrics: $\kappa$ the tensor condition number (a); $\nicefrac{BW}{\kappa}$ which weights the condition number inversely the bandwidth of the filter set - mimicking a read-noise limited scheme (b); and $\nicefrac{\sqrt{BW}}{\kappa}$ where the condition number is now weighted with the square root of the bandwidth representing a shot-noise limited scheme (c). In d) and e) these 6 filters were further optimised to two sets of 4 filters by consolidating overlapping filters into a single wider band filter and re-optimising using the aforementioned performance metrics.}
     \label{fig:tensoptband}
 \end{figure}
-
 \begin{table}
     \centering
     \begin{tabular}{|c|c|c|c|c|}
@@ -488,10 +483,33 @@ The abundance maps used in previous section (\cref{sec:lifeunmix,sec:phasor-sfli
          & $\nicefrac{\sqrt{BW}}{\kappa}$ & \num[round-mode = figures, round-precision = 3]{0.40303829} & \num[round-mode = figures, round-precision = 3]{0.7153356} & \num[round-mode = figures, round-precision = 3]{0.10026358}\\
          \hline
     \end{tabular}
-    \caption{RMS error values - scaled from 0 to 1 for filter sets consisting of 6 and 4 spectral band obtained from optimising: condition number - $\kappa$; bandwidth weighted with condition number - $\nicefrac{BW}{\kappa}$ to mimic a read-noise limited detection scheme; and  bandwidth weighted with condition number modified to represent the case of shot-noise limited detection schemes -$\nicefrac{\sqrt{BW}}{\kappa}$.}
+    \caption{RMS error values - scaled from 0 to 1 for filter sets consisting of 6 and 4 spectral band obtained from optimising: condition number - $\kappa$; bandwidth weighted with condition number - $\nicefrac{BW}{\kappa}$ to mimic a read-noise limited detection scheme; and bandwidth weighted with condition number modified to represent the case of shot-noise limited detection schemes -$\nicefrac{\sqrt{BW}}{\kappa}$.}
     \label{tab:SFLIMRMSerrors}
 \end{table}
+\FloatBarrier
+\subsubsection{Evaluation of Performance}
+In simulation the SFLIM unmixing algorithm is 
 
+\FloatBarrier
+\subsection{Suitability for SFLIM inversions in different unmixing scenarios}
+To ascertain the optimal use cases for this technique and reveal any deficiencies simulations involving fluorophores exhibiting different spectral and temporal characteristics were created to capture the 4 different scenarios that would be encountered in label free imaging: Well separated spectra and lifetimes; well separated spectra and similar lifetimes; overlapping spectra and well separated lifetimes; and finally overlapping spectra and similar lifetimes.
+For these 4 scenarios mono-exponential fluorescence decays were simulated with Gaussian spectra, filtered using contiguous, rectangular filters that span a given wavelength range.
+
+\begin{itemize}
+    \item Put in plots for condition number as a function of band number for the 4 situations highlighted above
+    \item plots suggest that Tensor Inversion could be a flexible, multipurpose analysis method and could be further developed by incorporated techniques from spectral unmixing such as VCA, NMF, etc. to potentially make this a blind unmixing method
+\end{itemize}
+\section{Conclusion}
+\begin{itemize}
+    \item The feasibility of unmixing FAD, and quantifying its concentration, from spectrally resolved fluorescence lifetime data was investigated and multiple approaches were compared.
+    \item Phasor -SFLIM is unsuitable due to the phasor of retinal fluorophores being located close together within phasor space. The effects of noise can mean the phasors of two retinal fluorophores can overlap and thus can't be discriminated from one another
+    \item A new technique called Tensor inversion was developed which mimics spectral unmixing but is capable of unmixing retinal fluorophores from SFLIM data with the same performance as standard spectral unmixing. 
+    \item The effects of shot noise are what predominatly affect the accuracy of the unmxing method when compared to spectral unmixing. For equal photon fluxes fewer measurements (spectral imaging) carry comparatively less noise than a larger number of measurements (SFLIM)
+    \item The techniques suitability may then lie in SFLIM imaging of stained samples or stain free imaging scenarios where the endogenous fluorophores exhibit less severe overlap in the spectral and temporal domain when compared to retinal fluorophores. 
+    \item Further work on in-vivo samples is required to fully characterise the technique - rat eye, perfused rabbit eyes, stained samples etc.
+\end{itemize}
+
+\FloatBarrier
 \section{SFLIM Imaging of FAD}\label{sec:retfad}
 A successful unmixing method must be primarily be capable of detecting the presence of FAD at concentrations similar to the retina but also have the sensitivity to robustly changes in FAD concentration. To address this primary goal, the expected concentration of FAD in the retina is estimated by modelling the average metabolisation of oxygen and using this to infer the rate of production of FAD.
 FAD in the body is produced through aerobic respiration wherein glucose and oxygen are metabolised produce carbon dioxide, water, and ATP the bodies usable energy source. Through the usage of ATP for other metabolic processes FAD and other flavoproteins such as Riboflavin are created as a byproduct.
@@ -615,22 +633,5 @@ The results of the above analysis were then used to imitate the expected photon 
 %     \label{tab:condnumoptmix}
 % \end{table}
 
-% \subsubsection{Suitability for Different Unmixing scenarios}
-% To ascertain the optimal use cases for this technique and reveal any deficiencies simulations involving fluorophores exhibiting different spectral and temporal characteristics were created to capture the 4 different scenarios that would be encountered in label free imaging: Well separated spectra and lifetimes; well separated spectra and similar lifetimes; overlapping spectra and well separated lifetimes; and finally overlapping spectra and similar lifetimes.
-% For these 4 scenarios mono-exponential fluorescence decays were simulated with Gaussian spectra, filtered using contiguous, rectangular filters that span a given wavelength range.
-
-% \begin{itemize}
-%     \item Put in plots for condition number as a function of band number for the 4 situations highlighted above
-%     \item plots suggest that Tensor Inversion could be a flexible, multipurpose analysis method and could be further developed by incorporated techniques from spectral unmixing such as VCA, NMF, etc. to potentially make this a blind unmixing method
-% \end{itemize}
-% \section{Conclusion}
-% \begin{itemize}
-%     \item The feasibility of unmixing FAD, and quantifying its concentration, from spectrally resolved fluorescence lifetime data was investigated and multiple approaches were compared.
-%     \item Phasor -SFLIM is unsuitable due to the phasor of retinal fluorophores being located close together within phasor space. The effects of noise can mean the phasors of two retinal fluorophores can overlap and thus can't be discriminated from one another
-%     \item A new technique called Tensor inversion was developed which mimics spectral unmixing but is capable of unmixing retinal fluorophores from SFLIM data with the same performance as standard spectral unmixing. 
-%     \item The effects of shot noise are what predominatly affect the accuracy of the unmxing method when compared to spectral unmixing. For equal photon fluxes fewer measurements (spectral imaging) carry comparatively less noise than a larger number of measurements (SFLIM)
-%     \item The techniques suitability may then lie in SFLIM imaging of stained samples or stain free imaging scenarios where the endogenous fluorophores exhibit less severe overlap in the spectral and temporal domain when compared to retinal fluorophores. 
-%     \item Further work on in-vivo samples is required to fully characterise the technique - rat eye, perfused rabbit eyes, stained samples etc.
-% \end{itemize}
 
 \FloatBarrier
