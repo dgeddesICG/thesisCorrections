@@ -453,8 +453,9 @@ And with the extended Moore-Penrose inverses, $\mathcal{A}^{+} = (\mathcal{T}\as
 \begin{equation}\label{eq:tensorcondnum}
     \kappa(\mathcal{A}) = \lvert\lvert \mathcal{A} \rvert \rvert_{F} \lvert\lvert \mathcal{A}^{+} \rvert \rvert_{F}
 \end{equation}
-In the optimisation procedure the 2 FoM's and the tensor condition number were computed for each combination of 6 filters from the Edmund Optics Catalogue and of the $\approx 6$ million combinations the \num{100} combinations with the best performance were evaluated for their sensitivity to fluorophore concentration using the abundance maps described previously. Of these the combination of filters which produced the best RMS error (\cref{eq:RMSerror}) were chosen. As shown in \cref{fig:tensoptband} the optimisation procedure produced sets of filters with high spectral overlap but for the condition number metric the average RMS error was the lowest. In principle this results in redundant bands which would provide minimal gains in accuracy in the unmixing process at the expense of increased integration time and a higher average SNR due to the narrow bandwidth of the redundant filters. These overlapping filters were consolidated into a single band with a wider transmission window - reducing the number of bands from 6 to 4 where the three bands between \SI{500}{\nm} and \SI{575}{\nm} were retained. This final band was then re-optimised using the condition number and FoM , $\nicefrac{\sqrt{BW}}{\kappa}$, yielding the result in \cref{fig:tensoptband}d. While this approach does result in a slight increase in the RMS error in the recovery of FAD - $\epsilon_{FAD} = 0.724$ for the 4 filter set as opposed to $\epsilon_{FAD} = 0.618$ for the 6 filter set optimised for condition number - the higher optical throughput can either be leveraged for shorter SFLIM integration times or to increase the integration time per filter thus increasing the average SNR per spectral channel.
+In the optimisation procedure the 2 FoM's and the tensor condition number were computed for each combination of 6 filters from the Edmund Optics Catalogue and of the $\approx 6$ million combinations the \num{100} combinations with the best performance were evaluated for their sensitivity to fluorophore concentration using the abundance maps described previously. Of these the combination of filters which produced the best RMS error (\cref{eq:RMSerror}) were chosen. As shown in \cref{fig:tensoptband} the optimisation procedure produced sets of filters with high spectral overlap but for the condition number metric the average RMS error was the lowest. In principle this results in redundant bands which would provide minimal gains in accuracy in the unmixing process at the expense of increased integration time and a higher average SNR due to the narrow bandwidth of the redundant filters. These overlapping filters were consolidated into a single band with a wider transmission window - reducing the number of bands from 6 to 4 where the three bands between \SI{500}{\nm} and \SI{575}{\nm} were retained. This final band was then re-optimised using the condition number and FoM , $\nicefrac{\sqrt{BW}}{\kappa}$, yielding the result in \cref{fig:tensoptband}d. While this approach does result in a slight increase in the RMS error in the recovery of FAD - $\epsilon_{FAD} = 0.724$ for the 4 filter set as opposed to $\epsilon_{FAD} = 0.618$ for the 6 filter set optimised for condition number - the RMS error, for an equivalent photon noise of \num{e5}, is still lower than that of the 5 band system previously optimised for spectral imaging and as shown in \cref{fig:SFLIM-RetFluor-1e5photons} the sensitivity to changes in relative fluorophore concentration follows a similar trend where unmixing errors are highest a extremely low relative concentrations. Further, by using fewer, wider bands, this higher optical throughput can either be exploited for shorter SFLIM integration times whilst maintaining a similar SNR to the previous 6 band system, or be used to increase the integration time per filter to yield an overall increased SNR per spectral channel, again, when compared to the 6 band system.
 
+ 
 \begin{figure}
     \centering
         \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/sflim/tensor-unmixing/SFLIMOptimisedBands.pdf}}
@@ -486,19 +487,41 @@ In the optimisation procedure the 2 FoM's and the tensor condition number were c
     \caption{RMS error values - scaled from 0 to 1 for filter sets consisting of 6 and 4 spectral band obtained from optimising: condition number - $\kappa$; bandwidth weighted with condition number - $\nicefrac{BW}{\kappa}$ to mimic a read-noise limited detection scheme; and bandwidth weighted with condition number modified to represent the case of shot-noise limited detection schemes -$\nicefrac{\sqrt{BW}}{\kappa}$.}
     \label{tab:SFLIMRMSerrors}
 \end{table}
-\FloatBarrier
-\subsubsection{Evaluation of Performance}
-In simulation the SFLIM unmixing algorithm is 
+
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/sflim/tensor-unmixing/SFLIM-4BandConfig-UnmixingResults.pdf}
+    \caption{The sensitivity to relative fluorophores concentration was examined for unmixing retinal fluorophores using the SFLIM unmixing algorthim and the optimised 4 spectral band configuration for a photon noise of \num{e5}. The ground truth abundance is shown in the top row ranging from \numrange{0}{1} (blue to yellow) and the unmixed abundances are shown in the middle row. The bottom row shows the relative error in this unmixing quantified using~\cref{eq:recerror}.}
+    \label{fig:SFLIM-RetFluor-1e5photons}
+\end{figure}
 
 \FloatBarrier
 \subsection{Suitability for SFLIM inversions in different unmixing scenarios}
-To ascertain the optimal use cases for this technique and reveal any deficiencies simulations involving fluorophores exhibiting different spectral and temporal characteristics were created to capture the 4 different scenarios that would be encountered in label free imaging: Well separated spectra and lifetimes; well separated spectra and similar lifetimes; overlapping spectra and well separated lifetimes; and finally overlapping spectra and similar lifetimes.
-For these 4 scenarios mono-exponential fluorescence decays were simulated with Gaussian spectra, filtered using contiguous, rectangular filters that span a given wavelength range.
+The SFLIM unmixing method developed throughout this project would also be applicable for SFLIM imaging scenarios outwith the retina and could be used for other \textit{in-vivo} imaging of other biological tissues or even in imaging stained samples where multiple dyes are used reveal different micro-structures. 
+To briefly explore these possible applications the condition number was calculated for two sets of simulated dyes exhibiting Gaussian fluorescence emission spectra and mono-exponential decays where the number of contiguous spectral bands was varied between 3 (representing a well-determined problem) to 15 (representing an over-determined problem) as well as for 3 different unmixing methods - standard spectral unmixing, the SFLIM unmixing algorithm, and the SFLIM unmixing algorithm modified for Gated detection with 2 contiguous \SI{2}{\ns} wide gates. 
+In the first set of dyes the emission spectra were simulated to be highly overlapping with a FWHM of \SI{15}{nm} and central wavelengths only differing by \SI{2}{nm (CWL = \qtylist{550;552;554}{\nm})} but the respective fluorescence lifetimes were well separable - $\tau = \qtylist{1.50;2.00;2.50}{\ns}$. When examining the condition number of this scenario (see \cref{fig:sflimunmixingoverlapspectra}) predictably the high spectral overlap gives an increased condition number when compared to the SFLIM unmixing approach where this effect is largest for a 4 band system. 
 
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.85\textwidth]{figures/sflim/tensor-unmixing/SFLIM-ConditionNumber-ComparisonGaussian1.pdf}
+    \caption{Caption}
+    \label{fig:sflimunmixingoverlapspectra}
+\end{figure}
+
+Similarly for the second scenario the spectra were simulated to be well-separable with central wavelengths of \qtylist{500;600;650}{\nm} with a FWHM of \SI{15}{\nm} but now the lifetimes were separated by just \SI{100}{\ps} which would ordinarily be difficult to distinguish based upon a fitted lifetime. From this simulation, the condition numbers for all three methods are equal across all spectral band numbers indicating that majority of the information available in the discrimination process is in the spectral domain. While this implies for an equal SNR per channel measurement the SFLIM unmixing approach would yield similar performance to standard spectral unmixing - in an experimental implementation the SFLIM approach would exhibit a lower SNR per measurement ($\lambda \time \Delta t$ measurements) and be more error prone.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.85\textwidth]{figures/sflim/tensor-unmixing/SFLIM-ConditionNumber-ComparisonGaussian2.pdf}
+    \caption{Caption}
+    \label{fig:sflimunmixingoverlaplifetime}
+\end{figure}
 \begin{itemize}
-    \item Put in plots for condition number as a function of band number for the 4 situations highlighted above
-    \item plots suggest that Tensor Inversion could be a flexible, multipurpose analysis method and could be further developed by incorporated techniques from spectral unmixing such as VCA, NMF, etc. to potentially make this a blind unmixing method
+    \item Add captions
 \end{itemize}
+
+
 \section{Conclusion}
 \begin{itemize}
     \item The feasibility of unmixing FAD, and quantifying its concentration, from spectrally resolved fluorescence lifetime data was investigated and multiple approaches were compared.
