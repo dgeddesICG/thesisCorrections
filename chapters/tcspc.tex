@@ -23,7 +23,13 @@
 
 \FloatBarrier
 \section{Rationale}
-Throughout this thesis the technique of TCPSC has been utilised to resolve the temporal decays of excited fluorophores in the retina. However, the ability to count single photons and their arrival time can be exploited for other purposes beyond time-of-flight ranging which boasts a resolution of Xmm \addcite. Namely, the temporal broadening experienced by a back scattered or reflected ultra short pulse of light is explored for use in remote sensing to discriminate materials in a scene~\cite{patterson1989time}. Primarily this technique was potential defence applications where an unknown combatant could be identified through an obscurant like a glass window as well as if they are armed using the unique opto-temporal characteristics of a person and a weapon (steel) where ordinarily, infrared imaging systems are incapable of imaging through standard window glass due its inherent low transmission in the infrared spectrum. \addcite.
+Throughout this thesis the technique of TCPSC has been utilised to resolve the temporal decays of excited fluorophores in the retina. However, the ability to correlate the arrival time of single photons - generated from reflections of ultra-short pulses - can also be exploited for time-of-flight based depth mapping for 3D imaging \cite{rapp2021high} where even the flash-based LIDAR sensors in consumer electronics can construct 3D scans of a room with \SI{<1}{\cm} resolution-\cite{teo2023evaluating}. Notably, the temporal resolution of modern TCSPC modules is sufficient to measure the broadening experience by back-scatter or reflected ultra-short pulses of light penetrating tissue~\cite{patterson1989time}. 
+\\
+In this project this phenomena of temporal broadening was briefly explored for the possibility of discriminating in a scene. Primarily this technique has potential defence applications where an unknown combatant could be identified through an obscurant like a glass window as well as if they are armed using the unique opto-temporal characteristics of a person and a weapon (steel) where ordinarily, infrared imaging systems are incapable of imaging through standard window glass due its inherent low transmission in the infrared spectrum. For retinal imaging this property can be used for removing the influence of corneal reflections and lenticular fluorescence where the these unwanted contamination's would be displaced by $\approx \Delta t = \SI{200}{\ps}$ along the temporal axis in TCPSC measurements.
+
+\begin{equation}
+    \Delta t = n\frac{d}{c}
+\end{equation}
 \FloatBarrier
 \section{Theory}
 When impinged on a medium a photon is either reflected off the medium, transmitted further into the medium, or absorbed with a probability of being re-emitted as a fluorescence or phosphorescence photon. Upon repeated scattering events - successive transmission and reflection - the trajectory of light within the medium becomes diffuse meaning that the distance that photons travel within the medium before being re-emitted towards a detector - yielding differing photon arrival times than those initially reflected from the medium. For a ultra-short pulse of light with a pulse width on the order of \SI{100}{\ps} these material dependent scattering properties result in a small but measurable broadening on the order also on the order of \qtyrange{50}{200}{\ps}.
@@ -39,7 +45,7 @@ This temporal broadening measured using the FLIMera SPAD array is characterised 
     \Erf(z) = \frac{2}{\sqrt{\pi}}\int_{0}^{\infty}\exp(-x^{2})dx
 \end{equation}
 
-An example shown in Fig.~\ref{fig:expgauss} consisting of TCSPC data recorded of back scattered light incident on an Aluminium block illuminated with a \SI{100}{ps} pulse width and wavelength of \SI{700}{\nano\metre} is fitted using a least-squares fitting routine and the Exponential Gaussian model gives fitted parameters of $A = \num[round-mode = figures, round-precision = 3]{10.43737301}$, $\mu = \num[round-mode = figures, round-precision = 3]{22.19703607}$, $\sigma = \num[round-mode = figures, round-precision = 3]{0.16858335}$, and $\alpha = \num[round-mode = figures, round-precision = 3]{0.16858335}$. To assess the appropriateness of this fitting model the reduced $\chi^{2}$ (Eq.~\ref{eq:redchi2}) was calculated using the photon counts, $y$, line of best fit $f(t, \overrightarrow\phi)$, and the degrees of freedom ,$N-P = 55 \text{ samples} - 4 \text{ fitted parameters} = 51$. For the example fit in Fig.~\ref{fig:expgauss} $\chi^{2}_{red} = \num[round-mode = figures, round-precision = 3]{6.682903784142764}$. indicates a the Exponential Gaussian model fits the data well since $\chi^{2}_{red} \not\gg 1$.
+An example shown in Fig.~\ref{fig:expgauss} consisting of TCSPC data recorded of back scattered light incident on an Aluminium block illuminated with a \SI{100}{ps} pulse width and wavelength of \SI{700}{\nano\metre} is fitted using a least-squares fitting routine and the Exponential Gaussian model gives fitted parameters of $A = \num[round-mode = figures, round-precision = 3]{10.43737301}$, $\mu = \num[round-mode = figures, round-precision = 3]{22.19703607}$, $\sigma = \num[round-mode = figures, round-precision = 3]{0.16858335}$, and $\alpha = \num[round-mode = figures, round-precision = 3]{0.16858335}$. To assess the appropriateness of this fitting model the reduced $\chi^{2}$ (Eq.~\ref{eq:redchi2}) was calculated using the photon counts, $y$, line of best fit $f(t, \overrightarrow\phi)$, and the degrees of freedom ,$N-P = 55 \text{ samples} - 4 \text{ fitted parameters} = 51$. For the example fit in Fig.~\ref{fig:expgauss} the reduced $\chi^{2}$ of $\chi^{2}_{red} = \num[round-mode = figures, round-precision = 3]{6.682903784142764}$ indicates that the Exponential Gaussian model fits the data well since $\chi^{2}_{red} \not\gg 1$.
 
 \begin{equation}\label{eq:redchi2}
     \chi^{2}_{red} = \frac{\sum_{n = 1}^{N}(y_{n} - f_{n}(t, \overrightarrow\phi))^{2}}{N-P}
@@ -71,8 +77,11 @@ To record images for the purpose of material discrimination an imaging system wa
 \FloatBarrier
 \section{Material Discrimination}
 
+
+
 \FloatBarrier
 \section{Depth Imaging using SPAD arrays}
 
+
 \FloatBarrier
-\section{Imaging through Obscurations}
+\section{Conclusion}
