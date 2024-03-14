@@ -1,15 +1,6 @@
 \setstretch{2}
 \section{Outline / Bullet Points}
 
-\subsection{Rationale}
-\begin{itemize}
-    \item Key demonstration of SFLIO system by combining the SFLIM unmixing technique with the SFLIO imaging system
-    \item Imaging rats at different oxygenation states enables imaging at higher intensities than would be allowed when imaging in-vivo humans
-    \item Changing oxygenation state also also allows us to artificially change the FAD concentration. FAD is a metabolite of oxygen consumption in aerobic respiration
-    \item By cycling the consumption of oxygen from Normoxic FiO2 21percent to Hypoxic 15percent back to Normoxia and finally at death (effectively zero) - detecting something change in the SFLIM data that is correlated to these events would signify the detection of FAD in the retina and also indicate the precision with which we can quantify its concentration
-    \item Normoxia to Hypoxia should see a decrease in FAD, Hypoxia to Normoxia should see a larger change in FAD as the respiratory / metabolic system overproduces FAD for a short time (need a citation) to compensate for prior FAD starvation. Normoxia to Death should show the largest change since any FAD that was present in the tissue is used up / reduced to FADH and no-new FAD will be produced.
-    \item FAD has been detected in rat cortexes where upon death it forms halos around the arteries and veins as it leaks into the surrounding tissue. [kens paper]
-\end{itemize}
 \subsection{Experimental Protocol}
 \begin{itemize}
     \item Albino Rats were anaesthetised using isoflourane and their oxygenation was controlled using a nosecone that supplies oxygen at variable concentration.
@@ -32,18 +23,51 @@
 \end{itemize}
 
 
-\section{Rationale}\label{sec:ratfadrationale}
-As has been previously highlighted, the ability to map the concentration of FAD - and other retinal chromophores - across the retina would enhance the ability to diagnose retinal disease where now disease can be detected at the stage of biochemical dysfunction rather than at the typical experience where patients report what is often permanent loss of central vision. For the \textit{in-vivo} experiments presented in this chapter anaesthetised rats were imaged using the SFLIO device described in \cref{chap:fliodevice} whereby controlling the fraction of inspired oxygen, \ce{FiO2} can induce changes in the production, and expression, of retinal FAD larger than those associated with disease - offering the ideal conditions for detecting \textit{in-vivo} retinal FAD and testing the robustness of the SFLIM unmixing algorithm discussed in \cref{chap:sflim}. 
-
-\subsection{FAD Concentrations as a response to oxygenation states}
-The mechanism for this lies with the process of aerobic respiration \cref{eq:resp} in that when ATP (Adenosine TriPhosphate) is consumed - FAD as well as other flavo-proteins are produced as a byproduct\cite{berg2007biochemistry} and under oxygen starved - hypoxic - conditions (\SI{<15}{\percent} \ce{FiO2}) the concentration of FAD would be lower than when respirating room-air - normoxic conditions (\SI{21}{\percent}\ce{FiO2}). 
+\section{FAD as a marker of retinal health}
+Mapping the concentration of FAD would enable diagnosis at the initial stages of retinal disease where metabolic function is compromised before patient's present with permanent physical damage to vision. The mechanism for this lies with FAD being a byproduct of the creation of the bodied energy source, ATP~\cite{berg2007biochemistry}, through aerobic respiration (\cref{eq:resp}. In the early stages of retinal disease the disruption of metabolic processes would disrupt ATP usage which should be detectable in the retina as areas with abnormal FAD concentrations.
 \begin{equation}\label{eq:resp}
     \ce{C6H12O6 + 6O2 -> 6CO2 + 6H2O + ATP}
 \end{equation}
-After death the concentration of FAD would eventually go to zero when all metabolic processes have ceased and as reported by \citeauthor{martinez2017understanding} in the case of a rats cerebral cortex the FAD leaks into the surrounding tissue forming what was dubbed 'halos', further it was thought that in the case of upon returning to normoxic conditions after a period of hypoxia the metabolic system overproduces FAD - increasing the concentration of FAD above that of standard normoxic conditions. 
+While the change in FAD concentration associated with retinal disease is not known this can be approximated by restricting systemic oxygen consumption in animal models. At hypoxic conditions (\SI{15}{\percent}\ce{FiO2}) the retina is starved of oxygen lowering the concentration of FAD. Subsequently, after death when all metabolic process have ceased the concentration of FAD should tend to zero and as reported in rat cortexes the FAD leaks out of arteries into the surrounding retinal tissue forming `halos'~\cite{martinez2017understanding}. 
+In this chapter, the SFLIO device (described in \cref{chap:fliodevice}) was used to record \textit{in-vivo} SFLIM images of the retinas of anaesthetised rats under normoxic, hypoxic, and post-morten conditions where the concentration of retinal FAD is recovered using the SFLIM unmixing algorithm (described in \cref{chap:sflim}). Successful detection of FAD is then signified by the changes in the recovered retinal FAD concentration being compatible with what is expected with aerobic respiration. Finally, from this a feasibility of quantifying retinal FAD in human retinas can explored.
 
-\section{Experimental Protocol}\label{sec:expprotocol}
-In the imaging experiments - carried out in collaboration with Kenneth J. Smith and Helen Yang of the Institute of Neruroinflammation, UCL - albino rats were anaesthetised using isofluorane and the oxygenation state was controlled using an external nitrogen supply mixed with room-air and fed into a fitted nosecone. As shown in [picture of rat in imaging system] the rat is secured to the imaging platform and its pupils are dilated with Tropicamide (from X to Y) to increase light throughput and a contact lens is fitted as well as Viscotears to prevent the cornea from becoming overly dry -  irritating the rat causing unnecessary distress and incurring potential motion artefacts. To accommodate for the smaller eyeball diameter, of X mm, a 2'' diameter $f = \SI{85}{\mm}$ field-lens was fitted in front of the objective lens of the fundus camera. While this additional does induce an appreciable amount of glare in the centre of the brightfield image due to reflections from the front surface of the objective lens and rear surface of the field lens.This is compensated for by simply masking out the affected area in the co-registration process however if the brightfield images were required to be free of glare it could be removed using a darkfield image recorded of the illumination source illuminated an dark room and 
-\section{Temporal Artefact Calibration}\label{sec:hump}
+
+\section{\textit{In-vivo} Rat Imaging Protocol}\label{sec:expprotocol}
+The imaging experiments were carried out in the labs of Prof. Kenneth J. Smith (Institure of Neuroinflammation, UCL) where Helen Yang (Institure of Neuroinflammation, UCL) was responsible for preparing the rats and administering the anaesthetic. Albino rats were anaesthetised using isoflurane and the oxygenation state was controlled with an external nitrogen supply mixed with room-air and fed into a fitted nosecone. As shown in~\cref{fig:ratsetup}, the rat is secured to the imaging platform and the pupil is dilated using Tropicamide drops to increase pupil diameter (\qtyrange{1.20}{4.35}{\mm}~\cite{himmel2019pupillary}) - maximising the number of detected photons. A contact lens is fitted and Viscotears is applied to prevent the cornea from becoming overly dry -  irritating the rat causing unnecessary distress and incurring potential motion artefacts. To accommodate the rats smaller eyeball diameter, of \SI{6.3}{\mm}~\cite{pazos2015rat}, a field-lens ($\varphi = 2''$, $f = \SI{85}{\mm}$) is fitted to the objective lens of the fundus camera. This additional lens did induce reflections from the illumination source off the front surface of the objective lens and rear surface of the field lens degrading some of the brightfield images with glare (\cref{fig:Ratscmosimages}a although careful positioning of the rat could remove them. Influence of this glare in the registration process is mitigated by masking out this area during the phase cross-correlation process. Alternatively, the glare could be removed using an image recorded of a non-reflective scene containing only the glare ($I_{dark}$) and linearly subtracting it from an recorded image ($I_{raw}$) to produce a glare-free image ($I$).
+\begin{equation}\label{eq:glarecal}
+    I = I_{raw} - \alpha I_{dark}
+\end{equation}
+
+
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/ratUCL/RatSetupFigure.pdf}}
+        \annotatedFigureText{0.015,0.83}{white}{0.3}{a)}
+        \annotatedFigureText{0.435,0.83}{white}{0.3}{b)}
+        \annotatedFigureText{0.66,0.83}{white}{0.3}{c)}
+    \end{annotatedFigure}
+    
+    \caption{a) and b) The anaesthetised rat is positioned on the imaging platform perpendicular to the SFLIO system to have the rat's retina parallel with the image plane. The fundus camera is moved axially such that the illumination forms a focussed spot on the cornea - evenly illuminating the retina (c).}
+    \label{fig:ratsetup}
+\end{figure}
+Three rats were imaged and for each rat, brightfield images are recorded continuously (\SI{50}{\ms} exposure at \SI{10}{\Hz}) in tandem with the FLIMera operating in raw mode over a two minute acquisition period for all 4 spectral filters. This SFLIM acquisition is carried out while the rats are cycled from a Normoxia to Hypoxia (\SI{15}{\percent}\ce{FiO2}) and then back to Normoxia again. SFLIM images were recorded for a single rat post-mortem. When changing oxygenation state each rat was allowed to stabilise for a period of 5 minutes to ensure that the concentration of retinal FAD was not changing during the image acquisition period.
+As before (\cref{fig:flimerascmossync}), the two detectors are synchronised in time by initially having the laser shutter closed and then opening it after a short period of time and detecting the Heaviside-like change in photon flux. Due to the anaesthetic the nervous responses in the rats is suspended resulting in image sequences free of saccades and drifts. This lack of movement meant that in the motion compensation stage no pixel super-sampling was performed (\cref{fig:FLIMerareg}c).
+
+
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/ratUCL/RatsCMOSfigure.pdf}}
+        \annotatedFigureText{0.025,0.91}{white}{0.3}{a)}
+        \annotatedFigureText{0.35,0.91}{white}{0.3}{b)}
+        \annotatedFigureText{0.68,0.91}{white}{0.3}{c)}
+        \annotatedFigureText{0.19,0.425}{white}{0.3}{d)}
+        \annotatedFigureText{0.52,0.425}{white}{0.3}{e)}
+    \end{annotatedFigure}
+    \caption{a - c) Shows exemplar brightfield images recorded of each of the 3 rats imaged. Each frame is recorded over an integration time of \SI{30}{\ms} at a rate of \SI{10}{\Hz} where a small amount of glare is present in the highlighted region of a). In d) and e) a fluorescence intensity image was recorded using a \SI{500}{\nm} longpass filter over integration times of \SI{1}{\second} and \SI{5}{\second} respectively.}
+    \label{fig:Ratscmosimages}
+\end{figure}
+
+
+\subsection{Acquisition of SFLIM Images}
 
 \section{}
