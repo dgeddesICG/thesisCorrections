@@ -1,5 +1,8 @@
 \setstretch{2}
 \FloatBarrier
+\section{Chapter Summary}
+In this chapter the process of modifying an off-the-shelf fundus camera for Spectral - Fluorescence Lifetime Imaging using a standard science (sCMOS) camera and Horiba FLIMera for fluorescence lifetime imaging. A safety assessment is described which outlines safe operating procedures for imaging \textit{in-vivo} human retinas. The spectral response of the instrument is then measured and the process of calibrating the malfunction pixels and temporally misaligment between pixels of the FLIMera are described. Finally, the spatial resolution of the instrument is measured using the slanted edge test giving a resolution of \SI{50}{\um} for the sCMOS detector and \SI{214}{\um} for the brightfield detector and FLIMera.
+\FloatBarrier
 \section{Construction of \textit{En-face} S-FLIO system}
 \FloatBarrier
 \subsection{S-FLIO System Design Methodology}
@@ -9,16 +12,14 @@ In fluorescence lifetime imaging of the retina the safe exposure of the excitati
 For the proposed S-FLIO device the excitation and imaging bands are be optimised to enhance the detection, and discrimination, of key fluorescent retinal biomarkers - FAD, AGE, A2E. New generation SPAD arrays will allow SFLIM measurements to be recorded in a series of snapshots which in principle can reduce image acquisition times when compared to raster scanned systems.
 
 \FloatBarrier
-\subsection{Conventional Fundus Camera}
-The S-FLIO device developed in this project uses an off-the-shelf fundus camera to simplify the design and construction process allowing more time to be spent developing methods of chemical quantification in the retina. This apporach also allows for the SFLIO system to be more readily integrated into OPTOS's existing product lines where it could be sold as a standalone system or a modification for existing fundus camera.
-% The S-FLIO device developed over the course of this project is based upon an off-the-shelf fundus camera (Topcon TRC 50-DX) used routinely in ophthalmic examinations reduces the complexity of the design process in that the project was now focused on fluorescence lifetime imaging and chemical quantification of the retina rather than arduous process and optimising and constructing as retinal imaging system~\cite{dehoog2008optimal}. Further, by utilising an existing imaging ophthalmoscope the SFLIO system developed can be more readily adapted to a commercial product in line with OPTOS's existing product line where it could be sold as a standalone imaging system or as a modification or add-on to existing fundus cameras. 
-The fundus camera can record images over three field-of-views - \qtylist{20;35;50}{\degree} and uses a filtered white-light Xenon flash lamp to record images in either: brightfield, autofluorescence, or fluorescence imaging using fluorescein or idocyanine green dyes for retinal angiography.
-% Got to here in redrafting - 01/07/24
-The fundus camera can record images over the fields-of-view \qtylist{20;35;50}{\degree} in multiple modalities: brightfield or reflectance imaging; autofluorescence imaging; and fluorescence imaging using an exogenous dye such as fluorescein or idocyanine green in retinal angiography. The retina is illuminated using a tungsten lamp for alignment of the eye or a Xenon flash bulb for recording evenly illuminated images. For both light sources annular illumination, shown in \cref{fig:annularillumination},  is used to separate the illumination and imaging volumes. Reducing this overlap of ray volumes reduces the contamination from back-reflections resulting in a higher quality image. This is the Gullstrand principle~\cite{gullstrand1910neue}.
+\subsection{Description of the Conventional Fundus Camera}
+The S-FLIO device developed in this project uses an off-the-shelf fundus camera to simplify the design and construction process allowing more time to be spent developing methods of chemical quantification in the retina. This approach also allows for the SFLIO system to be more readily integrated into OPTOS's existing product lines where it could be sold as a standalone system or a modification for existing fundus camera.
+The fundus camera can record images over three field-of-views - \qtylist{20;35;50}{\degree} and uses a filtered white-light Xenon flash lamp to record images in either: brightfield, autofluorescence, or fluorescence imaging using fluorescein or indocyanine green dyes for retinal angiography.
+The fundus camera can record images over the fields-of-view \qtylist{20;35;50}{\degree} in multiple modalities: brightfield or reflectance imaging; autofluorescence imaging; and fluorescence imaging using an exogenous dye such as fluorescein or indocyanine green in retinal angiography. The retina is illuminated using a tungsten lamp for alignment of the eye or a Xenon flash bulb for recording evenly illuminated images. For both light sources annular illumination, shown in \cref{fig:annularillumination},  is used to separate the illumination and imaging volumes. Reducing this overlap of ray volumes reduces the contamination from back-reflections resulting in a higher quality image. This is the Gullstrand principle~\cite{gullstrand1910neue}.
 \begin{figure}
     \centering
     \includegraphics[width = 0.7\textwidth]{figures/sflio-device/AnnularIlluminationDiagram.pdf}
-    \caption{The retina is evenly illuminated through an annulus (green) leaving the centre of the pupil unobstructed to image through (red).Adapted from~\citeauthor{terry2022trans}\cite{terry2022trans}}
+    \caption{The retina is evenly illuminated through an annulus (green) leaving the centre of the pupil unobstructed to image through (red). Adapted from~\citeauthor{terry2022trans}\cite{terry2022trans}}
     \label{fig:annularillumination}
 \end{figure}
 The modifications made to the illumination arm of the fundus camera for tuneable excitation of retinal fluorescence are described in section{}. Likewise, changes made to the imaging arm to enable spectral-fluorescence lifetime measurements are discussed in section{}. These modifications are highlighted in (see \cref{fig:sflioopticsfull}).
@@ -32,8 +33,8 @@ The modifications made to the illumination arm of the fundus camera for tuneable
 
 
 \FloatBarrier
-\subsection{Modification - Illumination Arm}
-The SFLIO device excites retinal fluorescence using a pulsed-supercontinuum white-light source (NKT SuperK Ex-12W and Fianium blue-tuned source) tuned into 8 narrow bands ($\textbf{FWHM} = \SI{1}{\nm}$ with an Acousto-Optically Tuneable Filter (AOTF). Tuning the excitation wavelength, while not thoroughly explored in this thesis, would allow for retinal fluorophores to be targeted using their unique excitation spectra. The fibre output of the AOTF is coupled into the illumination path of the fundus camera by positioning a dichroic mirror in the place of a filter wheel. Wavelengths shorter than \SI{505}{\nm} are reflected into the illumination path and unwanted longer wavelengths are transmitted into the chassis of the fundus camera and absorbed. To match the Numerical Aperture (NA) of the fibre output of the laser the beam is collimated ($\phi = 1", f = \SI{100}{nm}$) and refocused ($\phi = 1", f = \SI{150}{nm}$) to a point at the perimeter of the annular stop $A_{1}$ of \cref{fig:sfliooptics}. This annular stop is conjugate to the annulas projected on the cornea and results in the excitation of fluorescence over $\SI{20}{\degree}$ of the retina (see \cref{fig:illuminationarea}). 
+\subsection{Modifications for Illuminating the Retina with Pulsed Super-Continuum Source}
+The SFLIO device excites retinal fluorescence using a pulsed-supercontinuum white-light source (NKT SuperK Ex-12W and Fianium blue-tuned source) tuned into 8 narrow bands ($\text{FWHM} = \SI{1}{\nm}$) with an Acousto-Optically Tuneable Filter (AOTF). Tuning the excitation wavelength, while not thoroughly explored in this thesis, would allow for retinal fluorophores to be targeted using their unique excitation spectra. The fibre output of the AOTF is coupled into the illumination path of the fundus camera by positioning a dichroic mirror in the place of a filter wheel. Wavelengths shorter than \SI{505}{\nm} are reflected into the illumination path and unwanted longer wavelengths are transmitted into the chassis of the fundus camera and absorbed. To match the Numerical Aperture (NA) of the fibre output of the laser the beam is collimated ($\phi = 1", f = \SI{100}{nm}$) and refocused ($\phi = 1", f = \SI{150}{nm}$) to a point at the perimeter of the annular stop $A_{1}$ of \cref{fig:sfliooptics}. This annular stop is conjugate to the annulus projected on the cornea and results in the excitation of fluorescence over $\SI{20}{\degree}$ of the retina (see \cref{fig:illuminationarea}). 
 
 \begin{figure}
     \centering
@@ -61,7 +62,7 @@ Using a laser with a higher output power would mitigate these geometric losses h
 
 
 \FloatBarrier
-\subsection{Modification - Imaging Arm}
+\subsection{Modifications of Imaging Path for Simultaneous brightfield and S-FLIM imaging.}
 
 The imaging arm of the SFLIO instrument uses the Horiba FLIMera SPAD array (referred to as the FLIMera herein) to record fluorescence lifetime data over a $\cong\SI{12}{\degree}$ field-of-view. A separate scientific camera (Thorlabs Kiralux) to records fluorescence intensity or brightfield images over a \SI{35}{\degree} field-of-view to correct for motion of the retina during the long acquisition period. SLR lenses were set up in a relay configuration to collimate the image ($f=\SI{100}{\mm}$) and re-image onto the FLIMera ($f = \SI{50}{\mm}$ ) and sCMOS camera ($f = \SI{85}{\mm}$). A 2” plate beam splitter transmits \SI{10}{\percent} of the signal to the sCMOS camera and reflects \SI{90}{\percent} to the FLIMera - this maximises the efficiency of the SFLIM measurements without degrading the quality of the registration. Due to the difference in pixel-counts between the two detectors - $\qtyproduct{192 x 126}{\pixel}$ for the FLIMera and \qtyproduct{4096 x 2160}{\pixel} the field-of-view covered by the FLIMera was reduced by a linear factor of $\approx 3$ to improve the spatial resolution of the acquired images with the intention that if SFLIM images of larger areas of the retina the patient can fixate on their eyes away from centre.
 
@@ -91,80 +92,20 @@ A linear carriage of 5 emission bandpass filters is fitted at $f_{2}$ for record
     \label{tab:sflio-filts}
 \end{table}
 
-\FloatBarrier
-\subsection{Horiba FLIMera}
-\subsubsection{FLIMera Architecture}
 
-The FLIMera is a \qtyproduct{192 x 126}{\pixel}  Single Photon Avalanche-Diodes array with on-pixel TCSPC modules capable of widefield fluorescence lifetime imaging with \SI{47}{\ps} temporal resolution. Based upon a similar architecture to SPAD array of \citeauthor{henderson2019192} the FLIMera has a pixel pitch of \qtyproduct{18.4 x 9.2}{\um} of which over half of the photosensitive layer is lost to the TCSPC electronics resulting in a low fill-factor of \SI{13}{\percent}~\cite{henderson2019192}. 
-\begin{figure}
-    \centering
-    \includegraphics[width= 0.5\textwidth]{figures/sflio-device/SPADarchitecture.png}
-    \caption{Schematic layout of the architecture used to produce the FLIMera sensor. The FLIMera features \qtyproduct{192 x 126}{\pixel} individual SPADs each with its own Time-to-Digital-Converter enabling TCSPC measurements with a pixel pitch of \qtyproduct{18.4 x 9.2}{\um} or equivalently a pixel aspect ratio of 2:1. Reproduced from \citeauthor{henderson2019192}\cite{henderson2019192}}
-    \label{fig:SPADarch}
-\end{figure}
-Although this fill-factor is low when compared to traditional imagers it does improve upon the state-of-the-art in TCPSC imagers with a higher fill-factor and a scalable pixel architecture \cite{cusini2022historical,gersbach2010high,ulku2018512}.
-Additionally, this fill factor can be improved upon using various established techniques at the fabrication stage. A micro-lens array would focus light incident within a pixel onto the smaller photosensitive area (see \cref{fig:SPADlayout}b) - increasing fill-factor \SI{42}{\percent} in the case of the FLIMera \cite{henderson2019192}. The fill-factor could also be increased using a multilayered, back-illuminated, architecture (see \cref{fig:SPADlayout}c)  where the photon counting electronics are on a layer beneath the photosensitive area of the pixel.
-
-
-
-
-
-\begin{figure}
-    \centering
-    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/sflio-device/SPADlayoutFigure.pdf}}
-    \annotatedFigureText{0.01,0.80}{black}{0.3}{a)}
-    \annotatedFigureText{0.32,0.8}{black}{0.3}{b)}
-    \annotatedFigureText{0.67,0.8}{black}{0.3}{c)}
-    \end{annotatedFigure}
-    \caption{The FLIMera features a low fill-factor of \SI{13}{\percent} due to the TDCs being located on the same plane as the SPADs (a). To improve this up to \SI{42}{\percent} a micro-lens can be placed over each pair of pixels to focus light that would ordinarily impinge a TDC - and not be detected - onto the photosensitive area of the pixel \SI{42}{\percent}. Additionally, a multilayered fabrication approach, shown in (c), where the SPADs are layered on top of the TDCs and connected using vias (red circles) - interconnects between layers - can be used to improve not only the fill-factor but potentially allow for higher pixel densities.}
-    \label{fig:SPADlayout}
-\end{figure}
-\FloatBarrier
-\subsubsection{TCSPC Acquisition Modes}
-The FLIMera has two acquisition modes: a default mode where a single XYT data cube is constructed over the acquisition window; and the ``raw'' mode where now each photon detection event is streamed from the FLIMera at a rate of \SI{24}{\kilo\hertz} to form ``frames''. These photon records take the form of a 4 byte word which from the least to most significant bit contains the X (\SI{8}{\bit}), Y (\SI{8}{\bit}), and time bins (\SI{10}{\byte}) coordinate of the photon detection with the final \SI{4}{\bit} are used as a frame marker (1111) to denote the next frame in the acquisition or a photon record. This higher frame-rate mode comes at the penalty of larger file where a \SI{2}{\minute} integration time in ``raw'' results in a \SI{25}{\giga\byte} compared to the $\approx\SI{25}{\mega\byte}$. In this project this ``raw'' mode is used to compensate for the motion of the retina throughout the acquisition period (see \cref{sec:motionreg}). 
-\FloatBarrier
-\subsubsection{FLIMera Calibration}
-\FloatBarrier
-\paragraph*{Dead and Hot Pixel Masking\\}\label{sec:pixelmask}
-The FLIMera used in this project is a pre-production model and as expected exhibits malfunctioning. These malfunctioning pixels present as either ``dead'' pixels and do not produce a signal in response to incident photons or ``screamers'' which produce a histogram resembling a DC signal. These errant pixels were removed from resulting FLIMera images using a pair of binary masks constructed from thresholding two datasets: uniformly fluorescent microscope slide (THORLABS- FSK4); and a dark frame. 
-
-\begin{figure}
-    \centering
-    \begin{annotatedFigure}{\includegraphics[width = 0.8\textwidth]{figures/sflio-device/FLIMERA-MASK-FIGURE.pdf}}
-    \annotatedFigureText{0.015,0.94}{black}{0.3}{a)}
-    \annotatedFigureText{0.5,0.94}{black}{0.3}{b)}
-    \annotatedFigureText{0.015, 0.4}{black}{0.3}{c)}
-    \annotatedFigureText{0.5, 0.4}{black}{0.3}{d)}
-    \end{annotatedFigure}
-    \caption{To correct for malfunction pixels in the FLIMEra (dead and screamers) a uniformly fluorescent scene is imaged and (a) and a binary pixel mask is pproduced by thresholding the image (b). Dead pixel (blue line) produce no output while the signal of a screamer resembles a DC signal with Heaviside activation (purple) an results in an increased number of detected photons when compared to a typical functioning pixel (green line). The thresholding process to produce the pixel mask is performed using a histogram of the integrated photon counts where dead and screamers appear outside of the normally distributed intensities in the scene.}
-    \label{fig:pixel}
-\end{figure}
-\FloatBarrier
-\paragraph*{Temporal Misalignment\\}\label{sec:taling}
-Another artefact of the pre-production nature of the FLIMera is the fluorescence decays for each pixel are not aligned in the time axis resulting in improper fitting of fluorescence lifetimes and poor recovery of retinal fluorophore concetrations. Correcting this misalignment can be achieved using a pixel offset mask (see \cref{fig:shiftmap}b) which describes how many time-bins each decay should be shifted by. This mask is produced by finding the time-location of the maxima in each pixel and subtracting it from a reference value which ensures the peak of histogram is shifted to this value.
-
-\begin{figure}
-    \centering
-    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/sflio-device/ShiftMap-Figure.pdf}}
-    \annotatedFigureText{0.03,0.96}{black}{0.3}{a)}
-    \annotatedFigureText{0.53,0.96}{black}{0.3}{b)}
-    \end{annotatedFigure}
-    \caption{In (a) example histograms show the temporal misalignment within the FLIMera. These misalignments are corrected for by using a shift map (b) which shifts contains the required shift along the time axis to align every pixel on the FLIMera}
-    \label{fig:shiftmap}
-\end{figure}
 
 \FloatBarrier
-\subsection{Safety Assessment}
+\subsection{Assessment for Safely Imaging \textit{in-vivo} Human Retinas}
 A critical design requirement for a retinal imaging device is that can should be recorded without damaging patient sight and causing minimal discomfor. In the SFLIO device two similar pulsed-supercontinuum laser sources were used throughout this project which both have the capability of producing broadband light at an intensity capable of causing irreparable damage to sight many times over. A full safety assessment was carried out, in collaboration with OPTOS, to determine the safe exposure levels and the required attenuation of the laser source such that even when operating at the sources maximum intensity the exposure at the retina is safe. Although \textit{in-vivo} imaging of humans retinas was not achieved in this project, this assessment is still useful for determining the clinical efficacy of our device by comparing the laser intensity required for detecting FAD in rats \textit{in-vivo} (\cref{chap:ratfad}) to the safe exposure levels.
-\subsubsection{Phototoxic and photothermal effects}
+\subsubsection{Damage Mechanisms in the Retian - Phototoxic and Photothermal Effects}
 When the eye is exposed to light there is two, wavelength dependent, mechanisms from which damage can occur - phototoxic and photothermal damage. Phototoxic damage predominantly occurs at wavelengths $ < \SI{500}{\nm} $ where absorbed photons cause oxidative reactions within the cells of the RPE, choroid, and the retina causing cellular death and with sufficient exposure results in permanent loss of vision~\cite{glickman2002phototoxicity}. Further, in the UV range of the spectrum ($<\SI{200}{\nm}$) these absorbed photons can directly cause the breaking of covalent bonds and with pulse lengths shorter than \SI{1}{\micro\second}, tissue can be ablated. This is the mechanism for LASIK surgery where the cornea is reshaped to correct the refractive power of the eyes lens in cases of myopia, hyperopia, and astigmatism~\cite{reinstein2012history}. In photothermal damage longer wavelength photons cause over heating of the tissue causing the tissue to become necrotic and for severe rapid heating the vitreous humour cavitates at the retina causing lesions~\cite{glickman2002phototoxicity,roberts2001ocular}.
 The supercontinuum laser source used in the SFLIO device does not emit light below \SI{400}{\nm} so photochemical ablation was not a concern however the risks due to photochemical oxidation or photothermal damage mechanisms were considered.  The safe exposure thresholds defined by the two established safety standard documents were used to evaluate the safety of the instrument \citeauthor{ISO15004,IEC60825}.
 
 \FloatBarrier
-\subsubsection{Safe Exposure Thresholds}
+\subsubsection{Safe Exposure Thresholds for Illuminating the Retina with a Pulsed-Supecontinuum Laser}
 To evaluate the safety of the SFLIO device two sets of safety standards were utilised: the \citeauthor{ISO15004} standard describes the evaluation of safety for ophthalmic devices categorised as either Group 1 devices where there is no risk of ocular damage and Group 2 where some risk does exist but is still safe to use under strict guidelines; and the \citeauthor{IEC60825} standard which is used to define the safety of laser systems designated from Class 1, which are considered eye-safe, up to Class 4B where even stray reflections from diffuse surfaces can pose a risk to eyesight\cite{ISO15004, IEC60825}. In the ISO standard the instrument was evaluated against the criteria for a Group 1 continuous wave device with the IEC document being used to evaluate the instrument as a Class 1 pulsed laser source. The IEC document contains stricter criteria for pulsed sources and, unlike the ISO standard, considers the additional damage mechanisms arising from the use of a short pulse-length and high repetition rate laser source such as micro-cavitation, and self-focusing of the laser beam~\cite{rockwell2010ultrashort}.
 A detailed description of the procedure used determine the multiple safe exposure limits are listed in App.~\ref{app:sfliosafety} however for both standards the exposure limits, the measured exposure, and the resulting safety factor are given and defined here.
-\paragraph*{Continuous Wave - \citeauthor{ISO15004}\\}
+\paragraph*{Treating the Laser as a Continuous Wave Source - \citeauthor{ISO15004}\\}
 In the ISO standard the SFLIO instrument is evaluated as a Group 1 device where the exposure limits for this classification are defined in terms of a wavelength dependent irradiance, $E(\lambda)$, pertaining to a particular section of the eye - retina, cornea and lens, and the anterior segment. For each of these sections, where relevant, there are also weighting functions applied to account for the photothermal and photochemical damage mechanisms shown in \cref{fig:safetyspectra}c. In the safety assessment the spectral irradiance is defined using the power spectrum, $P(\lambda)$, and the area illuminated. 
 \begin{equation}\label{eq:irrad}
     E(\lambda) = \frac{P(\lambda)}{Area} \cong \frac{P_{M}S(\lambda)}{\int_{0}^{\infty}S(\lambda)d\lambda}
@@ -205,8 +146,8 @@ The safety thresholds (see \cref{tab:conthresh}) were calculated with the optica
     \caption{Safe exposure limits for a Group 1 device under the \citeauthor{ISO15004} standard and the resulting exposure measured from the SFLIO device with the laser source operating at maximum power - filtered between \qtyrange{460}{467}{\nano\metre} - and a $\text{OD} = 1.3$ neutral density filter is fitted. The safety factor is calculated as $\nicefrac{\text{Threshold}}{\text{Value}}$. In the final column the reference to the equation to calculate the safe exposure limits is given.}
     \label{tab:conthresh}
 \end{table}
-\paragraph*{Pulsed Source - \citeauthor{IEC60825}\\}
-In the IEC standard the safe exposure limits, Accessible Emission Limits (AEL), were determined for a pulsed Class 1 laser source which is deemed safe for up to 8 hours of continuous exposure in a 24hour period\cite{IEC60825}. The AELs are calculated in terms of the energy deposited by: a single pulse; a single pulse within a train of pulses - weighted by a safety factor; and the emission from \SI{100}{\second} integrated into a single pulse. The lowest AEL is chosen for evaluation, $\text{AEL}_{s.p.T}$, and is compared against the power incident of $P=\SI{1.3}{\micro\watt}$ and converted to energy deposited per pulse - $E_{pulse} = P/f$ where $f$ is the repetition rate of the source.
+\paragraph*{Treating the Laser as a Pulsed Source- \citeauthor{IEC60825} Guidelines \\}
+In the IEC standard the safe exposure limits, Accessible Emission Limits (AEL), were determined for a pulsed Class 1 laser source which is deemed safe for up to 8 hours of continuous exposure in a 24hour period~\cite{IEC60825}. The AELs are calculated in terms of the energy deposited by: a single pulse; a single pulse within a train of pulses - weighted by a safety factor; and the emission from \SI{100}{\second} integrated into a single pulse. The lowest AEL is chosen for evaluation, $\text{AEL}_{s.p.T}$, and is compared against the power incident of $P=\SI{1.3}{\micro\watt}$ and converted to energy deposited per pulse - $E_{pulse} = P/f$ where $f$ is the repetition rate of the source.
 
 \begin{table}[ht]
     \centering
@@ -230,9 +171,9 @@ In the IEC standard the safe exposure limits, Accessible Emission Limits (AEL), 
 In this safety assessment the SFLIO device was evaluated using two sets of safety standards where the excitation source is treated as both a continuous wave source, and a pulsed source. To ensure to safe operation for \textit{in-vivo} imaging of human eyes a $\text{OD}=1.3$ neutral density filter was fitted to ensure that the exposure is within the limits set out in both the \citeauthor{ISO15004} and \citeauthor{IEC60825} even when the laser is set to its maximum power output. 
 This attenuates the emission produced by the SFLIO device within factors of 1.91 when treating the device as a Class 1 pulsed laser source and 1.24 the instrument is evaluated as a Group 1 continuous wave sourced ophthalmic device under the \citeauthor{ISO15004} and \citeauthor{IEC60825}, respectively. For regular imaging of human retinas these factors should be solely relied upon, and the optical power must be measured regularly
 \FloatBarrier
-\section{Spectral Calibration}
+\section{Measurement of Spectral Response of S-FLIO instrument}
 
-The non-flat spectral response of the imaging optics in the fundus camera and the non-rectangular transmission function of the bandpass filters will negatively influence the accuracy and robustness of recovered fluorophore concentrations. The spectral response of the S-FLIO device was then characterised using a spectrometer positioned at the image plane of the FLIMera and a Xenon broadband white-light source positioned at the objective lens of the fundus camera. Spectra were measured for each bandpass filter as well as a direct measurement of the light source. This final spectra allows for the response of the light source and spectrometer,$D(\lambda)$, to be measured together and allows  the transmission functions for each of the filters combined with the imaging optics, $F_{n}(\lambda)$, to be calculated (\cref{eq:filtcal,eq:filttrans})
+The non-flat spectral response of the imaging optics in the fundus camera and the non-rectangular transmission function of the bandpass filters will negatively influence the accuracy and robustness of recovered fluorophore concentrations. The spectral response of the S-FLIO device was then characterised using a spectrometer positioned at the image plane of the FLIMera and a Xenon broadband white-light source positioned at the objective lens of the fundus camera. Spectra were measured for each bandpass filter as well as a direct measurement of the light source. This final spectra allows for the response of the light source and spectrometer, $D(\lambda)$, to be measured together and allows  the transmission functions for each of the filters combined with the imaging optics, $F_{n}(\lambda)$, to be calculated (\cref{eq:filtcal,eq:filttrans})
 \begin{equation}\label{eq:filttrans}
     F_{n}(\lambda) = \frac{I_{n}(\lambda)}{\alpha(\lambda)}
 \end{equation}
@@ -240,7 +181,7 @@ The non-flat spectral response of the imaging optics in the fundus camera and th
     S(\lambda)D(\lambda) = \alpha(\lambda)
 \end{equation}
 \begin{equation}
-    I_{n}(\lambda) = S(\lambda)D(\lambda)(\lambda)F_{n}(\lambda)
+    I_{n}(\lambda) = S(\lambda)D(\lambda)F_{n}(\lambda)
 \end{equation}
 
 In \cref{fig:filtfuncs} the calibrated filter functions are shown after using \cref{eq:filtcal,eq:filttrans} and subtracting dark spectra to remove the influence of scattered background light. The non-uniformity in the spectral response of the fundus camera optics can be attributed to cumulative absorption from the anti-reflective coatings on the lenses within the fundus camera, as well as the SLR lenses and beam splitter in the imaging arm.
@@ -250,24 +191,70 @@ In \cref{fig:filtfuncs} the calibrated filter functions are shown after using \c
     \caption{The calibrated filter functions for each of the spectral filters are plotted (coloured lines) are used to account for the non-uniform response of the refractive optics within the fundus camera (dashed line) as well as the non-rectangular response of the spectral filters.}
     \label{fig:filtfuncs}
 \end{figure}
-\FloatBarrier
-\section{Spatial Resolution of S-FLIO device}
-While the objective of this project was not to demonstrate diffraction limited imaging of the retina using the FLIMera - the spatial resolution of the S-FLIO device should be sufficient to resolve common markers of retinal disease such as drusen. Drusen is common marker of AMD (\cref{intro:AMD}) and typically has a diameter on the order of YY – the minimum feature size resolvable by the S-FLIO system should be smaller than this. The spatial resolution of both detectors also affects the accuracy of co-registration algorithms when compensating for motion of the retina. For a proportional difference in the spatial resolution $\nicefrac{\Delta r_{FLIMera}}{\Delta r_{sCMOS}} \leq M$ will require registration of images within a sub-pixel accuracy (with respect to the sCMOS detector) whereas for $\nicefrac{\Delta r_{FLIMera}}{\Delta r_{sCMOS}} > M$ the registration accuracy requirement is greater than a single pixel.
-
-For the S-FLIO device the spatial resolution is defined using two metrics – the Point-Spread Function (PSF) and the Modulation Transfer Function (MTF). The Point-spread function describes how a point source in a scene is blurred in a final image (\cref{eq:psf}) where the full-width at half maximum of the PSF is often used as the metric for a systems spatial resolution.
-\begin{equation}\label{eq:psf}
-    I_{IMAGE}(x,y) = PSF(x,y)\circledast I_{SCENE}(x',y')
-\end{equation}
-The MTF of a system describes the spatial frequency response of the imaging system. The resolution of a system is then either described as where the MTF falls below its maximum value or where the SNR < 1.
-\begin{align}
-    J_{IMAGE}(\nu,\mu) &\approxeq MTF(\nu,\mu)\circledast K_{SCENE}(\nu',\mu')\label{eq:mtf}\\
-    MTF(\nu,\mu) &= \mathcal{F}\{PSF(x,y)\}(\nu,\mu) \label{eq:PSFtoMTF}\\
-    MTF(\nu) &= \mathcal{F}\{LSF(x)\}(\nu)\label{eq:LSFtoMTF}
-\end{align}
 
 \FloatBarrier
+\subsection{Characterisation of Horiba FLIMera}
+\subsubsection{FLIMera Architecture}
 
-\subsection{Knife Edge Test}
+The FLIMera is a \qtyproduct{192 x 126}{\pixel}  Single Photon Avalanche-Diodes array with on-pixel TCSPC modules capable of widefield fluorescence lifetime imaging with \SI{47}{\ps} temporal resolution. Based upon a similar architecture to SPAD array of \citeauthor{henderson2019192} the FLIMera has a pixel pitch of \qtyproduct{18.4 x 9.2}{\um} of which over half of the photosensitive layer is lost to the TCSPC electronics resulting in a low fill-factor of \SI{13}{\percent}~\cite{henderson2019192}. 
+\begin{figure}
+    \centering
+    \includegraphics[width= 0.5\textwidth]{figures/sflio-device/SPADarchitecture.png}
+    \caption{Schematic layout of the architecture used to produce the FLIMera sensor. The FLIMera features \qtyproduct{192 x 126}{\pixel} individual SPADs each with its own Time-to-Digital-Converter enabling TCSPC measurements with a pixel pitch of \qtyproduct{18.4 x 9.2}{\um} or equivalently a pixel aspect ratio of 2:1. Reproduced from \citeauthor{henderson2019192}\cite{henderson2019192}}
+    \label{fig:SPADarch}
+\end{figure}
+Although this fill-factor is low when compared to traditional imagers it does improve upon the state-of-the-art in TCPSC imagers with a higher fill-factor and a scalable pixel architecture \cite{cusini2022historical,gersbach2010high,ulku2018512}.
+Additionally, this fill factor can be improved upon using various established techniques at the fabrication stage. A micro-lens array would focus light incident within a pixel onto the smaller photosensitive area (see \cref{fig:SPADlayout}b) - increasing fill-factor \SI{42}{\percent} in the case of the FLIMera \cite{henderson2019192}. The fill-factor could also be increased using a multilayered, back-illuminated, architecture (see \cref{fig:SPADlayout}c)  where the photon counting electronics are on a layer beneath the photosensitive area of the pixel.
+
+
+
+
+
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/sflio-device/SPADlayoutFigure.pdf}}
+    \annotatedFigureText{0.01,0.80}{black}{0.3}{a)}
+    \annotatedFigureText{0.32,0.8}{black}{0.3}{b)}
+    \annotatedFigureText{0.67,0.8}{black}{0.3}{c)}
+    \end{annotatedFigure}
+    \caption{The FLIMera features a low fill-factor of \SI{13}{\percent} due to the TDCs being located on the same plane as the SPADs (a). To improve this up to \SI{42}{\percent} a micro-lens can be placed over each pair of pixels to focus light that would ordinarily impinge a TDC - and not be detected - onto the photosensitive area of the pixel \SI{42}{\percent}. Additionally, a multilayered fabrication approach, shown in (c), where the SPADs are layered on top of the TDCs and connected using vias (red circles) - interconnects between layers - can be used to improve not only the fill-factor but potentially allow for higher pixel densities.}
+    \label{fig:SPADlayout}
+\end{figure}
+\FloatBarrier
+\subsubsection{TCSPC Acquisition Modes}
+The FLIMera has two acquisition modes: a default mode where a single XYT data cube is constructed over the acquisition window; and the ``raw'' mode where now each photon detection event is streamed from the FLIMera at a rate of \SI{24}{\kilo\hertz} to form ``frames''. These photon records take the form of a 4 byte word which from the least to most significant bit contains the X (\SI{8}{\bit}), Y (\SI{8}{\bit}), and time bins (\SI{10}{\byte}) coordinate of the photon detection with the final \SI{4}{\bit} are used as a frame marker (1111) to denote the next frame in the acquisition or a photon record. This higher frame-rate mode comes at the penalty of larger file where a \SI{2}{\minute} integration time in ``raw'' results in a \SI{25}{\giga\byte} compared to the $\approx\SI{25}{\mega\byte}$. In this project this ``raw'' mode is used to compensate for the motion of the retina throughout the acquisition period (see \cref{sec:motionreg}). 
+\FloatBarrier
+\subsubsection{FLIMera Characterisation}
+\FloatBarrier
+\paragraph*{Dead and Hot Pixel Masking\\}\label{sec:pixelmask}
+The FLIMera used in this project is a pre-production model and as expected exhibits malfunctioning. These malfunctioning pixels present as either ``dead'' pixels and do not produce a signal in response to incident photons or ``screamers'' which produce a histogram resembling a DC signal. These errant pixels were removed from resulting FLIMera images using a pair of binary masks constructed from thresholding two datasets: uniformly fluorescent microscope slide (THORLABS- FSK4); and a dark frame. 
+
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = 0.8\textwidth]{figures/sflio-device/FLIMERA-MASK-FIGURE.pdf}}
+    \annotatedFigureText{0.015,0.94}{black}{0.3}{a)}
+    \annotatedFigureText{0.5,0.94}{black}{0.3}{b)}
+    \annotatedFigureText{0.015, 0.4}{black}{0.3}{c)}
+    \annotatedFigureText{0.5, 0.4}{black}{0.3}{d)}
+    \end{annotatedFigure}
+    \caption{To correct for malfunction pixels in the FLIMEra (dead and screamers) a uniformly fluorescent scene is imaged and (a) and a binary pixel mask is pproduced by thresholding the image (b). Dead pixel (blue line) produce no output while the signal of a screamer resembles a DC signal with Heaviside activation (purple) an results in an increased number of detected photons when compared to a typical functioning pixel (green line). The thresholding process to produce the pixel mask is performed using a histogram of the integrated photon counts where dead and screamers appear outside of the normally distributed intensities in the scene.}
+    \label{fig:pixel}
+\end{figure}
+\FloatBarrier
+\paragraph*{Correcting for Temporal Misalignment between SPAD's\\}\label{sec:taling}
+Another artefact of the pre-production nature of the FLIMera is the fluorescence decays for each pixel are not aligned in the time axis resulting in improper fitting of fluorescence lifetimes and poor recovery of retinal fluorophore concetrations. Correcting this misalignment can be achieved using a pixel offset mask (see \cref{fig:shiftmap}b) which describes how many time-bins each decay should be shifted by. This mask is produced by finding the time-location of the maxima in each pixel and subtracting it from a reference value which ensures the peak of histogram is shifted to this value.
+
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/sflio-device/ShiftMap-Figure.pdf}}
+    \annotatedFigureText{0.03,0.96}{black}{0.3}{a)}
+    \annotatedFigureText{0.53,0.96}{black}{0.3}{b)}
+    \end{annotatedFigure}
+    \caption{In (a) example histograms show the temporal misalignment within the FLIMera. These misalignments are corrected for by using a shift map (b) which shifts contains the required shift along the time axis to align every pixel on the FLIMera}
+    \label{fig:shiftmap}
+\end{figure}
+\FloatBarrier
+\subsection{Measurement of Spatial Resolution using Knife Edge Test}
 Accurately measuring the MTF of an imaging system is often an onerous task where standardised best practises are continually refined~\cite{ISO12233}. In this project only estimates of the MTF are required and so the knife-edge test - often referred to as the slanted-edge test in literature - was chosen for its simplistic experimental procedure~\cite{burns2000slanted, ISO12233}. Briefly, this method measures of spatial resolution of a digital imager using an image recorded of a hard-edge positioned in the image plane and rotated a few degrees ($<\SI{10}{\degree}$) either off-vertical or off-horizontal. The FLIMera arm of the SFLIO device is detector limited so this edge appears aliased. Line profiles through the aliased edge are then aligned to produce an Edge-Spread Function (ESF) and the spatial resolution of the system can then be estimated from the LSF (\cref{eq:ESF}) or from the computed MTF. The rotation of the edge in the image plane enables the ESF to be sampled with sub-pixel precision due each line profile - through the edge - being displaced by less than a single pixel.
 \begin{equation}\label{eq:ESF}
     ESF(x) = \dv{}{x}LSF(x)
@@ -304,8 +291,26 @@ This process is shown in~\cref{fig:FIMTFresult,fig:FLMTFResult}, where in the an
 \end{figure}
 
 
-The knife-edge process was then repeated at $\approx\SI{10}{degrees}$ intervals of the focus adjustment knob for an additional 3 measurements either side of the optimal focus. This was to confirm that what was deemed the optimal focus was the location of optimal focus.
-The results shown in \cref{fig:mtffoci} that in fact the optimal focus was actually located $\approx\SI{10}{degree}$ from what was visually determined to be the best focus. Giving the previously mentioned spatial resolutions of \SI{214}{\um} for the FLIMera and \SI{50}{\um} for the sCMOS detector at this new optimal focus and at both extremum's the spatial resolutions are \SI{296}{\um} and \SI{328}{\um} for the FLIMera, and for sCMOS they are \SI{129}{\um} and \SI{152}{\um}. In the experiments described in later sections of this chapter the focus is set to this new optimal focus with only minor adjustments being made to account for variations in the position of the eye phantom with respect to objective lens of the fundus camera.
+
+
+\FloatBarrier
+\subsection{Comparison of Spatial Resolution With Changing Focus}
+While the objective of this project was not to demonstrate diffraction limited imaging of the retina using the FLIMera - the spatial resolution of the S-FLIO device should be sufficient to resolve common markers of retinal disease such as drusen. Drusen is common marker of AMD (\cref{intro:AMD}) and typically has a diameter on the order of \SI{50}{\um}~\cite{abdelsalam1999drusen}
+– the minimum feature size resolvable by the S-FLIO system should be smaller than this. The spatial resolution of both detectors also affects the accuracy of co-registration algorithms when compensating for motion of the retina. For a proportional difference in the spatial resolution $\nicefrac{\Delta r_{FLIMera}}{\Delta r_{sCMOS}} \leq M$ will require registration of images within a sub-pixel accuracy (with respect to the sCMOS detector) whereas for $\nicefrac{\Delta r_{FLIMera}}{\Delta r_{sCMOS}} > M$ the registration accuracy requirement is greater than a single pixel.
+
+For the S-FLIO device the spatial resolution is defined using two metrics – the Point-Spread Function (PSF) and the Modulation Transfer Function (MTF). The Point-spread function describes how a point source in a scene is blurred in a final image (\cref{eq:psf}) where the full-width at half maximum of the PSF is often used as the metric for a systems spatial resolution.
+\begin{equation}\label{eq:psf}
+    I_{IMAGE}(x,y) = PSF(x,y)\circledast I_{SCENE}(x',y')
+\end{equation}
+The MTF of a system describes the spatial frequency response of the imaging system. The resolution of a system is then either described as where the MTF falls below its maximum value or where the SNR < 1.
+\begin{align}
+    J_{IMAGE}(\nu,\mu) &\approxeq MTF(\nu,\mu)\circledast K_{SCENE}(\nu',\mu')\label{eq:mtf}\\
+    MTF(\nu,\mu) &= \mathcal{F}\{PSF(x,y)\}(\nu,\mu) \label{eq:PSFtoMTF}\\
+    MTF(\nu) &= \mathcal{F}\{LSF(x)\}(\nu)\label{eq:LSFtoMTF}
+\end{align}
+
+The knife-edge process was then repeated at $\approx\SI{10}{degrees}$ intervals of the focus adjustment knob for an additional 3 measurements either side of what as initially deemed to be optimal focus. This ensures that what the was assessed to be the optimal focus is where lowest value for spatial resolution is measured.
+The results shown in \cref{fig:mtffoci} that in fact the optimal focus was actually located $\approx\SI{10}{degree}$ from what was visually determined to be the best focus. At this minimum the spatial resolution of the sCMOS detector is \SI{50}{\um} and for the FLIMera it is \SI{214}{\um}. At the extremums the spatial resolutions are \SI{296}{\um} and \SI{328}{\um} for the FLIMera, and for sCMOS they are \SI{129}{\um} and \SI{152}{\um}. In the experiments described in later sections of this chapter the focus is set to this new optimal focus with only minor adjustments being made to account for variations in the position of the eye phantom with respect to objective lens of the fundus camera.
 
 \begin{figure}
     \centering

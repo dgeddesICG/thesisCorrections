@@ -1,25 +1,31 @@
 \setstretch{2}
-\section{Motion Co-Registration}\label{sec:motionreg}
+\FloatBarrier
+\section{Chapter Summary}
+In this chapter the process of overcoming artefacts in the long exposure S-FLIO images due to retinal motion is discussed. The Fourier-Merlin technique is used to find the static Affine mapping between the FLIMera and the brightfield detector and using a USAF resolution test target this mapping was found to be within a single pixel (with respect to the FLIMera). Translational motion during the long exposure is detected from high frame-rate brightfield images and the corresponding correction is applied to FLIMera data recorded using the high-readout rate ``RAW'' mode. These techniques are demonstrated together using a sample of \textit{Convallaria majalis} mounted in an eye phantom to produce an artefact free, super-sampled, FLIMera image is produced.
+\FloatBarrier
+\section{Rational - Retinal Eye Movements and the Induction of Motion Artefacts}\label{sec:motionreg}
 The long acquisition time required to record fluorescence decays in the retina introduces the challenge of compensating for natural movements of the eye. Over a single exposure these eye movements would result in a fluorescence lifetime image with severely reduced contrast and features such as blood vessels would be indiscernible. The low SNR in FLI imaging also means eye movements cannot be co-registered using multiple shorter exposure frames. Instead, the sCMOS science camera records high-contrast, high-resolution, brightfield images at video-rate. Movement in these images is detected using conventional image registration algorithms and then applied to FLIMera data operating in raw mode – producing a single unblurred histogram.
 \\
-
-Natural eye movements are categorised into three different types: tremors which are high frequency movements (\SI{90}{\hertz}) with amplitude of $<1$~arc-minute; drift which is a continuous random movement that occurs between tremors and saccades but with lower frequency ($<\SI{1}{\hertz}$) but longer duration ($>\SI{0.5}{\second}$) and larger in amplitude ($\approx \SI{0.5}{degree}$); and saccades which appear as fast jerks lasting \SI{25}{\milli\second} and occurring every \SI{2}{\second} of fixation time with varying amplitude~\cite{martinez2004role}.
-In the S-FLIO imaging system the effects of tremors are be ignored since their amplitude is much smaller than the angular resolution ($\approx 10$~arc-minutes) of our system tremors exhibit small enough amplitudes that they would be much smaller than the spatial resolution of the system. Saccade and drift can be compensated for by finding the translation between successive brightfield images recorded using the sCMOS camera at a high framerate (\SI{10}{\fps}) and short exposure time (\SI{30}{\milli\second}) and then applying the opposite translation to  histograms from the FLIMera.
+Natural eye movements are categorised into three different types: tremors which are high frequency movements (\SI{90}{\hertz}) with amplitude of $<1$~arc-minute; drift which is a continuous random movement that occurs between tremors and saccades but with lower frequency ($<\SI{1}{\hertz}$) but longer duration ($>\SI{0.5}{\second}$) and larger in amplitude ($\approx \SI{0.5}{\degree}$); and saccades which appear as fast jerks lasting \SI{25}{\milli\second} and occurring every \SI{2}{\second} of fixation time with varying amplitude~\cite{martinez2004role}.
+In the S-FLIO imaging system the effects of tremors are be ignored since their amplitude is much smaller than the angular resolution ($\approx 10$~arc-minutes) of our system tremors exhibit small enough amplitudes that they would be much smaller than the spatial resolution of the system. Saccade and drift can be compensated for by finding the translation between successive brightfield images recorded using the sCMOS camera at a high frame-rate (\SI{10}{\hertz}) and short exposure time (\SI{30}{\milli\second}) and then applying the opposite translation to  histograms from the FLIMera.
 The Affine Transforms describes the mapping between images on the sCMOS and FLIMera.
-\begin{align}\label{eq:mapping}
-    \begin{bmatrix}
-        x\\
-        y\\
-        1\\
-    \end{bmatrix}
-     & = \mathbf{A}
-     \begin{bmatrix}
-         x'\\
-         y'\\
-         1
-     \end{bmatrix}\\
-    \implies I_{FLIMera}(x,y) &= \mathbf{A}I_{sCMOS}(x',y')
-\end{align}
+\begin{equation}\label{eq:mapping}
+    I_{FLIMera(x,y} = \mathbf{A}I_{sCMOS}(x',y')
+\end{equation}
+% \begin{align}\label{eq:mapping}
+%     \begin{bmatrix}
+%         x\\
+%         y\\
+%         1\\
+%     \end{bmatrix}
+%      & = \mathbf{A}
+%      \begin{bmatrix}
+%          x'\\
+%          y'\\
+%          1
+%      \end{bmatrix}\\
+%     \implies I_{FLIMera}(x,y) &= \mathbf{A}I_{sCMOS}(x',y')
+% \end{align}
 The affine transform is composed of four separable transforms: Translation $\mathbf{T}(\Delta x, \Delta y)$; Magnification/Scaling, $\mathbf{M}(m_{x},m_{y})$; Rotation, $\mathbf{R}(\theta)$;and Shear, $\mathbf{S}(h_{x}, h_{y})$. In the images recorded using the S-FLIO system Shear was not significantly present of either the sCMOS camera or the FLIMera and is not considered in the registration process.
 \begin{equation}\label{eq:affine}
     \mathbf{A} = \mathbf{T}\mathbf{R}\mathbf{M}
@@ -50,9 +56,8 @@ The affine transform is composed of four separable transforms: Translation $\mat
     \end{bmatrix}   
 \end{align}
 The registration process is further separated into two stages: The affine transform, $\hat{\mathbf{A}}$ which defines the mapping between the two detectors for a static scene ; and a time dependent affine transform relating to translational motion in the retina, $\mathbf{A}(\Delta x(t), \Delta y(t))$.
-
-\subsection{Static Image Registration}
-\subsubsection{Fourier-Merlin Method}
+\FloatBarrier
+\section{Fourier-Merlin Technique for Registering Still FLIMera and sCMOS images}
 Feature-based registration algorithms, such as SIFT and ORB, are currently used in retinal imaging for collections of images with low noise, similar fields of view, and magnifications~\cite{chanwimaluang2006hybrid,faisan2011scanning}.  The high noise in the FLIMera images and the relatively large magnification difference between the FLIMera and sCMOS detector make these feature-based techniques unsuitable. The phase cross-correlation technique, the Fourier-Merlin algorithm, is used to find the affine mapping between the detectors in two stages\cite{padfield2011masked}. First the rotation and scale differences are found and corrected, and an intermediate image is formed. This intermediate image is then used to find the translational differences between the images and the affine mapping is constructed to produce the co-registered image.
 Phase cross-correlation registration methods identify the translation between the two images, $k(x,y)$, and $l(x','y) = k(x+\Delta x, y + \Delta y)$ by finding the location of the peak of phase correlation, $\Omega$ between the two images and is implemented using an FFT:
 \begin{align}
@@ -70,7 +75,8 @@ The parameters $\Delta m$ and $\Delta\theta$ can then be recovered using \cref{e
 \begin{align}\label{eq:magrot}
     \Delta\theta &= \frac{2\pi\Delta\rho}{U} & \Delta m &= \frac{1}{\exp\Delta\xi / \Gamma} & \Gamma = \frac{V}{\ln\lfloor U / k\rfloor}
 \end{align}
-\subsubsection{Static Registration with a USAF Test Target}
+\FloatBarrier
+\subsection{Static Registration with a USAF Test Target}
 The static calibration between the two detectors was then found using the above process and fluorescence images recorded of a  fluorescent United States Air Force (USAF) test target using the FLIMera and sCMOS camera in parallel. The periodic “bar” structures of the USAF test target make it an attractive method for assessing the accuracy of the registration technique. Images were recorded using and excitation wavelength of (\qtyrange{460}{467}{\nm}) and a \SI{500}{\nm} long-pass emission filter over an integration time of \SI{10}{\second} to ensure a high SNR. For the images recorded with the FLIMera, the measured histograms were integrated over time to yield a intensity image and the pixel aspect ratio is corrected for by twinning adjacent columns of pixels resulting in an image with resolution \qtyproduct[product-units=single]{192x252}{\pixel}.
 Before the Fourier-Merlin algorithm was applied, the images were first filtered using a difference-of-Gaussian bandpass filter and a Hanning window to increase the contrast of edge features which gave a more prominent peak in the cross-correlation process. The scaling and rotation between the images was found using the FFT and log-polar transform process (\cref{fig:USAFlp}) described above and returned values of $\Delta M = \num[round-mode = figures, round-precision = 3]{4.202255063883409}$ and $\Delta\theta = \SI[round-mode = figures, round-precision = 3]{-0.098775}{\degree}$. 
 
@@ -113,10 +119,10 @@ Finally, the magnification, rotation, and translations are used to construct a s
 \end{bmatrix}    
 \end{equation}
 
-\subsection{Movement Registration}
+\section{Correcting Motion Artefacts in the FLIMera using Brightfield images}
 Correcting for eye movement in the fluorescence decays recorded with the FLIMera was achieved by detecting translational shifts between a reference image and successive brightfield or fluorescence intensity images, recorded at \SI{10}{\hertz}, with phase cross-correlation. Applying an affine transform, $\hat{\mathbf{A}}$,  on these translational shifts gives equivalent shifts on the FLIMera which are then applied to histograms spanning the same time period as the sCMOS image. Repeating this for the entire image acquisition period yields a reconstructed fluorescence lifetime image that is high contrast and is free of motion artefacts.
 
-\subsubsection{sCMOS shifts to FLIMera shifts}
+\subsection{Correlating translations in the Brightfield Image to the FLIMera image}
 The shifts in the sCMOS detector are converted to shifts in the FLIMera detector using the attribute of the affine transform (Eq.~\ref{eq:affreg}) and considering the transform between pairs of images:
 \begin{align}\label{eq:affreg}
 I_{FLIMera}^{N+\epsilon}(x',y') &= I_{FLIMera}^{N}(x' + \Delta x'_{\epsilon} ,y'+ \Delta y'_{\epsilon}) = \mathbf{A}(\Delta x'_{\epsilon} ,\Delta y'_{\epsilon})I_{FLIMera}^{N}(x',y')\\
@@ -133,7 +139,7 @@ This approach can be further generalised for rotation, translation, or shear suc
 \begin{equation}
     \mathbf{A}(\Delta x', \Delta y', \theta', \Delta m', \Delta h') = \hat{\mathbf{A}}^{-1}\mathbf{A}((\Delta x, \Delta y, \theta, \Delta m, \Delta h))\hat{\mathbf{A}}
 \end{equation}
-\subsubsection{\textit{Ex-Vitro} Demonstration using \textit{Convallaria majalis}}
+\subsection{Demonstration of Motion Correction using \textit{Ex-Vitro} using \textit{Convallaria majalis}}
 The motion registration algorithm was demonstrated on a sample of \textit{Convallaria majalis} - referred to as Convallaria herein - mounted in an eye phantom (\cref{fig:ConvallariaEyePhantom}) which could be moved within the “retinal” plane throughout the acquisition period to mimic the image degradation seen in images of the human retina. Over a \SI{2}{\minute} integration period the sample, excited between \qtyrange{460}{467}{\nm}, is held still, translated in X, Y, and then X and Y for periods of \SI{30}{\second} each. Fluorescence intensity images were recorded continuously with a \SI{500}{\nm} long-pass emission filter at a frame rate of \SI{10}{\hertz} and exposure time of \SI{30}{\ms} on the sCMOS detector and FLIM histograms were recorded using the RAW mode of the FLIMera at a rate of \SI{24}{\kilo\hertz}.
 \begin{figure}
     \centering
@@ -153,7 +159,7 @@ By initially having the laser shutter closed - sample is not illuminated - at th
     \label{fig:flimerascmossync}
 \end{figure}
 
-The fluorescence intensity images are then registered to the first image in the fully illuminated image in the sequence and summed together to construct a single motion corrected frame\cref{fig:sCMOSreg}d from \cref{fig:sCMOSreg}b. When compared to an image formed from a single exposure, \cref{fig:sCMOSreg}a, with the a shorter, \SI{2}{\second}, exposure time integration time the re-constructed image does appear softer. This is due to each shorter exposure frame having a high proportion of read-noise and shot-noise. The noisier frames also introduce small errors of ($<\SI{2}{\pixel}$) in the registration process which further softens the image and results in the loss in detail of the fine vascular bundles.
+The fluorescence intensity images are then registered to the first fully illuminated frame in the sequence (\cref{fig:sCMOSreg}b) and summed together to construct a single motion corrected frame from (\cref{fig:sCMOSreg}d). When compared to an image formed from a single exposure, \cref{fig:sCMOSreg}a, with the a shorter, \SI{2}{\second}, exposure time integration time the re-constructed image does appear softer. This is due to each shorter exposure frame having a high proportion of read-noise and shot-noise. The noisier frames also introduce small errors of ($<\SI{2}{\pixel}$) in the registration process which further softens the image and results in the loss in detail of the fine vascular bundles.
 
 
 \begin{figure}

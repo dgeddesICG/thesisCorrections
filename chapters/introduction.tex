@@ -259,7 +259,7 @@ The technology used in TCPSC FLIM implementations typically consist of a single 
 
 The nature of single pixel detectors restricts fluorescence lifetime imaging platforms to either costly scanning systems~\cite{sanders1995quantitative}, or lengthy singe-pixel compressive sensing techniques for effective~\cite{yao2019net}. New generation SPAD arrays have become available which feature on-chip, and per-pixel, TDCs allowing for 
 recording fluorescence lifetime images in a snap shot. The limit of these new detectors is still their low resolution and low fill factor - for the example the Horiba Flimera, used in this project, has a resolution of \numproduct{128 x 192}\si{\pixel} with time bin width of
-\qtyrange{33}{47}{\pico\second} and fill factor of \SI{13}{\percent}~\cite{henderson2019192}. The low fill factor of these SPADs is due to each pixel of the SPAD contains the active detector area as well as the TDC on the same layer silicon. Raising the fill factor, and thus increasing photon detection efficiency is achievable through multiple methods such as implementing micro lens arrays; optimisation of TDC, and SPAD electronic; and mutli-layer fabrication where the top layer of silicon is devoted to to being the active area of the detector and lower layers host the TDC and other necessary components.
+\qtyrange{33}{47}{\pico\second} and fill factor of \SI{13}{\percent}~\cite{henderson2019192}. The low fill factor of these SPADs is due to each pixel of the SPAD contains the active detector area as well as the TDC on the same layer silicon. Raising the fill factor, and thus increasing photon detection efficiency is achievable through multiple methods such as implementing micro lens arrays; optimisation of TDC, and SPAD electronic; and multi-layer fabrication where the top layer of silicon is devoted to to being the active area of the detector and lower layers host the TDC and other necessary components.
 
 
 \paragraph*{Time Gated FLIM\\}\label{sec:gatedflim}
@@ -330,6 +330,17 @@ In fluorescence intensity imaging the low signal and low contrast inherent to au
 %
 
 
+\section{Phasor Analysis}\label{sec:phasoranalysis}
+
+Phasor analysis presents as a fit-free analysis tool for easy segmentation of flourophores but is a technique predominantly used for FLIM imaging of stained samples. To unmix combinations of fluorphores, the linear addition of phasors can be exploited such that the relative abundance of $N$ fluorophores can be unmixed using a technique akin to vertex component analysis where the phasors of the pure endmembers form the vertices of an $N$-polygon and the phasor of a fluorophore to be unmixed lies within that $N$-polygon as is illustrated in (\cref{fig:phasorbiunmix} for the case of unmixing 2 fluorophores. The robustness of this method suffers from the same issues that plague lifetime based unmixing - sensitivity to noise and similarity in endmember lifetime model.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.7\textwidth]{figures/sflim/phasor-unmixing/PhasorUnmix.pdf}
+    \caption{Depiction of unmixing a combination fluorophores using phasor analysis. For this mixture of 2 fluorophores the pure endmembers are represented as single exponential decays (black circle and green star) and thus have phasors lying on the unit circle. A third phasor consisting of a mixture of two fluorophores, with relative abundances $\alpha_{1}$ and $\alpha_{2}$, lies upon a line intersecting both endmember phasors. The relative abundances are recovered using the fractional lengths $f_{1}$ and $f_{2}$ : $\alpha_{1} = \frac{f_{1}}{f_{1} + f_{2}}$, $\alpha_{2} = \frac{f_{2}}{f_{1} + f_{2}}$ }
+    \label{fig:phasorbiunmix}
+\end{figure}
 
 
 \subsection{Fluorescence Lifetime Imaging Ophthalmoscopy}
