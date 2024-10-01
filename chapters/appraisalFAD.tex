@@ -1,4 +1,7 @@
 \setstretch{2}
+\section{Chapter Summary}
+In this chapter three methods of unmixing FAD concentrations from retinal autofluorescence are compared using simulations of additive mixtures. A fitting-based method is described which uses a 6-exponential fit of the fluorescence lifetime to recover fluorophore concentration. A second blind method ``Phasor S-FLIM'' is also simulated for retinal fluorophores which uses spectrally resolved FLIM measurements. Due to poor sensitivity at photon fluxes experienced when imaging the retina these method were deemed unsuitable. Finally, a set of detection bands are optimised for a standard spectral unmixing approach to serve as a benchmark for the SFLIM unmixing technique developed in the next chapter (\cref{chap:tensSFLIM})
+
 \FloatBarrier
 \section{Rationale}
 
@@ -26,7 +29,7 @@ The concentration of retinal fluorophores could be quantified using only measure
 \end{table}
 
 \subsection{Unmixing Method}
-An additive mixture of FAD, AGE, and A2E with concentrations $c_{FAD}$, $c_{AGE}$, and $c_{A2E}$ respectively~\footnotemark{} gives the following 6-exponential decay model~\cref{eq:retmodel}.
+An additive mixture of FAD, AGE, and A2E with relative concentrations $c_{FAD}$, $c_{AGE}$, and $c_{A2E}$, respectively gives the following 6-exponential decay model~\cref{eq:retmodel} such that $c_{FAD} + c_{AGE} + c_{A2E} = 1$.
 \begin{multline}
      I(t) =  c_{FAD}\bigg(\alpha_{FAD,1}\exp(-t / \tau_{FAD,1}) 
        + \alpha_{FAD,2}\exp(-t / \tau_{FAD,2})\bigg)\\    
@@ -38,7 +41,6 @@ An additive mixture of FAD, AGE, and A2E with concentrations $c_{FAD}$, $c_{AGE}
 \end{multline}
 where $\alpha_{FAD,1}$ refers to the amplitude of the first lifetime for FAD, and $c_{FAD}$ is the relative abundance of FAD. These concentrations can then be recovered from a conventional 6 exponential fit (\cref{eq:6expfit}) using \cref{eq:fitrecovery} where the parameter estimates supplied to the fitting routine are of the same order as those in \cref{eq:retmodel} and best fit parameters preserve this order i.e parameters are ordered FAD, AGE, A2E.
 
-\footnotetext{such that $c_{FAD} + c_{AGE} + c_{A2E} = 1$}
 \begin{equation}
      I_{FIT}(t) = \delta + \sum^{n = 6}_{n \geq 1} \alpha_{n}\exp(-t / \tau_{n})
      \label{eq:6expfit}
@@ -49,10 +51,10 @@ where $\alpha_{FAD,1}$ refers to the amplitude of the first lifetime for FAD, an
      \bar{c}_{A2E} &= \frac{1}{2}\Bigg(\frac{\alpha_{1}}{\alpha_{A2E,1}} + \frac{\alpha_{2}}{\alpha_{A2E,2}}\Bigg)\label{eq:fitrecovery}
 \end{align}
 
-This technique was initially tested using , noise free, fluorescence decay was simulated using \cref{eq:retmodel} with $c_{FAD} = c_{A2E} = 0.4$, $c_{AGE} = 0.2$. The exponential decays were constructed to match the attributes of the FLIMera and NKT supercontinuum source using \num{266} time samples with an interval of $\delta t = \SI{47}{\pico\second}$.
-The interval between each time step was set to match the temporal resolution of the SPAD array ($\delta t = \SI{47}{\pico\second}$) and the time window over which the decay was simulated matched the laser period of the NKT supercontinuum source ($T = \SI{12.8}{\nano\second}$) - equating to \num{266} time samples. The algorithm is implemented using the Levenberg-Marquardt least-squares fitting routine and from noiseless data the recovered abundances and line of best-fit is shown in \cref{tab:retfitexampleresults} and \cref{fig:retfitexample}. These results demonstrate that this method exhibits low error for data for which the only noise present arises from loss of precision from a \SI{64}{\bit} floating point number.
+This technique was initially tested using , noise free, fluorescence decay was simulated using \cref{eq:retmodel} with $c_{FAD} = c_{A2E} = 0.4$, $c_{AGE} = 0.2$. The exponential decays were constructed to match the attributes of the FLIMera and NKT supercontinuum source using \num{266} time samples with an interval of $\delta t = \qty{47}{\pico\second}$.
+The interval between each time step was set to match the temporal resolution of the SPAD array ($\delta t = \qty{47}{\pico\second}$) and the time window over which the decay was simulated matched the laser period of the NKT supercontinuum source ($T = \qty{12.8}{\nano\second}$) - equating to \num{266} time samples. The algorithm is implemented using the Levenberg-Marquardt least-squares fitting routine and from noiseless data the recovered abundances and line of best-fit is shown in \cref{tab:retfitexampleresults} and \cref{fig:retfitexample}. These results demonstrate that this method exhibits low error for data for which the only noise present arises from loss of precision from a \qty{64}{\bit} floating point number.
 \\
-The sensitivity to fluorophore concentration was then evaluated by repeating this simulation but smoothly varying the concentration of FAD, AGE, and A2E from \qtyrange{0}{100}{\percent}) in steps of \SI{10}{\percent}. The abundance maps shown in \cref{fig:retfittingnoiseless} illustrate that even for noiseless data the error in recovery grows larger than \SI{10}{\percent} for low fluorophore concentrations and for high concentrations of FAD this error is $\ll \SI{1}{\percent}$.
+The sensitivity to fluorophore concentration was then evaluated by repeating this simulation but smoothly varying the concentration of FAD, AGE, and A2E from \qtyrange{0}{100}{\percent}) in steps of \qty{10}{\percent}. The abundance maps shown in \cref{fig:retfittingnoiseless} illustrate that even for noiseless data the error in recovery grows larger than \qty{10}{\percent} for low fluorophore concentrations and for high concentrations of FAD this error is $\ll \qty{1}{\percent}$.
 
 \begin{figure}
     \centering
@@ -90,7 +92,7 @@ The sensitivity to fluorophore concentration was then evaluated by repeating thi
 \FloatBarrier
 %Got to here 23/09/2024
 \subsection{Sensitivity to noise}
-If this technique is to be suitable for unmixing retinal fluorophores it needs to be robust to the low-photon fluxes experienced when imaging \textit{in-vivo} human retinas where typically over an acquisition period of \SI{1}{\minute} only \numrange{e3}{e4} photons are recorded~\cite{dysli2017fluorescence}. 
+If this technique is to be suitable for unmixing retinal fluorophores it needs to be robust to the low-photon fluxes experienced when imaging \textit{in-vivo} human retinas where typically over an acquisition period of \qty{1}{\minute} only \numrange{e3}{e4} photons are recorded~\cite{dysli2017fluorescence}. 
 The above simulations were repeated with Poissonian noise applied to simulate shot noise for a range of photon fluxes, \numlist{e3;e5;e7;e12}, representing typical photon fluxes for imaging the retina to idealised scenarios where the performance of SPAD arrays have improved significantly. The effects of dark noise or read noise were not included in these simulations due to shot noise being the dominant noise source for photon fluxes larger than \num{e3}[cite Henderson SPAD paper].
 
 % Results from fitting base unmixing
@@ -128,7 +130,7 @@ The above simulations were repeated with Poissonian noise applied to simulate sh
 \end{figure}
 
 
-At the lowest photon flux the recovered abundances are completely uncorrelated with the ground truth (Fig.~\labelcref{subfig:retfitting1e3,subfig:retfitting1e5})  and only at the higher photon fluxes do these abundance maps resemble the ground truth (\cref{subfig:retfitting1e12}). In the regions with low fluorophore concentration the error in the unmixed abundances is prohibitively large and only at high fluorophore concentration at a photon flux of \num{e12} is the error below \SI{50}{\percent}. These results also demonstrate the common rule-of-thumb in FLIM where $10^{2k +1}$ photons are required to confidently fit a decay with $k$ lifetimes.
+At the lowest photon flux the recovered abundances are completely uncorrelated with the ground truth (Fig.~\labelcref{subfig:retfitting1e3,subfig:retfitting1e5})  and only at the higher photon fluxes do these abundance maps resemble the ground truth (\cref{subfig:retfitting1e12}). In the regions with low fluorophore concentration the error in the unmixed abundances is prohibitively large and only at high fluorophore concentration at a photon flux of \num{e12} is the error below \qty{50}{\percent}. These results also demonstrate the common rule-of-thumb in FLIM where $10^{2k +1}$ photons are required to confidently fit a decay with $k$ lifetimes.
 \FloatBarrier
 \subsection{Appraisal of Technique}
 
@@ -138,7 +140,7 @@ To summarise, a method of recovering the relative concentrations of additive mix
 \section{Recovering Retinal Fluorophore Concentration using Phasor S-FLIM } \label{sec:phasor-sflim}
 The Phasor S-FLIM technique, developed by, \citeauthor{scipioni2021phasor}, extends the existing fit-free phasor analysis method to allow for measuring fluorophores without knowledge of their emission spectra or fluorescence lifetime. While this method was developed for FLIM imaging for stained biological samples- where dyes can be chosen to have well separated emission spectra and fluorescence lifetime - its suitability for measuring retinal FAD concentrations was investigated. The reported robustness to low photon-flux and spectral contamination due to sample autofluorescence makes this technique attractive for measuring retinal FAD where the retinal autofluorescence signal is degrades from absorption and scattering from blood vessels and lens autofluorescence.
 
-\subsection{The Phasor S-FLIM unmixing algorithm}
+\subsection{The Phasor S-FLIM Unmixing Algorithm}
 The Phasor S-FLIM algorithm operates as follow. The time-resolved fluorescence of the scene is recorded over multiple spectral bands and the phasor transform is applied to give the spectral phasors  $g(\lambda)$ and $s(\lambda)$ for each pixel ($I(x,y,\lambda,t)\mapsto I(x,y,\lambda,2)$). Spectral and temporal instruments response functions re applied and for each pixel PCA is applied to rotate the spectral phasors to optimise the ability to make the location of the endmembers more pronounced. These PCA transformed spectral phasors are then fitted to a generalised double logistic function (\cref{eq:dublog}) to recover the endmember phasor locations from the $I_{+\infty,1}$, $I_{-\infty,1}$, and $I_{+\infty,2}$ terms. From the location of each endmember in phasor space the fluorescence decay profile and spectra are then reconstructed weighted by their relative abundance - enabling the quantification of fluorophore concentration. The authors note in the supplementary material that double-generalised logistic function was chosen to model the flexibly model the phasor representation of the endmember spectra through the $g_{k}$, $\Delta x_{k}$, and $v_{k}$ parameters and minimise the assumptions made about the broadness, emission peak, and general shape the endmember spectra. 
 \begin{equation}
     f(x)  =  I_{-\infty,1}   +\frac{  I_{+\infty,1} + \frac{  I_{+\infty,2} - I_{-\infty,1}  }{\big(1 - \exp[-g_{2}(x - \Delta x_{2})]\big)^{\nicefrac{1}{v_{2}}}} - I_{-\infty,1}}{\bigg(1 - \exp[-g_{1}(x - \Delta x_{1})]\bigg)^{\nicefrac{1}{v_{1}}}}\label{eq:dublog}
@@ -155,8 +157,8 @@ The Phasor S-FLIM algorithm operates as follow. The time-resolved fluorescence o
     \label{fig:spectralphasors}
 \end{figure}
 %got to here 24/09/2024
-\subsection{Phasor S-FLIM performance for quantifying retinal fluorophores}
-As with the fitting-based method, the sensitivity of the phasor S-FLIM method to fluorophore concentration and noise was investigated. In these simulations a MATLAB implementation of the algorithm, supplied in the original publication, is adapted to use 32 contiguous spectral bands with rectangular transmission functions spanning X-Y and \num{266} time bins. The fluorescence emission spectra of AGE, A2E, and FAD was modelled by re-sampling the plotted spectra of these fluorophores from Fig. 9 of \citeauthor{schweitzer2007towards}. In the ideal case where no shot-noise is present the phasor S-FLIM method shows poor performance for measuring FAD concentrations (\cref{fig:phasorresultnoiseless}). The close proximity of the AGE and FAD endmember phasors resulted in error in the unmixed abundances is over \SI{100}{\percent} for low fluorophore concentrations. Further, the recovered spectra are often unpredictably miscategorised – e.g FAD signal unmixes as AGE – due to the `blind’ nature of the technique. This miscategrorisation was corrected for by matching the recovered spectra to the ground truth emission spectra using the Spectral Angle Map (\cref{eq:sam}).
+\subsection{Phasor S-FLIM Performance for Quantifying \\ Retinal Fluorophores}
+As with the fitting-based method, the sensitivity of the phasor S-FLIM method to fluorophore concentration and noise was investigated. In these simulations a MATLAB implementation of the algorithm, supplied in the original publication, is adapted to use 32 contiguous spectral bands with rectangular transmission functions spanning X-Y and \num{266} time bins. The fluorescence emission spectra of AGE, A2E, and FAD was modelled by re-sampling the plotted spectra of these fluorophores from Fig. 9 of \citeauthor{schweitzer2007towards}. In the ideal case where no shot-noise is present the phasor S-FLIM method shows poor performance for measuring FAD concentrations (\cref{fig:phasorresultnoiseless}). The close proximity of the AGE and FAD endmember phasors resulted in error in the unmixed abundances is over \qty{100}{\percent} for low fluorophore concentrations. Further, the recovered spectra are often unpredictably miscategorised – e.g FAD signal unmixes as AGE – due to the `blind’ nature of the technique. This miscategrorisation was corrected for by matching the recovered spectra to the ground truth emission spectra using the Spectral Angle Map (\cref{eq:sam}).
  as a matching metric
 
 \begin{equation}\label{eq:sam}
@@ -169,7 +171,7 @@ As with the fitting-based method, the sensitivity of the phasor S-FLIM method to
     \caption{Results of unmixing additive mixtures of retinal fluorophores without the inclusion of any read-noise or shot-noise using the Phasor-SFLIM technique. The top row shows the ground truth relative abundances of the retinal fluorophores AGE, A2E (lipofuscin), and FAD which are varied between 0 and 1. The middle row shows the recovered abundances after the reconstructed spectra have been correctly ordered with the associated error - calculated using \cref{eq:recerror} - shown in the bottom row and is also scaled from 0 to 1.}
     \label{fig:phasorresultnoiseless}
 \end{figure}
-This poor performance is also seen in the simulations including photon shot noise. In an example with \num{e6} photons shared between the spectral and lifetime domain. Similarly, at low fluorophore concentrations the error in recovered abundances as shown in \cref{fig:phasorresultsnoisy}, is $\geq\SI{100}{\percent}$ over the entire ``image’’ and the mean error in quantifying FAD concentration is \SI{224}{\percent}.
+This poor performance is also seen in the simulations including photon shot noise. In an example with \num{e6} photons shared between the spectral and lifetime domain. Similarly, at low fluorophore concentrations the error in recovered abundances as shown in \cref{fig:phasorresultsnoisy}, is $\geq\qty{100}{\percent}$ over the entire ``image’’ and the mean error in quantifying FAD concentration is \qty{224}{\percent}.
 
 \begin{figure}
     \centering
@@ -182,7 +184,7 @@ This poor performance is also seen in the simulations including photon shot nois
 In literature the phasor-SFLIM technique was reported to robustly un-mix fluorophores at low photon fluxes~\cite{scipioni2021phasor,scipioni2022phasor}  – for retinal fluorophores this could not be replicated. In the above simulation the unmixing method showed poor performance even without the inclusion of photon shot noise and would mis-categorise the retinal fluorophores in the recovered spectra. This poor performance is due to the high spectral overlap and similar decay profiles of FAD, AGE, and A2E which in phasor spaces gives endmembers that are not well separated and in the spectral phasor plot no prominent vertices are found. While this analysis did not attempt to model spectra contamination due to absorption in blood and vasculature or the effects the lens fluorescence it can be concluded that the phasor S-FLIM algorithm is not suitable for measuring concentrations of the retinal FAD and was not pursued further.
 
 \FloatBarrier
-\section{Spectral Unmixing}\label{sec:specunmix}
+\section{Spectral Unmixing using Matrix Inversions}\label{sec:specunmix}
 In remote sensing endmembers are discriminated against using their unique spectral signatures to separate buildings, from foliage, from rivers in the scene - buildings will appear spectrally flat, foliage will peak in the green, and rivers and water features will peak in the blue spectral regions. In these applications the endmembers are unmixed by assuming a linear mixing model and recovering abundances with methods such as non-negative matrix factorisation (NMF), Vertex / Geometric Component Analysis (VCA / GCA), Auto-encoder networks or simple matrix inversions.
 \begin{align}
     I(x,y) = I_{0}\sum^{N}_{n \geq}\alpha_{n}S_{n}(\lambda) \text{ such that } \sum_{n \geq 1}^{N}\alpha_{n} = 1 \text{ and } \int_{0}^{\infty}S_{n}d\lambda = 1
@@ -208,7 +210,7 @@ For over determined systems - where the number of spectral measurements is great
 \begin{align}
     \mathbf{A}^{-1} &: \mathbf{A}^{-1}\mathbf{A} = \mathbb{I} \implies \mathbf{A}^{+}: \mathbf{A}\mathbf{A}^{+}\mathbf{A} = \mathbf{A} \label{eq:mpinvidentity}
 \end{align}
-The matrix condition number is a convenient metric for assessing the influence of noise and spectral overlap on the error in recovered fluorophore concentrations. It encapsulates how `invertible’ the metric $\mathbf{S}$ is and will be dependent on the endmember spectra that are being unmixed, the number of detection bands as well as the location of these bands and their width. Generally, a condition number of $\kappa(\mathbf{S}) \propto 10^{k}$ results in a loss of precision of $k$ digits~\cite{cheney2012numerical}. For recovering the abundances of retinal fluorophores, which will vary between \qtyrange{0}{100}{\percent} or \numrange{0}{1}, a condition number of $\kappa(\mathbf{S}) < \num{e2}$ is required to have an error of less than \SI{10}{\percent}.
+The matrix condition number is a convenient metric for assessing the influence of noise and spectral overlap on the error in recovered fluorophore concentrations. It encapsulates how `invertible’ the metric $\mathbf{S}$ is and will be dependent on the endmember spectra that are being unmixed, the number of detection bands as well as the location of these bands and their width. Generally, a condition number of $\kappa(\mathbf{S}) \propto 10^{k}$ results in a loss of precision of $k$ digits~\cite{cheney2012numerical}. For recovering the abundances of retinal fluorophores, which will vary between \qtyrange{0}{100}{\percent} or \numrange{0}{1}, a condition number of $\kappa(\mathbf{S}) < \num{e2}$ is required to have an error of less than \qty{10}{\percent}.
 \begin{align}
     \kappa(\mathbf{S}) = \big\lvert\big\lvert \mathbf{S} \big\rvert\big\rvert_{F}\big\lvert\big\lvert \mathbf{S}^{+} \big\rvert\big\rvert_{F} \label{eq:matcondnum}
 \end{align}
@@ -217,7 +219,7 @@ The matrix condition number is a convenient metric for assessing the influence o
 \end{align}
 
 \subsection{Optimisation of Detection Bands For\\ Retinal Fluorophores}
-The condition number was then used to find the optimal location and number of detection bands. While narrow, contiguous bands do give higher spectral resolution each band does exhibit higher noise or longer image acquisition times. For this proposed spectral imaging scheme a system of \num{6} bands was optimised using an exhaustive search of all $\binom{40}{6} \approxeq \num{3.8e6}$  possible groups of 6 \SI{5}{\nm}-wide rectangular bands spanning \qtyrange{500}{700}{\nm} that minimises the matrix condition number. The search gave an optimal combination of filters with cut-on wavelengths of \qtylist{500;535;630;640;655;660}{\nm} and a condition number of $\kappa = \num{8.101}$ indicating an at most one digit of precision will be lost.
+The condition number was then used to find the optimal location and number of detection bands. While narrow, contiguous bands do give higher spectral resolution each band does exhibit higher noise or longer image acquisition times. For this proposed spectral imaging scheme a system of \num{6} bands was optimised using an exhaustive search of all $\binom{40}{6} \approxeq \num{3.8e6}$  possible groups of 6 \qty{5}{\nm}-wide rectangular bands spanning \qtyrange{500}{700}{\nm} that minimises the matrix condition number. The search gave an optimal combination of filters with cut-on wavelengths of \qtylist{500;535;630;640;655;660}{\nm} and a condition number of $\kappa = \num{8.101}$ indicating an at most one digit of precision will be lost.
 
 \begin{equation}\label{eq:nchoosek}
     \binom{n}{m} = \frac{n!}{k!(n-k)!}
@@ -230,7 +232,7 @@ The condition number was then used to find the optimal location and number of de
     \label{fig:retspectrabands}
 \end{figure}
 
-The performance of this detection scheme is then quantified using the previously utilised abundance maps for both noiseless data and data with shot-noise equivalent to \num{e5} detected photons. In the noiseless data the RMS errors are on the order of \SI{e-12}{\percent} however when photon noise is introduced the average error in recovering the abundance of FAD rises to \SI{91.8}{\percent}
+The performance of this detection scheme is then quantified using the previously utilised abundance maps for both noiseless data and data with shot-noise equivalent to \num{e5} detected photons. In the noiseless data the RMS errors are on the order of \qty{e-12}{\percent} however when photon noise is introduced the average error in recovering the abundance of FAD rises to \qty{91.8}{\percent}
 
 
 \begin{equation}\label{eq:RMSerror}
@@ -261,3 +263,7 @@ The performance of this detection scheme is then quantified using the previously
 While spectral unmixing can in principle be used to unmix retinal fluorophores the large RMS error limits its efficacy for estimating the concentration of FAD in the retina beyond asserting the presence of FAD with low confidence. While the goal of this simulation was simply to benchmark a new SFLIM unmixing method discussed in the next section it nonetheless could be made more rigorous by using non-rectangular filters or by considering off-the-shelf filters. 
 Further, with the discussed unmixing methods suffering from high errors in recovering the relative abundance of FAD it highlights the fundamental question - ``What benefit does fluorescence lifetime bring to assessing retinal health''.
 
+\section{Conclusions}
+In this chapter, The feasibility of measuring FAD concentrations in retina using three methods. Simulations were constructed with linear mixtures of the retinal fluorophores AGE, A2E, and FAD with Poissionian noise applied to simulate the effects of low photon fluxes. The fitting-based approach was highly sensitive to noise due to the similar lifetimes of the 3 retinal fluorophores and the 6-exponential fit required to model their decay properties (\cref{sec:lifeunmix}). Even at unrealistically high photon fluxes of \num{e12} this method showed prohibitively high errors in the recovered fluorophore concentrations and was deemed unsuitable. The reportedly phasor S-FLIM technique~\cite{scipioni2021phasor} was also investigated and was also found to have high error in recovered fluorophore concentrations. At low photon fluxes of \num{e5} the algorithm would misidentify the unmixed fluorophores meaning AGE could be unmixed as FAD which would introduce large errors in the the recovered concentration of FAD. Under the phasor transform the high spectral overlap and decay properties of AGE, A2E, and FAD resulted in the endmembers not being well separated in phasor space or forming prominent vertices for the unmixing procedure to identify(\cref{fig:phasorresultnoiseless}). 
+\\
+To provide a benchmark for the unmixing method developed in~\cref{chap:tensSFLIM} a set of spectral bands were optimised for a matrix inversion spectral technique using matrix condition number related metrics (\cref{sec:specunmix}). The performance of this set of 6 detection bands was simulated and found to yield good unmixing performance at high relative fluorophores concentrations and at low concentrations of FAD this error rises to \qty{91.8}{\percent}. This motivates the need for a better unmixing technique that is sensitive to small changes in key retinal biomarkers.

@@ -4,7 +4,7 @@ In this appendix the safety of the SFLIO device is evaluated using the \citeauth
 Fluorescence imaging is routinely used in the diagnosis, and monitoring of retinal disease by detecting changes in fluorescent biomarkers in the retina~\cite{bernstein2019fluorescence}. In principle, this allows for the enhanced detection of disease by instead of examining structural changes in the retina, after damage as already occurred, we can detect changes in the biochemistry. However, the feint signal produced by the fluorophores of interest is often swamped by more strongly fluorescing clutter this hinders abilities to quantify individual fluorophores and results in noisy images. 
 Spectral-Fluorescence Lifetime Imaging is a new technique which can discriminate mixtures of multiple fluorescent compounds using properties inherent to the respective fluorophore, namely its fluorescence emission spectra, and its fluorescence lifetime – the average time taken for a fluorophore to decay~\cite{scipioni2021phasor}.
 
-Our system uses a standard Topcon TRC 50DX fundus camera with the imaging, and illumination paths being modified for exciting fluorescence with a supercontinuum laser, and recording fluorescence lifetime images. A pulsed, supercontinuum laser source is coupled into the existing annular illumination system of the fundus camera using a dichroic mirror. This modification allows for illuminating the retina using our laser source, with a smaller field of view, while retaining the use of the existing inspection lamp to allow for aligning the patient/volunteer during imaging (See~\cref{fig:modification}). The supercontinuum laser source (NKT Super Extreme EX12W) produces a broadband output (\cref{fig:nktspectra}) with a pulse length $<\SI{100}{\pico\second}$ and repetition rate of $\SI{80}{\mega\hertz}$. An Acousto-Optically Tuneable Filter (AOTF) reduces the broadband output into a single excitation band between $\num{460}-\SI{467}{\nano\metre}$ with the dichroic mirror further attenuating any light from the laser source $<\SI{605}{\nano\metre}$. 
+Our system uses a standard Topcon TRC 50DX fundus camera with the imaging, and illumination paths being modified for exciting fluorescence with a supercontinuum laser, and recording fluorescence lifetime images. A pulsed, supercontinuum laser source is coupled into the existing annular illumination system of the fundus camera using a dichroic mirror. This modification allows for illuminating the retina using our laser source, with a smaller field of view, while retaining the use of the existing inspection lamp to allow for aligning the patient/volunteer during imaging (See~\cref{fig:modification}). The supercontinuum laser source (NKT Super Extreme EX12W) produces a broadband output (\cref{fig:nktspectra}) with a pulse length $<\qty{100}{\pico\second}$ and repetition rate of $\qty{80}{\mega\hertz}$. An Acousto-Optically Tuneable Filter (AOTF) reduces the broadband output into a single excitation band between $\num{460}-\qty{467}{\nano\metre}$ with the dichroic mirror further attenuating any light from the laser source $<\qty{605}{\nano\metre}$. 
 To ensure safe operation, the laser source will be set to $100\%$ power output and a neutral density filter is used to attenuate this power to eye safe levels.
 
 
@@ -21,7 +21,7 @@ To ensure safe operation, the laser source will be set to $100\%$ power output a
         \caption{}
         \label{subfig:annular}
     \end{subfigure}
-    \caption{For FLIO imaging a Topcon TRC 50DX fundus camera is modified to allow excitation of fluorescence using a pulsed, supercontinuum white light source. a) shows the modifications made to the existing illumination optics to allow for fluorescence imaging over a $\approx\SI{20}{\degree}$ field of view. b) shows the effective illumination from the laser source (blue) and the existing tungsten inspection lamp used for aligning the patient/volunteer during imaging.}
+    \caption{For FLIO imaging a Topcon TRC 50DX fundus camera is modified to allow excitation of fluorescence using a pulsed, supercontinuum white light source. a) shows the modifications made to the existing illumination optics to allow for fluorescence imaging over a $\approx\qty{20}{\degree}$ field of view. b) shows the effective illumination from the laser source (blue) and the existing tungsten inspection lamp used for aligning the patient/volunteer during imaging.}
     \label{fig:modification}
 \end{figure}
 
@@ -33,7 +33,7 @@ To ensure safe operation, the laser source will be set to $100\%$ power output a
 \end{figure}
 \FloatBarrier
 \section{Exposure Thresholds}\label{sec:expthresh}
-Photochemical damage occurs predominately due to over exposure of short wavelength light where free radicals are created within cells of the RPE, the choroid, and the retina (See \cref{fig:anatomyeye}). These damaged cells are either removed as part of an immune response or die – resulting in loss of vision~\cite{glickman2002phototoxicity}. For our device the photochemical risk will be the most pertinent since we are exciting fluorescence between \SI{450}{\nano\metre} and \SI{480}{\nano\metre}.
+Photochemical damage occurs predominately due to over exposure of short wavelength light where free radicals are created within cells of the RPE, the choroid, and the retina (See \cref{fig:anatomyeye}). These damaged cells are either removed as part of an immune response or die – resulting in loss of vision~\cite{glickman2002phototoxicity}. For our device the photochemical risk will be the most pertinent since we are exciting fluorescence between \qty{450}{\nm} and \qty{480}{\nm}.
 Photothermal damage occurs due to visible, and infrared light causing a rise in temperatures within the eye. In cases of extreme heating of the vitreous humour, the retina can be permanently damaged due to cavitation~\cite{roberts2001ocular}. The safe exposure limits specify which section of the eye they relate to: retina, corner, or the anterior segment as well as the mode of damage - phototoxic or photothermal.
 \begin{figure}[htbp]
     \centering
@@ -44,7 +44,7 @@ Photothermal damage occurs due to visible, and infrared light causing a rise in 
 
 Two sets of guidelines are used to determine the safety of our instrument. The BS EN ISO 150004-2:2007 document describes procedures and safe exposure limits for ophthalmic imaging devices. Here devices are categorised as either a Group 1 device or a Group 2 device. A Group 1 device poses no risk to a patient/volunteers eyesight. A Group 2 device, while safe for occasional use, does pose a potential risk to the eyesight of a patient/volunteer(See \cref{sec:cwsafety}). 
 This set of guidelines is used to assess the safety of our device when treated as a continuous source under the restrictions for Group 1 devices. 
-The IEC 60825-1:2014 document is used to asses the safety of our instrument when considered as a pulsed source. While this document is not specifically intended for ophthalmic imaging devices it does provide more rigid definitions of safety thresholds that are better suited for the source used in our instrument - short wavelength, short pulse length, and high repetition rate. Here the safety thresholds pertain to the classification given to a laser. For example a class 1 laser is safe for direct exposure of over $\SI{8}{\hour}$ whereas a Class 2 laser is only safe up to direct exposures of $<\SI{0.25}{\second}$ due to the eyes blink response. Lasers that are Class 3 and above pose significant risk to eyesight from accidental reflections.
+The IEC 60825-1:2014 document is used to asses the safety of our instrument when considered as a pulsed source. While this document is not specifically intended for ophthalmic imaging devices it does provide more rigid definitions of safety thresholds that are better suited for the source used in our instrument - short wavelength, short pulse length, and high repetition rate. Here the safety thresholds pertain to the classification given to a laser. For example a class 1 laser is safe for direct exposure of over $\qty{8}{\hour}$ whereas a Class 2 laser is only safe up to direct exposures of $<\qty{0.25}{\second}$ due to the eyes blink response. Lasers that are Class 3 and above pose significant risk to eyesight from accidental reflections.
 In this safety assessment the criteria for a Class 1 laser system will be used to evaluate the safety of our device(See~\cref{sec:pulsedsafety}).
 \FloatBarrier
 \section{Pulsed Source Safety Assessment - IEC}\label{sec:pulsedsafety}
@@ -59,16 +59,16 @@ The AEL's for pulsed sources are defined in three ways 1) The AEL for a single p
         \hline
          Symbol & Description & Value & Units\\
         \hline
-        $\lambda$ & Wavelength of excitation source & $460-470$ & \si{\nano\metre}\\
-        $f$ & Laser Pulse rate & 80 & \si{\mega\hertz}\\
-        $t_{pulse}$ & Pulse Length & $<\num{100}$ & \si{\pico\second}\\
-        $P_{AVG}$ & Average laser power at excitation wavelength & \num{46} & \si{\micro\watt}\\
-        $P_{PK}$ & Peak laser power at excitation wavelength & \num{1.1} & \si{\milli\watt}\\
-        $T_{2}$ & Timebase that the AEL's are assessed over & \num{100} & \si{s}\\
-        $T_i$ & Period which all pulses in a train are grouped together & \num{5} & \si{\micro\second}\\
-        $\alpha$ & Angular subtense of the system & \num{536} & \si{\milli \radian}\\
-        $\alpha_{min}$  & Minimum angular subtense for an extended source & \num{1.5} & \si{\milli\radian}\\
-        $\alpha_{max}$ & Maximum angular subtense for an extended source&  \num{100}& \si{\milli\radian}\\
+        $\lambda$ & Wavelength of excitation source & $460-470$ & \unit{\nm}\\
+        $f$ & Laser Pulse rate & 80 & \unit{\mega\hertz}\\
+        $t_{pulse}$ & Pulse Length & $<\num{100}$ & \unit{\pico\second}\\
+        $P_{AVG}$ & Average laser power at excitation wavelength & \num{46} & \unit{\micro\watt}\\
+        $P_{PK}$ & Peak laser power at excitation wavelength & \num{1.1} & \unit{\milli\watt}\\
+        $T_{2}$ & Timebase that the AEL's are assessed over & \num{100} & \unit{s}\\
+        $T_i$ & Period which all pulses in a train are grouped together & \num{5} & \unit{\micro\second}\\
+        $\alpha$ & Angular subtense of the system & \num{536} & \unit{\milli \radian}\\
+        $\alpha_{min}$  & Minimum angular subtense for an extended source & \num{1.5} & \unit{\milli\radian}\\
+        $\alpha_{max}$ & Maximum angular subtense for an extended source&  \num{100}& \unit{\milli\radian}\\
         \hline
     \end{tabular}
     \caption{Table of variables and quantities used in determining the Accessible Emission Limit's (AEL) for a Class 1 laser source to assess the safety of our system.}
@@ -78,30 +78,30 @@ The AEL's for pulsed sources are defined in three ways 1) The AEL for a single p
 \subsection{Calculations of AEL's}
 The AEL's for a Class 1, pulsed, laser source are calculated using Section 4.3f) and Example B3.5 in Annex B. 
 
-% Using a power meter the average power meter, $P_{AVG}$ was measured over the entire excitation band as \SI{1.1}{\milli\watt}. The energy per pulse, $E_{pulse}$ is then:
+% Using a power meter the average power meter, $P_{AVG}$ was measured over the entire excitation band as \qty{1.1}{\milli\watt}. The energy per pulse, $E_{pulse}$ is then:
 % \begin{align*}
-%     E_{pulse} &= \frac{P_{AVG}\cdot\SI{1}{\second}}{f} = \frac{\SI{1.1e-3}{\watt}\cdot\SI{1}{\second}}{\SI{80e6}{\hertz}}\\
-%     E_{pulse} &=\SI{1.375e-11}{\joule}
+%     E_{pulse} &= \frac{P_{AVG}\cdot\qty{1}{\second}}{f} = \frac{\qty{1.1e-3}{\watt}\cdot\qty{1}{\second}}{\qty{80e6}{\hertz}}\\
+%     E_{pulse} &=\qty{1.375e-11}{\joule}
 % \end{align*}
 
-From Table 3 the AEL for a single pulse for a pulse length of \SI{100}{\pico\second}, and wavelength between \SI{450}{\nano\metre} and \SI{500}{\nano\metre} is:
+From Table 3 the AEL for a single pulse for a pulse length of \qty{100}{\pico\second}, and wavelength between \qty{450}{\nm} and \qty{500}{\nm} is:
 \begin{align}
-    AEL_{single} = \SI{7.7e-8}{\joule}\\
+    AEL_{single} = \qty{7.7e-8}{\joule}\\
 \end{align}
-Since $\nicefrac{1}{f} < T_{i}$ then all the pulses within this time window of $T_{i} = \SI{5e-6}{\second}$ must be grouped together:
+Since $\nicefrac{1}{f} < T_{i}$ then all the pulses within this time window of $T_{i} = \qty{5e-6}{\second}$ must be grouped together:
 \begin{align}
-    AEL_{T_{i}} = \num{7e-4}\cdot T_{i}^{0.75}\si{\joule} = \SI{7.4e-8}{\joule}
+    AEL_{T_{i}} = \num{7e-4}\cdot T_{i}^{0.75}\unit{\joule} = \qty{7.4e-8}{\joule}
 \end{align}
-The AEL for pulses over a duration $T = \SI{100}{\second}$ averaged together to calculate the $AEL_{T}$ term:
+The AEL for pulses over a duration $T = \qty{100}{\second}$ averaged together to calculate the $AEL_{T}$ term:
 \begin{align}
-    AEL_{T} &= \num{3.9e-5}\cdot C_{3}\si{\watt}\\
-    AEL_{T} &= \num{3.9e-5}\cdot 10^{0.02(468-450)}\si{\watt}\\
-    AEL_{T} &= \SI{8.9e-5}{\watt}
+    AEL_{T} &= \num{3.9e-5}\cdot C_{3}\unit{\watt}\\
+    AEL_{T} &= \num{3.9e-5}\cdot 10^{0.02(468-450)}\unit{\watt}\\
+    AEL_{T} &= \qty{8.9e-5}{\watt}
 \end{align}
 As a single pulse this in terms of the energy deposited in a single 'pulse'
 \begin{align}
-    AEL_{s.p.T} &= \frac{AEL_{T}}{f} =\frac{\SI{8.9e-5}{\watt}}{\SI{80e6}{\hertz}}\\
-    AEL_{s.p.T} &= \SI{1.1e-12}{\joule}
+    AEL_{s.p.T} &= \frac{AEL_{T}}{f} =\frac{\qty{8.9e-5}{\watt}}{\qty{80e6}{\hertz}}\\
+    AEL_{s.p.T} &= \qty{1.1e-12}{\joule}
 \end{align}
 
 Finally, the AEL for a single pulse in the train, $AEL_{s.p.train}$:
@@ -118,17 +118,17 @@ The correction factor $C_{5}$ uses the number of pulses over the period, $T_{2}$
 The $AEL_{s.p.train}$ is then:
 \begin{align}
     AEL_{s.p.train} &= AEL_{single}\cdot C_{5} \\
-    AEL_{s.p.train} &= \SI{3.08e-8}{\joule}
+    AEL_{s.p.train} &= \qty{3.08e-8}{\joule}
 \end{align}
 
-To summarise, the Accessible Emission limits have been calculated for a pulsed Class 1 laser system. To determine the equivalent laser class of our system, and thus assess the safety of the system, the most restrictive AEL will be used - $AEL_{s.p.T} = \SI{1.1e-12}{\joule}$. In the next section the energy emitted by our system will be measured according to the measurement conditions set out in IEC document.
+To summarise, the Accessible Emission limits have been calculated for a pulsed Class 1 laser system. To determine the equivalent laser class of our system, and thus assess the safety of the system, the most restrictive AEL will be used - $AEL_{s.p.T} = \qty{1.1e-12}{\joule}$. In the next section the energy emitted by our system will be measured according to the measurement conditions set out in IEC document.
 
 \begin{table}
     \centering
     \resizebox{0.98\textwidth}{!}{
     \begin{tabular}{|c|c|c|}
     \hline
-    \textbf{Symbol} & \textbf{Description} & \textbf{Value} (\si{\joule})\\
+    \textbf{Symbol} & \textbf{Description} & \textbf{Value} (\unit{\joule})\\
     \hline
         $AEL_{single}$ & Accessible Emission Limit for a single pulse & \num{7.7e-8} \\
         $AEL_{sp.T}$ & Accessible Emission Limit for a single pulse averaged over a period of 100s & \num{1.1e-12}\\ 
@@ -136,17 +136,17 @@ To summarise, the Accessible Emission limits have been calculated for a pulsed C
         \hline
     \end{tabular}
     }
-    \caption{Accessible Emissions Limits (AEL) pertaining to a Class 1 laser system with a pulse duration of $<\SI{100}{\pico\second}$ and wavelength of \SI{480}{\nano\metre} }
+    \caption{Accessible Emissions Limits (AEL) pertaining to a Class 1 laser system with a pulse duration of $<\qty{100}{\pico\second}$ and wavelength of \qty{480}{\nm} }
     \label{apptab:aelsum}
 \end{table}
 
 \subsection{Measurement of Accessible Emissions of the system}
-The accessible emission from the system - or the energy deposited onto the retina - must be measured under two conditions for retinal imaging devices: 1) Under normal use for recording retinal images and 2) when the patient / volunteer moves \SI{100}{\milli\metre} from the ideal/usual imaging position. (See Condition 3 in \cref{apptab:conditions}). Condition 3 captures the risk to retinal health from a diverging source of light focusing onto a potentially diffraction limited sport size The classification of the system is then determined using the most restrictive condition - the lowest AEL coupled with the highest measured power.
+The accessible emission from the system - or the energy deposited onto the retina - must be measured under two conditions for retinal imaging devices: 1) Under normal use for recording retinal images and 2) when the patient / volunteer moves \qty{100}{\mm} from the ideal/usual imaging position. (See Condition 3 in \cref{apptab:conditions}). Condition 3 captures the risk to retinal health from a diverging source of light focusing onto a potentially diffraction limited sport size The classification of the system is then determined using the most restrictive condition - the lowest AEL coupled with the highest measured power.
 
 
 
 \subsubsection{Spectral Measurements}
-The NKT supercontinuum laser source used in our system has the potential to cause severe phototoxic, and photothermal damage due to its broadband emission - as shown in \cref{subfig:superk}. For the excitation of flourophores the this broadband emission is reduced down to a single \SI{11.5}{\nano\metre} FWHM band using an AOTF. The spectral output of the system is measured using a Ocean Optics Spectrometer to ensure non-desirable wavelengths are properly attenuated as shown in \cref{subfig:fcspectra}. The FWHM of the source is \SI{11.5}{\nano\metre} which is sufficiently narrow that it can be treated as a single wavelength for the purposes of measuring optical power and determining the accessible emission limits. 
+The NKT supercontinuum laser source used in our system has the potential to cause severe phototoxic, and photothermal damage due to its broadband emission - as shown in \cref{subfig:superk}. For the excitation of flourophores the this broadband emission is reduced down to a single \qty{11.5}{\nano\metre} FWHM band using an AOTF. The spectral output of the system is measured using a Ocean Optics Spectrometer to ensure non-desirable wavelengths are properly attenuated as shown in \cref{subfig:fcspectra}. The FWHM of the source is \qty{11.5}{\nano\metre} which is sufficiently narrow that it can be treated as a single wavelength for the purposes of measuring optical power and determining the accessible emission limits. 
 
 
 \begin{figure}[htbp]
@@ -164,24 +164,24 @@ The NKT supercontinuum laser source used in our system has the potential to caus
     \caption{Filtered Spectra}
     \label{subfig:fcspectra}
     \end{subfigure}
-    \caption{Spectra measured from a) NKT SuperK supercontinuum and b) output of fundus camera system when filtered between $\num{460}-\SI{467}{\nano\metre}$ using an AOTF}
+    \caption{Spectra measured from a) NKT SuperK supercontinuum and b) output of fundus camera system when filtered between $\num{460}-\qty{467}{\nano\metre}$ using an AOTF}
 \end{figure}
 
 \subsubsection{Optical Power Measurements}
-The accessible emission of the system is evaluated using an optical power meter to measure the optical power emitted from our system under two conditions - 1) Normal measurement conditions and 2) where the volunteer/ patient has moved away from the usual imaging position by \SI{100}{\milli\metre} - this captures the risk of diverging light focusing down into a diffraction limited point. 
+The accessible emission of the system is evaluated using an optical power meter to measure the optical power emitted from our system under two conditions - 1) Normal measurement conditions and 2) where the volunteer/ patient has moved away from the usual imaging position by \qty{100}{\milli\metre} - this captures the risk of diverging light focusing down into a diffraction limited point. 
 \\
 Under normal imaging conditions the accessible emission of our system is evaluated by considering the total optical power emitted from our system with the angular subtense, $\alpha$, and the angle of acceptance of the eye, $\gamma$ (See \cref{app:angularsubtense}). 
-The optical power was measured as $P_{AVG} = \SI{46}{\micro\watt}$ and the angles $\alpha$, = \SI{1077}{\milli\radian} and $\gamma = \SI{259}{\milli\radian}$ were calculated. 
+The optical power was measured as $P_{AVG} = \qty{46}{\micro\watt}$ and the angles $\alpha$, = \qty{1077}{\milli\radian} and $\gamma = \qty{259}{\milli\radian}$ were calculated. 
 Under these conditions the energy per pulse form our system can be calculated as simply:
 \begin{align}
-    E_{pulse} &= \frac{P_{AVG}}{f} = \frac{\SI{46e-6}{\joule}}{\SI{80e6}{\hertz}}\\
-    E_{pulse} &= \SI{5.75e-13}{\joule}
+    E_{pulse} &= \frac{P_{AVG}}{f} = \frac{\qty{46e-6}{\joule}}{\qty{80e6}{\hertz}}\\
+    E_{pulse} &= \qty{5.75e-13}{\joule}
 \end{align}
-Under Condition 3 the optical power was measured by positioning the \SI{7}{\milli\metre} aperture of a mechanical eye \SI{100}{\milli\metre} away from the normal imaging position and position the detector head of a optical power meter at the retina. Due to the diverging nature of the beam out of the objective lens of the fundus camera, the measured optical power is considerably lower - $P_{AVG,3} = \SI{1.3}{\micro\watt}$. Since the angular subtense, $\alpha_{3}$ is still above the stated value of $\alpha_{max} = \SI{100}{\milli\radian}$, the calculated AEL's do not change
+Under Condition 3 the optical power was measured by positioning the \qty{7}{\milli\metre} aperture of a mechanical eye \qty{100}{\milli\metre} away from the normal imaging position and position the detector head of a optical power meter at the retina. Due to the diverging nature of the beam out of the objective lens of the fundus camera, the measured optical power is considerably lower - $P_{AVG,3} = \qty{1.3}{\micro\watt}$. Since the angular subtense, $\alpha_{3}$ is still above the stated value of $\alpha_{max} = \qty{100}{\milli\radian}$, the calculated AEL's do not change
 
 \begin{align}
-    E_{pulse,3} &= \frac{P_{AVG,3}}{f} = \frac{\SI{1.3e-6}{\joule}}{\SI{80e6}{\hertz}}\\
-    E_{pulse,3} &= \SI{1.625e-14}{\joule}
+    E_{pulse,3} &= \frac{P_{AVG,3}}{f} = \frac{\qty{1.3e-6}{\joule}}{\qty{80e6}{\hertz}}\\
+    E_{pulse,3} &= \qty{1.625e-14}{\joule}
 \end{align}
 
 
@@ -190,7 +190,7 @@ Under Condition 3 the optical power was measured by positioning the \SI{7}{\mill
     \resizebox{0.98\textwidth}{!}{
     \begin{tabular}{|p{6cm}|c|c|c|c|}
     \hline
-    Description & Symbol & Threshold (\si{\joule}) & Measured (\si{\joule}) & Safety Factor \\
+    Description & Symbol & Threshold (\unit{\joule}) & Measured (\unit{\joule}) & Safety Factor \\
     \hline
     Accessible Emission Limit for a single pulse &  $AEL_{single}$ & \num{7.7e-8} & \num{5.75e-13} & \num{1.3e5}\\
     Accessible Emission Limit for a single pulse averaged over a period of 100s & $AEL_{s.p.T}$ &\num{1.1e-12} & \num{5.75e-13} & \num{1.91}\\
@@ -208,13 +208,13 @@ Under Condition 3 the optical power was measured by positioning the \SI{7}{\mill
     \hline
     \multirow{2}{*}{}
          & \bm{$\alpha$} & \bm{$\gamma$}\\
-         &$(\si{\milli\radian})$& $(\si{\milli\radian})$\\
+         &$(\unit{\milli\radian})$& $(\unit{\milli\radian})$\\
          \hline
          \textbf{Condition 1}& 1077 & 259\\
          \textbf{Condition 3}& 372 & 119\\
          \hline
     \end{tabular}
-    \caption{Angular subtense $\alpha$, and angle of acceptance, $\gamma$, of FLIO system under Condition 1 - normal imaging conditions, and Condition 3 - where the patient has moved \SI{100}{\milli\metre} away}
+    \caption{Angular subtense $\alpha$, and angle of acceptance, $\gamma$, of FLIO system under Condition 1 - normal imaging conditions, and Condition 3 - where the patient has moved \qty{100}{\milli\metre} away}
     \label{apptab:angles}
 \end{table}
 
@@ -226,7 +226,7 @@ Under Condition 3 the optical power was measured by positioning the \SI{7}{\mill
         &\multicolumn{2}{c|}{\textbf{Condition 1}} & \textbf{Condition 2}& \multicolumn{2}{c|}{\textbf{Condition 3}}\\
         \hline
         \multirow{3}{*}{}        \textbf{Wavelength}&\textbf{Aperture}&\textbf{Distance}&&\textbf{Aperture stop/}&\textbf{Distance}\\
-        &\textbf{stop}&&&\textbf{limiting aperture}&\\      \si{\nano\metre}&\si{\milli\metre}&\si{\milli\metre}&&\si{\milli\metre}&\si{\milli\metre}\\
+        &\textbf{stop}&&&\textbf{limiting aperture}&\\      \unit{\nano\metre}&\unit{\milli\metre}&\unit{\milli\metre}&&\unit{\milli\metre}&\unit{\milli\metre}\\
         \hline
         $< 302.5$ & - & - && $1$ & $0$\\
         \hline
@@ -235,13 +235,13 @@ Under Condition 3 the optical power was measured by positioning the \SI{7}{\mill
         \multirow{2}{*}{$\geq 400\,\text{to}\, 1400$} & $50$ & $2000$  & See Note 1 under & $7$ & $100$\\
         &&& 5.4.1& & \\
         \hline 
-        \multirow{3}{*}{$\geq 1400\,\text{to}\, 4000$} & $7 \times \text{Condition 3}$ & $2000$& See Note 1 under & $1 \,\text{for}\, t \leq \SI{0.35}{\second}$ & $100$\\
-        &&& 5.4.1 & $1.5 t^{\nicefrac{3}{8}}\,\text{for}\, \SI{0.35}{\second}< t < \SI{10}{\second}$ & \\
-        &  &  &  & $3.5 \,\text{for}\, t \geq \SI{10}{\second}\, (t \,\text{in}\, \si{\second})$& \\
+        \multirow{3}{*}{$\geq 1400\,\text{to}\, 4000$} & $7 \times \text{Condition 3}$ & $2000$& See Note 1 under & $1 \,\text{for}\, t \leq \qty{0.35}{\second}$ & $100$\\
+        &&& 5.4.1 & $1.5 t^{\nicefrac{3}{8}}\,\text{for}\, \qty{0.35}{\second}< t < \qty{10}{\second}$ & \\
+        &  &  &  & $3.5 \,\text{for}\, t \geq \qty{10}{\second}\, (t \,\text{in}\, \unit{\second})$& \\
         \hline
-        \multirow{3}{*}{$\geq 4000\,\text{to}\, \num{1e5}$} & - & - &  & $1 \,\text{for}\, t \leq \SI{0.35}{\second}$ & $0$\\
-        &  &  &  & $1.5 t^{\nicefrac{3}{8}}\,\text{for}\, \SI{0.35}{\second}< t < \SI{10}{\second}$ & \\
-        &  &  &  & $3.5 \,\text{for}\,t \geq \SI{10}{\second}\, (t \,\text{in}\, \si{\second})$& \\
+        \multirow{3}{*}{$\geq 4000\,\text{to}\, \num{1e5}$} & - & - &  & $1 \,\text{for}\, t \leq \qty{0.35}{\second}$ & $0$\\
+        &  &  &  & $1.5 t^{\nicefrac{3}{8}}\,\text{for}\, \qty{0.35}{\second}< t < \qty{10}{\second}$ & \\
+        &  &  &  & $3.5 \,\text{for}\,t \geq \qty{10}{\second}\, (t \,\text{in}\, \unit{\second})$& \\
         \hline
         $\geq \num{1e5} \,\text{to} \, \num{1e6}$ & - & - & & $11$ & 0\\
         \hline
@@ -255,7 +255,7 @@ Under Condition 3 the optical power was measured by positioning the \SI{7}{\mill
 Since we have demonstrated that the energy per pulse, $E_{pulse}$, emitted from our system is below the AEL's for a Class 1 device described in the IEC 60825-1:2014 we can conclude that our system satisfies the criteria for a Class 1 laser system and thus does not pose a risk to the eyesight of a patient/volunteer under normal imaging conditions.
 \FloatBarrier
 \section{Continuous Wave Source Safety Assessment- BS}\label{sec:cwsafety}
-The long image acquisition times required for FLIO imaging ($>\SI{20}{\second}$) coupled with the high repetition rate, short pulse length, and short wavelength mean that as per the ISO guidelines, the device should also be considered as a continuous wave source. The document breaks down the safe exposure limits to the specific damage mechanism, phototoxic or photo thermal, and to the particular section of the eye that is most likely to be damages: retina, cornea and lens, and the anterior segment.
+The long image acquisition times required for FLIO imaging ($>\qty{20}{\second}$) coupled with the high repetition rate, short pulse length, and short wavelength mean that as per the ISO guidelines, the device should also be considered as a continuous wave source. The document breaks down the safe exposure limits to the specific damage mechanism, phototoxic or photo thermal, and to the particular section of the eye that is most likely to be damages: retina, cornea and lens, and the anterior segment.
 \\
 The phototoxic and photothermal damage mechanisms are wavelength dependent and this is represented in the calculations to determine the limits of safe exposures as the weighting functions $A(\lambda)$ for the photothermal damage mechanism and $R(\lambda)$ for the phototoxic damage mechanisms. These functions, shown in \cref{fig:hazardfunc}, are weighted towards the wavelengths where the eye is susceptible to damage e.g. phototoxic damage is more prevalent in the UV-to-blue wavelengths.
 
@@ -279,13 +279,13 @@ Likewise, the safe exposure limit for the anterior segment, $E_{VIR-R}$, is also
         \hline
         \textbf{Description} & \textbf{Symbol} & \textbf{Equation} & \textbf{Value} & \textbf{Unit} & \textbf{Ref}\\
         \hline
-        Weighted retinal irradiance & $E_{A-R}$ & $\sum_{350}^{700}E(\lambda)A(\lambda)\Delta\lambda$ & $220$ & $\si{\micro\watt\per\centi\metre^{2}}$ & $5.3.1.3a$ \\
+        Weighted retinal irradiance & $E_{A-R}$ & $\sum_{350}^{700}E(\lambda)A(\lambda)\Delta\lambda$ & $220$ & $\unit{\micro\watt\per\centi\metre^{2}}$ & $5.3.1.3a$ \\
         \hline
-        Unweighted corneal and lenticular infrared irradiance & $E_{IR-CL}$ & $\sum_{770}^{2500}E(\lambda)\Delta\lambda$ & $20$ & $\si{\milli\watt\per\centi\metre^{2}}$ & $5.3.1.4$ \\
+        Unweighted corneal and lenticular infrared irradiance & $E_{IR-CL}$ & $\sum_{770}^{2500}E(\lambda)\Delta\lambda$ & $20$ & $\unit{\milli\watt\per\centi\metre^{2}}$ & $5.3.1.4$ \\
         \hline
-        Unweighted anterior segment visible and infrared radiation irradiance & $E_{VIR-AS}$ & $\sum_{380}^{1200}E(\lambda)\Delta\lambda$ & $4$ & $\si{\watt\per\centi\metre^{2}}$ & $5.4.1.5$\\
+        Unweighted anterior segment visible and infrared radiation irradiance & $E_{VIR-AS}$ & $\sum_{380}^{1200}E(\lambda)\Delta\lambda$ & $4$ & $\unit{\watt\per\centi\metre^{2}}$ & $5.4.1.5$\\
         \hline
-        Weighted retinal visible and infrared thermal irradiance & $E_{VIR-R}$ & $\sum_{380}^{1400}E(\lambda)R(\lambda)\Delta\lambda$ & $0.7$ & $\si{\watt\per\centi\metre^{2}}$ & $5.3.1.3a$ \\
+        Weighted retinal visible and infrared thermal irradiance & $E_{VIR-R}$ & $\sum_{380}^{1400}E(\lambda)R(\lambda)\Delta\lambda$ & $0.7$ & $\unit{\watt\per\centi\metre^{2}}$ & $5.3.1.3a$ \\
         \hline
     \end{tabular}
     }
@@ -293,8 +293,8 @@ Likewise, the safe exposure limit for the anterior segment, $E_{VIR-R}$, is also
     \label{apptab:conthresh}
 \end{table}
 
-With the laser source operating at maximum power, there is an optical power of $P_{M} = \SI{1.1}{\milli\watt}$, emitted from our system which is incident on the retina. The Weighted retinal irradiance, $E_{A-R}$, for this scenario is then $E_{A-R} = \SI{4245}{\micro\watt\per\centi\metre\squared}$ - exceeding the safe exposure limit by $\approx 20 \times$. A neutral density filter, of $\text{OD} = 1.3$ is fitted to attenuate the light emitted from the system to safe levels.
-The attenuated power is measured using the optical power meter to be $P_{M} = \SI{46}{\micro\watt}$. The various irradiances are calculated and shown in \cref{apptab:cwvalues}:
+With the laser source operating at maximum power, there is an optical power of $P_{M} = \qty{1.1}{\milli\watt}$, emitted from our system which is incident on the retina. The Weighted retinal irradiance, $E_{A-R}$, for this scenario is then $E_{A-R} = \qty{4245}{\micro\watt\per\centi\metre\squared}$ - exceeding the safe exposure limit by $\approx 20 \times$. A neutral density filter, of $\text{OD} = 1.3$ is fitted to attenuate the light emitted from the system to safe levels.
+The attenuated power is measured using the optical power meter to be $P_{M} = \qty{46}{\micro\watt}$. The various irradiances are calculated and shown in \cref{apptab:cwvalues}:
 
 \begin{table}[htbp]
     \centering
@@ -303,10 +303,10 @@ The attenuated power is measured using the optical power meter to be $P_{M} = \S
     \hline
     Description & Symbol & Measured & Threshold & Unit & Safety Factor\\
     \hline
-    Weighted retinal irradiance & $E_{A-R}$ & \num{178} & \num{220} & \si{\micro\watt\per\centi\metre\squared} & 1.24\\
-    Unweighted corneal and lenticular infrared irradiance & $E_{IR-CL}$ & \num{0.061} & \num{20} & \si{\milli\watt\per\centi\metre\squared} & 326\\
-    Unweighted anterior segment visible and infrared radiation irradiance & $E_{VIR-AS}$ & \num{0.0026} & \num{4} & \si{\watt\per\centi\metre\squared} & \num{1565}\\
-    Weighted retinal visible and infrared thermal irradiance & $E_{VIR-R}$ & \num{0.00028} & \num{0.7} & \si{\watt\per\centi\metre\squared} & \num{2458}\\
+    Weighted retinal irradiance & $E_{A-R}$ & \num{178} & \num{220} & \unit{\micro\watt\per\centi\metre\squared} & 1.24\\
+    Unweighted corneal and lenticular infrared irradiance & $E_{IR-CL}$ & \num{0.061} & \num{20} & \unit{\milli\watt\per\centi\metre\squared} & 326\\
+    Unweighted anterior segment visible and infrared radiation irradiance & $E_{VIR-AS}$ & \num{0.0026} & \num{4} & \unit{\watt\per\centi\metre\squared} & \num{1565}\\
+    Weighted retinal visible and infrared thermal irradiance & $E_{VIR-R}$ & \num{0.00028} & \num{0.7} & \unit{\watt\per\centi\metre\squared} & \num{2458}\\
     \hline
     \end{tabular}
     }
@@ -332,14 +332,14 @@ The angular subtense of our system is defined as the angle subtended by the obje
 Using calipers the diameter of the objective lens on the fundus camera, $d_{image}$, and the distance between the objective lens and the patients cornea (under normal imaging conditions), $z_{source}$
 The angular subtense and the angle of acceptance can then be calculated:
 \begin{align}
-    \alpha &= 2\arctan{\bigg(\frac{d_{source}}{2z_{source}}\bigg)} = 2\arctan{\bigg(\frac{\SI{55}{\milli\metre}}{2\cdot \SI{46}{\milli\metre}}\bigg)} = \SI{1077}{\milli\radian}\\
-    \gamma &= 2\arctan{\bigg(\frac{d_{source}}{2z_{source}}\bigg)} = 2\arctan{\bigg(\frac{\SI{12}{\milli\metre}}{2\cdot \SI{46}{\milli\metre}}\bigg)} = \SI{259}{\milli\radian}
+    \alpha &= 2\arctan{\bigg(\frac{d_{source}}{2z_{source}}\bigg)} = 2\arctan{\bigg(\frac{\qty{55}{\milli\metre}}{2\cdot \qty{46}{\milli\metre}}\bigg)} = \qty{1077}{\milli\radian}\\
+    \gamma &= 2\arctan{\bigg(\frac{d_{source}}{2z_{source}}\bigg)} = 2\arctan{\bigg(\frac{\qty{12}{\milli\metre}}{2\cdot \qty{46}{\milli\metre}}\bigg)} = \qty{259}{\milli\radian}
 \end{align}
-For Condition 3 (see Condition 3 in Table \ref{apptab:conditions}) the volunteer moves \SI{100}{\milli\metre} away from the typical imaging position i.e $d_{source} = \SI{46}{\milli\metre} + \SI{100}{\milli\metre} = \SI{146}{\milli\metre}$
+For Condition 3 (see Condition 3 in Table \ref{apptab:conditions}) the volunteer moves \qty{100}{\milli\metre} away from the typical imaging position i.e $d_{source} = \qty{46}{\milli\metre} + \qty{100}{\milli\metre} = \qty{146}{\milli\metre}$
 The angular subtense, and angle of acceptance, $\alpha_{3}$ and $\gamma_{3}$ are then:
 \begin{align}
-    \alpha_{3} &= 2\arctan{\bigg(\frac{d_{source}}{2z_{source}}\bigg)} = 2\arctan{\bigg(\frac{\SI{55}{\milli\metre}}{2\cdot \SI{146}{\milli\metre}}\bigg)} = \SI{372}{\milli\radian}\\
-    \gamma_{3} &= 2\arctan{\bigg(\frac{d_{source}}{2z_{source}}\bigg)} = 2\arctan{\bigg(\frac{\SI{12}{\milli\metre}}{2\cdot \SI{146}{\milli\metre}}\bigg)} = \SI{82}{\milli\radian}
+    \alpha_{3} &= 2\arctan{\bigg(\frac{d_{source}}{2z_{source}}\bigg)} = 2\arctan{\bigg(\frac{\qty{55}{\milli\metre}}{2\cdot \qty{146}{\milli\metre}}\bigg)} = \qty{372}{\milli\radian}\\
+    \gamma_{3} &= 2\arctan{\bigg(\frac{d_{source}}{2z_{source}}\bigg)} = 2\arctan{\bigg(\frac{\qty{12}{\milli\metre}}{2\cdot \qty{146}{\milli\metre}}\bigg)} = \qty{82}{\milli\radian}
 \end{align}
 
 \subsection{Power Spectra Measurement Derivation}
@@ -348,7 +348,7 @@ The ISO document describes the safe exposure limits in terms of the wavelength d
     E(\lambda) &= \frac{P(\lambda)}{Area}
 \end{align}
 The power spectrum is determined by combining a measurement of the spectral output of our system, using an Ocean Optics spectrometer (Fig. \ref{subfig:fcspectra}), and an optical power meter to measure the power emitted.
-The power meter applies a wavelength dependent bias function to overcome the non-uniform sensitivity of the detector but since the spectral output of our system is sufficiently narrow ($\text{FWHM} < \SI{11.5}{\nano\metre}$) we can set this bias to be centred on our excitation ($\lambda = \SI{468}{\nano\metre}$)
+The power meter applies a wavelength dependent bias function to overcome the non-uniform sensitivity of the detector but since the spectral output of our system is sufficiently narrow ($\text{FWHM} < \qty{11.5}{\nano\metre}$) we can set this bias to be centred on our excitation ($\lambda = \qty{468}{\nano\metre}$)
 The power spectrum is then expressed as:
 \begin{align}
     P(\lambda)&\equiv\frac{P_{M}\cdot S(\lambda)}{\int_{0}^{\infty}S(\lambda)d\lambda}
@@ -368,14 +368,14 @@ This illuminated area is calculated using the solid angle of the beam produced b
     \frac{A_{source}}{z_{source}^{2}}&= \frac{A_{eye}}{z_{eye}^{2}}\\
     A_{eye} &= \frac{1}{4}\pi d_{source}^{2}\bigg(\frac{z_{eye}}{z_{source}}\bigg)^{2}\\
 \end{align}
-With $z_{eye} = \SI{17}{\milli\metre}$, $z_{source} = \SI{46}{\milli\metre}$, and $d_{source} = \SI{12}{\milli\metre}$ the area of the retina illuminated is:
+With $z_{eye} = \qty{17}{\milli\metre}$, $z_{source} = \qty{46}{\milli\metre}$, and $d_{source} = \qty{12}{\milli\metre}$ the area of the retina illuminated is:
 \begin{align}
-    A_{eye} &=\SI{0.15}{\centi\metre\squared}
+    A_{eye} &=\qty{0.15}{\centi\metre\squared}
 \end{align}
 
-The area illuminated on the cornea is used in the calculation of $E_{IR-CL}$ and $E_{VIR-AS}$ and is determined by measuring the diameter of the spot illuminated in the corneal plane under normal imaging conditions. With an illuminated spot size $d_{cornea} = \SI{1.5}{\milli\metre}$:
+The area illuminated on the cornea is used in the calculation of $E_{IR-CL}$ and $E_{VIR-AS}$ and is determined by measuring the diameter of the spot illuminated in the corneal plane under normal imaging conditions. With an illuminated spot size $d_{cornea} = \qty{1.5}{\milli\metre}$:
 \begin{align}
-    A_{cornea} = \frac{1}{4}\pi d_{cornea} = \SI{0.0177}{\centi\metre\squared}
+    A_{cornea} = \frac{1}{4}\pi d_{cornea} = \qty{0.0177}{\centi\metre\squared}
 \end{align}
 
 \subsection{Tables from IEC 60825-1:2014}\label{app:iectables}

@@ -15,16 +15,21 @@
 \usepackage{setspace}
 \usepackage{graphicx}
 \graphicspath{{figure/}} % change path to make importing figures less annoying
-\usepackage[]{fancyhdr}
+\usepackage{fancyhdr}
 \usepackage{placeins}
 \usepackage{subfiles}
 \usepackage{appendix}
+\AtBeginEnvironment{appendices}{\crefalias{section}{appendix}}
 %-------------------------------------------------------------------------------------
 % Import packages to make physics, units, and fractions look pretty
 %-------------------------------------------------------------------------------------
-\usepackage{amsmath, amssymb, physics,nicefrac}
+
+\usepackage{amsmath,amssymb,nicefrac}
 \usepackage{siunitx}
 \AtBeginDocument{\RenewCommandCopy\qty\SI}
+
+\usepackage{physics}
+
 \DeclareSIUnit{\pixel}{\text{pixel}}
 \DeclareSIUnit{\fps}{\text{frames-per-second}}
 \DeclareMathOperator{\Erfc}{Erfc}
@@ -124,6 +129,8 @@
 \usepackage[version=4]{mhchem}
 \usepackage{multirow}
 \usepackage{bm}
+
+\setlength{\headheight}{42pt}
 %-------------------------------------------------------------------------------------
 %End preamble
 %-------------------------------------------------------------------------------------
@@ -182,17 +189,17 @@
 \subfile{chapters/motionreg.tex}
 % \chapter{FLIM Analysis Methods}\label{chap:flimanalysis}
 %\subfile{chapters/flimanalysis.tex}
-\chapter{Appraisal of Techniques for Measuring Retinal FAD Concentrations}\label{chap:appFAD}
+\chapter{Appraisal of Techniques for Measuring Retinal FAD Concentrations (+ Done to Be Checked)}\label{chap:appFAD}
 \subfile{chapters/appraisalFAD.tex}
 
-\chapter{Development of a Tensor-based SFLIM unmixing technique for measuring retinal FAD concentrations}\label{chap:tensSFLIM}
+\chapter{Development of a Tensor-based SFLIM unmixing technique for measuring retinal FAD concentrations (+) Done to be Checked}\label{chap:tensSFLIM}
 \subfile{chapters/tensorSFLIM.tex}
 
 
 % \chapter{Spectrally Resolved Fluorescence Lifetime Imaging (*) Need to Fix English}\label{chap:sflim}
 % \subfile{chapters/sflim.tex}
 
-\chapter{Detection of FAD in \textit{in-vivo} rat retinas (-) Under Constructin}\label{chap:ratfad}
+\chapter{Detection of FAD in \textit{in-vivo} rat retinas (-) Under Construction}\label{chap:ratfad}
 \subfile{chapters/ratFAD.tex}
 
 \chapter{Novel Applications of TCSPC / Material Discrimination - (*) Need to add results and conclusions}\label{chap:materialdisc}
@@ -203,14 +210,17 @@
 
 
 \begin{appendices}
+\appendix
 
-% \chapter{Tensor Algebra for SFLIM unmixing}\label{app:tensoralgebra}
-% \subfile{chapters/appendices/Atensoralgebra.tex}
 
 
 \chapter{Safety Assessment for SFLIO instrument}\label{app:sfliosafety}
 \subfile{chapters/appendices/Asflioassessment.tex}
 
+
+
+% \chapter{Tensor Algebra for SFLIM unmixing}\label{app:tensoralgebra}
+% \subfile{chapters/appendices/Btensoralgebra.tex}
 \end{appendices}
 
 
