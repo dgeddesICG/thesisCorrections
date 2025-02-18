@@ -1,8 +1,74 @@
 \setstretch{2}
 \section{Outline / Bullet Points}
-
-
-\subsection{Results}
+\begin{itemize}
+    \item FAD as a marker for metabolic health in the retina
+    \begin{itemize}
+        \item FAD is a marker of oxygen metabolisation
+        \item Changes in oxygen metabolisation, in principle, can be linked to disease. Disruption in oxygen use in the retina could signify onset of disease
+        \item Measuring FAD concentration is difficult - we don't know where in the retina its located (x,y, and z) or how much it is. Contamination due to vasculature, and other fluorescence clutter makes this more challenging and sensitive to the low photon flux from imaging the retina
+        \item By engineering changes in FAD, by restricting oxygen consumption in animal models, the changes in the fluorescence and spectra can be correlated to changes in FAD. 
+        \item Rats were imaged in-vivo and oxygenation was cycled from normoxia (room air 21 percent) to hypoxia (12percent) and death (0 percent) and SFLIM imaging was carried out.
+        \item Estimate of changes in FAD with oxygenation
+        \begin{itemize}
+            \item FAD is produced as a product of aerobic respiration.
+            \item The production of FAD can be modelled by estimating the rate oxygen consumption in the retina to convert to a rate of estimated FAD production. And given the volume of blood in the retina this is extrapolated to approximate the volume and concentration of FAD. Repeating this calculation for differing oxygenations states allows for an estimate of the change in FAD we'd hope to see when transitioning from normoixa to hypoxia.
+        \end{itemize}
+    \end{itemize}
+    \item Experimental Method
+    \begin{itemize}
+        \item Rats were anaesthetized using isofluorane and oxygenation state was controlled using nitrogen mixed in with room air. The rats eyelid is stitched open and a contact and viscotears was used to index match the eye and prevent it from drying out.
+        \item rats were imaged a normoxic oxygen state for all four spectral filters for a period for 2.5 minutes each. 
+        \item For hypoxia the instability of the rats meant that instead of a single acquisition period two periods of 2 minutes and 1.5 minutes we used. This extra time would account for the short period of time where the laser shutter is closed and then opened for the purpose of registering the brightfield and FLIM channels.
+        \item bright field images were recorced throughout the FLIM acquisitions period at a rate of 10Hz with integration times of 30ms. This integration time is short enough to saccades and drifts in human eyes but in the anaesthetized rats these saccades are suppressed.
+        \item It was observed that positioning the rat and isoflurane concentration caused motion in the retinal images due to laboured breathing. This could be removed using the same approach used for registering motion of the convalaria.
+    \end{itemize}
+    \item SFLIM Unmixing of UCL Data
+    \begin{itemize}
+        \item Address lack of image in the SPAD
+        \begin{itemize}
+            \item While best efforts were made a focussed image on the FLIMera could not be achieved
+            \item This could originate from several sources such as lens fluorescence or fluorescence from the visotears. There is also the possibility that corneal reflections, and reflections from the field lens were polluting the image.
+            \item Since the cameras are co-focussed at infinity using the mechanical eye and convalaria sample from chapter 3 and an image could be formed on the sCMOS camera without adjustment this would suggest that contamination by one of the above sources is the likely candidate rather than just a poor focus of the SLR lens.
+            \item Although there is a lack of spatial variation in the image, the spectral and temporal variation can still be exploited. SFLIM unmixing can be performed to measure changes in FAD in the whole of the retina.
+        \end{itemize}
+        \item Darkfield Correction
+        \begin{itemize}
+            \item It was also observed that there was a Gaussian shaped artefact present in the histograms of each pixel for 2 out 3 rats.
+            \item this was confirmed to be due to electrical noise arising from suboptimal synchronisation of the lasers pulse to the FLIMera.
+            \item This in principle could be fit to a sec2h or Gaussian and removed much like a the impulse response function is.
+            \item This could results in over-fitting and skewing the recovered FAD concentrations
+            \item The full width half maximum and location of the hump was found using a peak finding algorithm and fitting a sec2h function.
+            \item instead the affected areas were found through peak finding in the relevant area and masking out 20 timebins either side of this peak.
+            \item These masked out values are excluded from the FAD unmixing process when calculating the loss function \label{eq:leastsquaretens}. This enables these values to be excluded without biasing the recovered FAD concentrations
+            \item for the final rat to be imaged the synchronisation was improved and the darkfield anomaly was absent from subsequent image acquisitions.
+        \end{itemize}
+        \item Recovered FAD Concentrations Using SFLIM unmixing
+        \begin{itemize}
+            \item The sflim unmixing routine was developed in the previous chapter was used to recover the concentrations of FAD, AGE, and Lipofuscin.
+            \item the trend in recovered fluorophore concentration was then plotted against oxygenation state for each rat
+            \item A student paired t test was used to assess the statistical significance. i.e was the measured change due to a change in biology or simply due to the variation in the measurement.
+            \item the SFLIM acquisition was split into 10 histograms spanning the acquisition window. These 10 values were used in the student t test.
+            \item For two of the rats a decrease in FAD concentration was observed when going from normoxia to hypoxia. 
+            \item With a larger p value a an increase when transiting between hypoxia back to normoxia was observed.
+            \item Interestingly, in the one data set where the rat was killed did not see a decrease in FAD - theoretically it should go to zero. This could simply be due to the low photon flux causing poor unmixing performance. Or that the change measured was not due to changing FAD concentration
+            \item biologically, this could be interpreted as the time between death and the recording of SFLIM data was not long enough for the the FAD in the retina to decay. In the literature after death the FAD was observed to leak out of the vessels and into the surrounding tissue forming halos
+            \item A possible candidate for the observed change is due to the varying absorption of haemoglobin in the blood with oxygenation. This is a shortcoming in the model we have used to describe the recorded fluorescence. No spectral contamination from blood vessels were considered.
+        \end{itemize}
+        \item Assessing Results using spectral angle maps and PCA
+        \begin{itemize}
+            \item To assess whether the SFLIM unmixing algorithm was detecting a change rather than simply variations due to photo bleaching, changes in blood oxygenation spectral angles were calculated for each point in the image.
+            \item The sflim data for each rat was then concatenated forming a 4D point cloud of spectra and PCA was applied to reduce the dimensionality to 2. 
+            \item It was observed that normoxia and hypoxia formed unique clusters with separation X. When transiting back to normoxia from hypoxia and then onto death there was no change in the clustering
+            \item it would have been expected for the two normoxia data sets to exhibit high overlap and the hpyoxic and post mortem data would form unique clusters
+        \end{itemize}
+        \item Future Work and the benefit of hindsight
+        \begin{itemize}
+            \item A more rigourous model of the fluorescence in the retina would enable the effect of absorption due to retinal vasculature and lens fluorescence to be understood.
+            \item to eliminate the possibility the visotears was responsible for the lack of spatial variation in the images a SFLIM measurement of it should be recorded. This could be applied to the existing SFLIM data of the rats by including it as an additional endmember. The current spectral bands would not be optimised for this but it would nonetheless serve to eliminate it as a candidate.
+            \item Further in-vitro experiments should have been performed to better understand the sensitivity of the unmixing approach in experimental setting. This would take the form capillary tubes implanted in the retinal plane of an artificial eye and filled with varying concentrations and mixtures of FAD and other fluorophores.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
 
 \begin{itemize}
     \item While a high quality image could be formed on the sCMOs camera which clearly shows the vascular structure of the retina could be formed - albeit polluted by glare in the centre of the vision. A sufficient image could not be formed on the FLIMera but there is sufficient signal to attempt SFLIM unmixing. This could be due to the low fluorescence contrast as evidenced by the fluorescence intensity image recorded with a lp500 filter in the SCMOs camera. 
