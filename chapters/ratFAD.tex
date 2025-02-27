@@ -1,19 +1,48 @@
 \setstretch{2}
-\section{Outline / Bullet Points}
+\section{FAD as a marker for metabolic health in the retina}
+Mapping the concentration of FAD would enable the diagnosis of retinal disease before physical damage to eyesight develops, at the stage of metabolic dysfunction. FAD is a flavoprotein produced in the body as a by-product of oxygen metabolisation from aerobic respiration (\cref{eq:resp})~\cite{berg2007biochemistry} to create ATP - the bodies source of energy. In the formation of retinal disease, the retina would exhibit abnormal metabolic activity - ATP usage - and would present in the retina as areases with abnormal FAD distribution.
+\begin{equation}\label{eq:resp}
+    \ce{C6H12O6 + 6O2 -> 6CO2 + 6H2O + ATP}
+\end{equation}
+While the magnitude of the changes in retinal FAD distribution associated with retinal disease is not know attempts can be made to detect the presence of FAD and assess it feasibility as a diagnostic tool. Changes in FAD concentration can be engineered in animal models by artificially restricting systemic oxygen consumption. At normoxic conditions (\qty{21}{\percent}\ce{FiO2} oxygen metabolism is typical however in hypoxic conditions (\qty{15}{\percent}\ce{FiO2}) the retina is starved of oxygen thus lowering the detectable concentration of FAD. After death when all metabolic processes have cease the concentration of FAD should tend to zero - in rat cortexes this has been reported as the FAD leaking out of arteries forming `halos'~\cite{martinez2017understanding}.
+In this chapter, the SFLIO device (described in~\cref{chap:fliodevice}) was used to record \textit{in-vivo} SFLIM images of the retinas of anaesthetised rats under normoxic, hypoxic, and post-mortem conditions where the concentration of retinal FAD is recovered using the SFLIM unmixing algorithm (described in \cref{chap:tensSFLIM}). Successful detection of FAD is then signified by the changes in the recovered retinal FAD concentration being compatible with what is expected with aerobic respiration. Finally, from this a feasibility of quantifying retinal FAD in human retinas can explored.
+\subsection{Estimating The Change in Retinal FAD Concentration at Hypoxia}
+The expected variation in FAD concentration as response to changing oxygenation can be estimated from modelling the average metabolisation of oxygen and then inferring the rate of production of FAD. The rate at which oxygen is metabolised $Q_{\ce{O2}}$ is calculated using~\cref{eq:O2rate} from the average rate of blood flow through the ophthalmic artery, $Q_{ret}$, and the relative change in saturation of blood entering, ${S\ce{O2}}_{in}$, and exiting, ${S\ce{O2}}_{out}$, it.
+\begin{equation}\label{eq:O2rate}
+    Q_{\ce{O2}} = Q_{ret}({S\ce{O2}}_{in}-{S\ce{O2}}_{out})H
+\end{equation}
+The rate of blood flow through the ophthalmic artery was taken as $Q_{ret} = \qty{5}{\micro\litre\per\minute}$ by averaging two reported measurements in literature~\cite{dai2013absolute,riva1985blood}. The oxygen saturation - the ratio of oxygenation to deoxygenated haemoglobin in the blood - has been reported as \qty{92.20}{\percent} and \qty{55.60}{\percent} for blood entering and exiting the ophthalmic artery~\cite{dunn2016physiology}. Using~\cref{eq:O2rate} the rate of oxygen metabolisation was estimated to be $Q_{\ce{O2}}=\SI{3.155}{\micro\litre\per\minute}$ where $H=\num{0.285}$ is H{\"u}ffners constant which is the volumetric ratio of oxygen to haemoglobin in the blood~\cite{dunn2016physiology}. 
+The rate of FAD production, $Q_{FAD}$, can then be determined by considering that for every metabolised \ce{O2} molecule $k_{FAD} = 6$ molecules of FAD are produced with an efficiency of $\eta_{FAD} = \qty{1.3}{\percent}$~\cite{berg2007biochemistry,ames1992energy}.
+\begin{equation}
+    Q_{FAD} = Q_{\ce{O2}}N_{FAD}\eta_{FAD}
+\end{equation}
+This yields a production rate of $Q_{FAD} = \qty{0.123}{\micro\litre\per\min}$ which is then be converted to a steady state volume of FAD by assuming that all FAD in the retina is produced in the time taken for blood to flow through the retina and any FAD that is consumed is replaced upon the next circulation period of blood. With a blood flow period of $\delta T = \qty{4.7}{\second}$ measured as the time interval between blood entering and exiting the ophthalmic artery~\cite{khoobehi1990measurement}.
+\begin{equation}
+    V_{FAD} = Q_{FAD}\delta T
+\end{equation}
+With this calculated volume of FAD,$V_{FAD} = \qty{9.639}{\micro\litre}$, corresponds to $N_{FAD} = \qty{12.27}{\nano\mole}$ using~\cref{eq:nummoles} with a $gfm_{FAD} =\qty{785.56}{\gram\per\mole}$, a density equal to that of water of $\rho_{FAD} = \qty{1} {\gram\per\milli\litre}$, and $N_{A} = \qty{6.022e23}{\per\mole}$.
+\begin{equation}\label{eq:nummoles}
+    N_{FAD} = V_{FAD}\rho_{FAD}gfm_{FAD}
+\end{equation}
+Finally, the result of~\cref{eq:nummoles} is expressed as a concentration by approximating the retina as a cuboid with thickness of \qty{344}{\um} and surface area of \qty{1361}{\milli\metre\squared} to estimate its volume~\cite{nagra2017determination,myers2015retinal}.
+\begin{equation}\label{eq:FADconc}
+    C_{FAD} = \frac{N_{FAD}}{V_{ret}} = \SI{26.9921}{\micro\mole\per\litre}
+\end{equation}
+While this analysis does represent a simplified interpretation of the biological functions in the retina it is commensurate with reported measurements of flavoproteins in rabbit eye's. In~\citeauthor{batey1991analysis}\cite{batey1991analysis}, the concentration is defined as \qty{39.3}{\pico\mole\per\milli\gram} by weight of the retina which is within \qty{10}{\percent} of the estimation above when converted to equivalent units - $C_{FAD} = \qty{37.64}{\pico\mole\per\milli\gram}$ obtained using the result of \cref{eq:nummoles} and taking the mass of the retina as \qty{326}{\milli\gram}~\cite{batey1991analysis,feke1989blood}.
+
+\section{SFLIM Measurements of In-Vivo Rats}
+\subsection{Experimental Method}
+\section{Recovering FAD Concentration Using SFLIM Unmixing}
+\subsection{Darkfield Correction}
+\subsection{Recovered Distribution of Retinal Fluorophores}
+\section{Correlating Variations in FAD to Changes in Oxygenation}
+\subsection{Assessing Statistical Significance of FAD Response}
+\subsection{Comparing Detected Changes with PCA and Spectral Angle Maps}
+\section{Conclusions}
+\section{Future Work and Experimental Improvements}
+
+\section{Outline / TO DO}
 \begin{itemize}
-    \item FAD as a marker for metabolic health in the retina
-    \begin{itemize}
-        \item FAD is a marker of oxygen metabolisation
-        \item Changes in oxygen metabolisation, in principle, can be linked to disease. Disruption in oxygen use in the retina could signify onset of disease
-        \item Measuring FAD concentration is difficult - we don't know where in the retina its located (x,y, and z) or how much it is. Contamination due to vasculature, and other fluorescence clutter makes this more challenging and sensitive to the low photon flux from imaging the retina
-        \item By engineering changes in FAD, by restricting oxygen consumption in animal models, the changes in the fluorescence and spectra can be correlated to changes in FAD. 
-        \item Rats were imaged in-vivo and oxygenation was cycled from normoxia (room air 21 percent) to hypoxia (12percent) and death (0 percent) and SFLIM imaging was carried out.
-        \item Estimate of changes in FAD with oxygenation
-        \begin{itemize}
-            \item FAD is produced as a product of aerobic respiration.
-            \item The production of FAD can be modelled by estimating the rate oxygen consumption in the retina to convert to a rate of estimated FAD production. And given the volume of blood in the retina this is extrapolated to approximate the volume and concentration of FAD. Repeating this calculation for differing oxygenations states allows for an estimate of the change in FAD we'd hope to see when transitioning from normoixa to hypoxia.
-        \end{itemize}
-    \end{itemize}
     \item Experimental Method
     \begin{itemize}
         \item Rats were anaesthetized using isofluorane and oxygenation state was controlled using nitrogen mixed in with room air. The rats eyelid is stitched open and a contact and viscotears was used to index match the eye and prevent it from drying out.
