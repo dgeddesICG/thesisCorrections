@@ -18,11 +18,11 @@ The rate of FAD production, $Q_{FAD}$, can then be determined by considering tha
 \begin{equation}
     Q_{FAD} = Q_{\ce{O2}}k_{FAD}\eta_{FAD}
 \end{equation}
-This yields a production rate of $Q_{FAD} = \qty{0.123}{\micro\litre\per\min}$ which is then be converted to a steady state volume of FAD by assuming that all FAD in the retina is produced in the time taken for blood to flow through the retina and any FAD that is consumed is replaced upon the next circulation period of blood. With a blood flow period of $\delta T = \qty{4.7}{\second}\equiv \qty{0.078}{\minutes}$ measured as the time interval between blood entering and exiting the ophthalmic artery~\cite{khoobehi1990measurement}.
+This yields a production rate of $Q_{FAD} = \qty{0.123}{\micro\litre\per\min}$ which is then be converted to a steady state volume of FAD by assuming that all FAD in the retina is produced in the time taken for blood to flow through the retina and any FAD that is consumed is replaced upon the next circulation period of blood. With a blood flow period of $\delta T = \qty{4.7}{\second}\equiv \qty{0.078}{\minute}$ measured as the time interval between blood entering and exiting the ophthalmic artery~\cite{khoobehi1990measurement}.
 \begin{equation}
     V_{FAD} = Q_{FAD}\delta T
 \end{equation}
-With this calculated volume of retinal FAD,$V_{FAD} = \qty{9.639}{\nano\litre}$, corresponds to $N_{FAD} = \qty{12.27}{\nano\mole}$ using~\cref{eq:nummoles} with a $gfm_{FAD} =\qty{785.56}{\gram\per\mole}$, a density equal to that of water of $\rho_{FAD} = \qty{1}{\gram\per\milli\litre}$, and $N_{A} = \qty{6.022e23}{\per\mole}$.
+With this calculated volume of retinal FAD,$V_{FAD} = \qty{9.639}{\nano\litre}$, corresponds to $N_{FAD} = \qty{12.27}{\nano\mole}$ using~\cref{eq:nummoles} with a $gfm_{FAD} = \qty{785.56}{\gram\per\mole}$, a density equal to that of water of $\rho_{FAD} = \qty{1}{\gram\per\milli\litre}$, and $N_{A} = \qty{6.022e23}{\per\mole}$.
 \begin{equation}\label{eq:nummoles}
     N_{FAD} = V_{FAD}\rho_{FAD}gfm_{FAD}
 \end{equation}
@@ -31,12 +31,31 @@ Finally, the result of~\cref{eq:nummoles} is expressed as a concentration by app
     C_{FAD} = \frac{N_{FAD}}{V_{ret}} = \SI{26.9921}{\micro\mole\per\litre}
 \end{equation}
 While this analysis does represent a simplified interpretation of the biological functions in the retina it is commensurate with reported measurements of flavoproteins in rabbit eye's. In~\citeauthor{batey1991analysis}\cite{batey1991analysis}, the concentration is defined as \qty{39.3}{\pico\mole\per\milli\gram} by weight of the retina which is within \qty{10}{\percent} of the estimation above when converted to equivalent units - $C_{FAD} = \qty{37.64}{\pico\mole\per\milli\gram}$ obtained using the result of \cref{eq:nummoles} and taking the mass of the retina as \qty{326}{\milli\gram}~\cite{batey1991analysis,feke1989blood}.
-Repeating this estimation process for hypoxia, \qty{15}{\percent}\ce{FiO2}, is achieved by estimating the the oxygenation saturation of blood entering the ophthalmic artery, ${S\ce{O2}}_{in} = \qty{74}{\percent}$, using measurements of pulmonary artery of subjects breathing air ranging from \qty{21}{\percent}\ce{FiO2} to \qty{12}{\percent}\ce{FiO2}. This does boldly assume that the oxygen saturation does remain constant as the blood transits the carotid artery, into the circle-of-Willis -, and then to the opthalmic artery but no measurements of ${S\ce{O2}}_{in}$ at \qty{12}{\percent}\ce{FiO2} could be found for the ophthalmic artery. The oxygen saturation of blood exiting the retina was kept consistent at ${S\ce{O2}}_{in} = \qty{55.60}{\percent}$ with the assumption that under hypoxia the body reduces oxygen delivery in the retina to sustain other essential functions e.g. the brain. These assumptions give a reduced rate of oxygen metabolisation of $Q_{\ce{O2}}=\SI{1.586}{\micro\litre\per\minute}$ (\cref{eq:O2rate})
+\\
+The volume of FAD in the retina at hypoxia can then be estimated by assuming that the drop in maximal oxygen consumption, ${\dot{V}\ce{O2}}_{max}$, due to hypoxia will induce an equal relative drop in the volume of retinal FAD. This rate of maximal oxygen consumption was measured of sedentary and endurance trained subjects as reported in~\citeauthor{ferretti1997decrease}\cite{ferretti1997decrease} and shown in \cref{tab:VO2max}. 
 
-
-SO2 as 74 percent \cite{soo2020use, albert2014peripheral}
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \ce{FiO2} & \multicolumn{2}{c|}{${\dot{V}\ce{O2}}_{max}$ (\si{\litre\per\minute})}\\
+    \cline{2-3}
+    & Sedentary & Athletic\\
+    \hline
+    \qty{21}{\percent} & \num{3.13} & \num{4.11}\\
+    \qty{13}{\percent} & \num{2.27} & \num{2.92}\\
+    \hline
+    \end{tabular}
+    \caption{In \citeauthor{ferretti1997decrease}\cite{ferretti1997decrease}, the maximal rate of oxygen consumption was measured of sedantary subjects and subject with a background in endurance sports for a range of inspired oxygen concentrations (\ce{FiO2}). Reproduced from Table. 1 of \citeauthor{ferretti1997decrease}\cite{ferretti1997decrease}.}
+    \label{tab:VO2max}
+\end{table}
+The ratio between the hypoxic and normoxic measurements of ${\dot{V}\ce{O2}}_{max}$ are then $\Gamma = \num{0.725}$, and $\Gamma = \num{0.710}$ for sedentary and athletic subjects, receptively. Taking the case of a sedentary subject the volume of FAD at hypoxia is $V_{FAD,hypoxia} = \Gamma V_{FAD, normoxia} = \qty{6.839}{\micro\litre}$ and the concentration of FAD at hypoxia is estimated as $C_{FAD,hypoxia} = \Gamma C_{FAD, normoxia} = \qty{19.164}{\micro\mole\per\litre}$. These results imply in the SFLIM measurements of anaesthetised, hypoxic, rats, the relative mean concentration of FAD would be expected to be on-the-order of \qty{30}{\percent} lower than the recorded FAD concentration measured of normoxic rats.
 
 \section{SFLIM Measurements of In-Vivo Rats}
+
+
+
+
 \subsection{Experimental Method}Fixed 
 \section{Recovering FAD Concentration Using SFLIM Unmixing}
 \subsection{Darkfield Correction}
