@@ -32,7 +32,7 @@ Finally, the result of~\cref{eq:nummoles} is expressed as a concentration by app
 \end{equation}
 While this analysis does represent a simplified interpretation of the biological functions in the retina it is commensurate with reported measurements of flavoproteins in rabbit eye's. In~\citeauthor{batey1991analysis}\cite{batey1991analysis}, the concentration is defined as \qty{39.3}{\pico\mole\per\milli\gram} by weight of the retina which is within \qty{10}{\percent} of the estimation above when converted to equivalent units - $C_{FAD} = \qty{37.64}{\pico\mole\per\milli\gram}$ obtained using the result of \cref{eq:nummoles} and taking the mass of the retina as \qty{326}{\milli\gram}~\cite{batey1991analysis,feke1989blood}.
 \\
-The volume of FAD in the retina at hypoxia can then be estimated by assuming that the drop in maximal oxygen consumption, ${\dot{V}\ce{O2}}_{max}$, due to hypoxia will induce an equal relative drop in the volume of retinal FAD. This rate of maximal oxygen consumption was measured of sedentary and endurance trained subjects as reported in~\citeauthor{ferretti1997decrease}\cite{ferretti1997decrease} and shown in \cref{tab:VO2max}. 
+The volume of FAD in the retina at hypoxia can then be estimated by assuming that the drop in maximal oxygen consumption, ${\dot{V}\ce{O2}}_{max}$, due to hypoxia will induce a decrease in the volume of retinal FAD of an equal order. This rate of maximal oxygen consumption was measured of sedentary and endurance trained subjects as reported in~\citeauthor{ferretti1997decrease}\cite{ferretti1997decrease} and shown in \cref{tab:VO2max}. 
 
 \begin{table}[htb]
     \centering
@@ -49,15 +49,60 @@ The volume of FAD in the retina at hypoxia can then be estimated by assuming tha
     \caption{In \citeauthor{ferretti1997decrease}\cite{ferretti1997decrease}, the maximal rate of oxygen consumption was measured of sedantary subjects and subject with a background in endurance sports for a range of inspired oxygen concentrations (\ce{FiO2}). Reproduced from Table. 1 of \citeauthor{ferretti1997decrease}\cite{ferretti1997decrease}.}
     \label{tab:VO2max}
 \end{table}
-The ratio between the hypoxic and normoxic measurements of ${\dot{V}\ce{O2}}_{max}$ are then $\Gamma = \num{0.725}$, and $\Gamma = \num{0.710}$ for sedentary and athletic subjects, receptively. Taking the case of a sedentary subject the volume of FAD at hypoxia is $V_{FAD,hypoxia} = \Gamma V_{FAD, normoxia} = \qty{6.839}{\micro\litre}$ and the concentration of FAD at hypoxia is estimated as $C_{FAD,hypoxia} = \Gamma C_{FAD, normoxia} = \qty{19.164}{\micro\mole\per\litre}$. These results imply in the SFLIM measurements of anaesthetised, hypoxic, rats, the relative mean concentration of FAD would be expected to be on-the-order of \qty{30}{\percent} lower than the recorded FAD concentration measured of normoxic rats.
+The ratio between the hypoxic and normoxic measurements of ${\dot{V}\ce{O2}}_{max}$ are then $\Gamma = \num{0.725}$, and $\Gamma = \num{0.710}$ for sedentary and athletic subjects, receptively. Taking the case of a sedentary subject the volume of FAD at hypoxia is $V_{FAD,hypoxia} = \Gamma V_{FAD, normoxia} = \qty{6.839}{\micro\litre}$ and the concentration of FAD at hypoxia is estimated as $C_{FAD,hypoxia} = \Gamma C_{FAD, normoxia} = \qty{19.164}{\micro\mole\per\litre}$. \\
+In the SFLIM measurements of anaesthetised, hypoxic, rats, the relative mean concentration of FAD it would be expected to be on-the-order of \qty{30}{\percent} lower than the recorded FAD concentration measured of normoxic rats. Although measurements of the concentration of retinal FAD, nor measurements of oxygen saturation in the for hypoxia and normoxic retinas have not been reported for rats this analysis is still useful for confirming that FAD concentration would be expected to decrease under acute hypoxia (\ce{FiO2}) \qty{15}{\percent}. In humans, the decrease of oxygen saturation in the retina, due to acute hypoxia, was reported by \citeauthor{choudhary2013assessment}\cite{choudhary2013assessment}, as \qty{8.2}{\percent} and \qty{8.3}{\percent} for arterial and venous blood, respectively. From this, it could be concluded that a decrease in retinal FAD of $\approx\qty{8}{\percent}$ would be expected due to acute hypoxia. However, as a result of acute hypoxia in humans, the retinal blood vessels dilate by a factor of between \qtyrange{3.5}{21}{\percent}\cite{choudhary2013assessment,frayser1971response} and according to Poiseuille's Law (\cref{eq:poislaw})~\cite{westerhof2019law}.
+\begin{equation}\label{eq:poislaw}
+    \Delta P \propto  \frac{Q}{r^{4}}
+\end{equation}
+This causes a fourth-power increase in the rate of blood flow, $Q$, assuming equal blood pressure, $\Delta P$, for an increasing radius of blood vessel, $r$. For the above dilation factors this would represent an increase in venous blood flow of \qtyrange{16}{114}{\percent}. The affect of increased venous blood flow could imply the concentration of retinal FAD would paradoxically increase as a result of acute hypoxia. This underpins the need for quantitative measurements of retinal fluorophores such as those carried out and presented in this chapter.
 
-\section{SFLIM Measurements of In-Vivo Rats}
+\section{\textit{In-Vivo} SFLIM Measurements of Anaesthetised Rats}
+\subsection{Experimental Protocol}
+The reported imaging experiments were carried out in the labs of Prof. Kenneth J. Smith (Institute of Neuroinflammation, UCL) where Helen Yang (Institute of Neuroinflammation, UCL) prepared the rats for imaging, administered isoflurane to anaesthetise them, and monitored health throughout the imaging session. An external nitrogen supply was mixed with room-air and fed into a fitted nose-cone to control the fraction of inspired oxygen between . Albino rats were chosen for their lack of melanin in the eye which reduces the loss of emitted retinal autofluorescence to absorption and maximising SNR in detected fluorescence. As shown in~\cref{fig:ratsetup}, the rat is secured to the imaging platform and the pupil is dilated using Tropicamide drops to increase pupil diameter (\qtyrange{1.20}{4.35}{\mm}~\cite{himmel2019pupillary}) - maximising the number of detected photons. The eye lids are fixed open with stitches and contact lens is fitted to index-match the rats eye lens. Viscotears gel is applied around the cornea to prevent the eye becoming dry and irritated - inducing additional eye movement and motion requiring correction. To accommodate the rats smaller eyeball diameter, of \SI{6.3}{\mm}~\cite{pazos2015rat}, a field-lens ($\varphi = 2''$, $f = \SI{85}{\mm}$) is fitted to the objective lens of the fundus camera. This additional lens did induce reflections from the illumination source off the front surface of the objective lens and rear surface of the field lens degrading some of the brightfield images with glare (\cref{fig:Ratscmosimages}a) with the penalty of reducing the effectiveness of the motion detection process. This glare was observed to be independent of the motion of the retina which would cause errors in the detected motion in the phase-cross correlation process. By multiplying the images by a mask that is zero in the glare-affected areas and unity elsewhere, the effects of glare was satisfactorily mitigated.  Alternatively, the glare could be removed using an image recorded of a non-reflective scene containing only the glare ($I_{dark}$) and linearly subtracting it from an recorded image ($I_{raw}$) to produce a glare-free image: $I = \alpha I_{raw} - I_{dark}$. 
 
 
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/ratUCL/RatSetupFigure.pdf}}
+        \annotatedFigureText{0.015,0.83}{white}{0.3}{a)}
+        \annotatedFigureText{0.435,0.83}{white}{0.3}{b)}
+        \annotatedFigureText{0.66,0.83}{white}{0.3}{c)}
+    \end{annotatedFigure}
+    
+    \caption{a) and b) The anaesthetised rat is positioned on the imaging platform perpendicular to the SFLIO system to have the rat's retina parallel with the image plane. The fundus camera is moved axially such that the illumination forms a focussed spot on the cornea - evenly illuminating the retina (c).}
+    \label{fig:ratsetup}
+\end{figure}
+Two rats were imaged over three days. For each acquisition brightfield images are recorded continuously (\SI{50}{\ms} exposure at \SI{10}{\Hz}) in tandem with the FLIMera operating in raw mode over a two minute acquisition period for all 5 spectral filters. Due to the large file size generated from the FLIMera RAW acquisition around \SI{10}{\minute} is required the build and save the \SI{50}{\giga\byte} stream of photon counts for each spectral channel. This SFLIM acquisition is carried out while the rats are cycled from normoxia to hypoxia (\SI{15}{\percent}\ce{FiO2}) and then back to normoxia again with an $\approx 5$~minute interval between each acquisition. These intervals between spectral filters and oxygenation states minimises any photobleaching and should ensure that metabolic processes and FAD concentration re-stabilise although long periods of hypoxia can cause the rat to die due to oxidative stress. SFLIM images were recorded for the first rat on the second day. As before (\cref{fig:flimerascmossync}), the two detectors are synchronised in time by initially having the laser shutter closed at the start of the acquisition and then opening it after a short period of time and detecting the Heaviside-like change in photon flux. Due to the anaesthetic the nervous response in the rats is suppressed which eliminates any visible saccades in the image sequence. The motion correction algorithm developed in \cref{chap:motionreg} is still utilised to ensure any small movements of the rat over the hour long imaging sessions does not cause misalignment between spectral filters. However due to the no pixel super-sampling was performed (\cref{fig:FLIMerareg}c).
+
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/ratUCL/RatsCMOSfigure.pdf}}
+        \annotatedFigureText{0.025,0.91}{white}{0.3}{a)}
+        \annotatedFigureText{0.35,0.91}{white}{0.3}{b)}
+        \annotatedFigureText{0.68,0.91}{white}{0.3}{c)}
+        \annotatedFigureText{0.19,0.425}{white}{0.3}{d)}
+        \annotatedFigureText{0.52,0.425}{white}{0.3}{e)}
+    \end{annotatedFigure}
+    \caption{a - c) Shows example brightfield images recorded of each of the 3 rats imaged. Each frame is recorded over an integration time of \SI{30}{\ms} at a rate of \SI{10}{\Hz} where a small amount of glare is present in the highlighted region of a). In d) and e) a fluorescence intensity image was recorded using a \SI{500}{\nm} long-pass filter over integration times of \SI{1}{\second} and \SI{5}{\second} respectively.}
+    \label{fig:Ratscmosimages}
+\end{figure}
+
+\subsection{Detected Translational Motion in Rat Retinas}
+As discussed in \cref{chap:motionreg}, motion is detected from image sequences by computing the phase-cross correlation between a reference image - the first fully-illuminated frame after the laser shutter is opened - and each successive frame in the sequence. This process was carried out for each spectral channel in the SFLIM acquisition and it was found a simple model of translational motion was sufficient for producing a brightfield image free of motion artefacts (see figure). 
+\textcolor{red}{To DO: Add figure including montage of rat images with breathing artefacts and resulting detected motion.}
+
+However, in one instance the rat exhibited laboured breathing causing motion that cannot simply be described by simple translations in the horizontal and vertical axis. The accuracy of recovered fluorophores would be affected by this but could have been mitigated by using a more flexible motion detection algorithm which could account for non-affine or non-rigid motion.
 
 
-\subsection{Experimental Method}Fixed 
+\textcolor{red}{TO DO: Add figure including montage of rat with translational motion and the resulting detecting motion}
+
+
+\subsection{Addressing Lack of Spatial Variaton in SPAD Images}
+
+
 \section{Recovering FAD Concentration Using SFLIM Unmixing}
+
+
 \subsection{Darkfield Correction}
 \subsection{Recovered Distribution of Retinal Fluorophores}
 \section{Correlating Variations in FAD to Changes in Oxygenation}
@@ -132,48 +177,6 @@ The ratio between the hypoxic and normoxic measurements of ${\dot{V}\ce{O2}}_{ma
 \end{itemize}
 
 
-\section{FAD as a marker of retinal health}
-Mapping the concentration of FAD would enable diagnosis at the initial stages of retinal disease where metabolic function is compromised - before a patient would present with permanent physical damage to vision. FAD is produced throughout the body as a by-product of metabolisation of oxygen to create ATP - the bodies source of energy - through aerobic respiration(\cref{eq:resp})~\cite{berg2007biochemistry}. In detecting retinal disease, the retina would exhibit abnormal metabolic activity - ATP usage - presenting as areas with abnormal FAD concentrations. 
-\begin{equation}\label{eq:resp}
-    \ce{C6H12O6 + 6O2 -> 6CO2 + 6H2O + ATP}
-\end{equation}
-While the changes in retinal FAD distribution associated with retina disease is not know the feasibly of detecting changes in FAD can be appraised in animal models using the SFLIO device and SFLIM unmixing technique developed in this thesis. The consumption of systemic oxygen can be restricted to artificially lower FAD concentration. At normoxic conditions (\SI{21}{\percent}\ce{FiO2} oxygen metabolism is typical however in hypoxic conditions (\SI{15}{\percent}\ce{FiO2}) the retina is starved of oxygen thus lowering the detectable concentration of FAD. After death when all metabolic processes have cease the concentration of FAD should tend to zero - in rat cortexes this has been reported as the FAD leaking out of arteries forming `halos'~\cite{martinez2017understanding}.
-In this chapter, the SFLIO device (described in \cref{chap:fliodevice}) was used to record \textit{in-vivo} SFLIM images of the retinas of anaesthetised rats under normoxic, hypoxic, and post-mortem conditions where the concentration of retinal FAD is recovered using the SFLIM unmixing algorithm (described in \cref{chap:tensSFLIM}). Successful detection of FAD is then signified by the changes in the recovered retinal FAD concentration being compatible with what is expected with aerobic respiration. Finally, from this a feasibility of quantifying retinal FAD in human retinas can explored.
-
-
-\section{\textit{In-vivo} Rat Imaging Protocol}\label{sec:expprotocol}
-The imaging experiments were carried out in the labs of Prof. Kenneth J. Smith (Institute of Neuroinflammation, UCL) where Helen Yang (Institute of Neuroinflammation, UCL) prepared the rats for imaging, administered isoflurane to anaesthetise them, and monitored general health throughout the imaging session. An external nitrogen supply was mixed with room-air and fed into a fitted nose-cone to control the fraction of inspired oxygen. Albino rats were chosen for their lack of melanin in the eye which reduces the loss of emitted retinal autofluorescence to absorption and maximising SNR in detected fluorescence. As shown in~\cref{fig:ratsetup}, the rat is secured to the imaging platform and the pupil is dilated using Tropicamide drops to increase pupil diameter (\qtyrange{1.20}{4.35}{\mm}~\cite{himmel2019pupillary}) - maximising the number of detected photons. The eye lids are fixed open with stitches and contact lens is fitted to index-match the rats eye lens. Viscotears gel is applied around the cornea to prevent it becoming dry and irritated causing additional eye movement and motion requiring correction. To accommodate the rats smaller eyeball diameter, of \SI{6.3}{\mm}~\cite{pazos2015rat}, a field-lens ($\varphi = 2''$, $f = \SI{85}{\mm}$) is fitted to the objective lens of the fundus camera. This additional lens did induce reflections from the illumination source off the front surface of the objective lens and rear surface of the field lens degrading some of the brightfield images with glare (\cref{fig:Ratscmosimages}a although careful positioning of the rat could remove them. This glare was observed to be independent of the motion of the retina which would cause errors in the detected motion in the phase-cross correlation process. Masking the affected area mitigates this. Alternatively, the glare could be removed using an image recorded of a non-reflective scene containing only the glare ($I_{dark}$) and linearly subtracting it from an recorded image ($I_{raw}$) to produce a glare-free image ($I$).
-\begin{equation}\label{eq:glarecal}
-    I = I_{raw} - \alpha I_{dark}
-\end{equation}
-
-
-\begin{figure}
-    \centering
-    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/ratUCL/RatSetupFigure.pdf}}
-        \annotatedFigureText{0.015,0.83}{white}{0.3}{a)}
-        \annotatedFigureText{0.435,0.83}{white}{0.3}{b)}
-        \annotatedFigureText{0.66,0.83}{white}{0.3}{c)}
-    \end{annotatedFigure}
-    
-    \caption{a) and b) The anaesthetised rat is positioned on the imaging platform perpendicular to the SFLIO system to have the rat's retina parallel with the image plane. The fundus camera is moved axially such that the illumination forms a focussed spot on the cornea - evenly illuminating the retina (c).}
-    \label{fig:ratsetup}
-\end{figure}
-Two rats were imaged over three days. For each acquisition brightfield images are recorded continuously (\SI{50}{\ms} exposure at \SI{10}{\Hz}) in tandem with the FLIMera operating in raw mode over a two minute acquisition period for all 5 spectral filters. Due to the large file size generated from the FLIMera RAW acquisition around \SI{10}{\minute} is required the build and save the \SI{50}{\giga\byte} stream of photon counts for each spectral channel. This SFLIM acquisition is carried out while the rats are cycled from normoxia to hypoxia (\SI{15}{\percent}\ce{FiO2}) and then back to normoxia again with an $\approx 5$~minute interval between each acquisition. These intervals between spectral filters and oxygenation states minimises any photobleaching and should ensure that metabolic processes and FAD concentration re-stabilise although long periods of hypoxia can cause the rat to die due to oxidative stress. SFLIM images were recorded for the first rat on the second day. As before (\cref{fig:flimerascmossync}), the two detectors are synchronised in time by initially having the laser shutter closed at the start of the acquisition and then opening it after a short period of time and detecting the Heaviside-like change in photon flux. Due to the anaesthetic the nervous response in the rats is suppressed which eliminates any visible saccades in the image sequence. The motion correction algorithm developed in \cref{chap:motionreg} is still utilised to ensure any small movements of the rat over the hour long imaging sessions does not cause misalignment between spectral filters. However due to the no pixel super-sampling was performed (\cref{fig:FLIMerareg}c).
-
-
-\begin{figure}
-    \centering
-    \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/ratUCL/RatsCMOSfigure.pdf}}
-        \annotatedFigureText{0.025,0.91}{white}{0.3}{a)}
-        \annotatedFigureText{0.35,0.91}{white}{0.3}{b)}
-        \annotatedFigureText{0.68,0.91}{white}{0.3}{c)}
-        \annotatedFigureText{0.19,0.425}{white}{0.3}{d)}
-        \annotatedFigureText{0.52,0.425}{white}{0.3}{e)}
-    \end{annotatedFigure}
-    \caption{a - c) Shows example brightfield images recorded of each of the 3 rats imaged. Each frame is recorded over an integration time of \SI{30}{\ms} at a rate of \SI{10}{\Hz} where a small amount of glare is present in the highlighted region of a). In d) and e) a fluorescence intensity image was recorded using a \SI{500}{\nm} long-pass filter over integration times of \SI{1}{\second} and \SI{5}{\second} respectively.}
-    \label{fig:Ratscmosimages}
-\end{figure}
 
 For the next three sections, \cref{sec:rat1day1results,sec:rat1day2results,sec:rat2results} the results will be presented separately and then brought together for a final meta-analysis and appraisal of the feasibility of detecting FAD in \textit{in-vivo} human retinas
 \section{Results For Rat 1}\label{sec:rat1day1results}
