@@ -55,7 +55,7 @@ In the SFLIM measurements of anaesthetised, hypoxic, rats, the relative mean con
     \Delta P \propto  \frac{Q}{r^{4}}
 \end{equation}
 This causes a fourth-power increase in the rate of blood flow, $Q$, assuming equal blood pressure, $\Delta P$, for an increasing radius of blood vessel, $r$. For the above dilation factors this would represent an increase in venous blood flow of \qtyrange{16}{114}{\percent}. The affect of increased venous blood flow could imply the concentration of retinal FAD would paradoxically increase as a result of acute hypoxia. This underpins the need for quantitative measurements of retinal fluorophores such as those carried out and presented in this chapter.
-
+\FloatBarrier
 \section{\textit{In-Vivo} SFLIM Measurements of Anaesthetised Rats}
 \subsection{Experimental Protocol}
 The reported imaging experiments were carried out in the labs of Prof. Kenneth J. Smith (Institute of Neuroinflammation, UCL) where Helen Yang (Institute of Neuroinflammation, UCL) prepared the rats for imaging, administered isoflurane to anaesthetise them, and monitored health throughout the imaging session. An external nitrogen supply was mixed with room-air and fed into a fitted nose-cone to control the fraction of inspired oxygen between . Albino rats were chosen for their lack of melanin in the eye which reduces the loss of emitted retinal autofluorescence to absorption and maximising SNR in detected fluorescence. As shown in~\cref{fig:ratsetup}, the rat is secured to the imaging platform and the pupil is dilated using Tropicamide drops to increase pupil diameter (\qtyrange{1.20}{4.35}{\mm}~\cite{himmel2019pupillary}) - maximising the number of detected photons. The eye lids are fixed open with stitches and contact lens is fitted to index-match the rats eye lens. Viscotears gel is applied around the cornea to prevent the eye becoming dry and irritated - inducing additional eye movement and motion requiring correction. To accommodate the rats smaller eyeball diameter, of \SI{6.3}{\mm}~\cite{pazos2015rat}, a field-lens ($\varphi = 2''$, $f = \SI{85}{\mm}$) is fitted to the objective lens of the fundus camera. This additional lens did induce reflections from the illumination source off the front surface of the objective lens and rear surface of the field lens degrading some of the brightfield images with glare (\cref{fig:Ratscmosimages}a) with the penalty of reducing the effectiveness of the motion detection process. This glare was observed to be independent of the motion of the retina which would cause errors in the detected motion in the phase-cross correlation process. By multiplying the images by a mask that is zero in the glare-affected areas and unity elsewhere, the effects of glare was satisfactorily mitigated.  Alternatively, the glare could be removed using an image recorded of a non-reflective scene containing only the glare ($I_{dark}$) and linearly subtracting it from an recorded image ($I_{raw}$) to produce a glare-free image: $I = \alpha I_{raw} - I_{dark}$. 
@@ -86,28 +86,42 @@ Two rats were imaged over three days. For each acquisition brightfield images ar
     \caption{a - c) Shows example brightfield images recorded of each of the 3 rats imaged. Each frame is recorded over an integration time of \SI{30}{\ms} at a rate of \SI{10}{\Hz} where a small amount of glare is present in the highlighted region of a). In d) and e) a fluorescence intensity image was recorded using a \SI{500}{\nm} long-pass filter over integration times of \SI{1}{\second} and \SI{5}{\second} respectively.}
     \label{fig:Ratscmosimages}
 \end{figure}
-
+\FloatBarrier
 \subsection{Detected Translational Motion in Rat Retinas}
-As discussed in \cref{chap:motionreg}, motion is detected from image sequences by computing the phase-cross correlation between a reference image - the first fully-illuminated frame after the laser shutter is opened - and each successive frame in the sequence. This process was carried out for each spectral channel in the SFLIM acquisition and it was found a simple model of translational motion was sufficient for producing a brightfield image free of motion artefacts (see figure). 
-\textcolor{red}{To DO: Add figure including montage of rat images with breathing artefacts and resulting detected motion.}
+As discussed in \cref{chap:motionreg}, compensation of retinal motion is required for producing a high-contrast image where the vasculature is sharply defined. This would enable any variation in the distribution of FAD in the retina to be resolved with high confidence. Retinal motion is detected from image sequences by computing the phase-cross correlation between a reference image and each successive frame in the sequence - where this reference image is the first fully illuminated frame in the sequence after the laser shutter has been opened. This process was carried out for each spectral channel in the SFLIM acquisition and it was found a simple model of translational motion was sufficient for producing a brightfield image free of motion artefacts (see figure). 
 
 However, in one instance the rat exhibited laboured breathing causing motion that cannot simply be described by simple translations in the horizontal and vertical axis. The accuracy of recovered fluorophores would be affected by this but could have been mitigated by using a more flexible motion detection algorithm which could account for non-affine or non-rigid motion.
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.9\linewidth]{figures/ratUCL/RatMotionFigure.pdf}
+    \caption{Montage of brightfield image sequence recorded at normoxia after the rat had previously been acutely hypoxia (\SI{12}{\percent}\ce{FiO2}) for a period. Laboured breathing in the rat caused artefacts in the sequence as show above. This is better resolved by viewing the supplementary video ``Rat3BreathingMotion''. This motion is correctable using the existing motion correction algorithm discussed elsewhere \cref{fig:ratbreathcorrection}}
+    \label{fig:ratbreathmotion}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/ratUCL/RatBreathCorrection.pdf}
+    \caption{Caption}
+    \label{fig:ratbreathcorrection}
+\end{figure}
 
-
-\textcolor{red}{TO DO: Add figure including montage of rat with translational motion and the resulting detecting motion}
-
-
+\textcolor{red}{TO DO: Write caption for other figure and create video file of the breathing motion}
+\FloatBarrier
 \subsection{Addressing Lack of Spatial Variaton in SPAD Images}
 
-
+\FloatBarrier
 \section{Recovering FAD Concentration Using SFLIM Unmixing}
 
-
+\FloatBarrier
 \subsection{Darkfield Correction}
+\FloatBarrier
 \subsection{Recovered Distribution of Retinal Fluorophores}
+\FloatBarrier
 \section{Correlating Variations in FAD to Changes in Oxygenation}
+\FloatBarrier
 \subsection{Assessing Statistical Significance of FAD Response}
+\FloatBarrier
 \subsection{Comparing Detected Changes with PCA and Spectral Angle Maps}
+\FloatBarrier
 \section{Conclusions}
 \section{Future Work and Experimental Improvements}
 
@@ -180,16 +194,11 @@ However, in one instance the rat exhibited laboured breathing causing motion tha
 
 For the next three sections, \cref{sec:rat1day1results,sec:rat1day2results,sec:rat2results} the results will be presented separately and then brought together for a final meta-analysis and appraisal of the feasibility of detecting FAD in \textit{in-vivo} human retinas
 \section{Results For Rat 1}\label{sec:rat1day1results}
-The protocol outlined above was followed to record SFLIM images of the rat at normoxic (\SI{21}{\percent}\ce{FiO2}) oxygenation states where the spectral bands were recorded time sequentially with 3 minute exposures. For the hypoxic (\SI{15}{\percent}\ce{FiO2}) and 2nd normoxic (\SI{21}{\percent}\ce{FiO2}) data sets the acquisition was split into two short acquisitions of \num{1.5} minutes each to ensure in the event the rat dies prematurely a full SFLIM data set could be recorded. For each oxygenation state the translational movement between brightfield frames is found using a phase cross-correlation method. These shifts in the brightfield frames then converted to corresponding shifts in the FLIMera using a calibration affine transform recorded from a convallaria majalis sample mounted in an artifical eye model. without the additional field lens in place (see \cref{sec:motionreg-convallaria}). Although this field lens does magnify the image it will cause same magnification in both cameras and the relative magnification between the brightfield camera and FLIMera will remain constant. Motion in the FLIMera is then corrected and fromed into a $XYT\lambda$ volume is constructed 
+The protocol outlined above was followed to record SFLIM images of the rat at normoxic (\SI{21}{\percent}\ce{FiO2}) oxygenation states where the spectral bands were recorded time sequentially with 3 minute exposures. For the hypoxic (\SI{15}{\percent}\ce{FiO2}) and 2nd normoxic (\SI{21}{\percent}\ce{FiO2}) data sets the acquisition was split into two short acquisitions of \num{1.5} minutes each to ensure in the event the rat dies prematurely a full SFLIM data set could be recorded. For each oxygenation state the translational movement between brightfield frames is found using a phase cross-correlation method. These shifts in the brightfield frames then converted to corresponding shifts in the FLIMera using a calibration affine transform recorded from a convallaria majalis sample mounted in an artifical eye model. without the additional field lens in place (see \cref{sec:motionreg-convallaria}). Although this field lens does magnify the image it will cause same magnification in both cameras and the relative magnification between the brightfield camera and FLIMera will remain constant. Motion in the FLIMera is then corrected and formed into a $XYT\lambda$ volume is constructed 
 
 \subsection{Image Registration}
 The glare spot produced by the additional field lens was accounted for in the registration by masking a rectangular area large enough to contain the glare spot and accommodate any movement of it see \cref{fig:ratuclglare}. The translational movement between frames was then found using a phase cross-correlation algorithm and was converted to translations in the FLIMera using a calibration transform recorded from convallaria in an artificial eye but 
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=0.5\linewidth]{}
-%     \caption{Caption}
-%     \label{fig:ratuclglare}
-% \end{figure}
+
 \subsection{Darkfield Correction}
 % This section will be about the weird hump we saw in the histograms and how it can be dealt with. Fitting with a sech2 or Guassian function was explored but the residuals in the fitting could cause negative counts in the correct histograms 
 
