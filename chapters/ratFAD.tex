@@ -58,7 +58,7 @@ This causes a fourth-power increase in the rate of blood flow, $Q$, assuming equ
 \FloatBarrier
 \section{\textit{In-Vivo} SFLIM Measurements of Anaesthetised Rats}
 \subsection{Experimental Protocol}
-The reported imaging experiments were carried out in the labs of Prof. Kenneth J. Smith (Institute of Neuroinflammation, UCL) where Helen Yang (Institute of Neuroinflammation, UCL) prepared the rats for imaging, administered isoflurane to anaesthetise them, and monitored health throughout the imaging session. An external nitrogen supply was mixed with room-air and fed into a fitted nose-cone to control the fraction of inspired oxygen between . Albino rats were chosen for their lack of melanin in the eye which reduces the loss of emitted retinal autofluorescence to absorption and maximising SNR in detected fluorescence. As shown in~\cref{fig:ratsetup}, the rat is secured to the imaging platform and the pupil is dilated using Tropicamide drops to increase pupil diameter (\qtyrange{1.20}{4.35}{\mm}~\cite{himmel2019pupillary}) - maximising the number of detected photons. The eye lids are fixed open with stitches and contact lens is fitted to index-match the rats eye lens. Viscotears gel is applied around the cornea to prevent the eye becoming dry and irritated - inducing additional eye movement and motion requiring correction. To accommodate the rats smaller eyeball diameter, of \SI{6.3}{\mm}~\cite{pazos2015rat}, a field-lens ($\varphi = 2''$, $f = \SI{85}{\mm}$) is fitted to the objective lens of the fundus camera. This additional lens did induce reflections from the illumination source off the front surface of the objective lens and rear surface of the field lens degrading some of the brightfield images with glare (\cref{fig:Ratscmosimages}a) with the penalty of reducing the effectiveness of the motion detection process. This glare was observed to be independent of the motion of the retina which would cause errors in the detected motion in the phase-cross correlation process. By multiplying the images by a mask that is zero in the glare-affected areas and unity elsewhere, the effects of glare was satisfactorily mitigated.  Alternatively, the glare could be removed using an image recorded of a non-reflective scene containing only the glare ($I_{dark}$) and linearly subtracting it from an recorded image ($I_{raw}$) to produce a glare-free image: $I = \alpha I_{raw} - I_{dark}$. 
+The reported imaging experiments were carried out in the labs of Prof. Kenneth J. Smith (Institute of Neuroinflammation, UCL) where Helen Yang (Institute of Neuroinflammation, UCL) prepared the rats for imaging, administered isoflurane to anaesthetise them, and monitored health throughout the imaging session. An external nitrogen supply was mixed with room-air and fed into a fitted nose-cone to control the fraction of inspired oxygen between. Albino rats were chosen for their lack of melanin in the eye which reduces the loss of emitted retinal autofluorescence to absorption and maximising SNR in detected fluorescence. As shown in~\cref{fig:ratsetup}, the rat is secured to the imaging platform and the pupil is dilated using Tropicamide drops to increase pupil diameter (\qtyrange{1.20}{4.35}{\mm}~\cite{himmel2019pupillary}) - maximising the number of detected photons. The eye lids are fixed open with stitches and contact lens is fitted to index-match the rats eye lens. Viscotears gel is applied around the cornea to prevent the eye becoming dry and irritated - inducing additional eye movement and motion requiring correction. To accommodate the rats smaller eyeball diameter, of \SI{6.3}{\mm}~\cite{pazos2015rat}, a field-lens ($\varphi = 2''$, $f = \SI{85}{\mm}$) is fitted to the objective lens of the fundus camera. This additional lens did induce reflections from the illumination source off the front surface of the objective lens and rear surface of the field lens degrading some of the brightfield images with glare (\cref{fig:Ratscmosimages}a) with the penalty of reducing the effectiveness of the motion detection process. This glare was observed to be independent of the motion of the retina which would cause errors in the detected motion in the phase-cross correlation process. By multiplying the images by a mask that is zero in the glare-affected areas and unity elsewhere, the effects of glare was satisfactorily mitigated.  Alternatively, the glare could be removed using an image recorded of a non-reflective scene containing only the glare ($I_{dark}$) and linearly subtracting it from an recorded image ($I_{raw}$) to produce a glare-free image: $I = \alpha I_{raw} - I_{dark}$. 
 
 
 \begin{figure}
@@ -90,27 +90,42 @@ Two rats were imaged over three days. For each acquisition brightfield images ar
 \subsection{Detected Translational Motion in Rat Retinas}
 As discussed in \cref{chap:motionreg}, compensation of retinal motion is required for producing a high-contrast image where the vasculature is sharply defined. This would enable any variation in the distribution of FAD in the retina to be resolved with high confidence. Retinal motion is detected from image sequences by computing the phase-cross correlation between a reference image and each successive frame in the sequence - where this reference image is the first fully illuminated frame in the sequence after the laser shutter has been opened. This process was carried out for each spectral channel in the SFLIM acquisition and it was found a simple model of translational motion was sufficient for producing a brightfield image free of motion artefacts (see figure). 
 
-However, in one instance the rat exhibited laboured breathing causing motion that cannot simply be described by simple translations in the horizontal and vertical axis. The accuracy of recovered fluorophores would be affected by this but could have been mitigated by using a more flexible motion detection algorithm which could account for non-affine or non-rigid motion.
+However, in one instance the rat exhibited laboured breathing causing motion that was not just horizontal and vertical translations (see the video sequence titled ``DGeddesPhD\_RatBreatingMotion.mp4''). The differences in image magnification or rotation were small enough in amplitude and frequency that motion can be adequately corrected and characterised using the previously described method in \cref{chap:motionreg}. 
+
+
 \begin{figure}
     \centering
     \includegraphics[width = 0.9\linewidth]{figures/ratUCL/RatMotionFigure.pdf}
-    \caption{Montage of brightfield image sequence recorded at normoxia after the rat had previously been acutely hypoxia (\SI{12}{\percent}\ce{FiO2}) for a period. Laboured breathing in the rat caused artefacts in the sequence as show above. This is better resolved by viewing the supplementary video ``Rat3BreathingMotion''. This motion is correctable using the existing motion correction algorithm discussed elsewhere \cref{fig:ratbreathcorrection}}
+    \caption{Montage of brightfield image sequence recorded at normoxia after the rat had previously been acutely hypoxia (\SI{12}{\percent}\ce{FiO2}) for a period. Laboured breathing in the rat caused artefacts in the sequence as show above. This is better resolved by viewing the supplementary video ``DGeddesPhD\_RatBreatingMotion.mp4''. This motion is correctable using the existing motion correction algorithm discussed elsewhere \cref{fig:ratbreathcorrection}}
     \label{fig:ratbreathmotion}
 \end{figure}
+
+From \cref{fig:ratbreathcorrection}, the frequency of the breathing motion was estimated from the time between local minima in the detected translational shifts and was found to be \qtyrange{1}{1.2}{\hertz} corresponding to a heart rate of \numrange{60}{72} beats-per-minute. This motion also does not manifest as artefacts or reduced contrast in retinal vasculature within the image as can be seen in \cref{fig:ratbreathcorrection} where the an image formed from summing frames over the entire sequence with and without correcting for motion are indistinguishable.
+
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{figures/ratUCL/RatBreathCorrection.pdf}
-    \caption{Caption}
+    \caption{The motion due to laboured breathing does not introduce artefacts in images formed from summing frames over the entire sequence before (left) and after (right) the motion is corrected. These two images are also broadly indistinguishable from a single elemental in the sequence (middle). The translational motion in the X (horizontal) and Y (vertical) directions is plotted (bottom) and shows the periodic nature of the breathing motion.}
     \label{fig:ratbreathcorrection}
 \end{figure}
-
-\textcolor{red}{TO DO: Write caption for other figure and create video file of the breathing motion}
+Importantly, the amplitude of the breathing motion is small enough that $\approx \num{10}$ pixels on the would manifest as $\approx \num{2}$ pixels on the FLIMera.
 \FloatBarrier
-\subsection{Addressing Lack of Spatial Variaton in SPAD Images}
-
+\subsection{Addressing Lack of Spatial Variation in SPAD Images}
+From these imaging experiments, whilst a brightfield image of the retina could be recorded  with sufficient contrast in the blood vessels - a image with clearly defined vessels could not be formed on the FLIMera. The exact cause of this is unknown but is worth exploring.
+\begin{figure}
+    \centering
+    % \includegraphics[width=0.5\linewidth]{}
+    \caption{C\textcolor{red}{To Do: Figure of a fluorescence intensity image recorded with the flimera of a rat}}
+    \label{fig:ratflimcontrast}
+\end{figure}
+Since both detectors are focussed at infinity, when a brightfield or fluorescence image is formed on the sCMOS camera, a complimentary image should be formed on the FLIMera. Before the rats were imaged a sample of convallaria was mounted in the retinal plane of an artificial eye model and brightfield, and fluorescence intensity images were recorded with the sCMOS and FLIMera, respectively. The images were then registered as before in \cref{chap:motionreg} to obtain the affine transform between the detectors - this rules out poor focussing of the camera lenses as the culprit. 
+The field lens used to accommodate the smaller, \qtyrange{2}{4}{\mm} diameter pupil of the rat could have caused poor focus in the SPAD image but this is also unlikely since a clear image could be resolved on the sCMOS detector. With the benefit of hindsight, a more rigorous method of evaluating this would be to use a divergent laser source to fill the aperture of the objective lens on the SFLIO device, with the field lens fitted, to ensure that a collimated beam is produced out of lens $f_{1}$. The detectors would then be focused when a focussed spot is produced on the detector - with laser power attenuated so as not to over expose or damage either detector.
+Other sources of this lack of spatial variation were also hypothesised but were not experimentally investigated: autofluorescence due to the viscotears used to prevent the cornea drying out; excitation light due to the glare sport bleeding through.
+\textcolor{red}{to do: write a few sentence on the fluorescence of viscotears, }
+Despite the lack of spatial variation in the SPAD images, the SFLIM unmixing algorithm can still be utilised to determined whether we can detect a change in retinal FAD as a response to acute-hypoxia by averaging over the entire retina. This is explored in proceeding sections.
 \FloatBarrier
 \section{Recovering FAD Concentration Using SFLIM Unmixing}
-
+The fluorescence intensity image shown in \cref{fig:rat}
 \FloatBarrier
 \subsection{Darkfield Correction}
 \FloatBarrier
