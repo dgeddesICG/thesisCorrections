@@ -1,6 +1,6 @@
 \setstretch{2}
 \section{Chapter Summary}
-\section{FAD as a marker for metabolic health in the retina}
+\section{FAD as a marker for metabolic health in the retina}\label{sec:FADderivation}
 Mapping the concentration of FAD would enable the diagnosis of retinal disease before physical damage to eyesight develops, at the stage of metabolic dysfunction. FAD is a flavoprotein produced in the body as a by-product of oxygen metabolisation from aerobic respiration (\cref{eq:resp})~\cite{berg2007biochemistry} to create ATP - the bodies source of energy. In the formation of retinal disease, the retina would exhibit abnormal metabolic activity - ATP usage - and would present in the retina as areas with abnormal FAD distribution.
 \begin{equation}\label{eq:resp}
     \ce{C6H12O6 + 6O2 -> 6CO2 + 6H2O + ATP}
@@ -120,24 +120,25 @@ From these imaging experiments, whilst a brightfield image of the retina could b
 \end{figure}
 Since both detectors are focussed at infinity, when a brightfield or fluorescence image is formed on the sCMOS camera, a complimentary image should be formed on the FLIMera. Before the rats were imaged a sample of convallaria was mounted in the retinal plane of an artificial eye model and brightfield, and fluorescence intensity images were recorded with the sCMOS and FLIMera, respectively. The images were then registered as before in \cref{chap:motionreg} to obtain the affine transform between the detectors - this rules out poor focussing of the camera lenses as the culprit. 
 The field lens used to accommodate the smaller, \qtyrange{2}{4}{\mm} diameter pupil of the rat could have caused poor focus in the SPAD image but this is also unlikely since a clear image could be resolved on the sCMOS detector. With the benefit of hindsight, a more rigorous method of evaluating this would be to use a divergent laser source to fill the aperture of the objective lens on the SFLIO device, with the field lens fitted, to ensure that a collimated beam is produced out of lens $f_{1}$. The detectors would then be focused when a focussed spot is produced on the detector - with laser power attenuated so as not to over expose or damage either detector.
-Other sources of this lack of spatial variation were also hypothesised but were not experimentally investigated: autofluorescence due to the viscotears used to prevent the cornea drying out; excitation light due to the glare sport bleeding through.
-\textcolor{red}{to do: write a few sentence on the fluorescence of viscotears, }
+Other sources of this lack of spatial variation were also hypothesised but were not experimentally investigated: autofluorescence due to the viscotears used to prevent the cornea drying out; excitation light due to the glare sport bleeding through. The viscotears gel is uses the active ingredient of poly-acrylic acid to prevent drying of the cornea with the sweetener, sorbitol (a sugar alcohol), and sodium hydroxide as preservatives. From an analysis of the available literature: poly-acrylic acid \cite{xu2019autofluorescence} is not intrinsically fluorescent and only fluoresces when forming hydrogels; sorbitol only emits fluorescence in the near-infrared wavelengths $\lambda >\qty{800}{\nm}$~\cite{lee2019near} which would be blocked by the anti-reflection coatings on the lenses within the SFLIO device; and sodium hydroxide only weakly emits fluorescence between \qtyrange{300}{440}{\nm} when excited at \qty{240}{\nm} and, importantly, only at a hazardous molar concentration of \qty{3}{\mole\per\litre}~\cite{villa2019anomalous} that could not be present in the viscotears gel. Measuring the spectral-temporal fluorescence properties of the viscotears gel would have experimentally demonstrated this. However, this brief review of the literature shows that not the root cause of the inability to produce a focussed image on the FLIMera was not likely to be the viscotears gel.
+Reflected excitation light from the field-lens - which produced the glare spot in the brightfield images - could have not been sufficiently blocked by the emission filters resulting in $\approx \qty{0.2}{\micro\watt}$ out of the $\approx \qty{2}{\milli\watt}$ excitation source being transmitted through a filter with optical density, $\text{OD} = 4$ which could be sufficiently intense to contaminate the image. Fluorescence intensity images of the rat retinas were also recorded of the rat retina using the sCMOS detector and a \qty{500}{\nm} long-pass filter with $\text{OD} = 4$ and retinal vasculature were well defined and resolvable (see \cref{fig:Ratscmosimages}d-e).
+\\
 Despite the lack of spatial variation in the SPAD images, the SFLIM unmixing algorithm can still be utilised to determined whether we can detect a change in retinal FAD as a response to acute-hypoxia by averaging over the entire retina. This is explored in proceeding sections.
 \FloatBarrier
 \section{Recovering FAD Concentration Using SFLIM Unmixing}
-The fluorescence intensity image shown in \cref{fig:rat}
+Although clear images of the retina could not be formed on the FLIMera, the concentration of retinal FAD can be estimated over the entire FOV using the previously developed SFLIM unmixing algorithms. The SFLIM unmixing method was applied to SFLIM data with and without the application of motion correction. The relative concentrations of retinal fluorophores for each pixel on the FLIMera and the mean concentration can be calculated after masking out malfunctioning pixels with the pixel mask discussed in \cref{sec:pixelmask}. The recovered fluorophore concentrations were then compared over the Normoxia, Hypoxia, Re-Normoxia, and in one case \textit{post-mortem} to establish if the detected changes fitted the predictions made in \cref{sec:FADderivation}. The statistical significance was calculated using a paired student t-test to establish whether a change in retinal fluorophore concentration was detected as a result of a change in the rats physiology (\textcolor{red}{theres probably a better term for this}) or just due to noise. Finally, Principle Components Analysis (PCA) to assess whether the detected changes are due to changes in the fluorescence emission spectra or the fluorescence lifetime.
 \FloatBarrier
-\subsection{Darkfield Correction}
+\subsection{Darkfield Correction}\label{subsec:darkfield}
 \FloatBarrier
-\subsection{Recovered Distribution of Retinal Fluorophores}
+\subsection{Recovered Distribution of Retinal Fluorophores}\label{subsec:meanfluor}
 \FloatBarrier
-\section{Correlating Variations in FAD to Changes in Oxygenation}
+\section{Correlating Variations in FAD to Changes in Oxygenation}\label{subsec:fluorcorrelate}
 \FloatBarrier
-\subsection{Assessing Statistical Significance of FAD Response}
+\subsection{Assessing Statistical Significance of FAD Response}\label{subsec:ttest}
 \FloatBarrier
-\subsection{Comparing Detected Changes with PCA and Spectral Angle Maps}
+\subsection{Comparing Detected Changes with PCA and Spectral Angle Maps}\label{subsec:pcarat}
 \FloatBarrier
-\section{Conclusions}
+\section{Conclusions}\label{sec:uclconcs}
 \section{Future Work and Experimental Improvements}
 
 \section{Outline / TO DO}
