@@ -241,7 +241,7 @@ The FLIMera used in this project is a pre-production model and exhibits malfunct
     \label{fig:pixel}
 \end{figure}
 \FloatBarrier
-\paragraph*{Correcting for Temporal Misalignment between SPAD's\\}\label{sec:taling}
+\paragraph*{Correcting for Temporal Misalignment between SPAD's\\}\label{sec:timealign}
 Another artefact of the pre-production nature of the FLIMera is the fluorescence decays for each pixel are not aligned in the time axis resulting in improper fitting of fluorescence lifetimes and poor recovery of retinal fluorophore concentrations. Correcting this misalignment can be achieved using a pixel offset mask (see \cref{fig:shiftmap}b) which describes how many time-bins each decay should be shifted by. This mask is produced by finding the time-location of the maxima in each pixel and subtracting it from a reference value which ensures the peak of histogram is shifted to this value.
 
 \begin{figure}

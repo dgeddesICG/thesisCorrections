@@ -129,10 +129,60 @@ Despite the lack of spatial variation in the SPAD images, the SFLIM unmixing alg
 Although clear images of the retina could not be formed on the FLIMera, the concentration of retinal FAD can be estimated over the entire FOV using the previously developed SFLIM unmixing algorithms. The SFLIM unmixing method was applied to SFLIM data with and without the application of motion correction. The relative concentrations of retinal fluorophores for each pixel on the FLIMera and the mean concentration can be calculated after masking out malfunctioning pixels with the pixel mask discussed in \cref{sec:pixelmask}. The recovered fluorophore concentrations were then compared over the Normoxia, Hypoxia, Re-Normoxia, and in one case \textit{post-mortem} to establish if the detected changes fitted the predictions made in \cref{sec:FADderivation}. The statistical significance was calculated using a paired student t-test to establish whether a change in retinal fluorophore concentration was detected as a result of a change in the rats physiology (\textcolor{red}{theres probably a better term for this}) or just due to noise. Finally, Principle Components Analysis (PCA) to assess whether the detected changes are due to changes in the fluorescence emission spectra or the fluorescence lifetime.
 \FloatBarrier
 \subsection{Darkfield Correction}\label{subsec:darkfield}
+In the first two of three imaging sessions the fluorescence decay was contaminated by a dark current which appeared as a Gaussian-like function superimposed onto the fluorescence decay (see \cref{fig:darkfieldGauss}). Darkfield FLIM measurements were recorded with the FLIMera covered and the laser shutter closed, such that any signal recorded would originate from either thermal or due to this anomalous dark current. After discussions with the manufacturer of the FLIMera it was confirmed this dark-current was due to poor calibration of the pulse-converter which converts the analogue signal produced by the laser when a pulse is emitted to a digital signal that is at logic-high when photons are to be counted. This was corrected for the final rat imaging session and subsequent fluorescence decays did not exhibit this dark current.
+\begin{figure}
+    \centering
+    \includegraphics[angle = 270, width=0.5\linewidth]{figures/ratUCL/RoughDarkfieldFig.pdf}
+    \caption{Caption}
+    \label{fig:darkfieldGauss}
+\end{figure}
+If not accommodated in the unmixing process, this time-dependent dark current would result in poor convergence of minimising-function (\cref{eq:leastsquaretens}), $\varphi(\mathbf{x})$, to a solution $\mathbf{x}$, given that contamination in the SFLIM measurement, $\mathbf{M}$, is not accounted for in the model of endmember abundances, $\mathcal{A}$
+\begin{equation}
+    \varphi(\mathbf{x}) = \big\lvert\big\lvert \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}\big\rvert\big\rvert_{F}^{2}
+\end{equation}
+Ultimately this would yield unreliable and biased fluorophore concentrations. Instead, the affected time period could be masked out and this region is excluded when evaluating the minimising function. While the dark-current could be characterised by fitting a Gaussian or $\sec^{2}h$ for each pixel and then subtracted from the affected histogram but this could result in over-fitting in histograms with low photon counts - increasing sensitivity to noise. 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/ratUCL/MaskedFittedFigure.pdf}
+    \caption{Figure showing line plots with masked and fitted dark current.}
+    \label{fig:maksed-fitteddarkcurrent}
+\end{figure}
+The masking approach however trades of leaving insufficient photons for unmixing when too many time bins are mask, and masking too few bins leaves the histogram still contaminated - biasing the recovered flourophore concentrations a masking window of XX pixels was selected to strike this balance which left on average YY photons used in the unmixing process after masking the dark-current and excluding the first $\approx \num{50}$ time-bins to remove the influence of the temporal response of the SFLIO device.
+\\
+As an aside, after removing these contaminated time-bins and summing the renaming photon counts to produce a fluorescence intensity image did not solve the problem of no resolvable details of the retina in the FLIMera images.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/ratUCL/MaskedUnmaskedIntensityImage.pdf}
+    \caption{Example SPAD fluorescence intensity image where the dark-current is masked and not masked. Images will look no different...}
+    \label{fig:masked-unmaskedintensityimage}
+\end{figure}
 \FloatBarrier
 \subsection{Recovered Distribution of Retinal Fluorophores}\label{subsec:meanfluor}
+Having now accommodated for the dark-current, retinal fluorophores can now be recovered from SFLIM measurements using the SFLIM unmixing algorithm. Before performing the unmixing, malfunctioning pixels are masked (\cref{sec:pixelmask}), the histograms are aligned in the time axis using the shift map (\cref{sec:timealign}), and the time-bins affected by the dark current are masked. 
+As previously mentioned, the unmixing algorithm is perfomed on each pixel in the SPAD image to produce a corresponding image of fluorophore concentration. The mean fluorophore concentration is then calculated and the relationship between fluorphore concentration can be established.
+\\
+The unmixed fluorophore maps also show no structure or variation across the image but are shown in the following plots 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/ratUCL/Rat1Session1FluorMapsRough.pdf}
+    \caption{Caption}
+    \label{fig:rat1session1fluormaps}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/ratUCL/Rat2Session2FluorMaps.pdf}
+    \caption{Caption}
+    \label{fig:rat2session2fluormaps}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/ratUCL/Rat1Session2FluorMaps.pdf}
+    \caption{Caption}
+    \label{fig:rat1session3fluormaps}
+\end{figure}
 \FloatBarrier
-\section{Correlating Variations in FAD to Changes in Oxygenation}\label{subsec:fluorcorrelate}
+\subsection{Trends in Retinal Fluorophore Concentration as a Response to Acute Hypoxia}
+
 \FloatBarrier
 \subsection{Assessing Statistical Significance of FAD Response}\label{subsec:ttest}
 \FloatBarrier
