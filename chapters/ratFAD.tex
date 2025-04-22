@@ -157,11 +157,10 @@ As an aside, after removing these contaminated time-bins and summing the renamin
     \label{fig:masked-unmaskedintensityimage}
 \end{figure}
 \FloatBarrier
-\subsection{Recovered Distribution of Retinal Fluorophores}\label{subsec:meanfluor}
-Having now accommodated for the dark-current, retinal fluorophores can now be recovered from SFLIM measurements using the SFLIM unmixing algorithm. Before performing the unmixing, malfunctioning pixels are masked (\cref{sec:pixelmask}), the histograms are aligned in the time axis using the shift map (\cref{sec:timealign}), and the time-bins affected by the dark current are masked. 
-As previously mentioned, the unmixing algorithm is perfomed on each pixel in the SPAD image to produce a corresponding image of fluorophore concentration. The mean fluorophore concentration is then calculated and the relationship between fluorphore concentration can be established.
+\subsection{Trends in Retinal Fluorophore Concentration as a Response to Acute Hypoxia}\label{subsec:meanfluor}
+The concentrations of the retinal fluorophores, FAD, AGE, and A2E, and can now be estimated from from SFLIM measurements with the SFLIM unmixing algorithm and any trends due to changes in oxygenation state can be established. Before this analysis, the SFLIM data is processed to mask malfunctioning pixels (\cref{sec:pixelmask}), the fluorescence decays are aligned in the time axis (\cref{sec:timealign}), and the time-bins affected by the previously mentioned dark-current are also masked.
+The unmixing algorithm is performed on SFLIM measurements for each functional pixel on the SPAD array to produce images of relative fluorophore concentrations - shown in \cref{fig:rat1session1fluormaps,fig:rat2session2fluormaps,fig:rat1session3fluormaps}. 
 \\
-The unmixed fluorophore maps also show no structure or variation across the image but are shown in the following plots 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{figures/ratUCL/Rat1Session1FluorMapsRough.pdf}
@@ -180,11 +179,36 @@ The unmixed fluorophore maps also show no structure or variation across the imag
     \caption{Caption}
     \label{fig:rat1session3fluormaps}
 \end{figure}
-\FloatBarrier
-\subsection{Trends in Retinal Fluorophore Concentration as a Response to Acute Hypoxia}
+Much like the integrated intensity maps in () these fluorophore maps show variation across the image that could be correlated to structures in the retina. It would be expected that there would be a background level of FAD due to blood circulating around the choroid and areas of increased FAD around the arteries. 
+Trends between the mean retinal fluorophore concentration and changes in oxygenation state can still be established using these unmixed fluorophore maps.
+\subsubsection{Trends in Retinal Fluorophore Concentration Related to Changes in Oxygenation State}
+For each rat, and each oxygenation state, the mean fluorophore concentration was calculated in terms of the number of photons of FAD, AGE, and A2E that were recovered. Now the prediction made at the start of this chapter - that FAD concentrations should decrease at acute hypoxia, relative to normoxic condition - can be evaluated. If this holds true, then it can be concluded that it is likely that retinal FAD has been detected.
+In \cref{fig:rat1session1-trends, fig:rat2session2-trends, fig:rat1session3-trends} these mean concentrations are plotted and shows that in all three imaging sessions, the recovered FAD concentration decreased with acute hypoxia. 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/ratUCL/FADTrends.png}
+    \caption{\textcolor{red}{place holder graphic}}
+    \label{fig:rat1session1-trends}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/ratUCL/AGETrends.png}
+    \caption{Caption}
+    \label{fig:rat2session2-trends}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/ratUCL/A2ETrends.png}
+    \caption{Caption}
+    \label{fig:rat1session3-trends}
+\end{figure}
+This assertion should not be without scrutiny. Error bars were calculated as the standard error of the mean of repeated measurements of mean retina fluorophore concentrations, constructed from splitting the SFLIM measurements into 10 short sub-acquisitions and recovering retinal fluorophores. As can be seen, most of the reduction in FAD between normoxia and hpyoxia can be attributed to variance in the measurements due to low-photon counts and the possibility of the fluorophores becoming bleached. 
+Additionally, it was predicted that when the rat transitions back to normoxia from hypoxia the FAD concentration should return to its previous levels. This is not seen in the the recovered mean concentrations of FAD. In the one instance where the rat was sacrificed and a SFLIM dataset was acquired the FAD concentration does not go to zero when all metabolic processes cease. A paired student T-test was then carried out on each pair of change in oxygenation to assess whether the trends in retinal fluorophores is due to a change in the oxygenation of the rat or simple variation in the measurements due to high noise.
+
 
 \FloatBarrier
 \subsection{Assessing Statistical Significance of FAD Response}\label{subsec:ttest}
+A paired-student T-test 
 \FloatBarrier
 \subsection{Comparing Detected Changes with PCA and Spectral Angle Maps}\label{subsec:pcarat}
 \FloatBarrier
@@ -257,43 +281,3 @@ The unmixed fluorophore maps also show no structure or variation across the imag
 \end{itemize}
 
 
-
-For the next three sections, \cref{sec:rat1day1results,sec:rat1day2results,sec:rat2results} the results will be presented separately and then brought together for a final meta-analysis and appraisal of the feasibility of detecting FAD in \textit{in-vivo} human retinas
-\section{Results For Rat 1}\label{sec:rat1day1results}
-The protocol outlined above was followed to record SFLIM images of the rat at normoxic (\SI{21}{\percent}\ce{FiO2}) oxygenation states where the spectral bands were recorded time sequentially with 3 minute exposures. For the hypoxic (\SI{15}{\percent}\ce{FiO2}) and 2nd normoxic (\SI{21}{\percent}\ce{FiO2}) data sets the acquisition was split into two short acquisitions of \num{1.5} minutes each to ensure in the event the rat dies prematurely a full SFLIM data set could be recorded. For each oxygenation state the translational movement between brightfield frames is found using a phase cross-correlation method. These shifts in the brightfield frames then converted to corresponding shifts in the FLIMera using a calibration affine transform recorded from a convallaria majalis sample mounted in an artifical eye model. without the additional field lens in place (see \cref{sec:motionreg-convallaria}). Although this field lens does magnify the image it will cause same magnification in both cameras and the relative magnification between the brightfield camera and FLIMera will remain constant. Motion in the FLIMera is then corrected and formed into a $XYT\lambda$ volume is constructed 
-
-\subsection{Image Registration}
-The glare spot produced by the additional field lens was accounted for in the registration by masking a rectangular area large enough to contain the glare spot and accommodate any movement of it see \cref{fig:ratuclglare}. The translational movement between frames was then found using a phase cross-correlation algorithm and was converted to translations in the FLIMera using a calibration transform recorded from convallaria in an artificial eye but 
-
-\subsection{Darkfield Correction}
-% This section will be about the weird hump we saw in the histograms and how it can be dealt with. Fitting with a sech2 or Guassian function was explored but the residuals in the fitting could cause negative counts in the correct histograms 
-
-\subsection{SFLIM Unmixing}
-\subsection{Analysing Changes Fluorophore Concentration with Oxygenation State}
-
-
-% \begin{figure}
-%     \centering
-
-%     \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/ratUCL/ThesisFigure-Rat1RawData.pdf}}
-%     \annotatedFigureText{0.01,0.945}{white}{0.3}{a)}
-%     \annotatedFigureText{0.335,0.945}{white}{0.3}{b)}
-%     \annotatedFigureText{0.665,0.945}{black}{0.3}{c)}
-%     \annotatedFigureText{0.025,0.545}{white}{0.3}{d)}
-%     \annotatedFigureText{0.3,0.55}{black}{0.3}{e)}
-%     \end{annotatedFigure}
-    
-%     \caption{Caption}
-%     \label{fig:rat1rawdata}
-% \end{figure}
-
-\subsection{Darkfield Correction}
-In the histo
-
-\section{Results For Rat 1, Day 2}\label{sec:rat1day2results}
-
-\section{Results For Rat 2}\label{sec:rat2results}
-
-\section{Summary Of Results}
-
-textwidth in inches: \printinunitsof{in}\prntlen{\textwidth}
