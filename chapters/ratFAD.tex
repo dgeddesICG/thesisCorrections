@@ -179,7 +179,7 @@ The unmixing algorithm is performed on SFLIM measurements for each functional pi
     \caption{Caption}
     \label{fig:rat1session3fluormaps}
 \end{figure}
-Much like the integrated intensity maps in () these fluorophore maps show variation across the image that could be correlated to structures in the retina. It would be expected that there would be a background level of FAD due to blood circulating around the choroid and areas of increased FAD around the arteries. 
+Much like the integrated intensity maps in () these maps of fluorophore concentration show no variation across the image that could be correlated to structures in the retina. It would be expected that there would be a background level of FAD due to blood circulating around the choroid and areas of increased FAD around the arteries. 
 Trends between the mean retinal fluorophore concentration and changes in oxygenation state can still be established using these unmixed fluorophore maps.
 \subsubsection{Trends in Retinal Fluorophore Concentration Related to Changes in Oxygenation State}
 For each rat, and each oxygenation state, the mean fluorophore concentration was calculated in terms of the number of photons of FAD, AGE, and A2E that were recovered. Now the prediction made at the start of this chapter - that FAD concentrations should decrease at acute hypoxia, relative to normoxic condition - can be evaluated. If this holds true, then it can be concluded that it is likely that retinal FAD has been detected.
@@ -203,12 +203,91 @@ In \cref{fig:rat1session1-trends, fig:rat2session2-trends, fig:rat1session3-tren
     \label{fig:rat1session3-trends}
 \end{figure}
 This assertion should not be without scrutiny. Error bars were calculated as the standard error of the mean of repeated measurements of mean retina fluorophore concentrations, constructed from splitting the SFLIM measurements into 10 short sub-acquisitions and recovering retinal fluorophores. As can be seen, most of the reduction in FAD between normoxia and hpyoxia can be attributed to variance in the measurements due to low-photon counts and the possibility of the fluorophores becoming bleached. 
-Additionally, it was predicted that when the rat transitions back to normoxia from hypoxia the FAD concentration should return to its previous levels. This is not seen in the the recovered mean concentrations of FAD. In the one instance where the rat was sacrificed and a SFLIM dataset was acquired the FAD concentration does not go to zero when all metabolic processes cease. A paired student T-test was then carried out on each pair of change in oxygenation to assess whether the trends in retinal fluorophores is due to a change in the oxygenation of the rat or simple variation in the measurements due to high noise.
+Additionally, it was predicted that when the rat transitions back to normoxia from hypoxia the FAD concentration should return to its previous levels. This is not seen in the the recovered mean concentrations of FAD. In the one instance where the rat was sacrificed and a SFLIM dataset was acquired the FAD concentration does not decay to zero when all metabolic processes cease. A paired student T-test was then carried out on each pair of change in oxygenation to assess whether the trends in retinal fluorophores is due to a change in the oxygenation of the rat or simple variation in the measurements due to high noise.
 
 
 \FloatBarrier
 \subsection{Assessing Statistical Significance of FAD Response}\label{subsec:ttest}
-A paired-student T-test 
+The error, or variation, in the recovered fluorophore concentrations is on the same order as the change in mean-concentration between oxygenation states. This introduces uncertainty in whether the change in FAD concentration that was measured is actually caused by varying the consumption of oxygenation in the rat or simply variation in the measurement. To address this concern a ``Student Paired t-test'' can be performed on the recovered fluorophore concentration to bound the probability, $p$, of the change we measured being due to variation in the measurement - termed "null hypothesis" - with the probability that the induction of hypoxia did cause a change in the FAD concentration with probability $1-p$. 
+To perform a Student Paired t-test. The standard error of the mean of differences between the recovered concentrations for two oxygenations states, $x_{i}$ and $y_{i}$ is calculated to derive the T-statistic, $T = \nicefrac{\Bar{\Delta}_{xy}}{\Bar{\sigma}_{xy}}$. Where $\Bar{\Delta}_{xy}$ is the mean difference between two oxygenation states, $x$ and $y$, 
+\begin{equation}
+    \Bar{\Delta}_{xy} = \overline{ x_{i} - y_{i}}
+\end{equation}
+and $\Bar{\sigma}_{xy}$ is the standard error computed from the standard deviation, $\sigma_{xy}$, over $n$ samples.
+\begin{equation}
+    \Bar{\sigma}_{xy} = \frac{\sigma_{xy}}{\sqrt{n}}
+\end{equation}
+By comparing the T-statistic with a $t$-distribution the $p$-value can be extracted to give a probability of the null-hypothesis.
+
+\begin{table}[t]
+    \centering
+    \sisetup{table-alignment-mode=format, round-mode=figures}
+    \small
+    \begin{tabular}{|p{3.2cm}|  S[table-column-width = 1.5cm, round-precision=4]|
+                                S[table-column-width = 1.5cm, round-precision=2]|
+                                S[table-column-width = 1.5cm, round-precision=4]|
+                                S[table-column-width = 1.5cm, round-precision=2]|
+                                S[table-column-width = 1.5cm, round-precision=4]|
+                                S[table-column-width = 1.5cm, round-precision=2]|
+                                S[table-column-width = 1.5cm, round-precision=4]|
+                                S[table-column-width = 1.5cm, round-precision=2]|
+                                S[table-column-width = 1.5cm, round-precision=4]|
+                                S[table-column-width = 1.5cm, round-precision=2]|}
+        \hline
+        & \multicolumn{2}{c|}{Rat 1 - Session 1} & \multicolumn{2}{c|}{Rat 2 - Session 1} & \multicolumn{2}{c|}{Rat 1 - Session 2} \\
+        \hline
+       Change in Oxy.& {$\Delta_{FAD}$} & {$p$-value}  & {$\Delta_{FAD}$} & {$p$-value}  & {$\Delta_{FAD}$} & {$p$-value} \\
+        State & {(\%)} & & {(\%)} & & {(\%)} &\\
+       \hline
+       Norm. To Hyp. & \num{-31.306511215525244} & \num{4.78989243667469e-07} & \num{-54.83078399530178} & \num{5.535602434791192e-09} & \num{-32.76058614849388} &\num{5.438630613110299e-09}\\
+       \hline
+       Hyp. To Nor. 2 & \num{7.896276165081215} & \num{0.04001956386363361} & 14.76457257722695 & \num{4.7271147283432893e-07} & \num{51.55500731722816}& \num{2.053319524750847e-06}\\
+       \hline
+       Norm. To Norm. 2 &  \num{-24.501622691262938} & \num{8.510036758754948e-09} & \num{-43.60961563462101} & \num{2.926951097621746e-08} & \num{22.68463380231996} &\num{2.520271452591082e-04}\\
+       \hline
+       Norm. To Death & &  &\num{-43.609523917005596}& \num{2.9270614725268114e-08}& &  \\
+       \hline
+       Hyp. To Death &  &  &\num{14.764680152018073}& \num{4.726990805630476e-07}&  &  \\
+       \hline
+       Norm. 2 To Death & & &\num{1.1103759888503495e-4} &\num{0.05743584614696069}& & \\
+       \hline
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+
+% \begin{table}
+%     % table for 070224
+%     \begin{subtable}{0.45\textwidth}
+%         \centering
+%         \begin{tabular}{|c|c|c|}[t]
+%              Change in Oxygenation State & Relative change in FAD &  $p$-value\\ 
+%         \end{tabular}
+%         \caption{tab 1}
+%         \label{tab:ttest-070224}
+%     \end{subtable}
+%     % table 080224
+%     \begin{subtable}{0.45\textwidth}
+%         \centering
+%         \begin{tabular}{|c|c|c|}[t]
+%             Change in Oxygenation State & Relative change in FAD & $p$-value\\
+%         \end{tabular}
+%         \caption{tab 2}
+%         \label{tab:ttest-080224}
+%     \end{subtable}
+%     % table 090224
+%     \begin{subtable}{0.45\textwidth}
+%         \centering
+%         \begin{tabular}{|c|c|c|}[t]
+%             Oxygenation State & Relative change in FAD & $p$-value\\
+%         \end{tabular}
+%         \caption{tab 3}
+%         \label{tab:ttest-090224}
+%     \end{subtable}
+
+% \end{table}
+
 \FloatBarrier
 \subsection{Comparing Detected Changes with PCA and Spectral Angle Maps}\label{subsec:pcarat}
 \FloatBarrier
