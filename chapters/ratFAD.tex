@@ -217,22 +217,27 @@ and $\Bar{\sigma}_{xy}$ is the standard error computed from the standard deviati
 \begin{equation}
     \Bar{\sigma}_{xy} = \frac{\sigma_{xy}}{\sqrt{n}}
 \end{equation}
-By comparing the T-statistic with a $t$-distribution the $p$-value can be extracted to give a probability of the null-hypothesis.
 
+By comparing the T-statistic with a $t$-distribution (\cref{eq:tdist}) with $n$ degrees-of-freedom, the $p$-value can be extracted to give a probability of the null-hypothesis. 
+\begin{equation}\label{eq:tdist}
+    f(t) = \frac{\Gamma(\frac{n+1}{2})}{\sqrt{\pi}\Gamma(\frac{n}{2})}\Bigg(1 + \frac{t^{2}}{n}\Bigg)^{-(\frac{n+1}{2})}
+\end{equation}For each fluorophore the change in concentration is calculated as the percentage change of total number of photons recorded over two different oxygenation states. The $p$-value is then computed using a $t$-distribution look-up table (``\textit{scipy}'' \textit{python} package) and is shown in \cref{tab:ttestFAD,tab:ttestAGE,tab:ttestA2E}. 
+
+%table or FAD
 \begin{table}[t]
     \centering
-    \sisetup{table-alignment-mode=format, round-mode=figures}
+    \sisetup{table-alignment-mode=format, round-mode=figures, table-column-width = 1.5cm}
     \small
-    \begin{tabular}{|p{3.2cm}|  S[table-column-width = 1.5cm, round-precision=4]|
-                                S[table-column-width = 1.5cm, round-precision=2]|
-                                S[table-column-width = 1.5cm, round-precision=4]|
-                                S[table-column-width = 1.5cm, round-precision=2]|
-                                S[table-column-width = 1.5cm, round-precision=4]|
-                                S[table-column-width = 1.5cm, round-precision=2]|
-                                S[table-column-width = 1.5cm, round-precision=4]|
-                                S[table-column-width = 1.5cm, round-precision=2]|
-                                S[table-column-width = 1.5cm, round-precision=4]|
-                                S[table-column-width = 1.5cm, round-precision=2]|}
+    \begin{tabular}{|p{3.2cm}|  S[round-precision=4]|
+                                S[round-precision=2]|
+                                S[round-precision=4]|
+                                S[round-precision=2]|
+                                S[round-precision=4]|
+                                S[round-precision=2]|
+                                S[round-precision=4]|
+                                S[round-precision=2]|
+                                S[round-precision=4]|
+                                S[round-precision=2]|}
         \hline
         & \multicolumn{2}{c|}{Rat 1 - Session 1} & \multicolumn{2}{c|}{Rat 2 - Session 1} & \multicolumn{2}{c|}{Rat 1 - Session 2} \\
         \hline
@@ -249,47 +254,110 @@ By comparing the T-statistic with a $t$-distribution the $p$-value can be extrac
        \hline
        Hyp. To Death &  &  &\num{14.764680152018073}& \num{4.726990805630476e-07}&  &  \\
        \hline
-       Norm. 2 To Death & & &\num{1.1103759888503495e-4} &\num{0.05743584614696069}& & \\
+       Norm. 2 To Death & & & {\num[round-mode=places, round-precision=4]{0.00011}} &\num{0.05743584614696069}& & \\
        \hline
     \end{tabular}
-    \caption{Caption}
-    \label{tab:my_label}
+    \caption{The $p$-value for the measured changes in FAD concentration has been calculated for each pair of oxygenation states for each imaging session: Normoxia to Hypoxia; Hypoxia back to Normoxia; between the both measurements of a Normoxic state; and permutations where the rat was sacrificed. Lower $p$-values indicate a higher likelihood that a physiological change was detected in the SFLIM measurements - variation in the results is not simply due to sample variation}
+    \label{tab:ttestFAD}
+\end{table}
+
+%table for AGE
+\begin{table}[t]
+    \centering
+    \sisetup{table-alignment-mode=format, round-mode=figures, table-column-width = 1.5cm}
+    \small
+    \begin{tabular}{|p{3.2cm}|  S[round-precision=4]|
+                                S[round-precision=2]|
+                                S[round-precision=4]|
+                                S[round-precision=2]|
+                                S[round-precision=4]|
+                                S[round-precision=2]|
+                                S[round-precision=4]|
+                                S[round-precision=2]|
+                                S[round-precision=4]|
+                                S[round-precision=2]|}
+        \hline
+        & \multicolumn{2}{c|}{Rat 1 - Session 1} & \multicolumn{2}{c|}{Rat 2 - Session 1} & \multicolumn{2}{c|}{Rat 1 - Session 2} \\
+        \hline
+       Change in Oxy.& {$\Delta_{AGE}$} & {$p$-value}  & {$\Delta_{AGE}$} & {$p$-value}  & {$\Delta_{AGE}$} & {$p$-value} \\
+        State & {(\%)} & & {(\%)} & & {(\%)} &\\
+       \hline
+       Norm. To Hyp. & \num{36.73845540879449} & \num{1.2129855908953851e-09} & \num{55.94262439767155} & \num{0.1588847726902607} & \num{-4.869533327623472} &\num{0.01476854947998337}\\
+       \hline
+       Hyp. To Nor. 2 & \num{-36.47776055506893} & \num{5.458684853053609e-10} & \num{-67.14473694997025} & \num{0.028701101342988936} & \num{-4.58604064439413}& \num{0.03315636788775767}\\
+       \hline
+       Norm. To Norm. 2 &  \num{0.5207084290772277} & \num{0.378107436641914} & \num{-15.264845593890513} & \num{0.04101290831611819} & \num{-9.376587991622035} &\num{0.004406940283828267}\\
+       \hline
+       Norm. To Death & &  &\num{-15.264100742018567}& \num{0.005133755889685807}& &  \\
+       \hline
+       Hyp. To Death &  &  &\num{-67.14432734548367}& \num{3.682486022535063e-08} &  &  \\
+       \hline
+       Norm. 2 To Death & & & {\num[round-mode=places, round-precision=4]{0.000819894114190679}} &\num{0.032766934545733456}& & \\
+       \hline
+    \end{tabular}
+    \caption{The $p$-value for the measured changes in FAD concentration has been calculated for each pair of oxygenation states : Normoxia to Hypoxia; Hypoxia back to Normoxia; between the both measurements of a Normoxic state; and permutations where the rat was sacrificed for each imaging session. Lower $p$-values indicate a higher likelihood that a physiological change was detected in the SFLIM measurements - variation in the results is not simply due to sample variation}
+    \label{tab:ttestAGE}
 \end{table}
 
 
-% \begin{table}
-%     % table for 070224
-%     \begin{subtable}{0.45\textwidth}
-%         \centering
-%         \begin{tabular}{|c|c|c|}[t]
-%              Change in Oxygenation State & Relative change in FAD &  $p$-value\\ 
-%         \end{tabular}
-%         \caption{tab 1}
-%         \label{tab:ttest-070224}
-%     \end{subtable}
-%     % table 080224
-%     \begin{subtable}{0.45\textwidth}
-%         \centering
-%         \begin{tabular}{|c|c|c|}[t]
-%             Change in Oxygenation State & Relative change in FAD & $p$-value\\
-%         \end{tabular}
-%         \caption{tab 2}
-%         \label{tab:ttest-080224}
-%     \end{subtable}
-%     % table 090224
-%     \begin{subtable}{0.45\textwidth}
-%         \centering
-%         \begin{tabular}{|c|c|c|}[t]
-%             Oxygenation State & Relative change in FAD & $p$-value\\
-%         \end{tabular}
-%         \caption{tab 3}
-%         \label{tab:ttest-090224}
-%     \end{subtable}
 
-% \end{table}
+%A2E Table
+
+\begin{table}[t]
+    \centering
+    \sisetup{table-alignment-mode=format, round-mode=figures, table-column-width = 1.5cm}
+    \small
+    \begin{tabular}{|p{3.2cm}|  S[round-precision=4]|
+                                S[round-precision=2]|
+                                S[round-precision=4]|
+                                S[round-precision=2]|
+                                S[round-precision=4]|
+                                S[round-precision=2]|
+                                S[round-precision=4]|
+                                S[round-precision=2]|
+                                S[round-precision=4]|
+                                S[round-precision=2]|}
+        \hline
+        & \multicolumn{2}{c|}{Rat 1 - Session 1} & \multicolumn{2}{c|}{Rat 2 - Session 1} & \multicolumn{2}{c|}{Rat 1 - Session 2} \\
+        \hline
+       Change in Oxy.& {$\Delta_{A2E}$} & {$p$-value}  & {$\Delta_{A2E}$} & {$p$-value}  & {$\Delta_{A2E}$} & {$p$-value} \\
+        State & {(\%)} & & {(\%)} & & {(\%)} &\\
+       \hline
+       Norm. To Hyp. & \num{62.13010322707054} & \num{1.0740993673380998e-11} & \num{5.027149310079019} & \num{0.08183947292419991} & \num{-26.69017034022325} &\num{5.154642206973885e-09}\\
+       \hline
+       Hyp. To Nor. 2 & \num{-42.71268278804473} & \num{1.830243802194944e-12} & \num{-28.48335445402891} & \num{0.05633120789198803} & \num{6.639735558159754}& \num{3.0127109988835988e-06}\\
+       \hline
+       Norm. To Norm. 2 &  \num{26.420008804075852} & \num{2.0075775208559094e-07} & \num{-23.65399336336594} & \num{0.07484643982404204} & \num{-20.46661779529254} &\num{3.5187463156723894e-08}\\
+       \hline
+       Norm. To Death & &  &\num{-23.654034685580303}& \num{5.615975463161401e-05} & &  \\
+       \hline
+       Hyp. To Death &  &  &\num{-28.483398694681544}& \num{1.3725568075817538e-07} &  &  \\
+       \hline
+       Norm. 2 To Death & & &{\num[round-mode=places, round-precision=5]{-0.00005589514560848622}} & \num{0.37480529225054726} & & \\
+       \hline
+    \end{tabular}
+    \caption{The $p$-value for the measured changes in FAD concentration has been calculated for each pair of oxygenation states : Normoxia to Hypoxia; Hypoxia back to Normoxia; between the both measurements of a Normoxic state; and permutations where the rat was sacrificed for each imaging session. Lower $p$-values indicate a higher likelihood that a physiological change was detected in the SFLIM measurements - variation in the results is not simply due to sample variation}
+    \label{tab:ttestA2E}
+\end{table}
+For FAD over all 3 imaging sessions a similar decrease in apparent FAD concentration is recorded with $p$-values indicating a high confidence that ``something'' has changed in response to changing the rats physiology. This is follows the expectations set out in the beginning of the chapter but there are some disagreements. Interestingly, what is not seen is the concentration of FAD returning to its initial value after the rat is returned to a normoxic state after being in hypoxia - implying that the FAD is not being restored when after no longer being hypoxic. A disagreement in the recovered FAD concentrations with the expected change due to physiology is also seen in SFLIM measurements from where the rat is sacrificed - all metabolic functions have ceased - and all the FAD in the retina should have dissipated. While the measured concentration of FAD does show a decrease from the initial normoxic state to death (albeit not to zero) the \textit{post-mortem} FAD concentration is the same or higher when the rat is hypoxic, or the same when compared to when the rat is normoxic after having been hypoxic. This true for all 3 fluorophores when comparing this second normoxic state to \textit{post-mortem} fluorophore concentrations.
+This incongruence between the recovered fluorophore concentrations and what was expected from the variations of physiology required further analysis into whether the SFLIM measurements actually show variation between oxygenation states. In the next section, a simple technique of Principle Components Analysis is used on the spectral domain to uncover changes between oxygenation states to motivate the hypothesis that changes in recovered FAD changes are correlated to changes in SFLIM measurements.
+
 
 \FloatBarrier
 \subsection{Comparing Detected Changes with PCA and Spectral Angle Maps}\label{subsec:pcarat}
+To reinforce the connection between the recovered FAD concentration and oxygenation state, the technique Principle Components Analysis (PCA) can be used to affirm two hypotheses: that the SFLIM measurements show changes in the spectra and lifetime domain as a response to changing physiology in the rat; and SFLIM unmixing algorithm is capable of uncovering these changes with accuracy and precision sufficient to detect FAD. PCA performs a coordinate transformation to reduce the number of dimensions (orthonormal bases) in a dataset to those which exhibit the most variation - containing the most information. This technique is particularly useful for distilling higher-dimensional datasets into typically 2 dimensions that can be visualised by humans and is readily used for segmenting spectral images \addcite. PCA is used on the SFLIM measurements $(XYT\lambda)$ after summing over the time-axis to produce spectral images $(XY\lambda)$ which are then represented as 4D point-clouds. If the fluorescence emission spectra is changing as a response of hypoxia then the point-cloud for each oxygenation state should be readily distinguishable when plotting the first 2 principle-components.
+\subsubsection{PCA Maps of SFLIM Data}
+As previously mentioned the SFLIM measurements are summed over the time axis to form spectral images and are then area normalised so that spectra from different oxygenations states can be directly compared. The 4D point-clouds - 1 dimension for each spectral band - for each oxygenation states are then concatenated together. The first two principle components are then found and the corresponding coordinate transformation is applied to produce a 2D point-cloud which can be colour-coded for each oxygenation state
+\printinunitsof{in}\prntlen{\textwidth}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
+
+
 \FloatBarrier
 \section{Conclusions}\label{sec:uclconcs}
 \section{Future Work and Experimental Improvements}
