@@ -221,12 +221,12 @@ and $\Bar{\sigma}_{xy}$ is the standard error computed from the standard deviati
 By comparing the T-statistic with a $t$-distribution (\cref{eq:tdist}) with $n$ degrees-of-freedom, the $p$-value can be extracted to give a probability of the null-hypothesis. 
 \begin{equation}\label{eq:tdist}
     f(t) = \frac{\Gamma(\frac{n+1}{2})}{\sqrt{\pi}\Gamma(\frac{n}{2})}\Bigg(1 + \frac{t^{2}}{n}\Bigg)^{-(\frac{n+1}{2})}
-\end{equation}For each fluorophore the change in concentration is calculated as the percentage change of total number of photons recorded over two different oxygenation states. The $p$-value is then computed using a $t$-distribution look-up table (``\textit{scipy}'' \textit{python} package) and is shown in \cref{tab:ttestFAD,tab:ttestAGE,tab:ttestA2E}. 
+\end{equation}For each fluorophore the change in concentration is calculated as the percentage change of total number of photons recorded over two different oxygenation states. The $p$-value is then computed using a $t$-distribution look-up table (``\textit{scipy}'' \textit{python} package) and is shown in \cref{tab:ttestMain}. 
 
-%table or FAD
-\begin{table}[t]
+\begin{table}
+    \begin{subtable}[t]{0.9\textwidth}
     \centering
-    \sisetup{table-alignment-mode=format, round-mode=figures, table-column-width = 1.5cm}
+    \sisetup{table-alignment-mode=format, round-mode=figures, table-column-width=1.5cm}
     \small
     \begin{tabular}{|p{3.2cm}|  S[round-precision=4]|
                                 S[round-precision=2]|
@@ -256,15 +256,15 @@ By comparing the T-statistic with a $t$-distribution (\cref{eq:tdist}) with $n$ 
        \hline
        Norm. 2 To Death & & & {\num[round-mode=places, round-precision=4]{0.00011}} &\num{0.05743584614696069}& & \\
        \hline
+                                
     \end{tabular}
-    \caption{The $p$-value for the measured changes in FAD concentration has been calculated for each pair of oxygenation states for each imaging session: Normoxia to Hypoxia; Hypoxia back to Normoxia; between the both measurements of a Normoxic state; and permutations where the rat was sacrificed. Lower $p$-values indicate a higher likelihood that a physiological change was detected in the SFLIM measurements - variation in the results is not simply due to sample variation}
+    \caption{sub table FAD}
     \label{tab:ttestFAD}
-\end{table}
-
-%table for AGE
-\begin{table}[t]
+    \end{subtable}
+    
+    \begin{subtable}[t]{0.9\textwidth}
     \centering
-    \sisetup{table-alignment-mode=format, round-mode=figures, table-column-width = 1.5cm}
+    \sisetup{table-alignment-mode=format, round-mode=figures, table-column-width=1.5cm}
     \small
     \begin{tabular}{|p{3.2cm}|  S[round-precision=4]|
                                 S[round-precision=2]|
@@ -276,6 +276,7 @@ By comparing the T-statistic with a $t$-distribution (\cref{eq:tdist}) with $n$ 
                                 S[round-precision=2]|
                                 S[round-precision=4]|
                                 S[round-precision=2]|}
+
         \hline
         & \multicolumn{2}{c|}{Rat 1 - Session 1} & \multicolumn{2}{c|}{Rat 2 - Session 1} & \multicolumn{2}{c|}{Rat 1 - Session 2} \\
         \hline
@@ -293,20 +294,17 @@ By comparing the T-statistic with a $t$-distribution (\cref{eq:tdist}) with $n$ 
        Hyp. To Death &  &  &\num{-67.14432734548367}& \num{3.682486022535063e-08} &  &  \\
        \hline
        Norm. 2 To Death & & & {\num[round-mode=places, round-precision=4]{0.000819894114190679}} &\num{0.032766934545733456}& & \\
-       \hline
-    \end{tabular}
-    \caption{The $p$-value for the measured changes in FAD concentration has been calculated for each pair of oxygenation states : Normoxia to Hypoxia; Hypoxia back to Normoxia; between the both measurements of a Normoxic state; and permutations where the rat was sacrificed for each imaging session. Lower $p$-values indicate a higher likelihood that a physiological change was detected in the SFLIM measurements - variation in the results is not simply due to sample variation}
-    \label{tab:ttestAGE}
-\end{table}
+       \hline                                
+    \end{tabular}   
+    \caption{sub table AGE}
+    \label{tab:ttsetAGE}
+    \end{subtable}
 
-
-
-%A2E Table
-
-\begin{table}[t]
+    
+    \begin{subtable}[t]{0.9\textwidth}
     \centering
-    \sisetup{table-alignment-mode=format, round-mode=figures, table-column-width = 1.5cm}
     \small
+    \sisetup{table-alignment-mode=format, round-mode=figures, table-column-width=1.5cm}
     \begin{tabular}{|p{3.2cm}|  S[round-precision=4]|
                                 S[round-precision=2]|
                                 S[round-precision=4]|
@@ -316,7 +314,7 @@ By comparing the T-statistic with a $t$-distribution (\cref{eq:tdist}) with $n$ 
                                 S[round-precision=4]|
                                 S[round-precision=2]|
                                 S[round-precision=4]|
-                                S[round-precision=2]|}
+                                S[round-precision=2]|}   
         \hline
         & \multicolumn{2}{c|}{Rat 1 - Session 1} & \multicolumn{2}{c|}{Rat 2 - Session 1} & \multicolumn{2}{c|}{Rat 1 - Session 2} \\
         \hline
@@ -336,8 +334,11 @@ By comparing the T-statistic with a $t$-distribution (\cref{eq:tdist}) with $n$ 
        Norm. 2 To Death & & &{\num[round-mode=places, round-precision=5]{-0.00005589514560848622}} & \num{0.37480529225054726} & & \\
        \hline
     \end{tabular}
-    \caption{The $p$-value for the measured changes in FAD concentration has been calculated for each pair of oxygenation states : Normoxia to Hypoxia; Hypoxia back to Normoxia; between the both measurements of a Normoxic state; and permutations where the rat was sacrificed for each imaging session. Lower $p$-values indicate a higher likelihood that a physiological change was detected in the SFLIM measurements - variation in the results is not simply due to sample variation}
+    \caption{sub table A2E}
     \label{tab:ttestA2E}
+\end{subtable}
+\caption{The $p$-value for the measured changes in the concentration of the fluorophores FAD, AGE, and A2E has been calculated for each pair of oxygenation states for each imaging session: Normoxia to Hypoxia; Hypoxia back to Normoxia; between the both measurements of a Normoxic state; and permutations where the rat was sacrificed. Lower $p$-values indicate a higher likelihood that a physiological change was detected in the SFLIM measurements - variation in the results is not simply due to sample variation}
+\label{tab:ttestMain}
 \end{table}
 For FAD over all 3 imaging sessions a similar decrease in apparent FAD concentration is recorded with $p$-values indicating a high confidence that ``something'' has changed in response to changing the rats physiology. This is follows the expectations set out in the beginning of the chapter but there are some disagreements. Interestingly, what is not seen is the concentration of FAD returning to its initial value after the rat is returned to a normoxic state after being in hypoxia - implying that the FAD is not being restored when after no longer being hypoxic. A disagreement in the recovered FAD concentrations with the expected change due to physiology is also seen in SFLIM measurements from where the rat is sacrificed - all metabolic functions have ceased - and all the FAD in the retina should have dissipated. While the measured concentration of FAD does show a decrease from the initial normoxic state to death (albeit not to zero) the \textit{post-mortem} FAD concentration is the same or higher when the rat is hypoxic, or the same when compared to when the rat is normoxic after having been hypoxic. This true for all 3 fluorophores when comparing this second normoxic state to \textit{post-mortem} fluorophore concentrations.
 This incongruence between the recovered fluorophore concentrations and what was expected from the variations of physiology required further analysis into whether the SFLIM measurements actually show variation between oxygenation states. In the next section, a simple technique of Principle Components Analysis is used on the spectral domain to uncover changes between oxygenation states to motivate the hypothesis that changes in recovered FAD changes are correlated to changes in SFLIM measurements.
@@ -345,65 +346,44 @@ This incongruence between the recovered fluorophore concentrations and what was 
 
 \FloatBarrier
 \subsection{Comparing Detected Changes with PCA and Spectral Angle Maps}\label{subsec:pcarat}
-To reinforce the connection between the recovered FAD concentration and oxygenation state, the technique Principle Components Analysis (PCA) can be used to affirm two hypotheses: that the SFLIM measurements show changes in the spectra and lifetime domain as a response to changing physiology in the rat; and SFLIM unmixing algorithm is capable of uncovering these changes with accuracy and precision sufficient to detect FAD. PCA performs a coordinate transformation to reduce the number of dimensions (orthonormal bases) in a dataset to those which exhibit the most variation - containing the most information. This technique is particularly useful for distilling higher-dimensional datasets into typically 2 dimensions that can be visualised by humans and is readily used for segmenting spectral images \addcite. PCA is used on the SFLIM measurements $(XYT\lambda)$ after summing over the time-axis to produce spectral images $(XY\lambda)$ which are then represented as 4D point-clouds. If the fluorescence emission spectra is changing as a response of hypoxia then the point-cloud for each oxygenation state should be readily distinguishable when plotting the first 2 principle-components.
+To reinforce the connection between the recovered FAD concentration and oxygenation state, the technique Principle Components Analysis (PCA) can be used to affirm two hypotheses: that the SFLIM measurements show changes in the spectra and lifetime domain as a response to changing physiology in the rat; and SFLIM unmixing algorithm is capable of uncovering these changes with accuracy and precision sufficient to detect FAD. PCA uses a coordinate transformation to reduce the number of orthonormal bases (dimensions) in a dataset to those which exhibit the most variation or information. This technique is particularly useful for distilling higher-dimensional datasets into typically 2 dimensions that can be visualised by humans and is readily used for identifying unique endmembers in spectral images \addcite. The SFLIM measurements of in-vivo rat retinas can be reduced into spectral images and analysed using PCA to identify the fluorescence emission spectra is changing as a response to hypoxia - with premise being that each oxygenation state will occupy unique regions in the plane of 2 principal components.
 \subsubsection{PCA Maps of SFLIM Data}
-As previously mentioned the SFLIM measurements are summed over the time axis to form spectral images and are then area normalised so that spectra from different oxygenations states can be directly compared. The 4D point-clouds - 1 dimension for each spectral band - for each oxygenation states are then concatenated together. The first two principle components are then found and the corresponding coordinate transformation is applied to produce a 2D point-cloud which can be colour-coded for each oxygenation state
-\printinunitsof{in}\prntlen{\textwidth}
+Before the principal components can be used, the SFLIM measurements are formed into spectral images by summing across the time access of the $I(x,y,t,\lambda)$ volume and area normalised to form $I'(x,y,t,\lambda)$.
+\begin{equation}
+    I'(x,y,t,\lambda) = \frac{I(x,y,t,\lambda)}{\int_{0}^{\infty}I(x,y,t,\lambda)d\lambda}
+\end{equation}
+The area normalisation allows for spectra of the same pixel on the SPAD $(XY)$ but differing oxygenation state to be compared. The 4D point-clouds - 1 dimension for each spectral band - for each oxygenation states are then concatenated together such that the principal components are optimised for the every oxygenation state. The first two principle components are then found and the corresponding coordinate transformation is applied to produce 2D point-clouds which are colour-coded for each oxygenation state in \cref{fig:ratPCA}.
+%\printinunitsof{in}\prntlen{\textwidth}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{}
-    \caption{Caption}
-    \label{fig:enter-label}
+    \begin{annotatedFigure}{\includegraphics[width=0.9\textwidth]{figures/ratUCL/RatOxygenationPCAPlot.pdf}}
+        \annotatedFigureText{0.01,0.97}{black}{0.3}{a)}
+        \annotatedFigureText{0.53,0.97}{black}{0.3}{b)}
+        \annotatedFigureText{0.24,0.50}{black}{0.3}{c)}
+
+    \end{annotatedFigure}
+    \caption{First 2 principal components of spectra images recorded of the pair of rats that were imaged over 3 sessions (a-c). The normoxic and hypoxic point clouds occupying separate regions in (a) and (c) indicates that as a response to hypoxia the fluorescence emission of the retina does change. The fact that the other oxygenation states do not form unique clusters does indicate either the restoration of metabolic function after hypoxia takes place over longer than expected time scales and/or a shortcoming in the SFLIM unmixing algorithm and SFLIO device.}
+    \label{fig:ratPCA}
 \end{figure}
+In \cref{fig:ratPCA}a and \cref{fig:ratPCA}c, there is visibly separate regions occupied by the spectra of the normoxic and hypoxic states indicating that there is a change in the fluorescence emission spectra in the rat retina as a response to acute hypoxia. However, what is not evident in \cref{fig:ratPCA}a-c - but was expected - would be significant overlap between the regions of the initial normoxic state and the spectra recorded after the rat was brought back to normoxia after being hypoxic. Instead it appears that the measurements of the second period of normoxia highly overlap the hypoxic measurements which could be explained as a combination of both physiological factors and a limitation of the SFLIO device and SFLIM unmixing algorithm. When transitioning between oxygenation states the rats were allowed a period of \qtyrange{2}{3}{\minute} to allow metabolic functions to stabilise or return to normal. It is likely that if this refractory period was not long enough then this would result in the metabolites such as FAD, and AGE not being fully replenished and being produced at a healthy rate before the next SFLIM dataset was recorded. As to the high overlap between every oxygenation state when the first rat was re-imaged, phototoxic damage to the retina from the long and intense exposure of the previous imaging session could have disrupted the production of metabolites, FAD and AGE, and damaged the RPE which is responsible for the fluorescence from A2E \addcite. The lasers exposure would be estimated to be around \numproduct{2.5 x 3} as intense (power per unit area~\cite{yao2021understanding}) as the safety threshold for safe human imaging and sustained for over \qty{30}{\minute} and could readily result in permanent damage to the rats retina.
+\FloatBarrier
+\subsubsection{Quantitative Assessment of }
+The perceived separation in the map of principal components in \cref{fig:ratPCA} can be quantified using the metric of the Spectral Angle Map (SAM), shown in \cref{eq:sam2} to calculate the overlap between pairs of oxygenation states $\mathbf{a}$ and $\mathbf{b}$.
+\begin{equation}\label{eq:sam2}
+    \varphi = \frac{\mathbf{a}\cdot \mathbf{b}}{\lvert \mathbf{a} \rvert\,\lvert \mathbf{b} \rvert}
+\end{equation}
+For every combination of 2 oxygenation states the spectral angle, $\varphi$, is computed pointwise, allowing for the mean overlap to be calculated. 
 
 
+To Do Make a table of spectral angles - do it in the style of the p-value one but a seperate table for each rat.
+Write about results of this - then sections done!
 \FloatBarrier
 \section{Conclusions}\label{sec:uclconcs}
 \section{Future Work and Experimental Improvements}
 
 \section{Outline / TO DO}
 \begin{itemize}
-    \item Experimental Method
-    \begin{itemize}
-        \item Rats were anaesthetized using isofluorane and oxygenation state was controlled using nitrogen mixed in with room air. The rats eyelid is stitched open and a contact and viscotears was used to index match the eye and prevent it from drying out.
-        \item rats were imaged a normoxic oxygen state for all four spectral filters for a period for 2.5 minutes each. 
-        \item For hypoxia the instability of the rats meant that instead of a single acquisition period two periods of 2 minutes and 1.5 minutes we used. This extra time would account for the short period of time where the laser shutter is closed and then opened for the purpose of registering the brightfield and FLIM channels.
-        \item bright field images were recorced throughout the FLIM acquisitions period at a rate of 10Hz with integration times of 30ms. This integration time is short enough to saccades and drifts in human eyes but in the anaesthetized rats these saccades are suppressed.
-        \item It was observed that positioning the rat and isoflurane concentration caused motion in the retinal images due to laboured breathing. This could be removed using the same approach used for registering motion of the convalaria.
-    \end{itemize}
-    \item SFLIM Unmixing of UCL Data
-    \begin{itemize}
-        \item Address lack of image in the SPAD
-        \begin{itemize}
-            \item While best efforts were made a focussed image on the FLIMera could not be achieved
-            \item This could originate from several sources such as lens fluorescence or fluorescence from the visotears. There is also the possibility that corneal reflections, and reflections from the field lens were polluting the image.
-            \item Since the cameras are co-focussed at infinity using the mechanical eye and convalaria sample from chapter 3 and an image could be formed on the sCMOS camera without adjustment this would suggest that contamination by one of the above sources is the likely candidate rather than just a poor focus of the SLR lens.
-            \item Although there is a lack of spatial variation in the image, the spectral and temporal variation can still be exploited. SFLIM unmixing can be performed to measure changes in FAD in the whole of the retina.
-        \end{itemize}
-        \item Darkfield Correction
-        \begin{itemize}
-            \item It was also observed that there was a Gaussian shaped artefact present in the histograms of each pixel for 2 out 3 rats.
-            \item this was confirmed to be due to electrical noise arising from suboptimal synchronisation of the lasers pulse to the FLIMera.
-            \item This in principle could be fit to a sec2h or Gaussian and removed much like a the impulse response function is.
-            \item This could results in over-fitting and skewing the recovered FAD concentrations
-            \item The full width half maximum and location of the hump was found using a peak finding algorithm and fitting a sec2h function.
-            \item instead the affected areas were found through peak finding in the relevant area and masking out 20 timebins either side of this peak.
-            \item These masked out values are excluded from the FAD unmixing process when calculating the loss function \label{eq:leastsquaretens}. This enables these values to be excluded without biasing the recovered FAD concentrations
-            \item for the final rat to be imaged the synchronisation was improved and the darkfield anomaly was absent from subsequent image acquisitions.
-        \end{itemize}
-        \item Recovered FAD Concentrations Using SFLIM unmixing
-        \begin{itemize}
-            \item The sflim unmixing routine was developed in the previous chapter was used to recover the concentrations of FAD, AGE, and Lipofuscin.
-            \item the trend in recovered fluorophore concentration was then plotted against oxygenation state for each rat
-            \item A student paired t test was used to assess the statistical significance. i.e was the measured change due to a change in biology or simply due to the variation in the measurement.
-            \item the SFLIM acquisition was split into 10 histograms spanning the acquisition window. These 10 values were used in the student t test.
-            \item For two of the rats a decrease in FAD concentration was observed when going from normoxia to hypoxia. 
-            \item With a larger p value a an increase when transiting between hypoxia back to normoxia was observed.
-            \item Interestingly, in the one data set where the rat was killed did not see a decrease in FAD - theoretically it should go to zero. This could simply be due to the low photon flux causing poor unmixing performance. Or that the change measured was not due to changing FAD concentration
-            \item biologically, this could be interpreted as the time between death and the recording of SFLIM data was not long enough for the the FAD in the retina to decay. In the literature after death the FAD was observed to leak out of the vessels and into the surrounding tissue forming halos
-            \item A possible candidate for the observed change is due to the varying absorption of haemoglobin in the blood with oxygenation. This is a shortcoming in the model we have used to describe the recorded fluorescence. No spectral contamination from blood vessels were considered.
-        \end{itemize}
         \item Assessing Results using spectral angle maps and PCA
         \begin{itemize}
             \item To assess whether the SFLIM unmixing algorithm was detecting a change rather than simply variations due to photo bleaching, changes in blood oxygenation spectral angles were calculated for each point in the image.
@@ -417,7 +397,6 @@ As previously mentioned the SFLIM measurements are summed over the time axis to 
             \item to eliminate the possibility the visotears was responsible for the lack of spatial variation in the images a SFLIM measurement of it should be recorded. This could be applied to the existing SFLIM data of the rats by including it as an additional endmember. The current spectral bands would not be optimised for this but it would nonetheless serve to eliminate it as a candidate.
             \item Further in-vitro experiments should have been performed to better understand the sensitivity of the unmixing approach in experimental setting. This would take the form capillary tubes implanted in the retinal plane of an artificial eye and filled with varying concentrations and mixtures of FAD and other fluorophores.
         \end{itemize}
-    \end{itemize}
 \end{itemize}
 
 \begin{itemize}
