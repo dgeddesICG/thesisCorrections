@@ -129,31 +129,37 @@ Despite the lack of spatial variation in the SPAD images, the SFLIM unmixing alg
 Although clear images of the retina could not be formed on the FLIMera, the concentration of retinal FAD can be estimated over the entire FOV using the previously developed SFLIM unmixing algorithms. The SFLIM unmixing method was applied to SFLIM data with and without the application of motion correction. The relative concentrations of retinal fluorophores for each pixel on the FLIMera and the mean concentration can be calculated after masking out malfunctioning pixels with the pixel mask discussed in \cref{sec:pixelmask}. The recovered fluorophore concentrations were then compared over the Normoxia, Hypoxia, Re-Normoxia, and in one case \textit{post-mortem} to establish if the detected changes fitted the predictions made in \cref{sec:FADderivation}. The statistical significance was calculated using a paired student t-test to establish whether a change in retinal fluorophore concentration was detected as a result of a change in the rats physiology (\textcolor{red}{theres probably a better term for this}) or just due to noise. Finally, Principle Components Analysis (PCA) to assess whether the detected changes are due to changes in the fluorescence emission spectra or the fluorescence lifetime.
 \FloatBarrier
 \subsection{Darkfield Correction}\label{subsec:darkfield}
-In the first two of three imaging sessions the fluorescence decay was contaminated by a dark current which appeared as a Gaussian-like function superimposed onto the fluorescence decay (see \cref{fig:darkfieldGauss}). Darkfield FLIM measurements were recorded with the FLIMera covered and the laser shutter closed, such that any signal recorded would originate from either thermal or due to this anomalous dark current. After discussions with the manufacturer of the FLIMera it was confirmed this dark-current was due to poor calibration of the pulse-converter which converts the analogue signal produced by the laser when a pulse is emitted to a digital signal that is at logic-high when photons are to be counted. This was corrected for the final rat imaging session and subsequent fluorescence decays did not exhibit this dark current.
+In the first two of three imaging sessions the fluorescence decay was contaminated by a dark current which appeared as a Gaussian-like function superimposed onto the fluorescence decay (see \cref{fig:darkfieldGauss}). Darkfield FLIM measurements were recorded with the FLIMera covered and the laser shutter closed, such that any signal recorded would originate from either thermal noise or due to this anomalous dark current. After discussions with the manufacturer of the FLIMera it was confirmed this dark-current was due to poor calibration of the pulse-converter which converts the analogue signal produced by the laser when a pulse is emitted to a digital signal that is at logic-high when photons are to be counted. This was corrected for the final rat imaging session and subsequent fluorescence decays did not exhibit this dark current.
+
+
+
 \begin{figure}
     \centering
-    \includegraphics[angle = 270, width=0.5\linewidth]{figures/ratUCL/RoughDarkfieldFig.pdf}
-    \caption{Caption}
+    \includegraphics[width=0.9\textwidth]{figures/ratUCL/DarkfieldCorrectionFigure.pdf}
+    \caption{The animally in the fluorescence decays was is measured (a) and characterised by aggregating across the whole SPAD and fitting to 3 appropriate functions: A Gaussian (\cref{eq:gauss}); a  $\text{sec}^{2}h$  curve (\cref{eq:sech}); and the derivative of a sigmoid} (\cref{eq:divsigmoid})
     \label{fig:darkfieldGauss}
 \end{figure}
 If not accommodated in the unmixing process, this time-dependent dark current would result in poor convergence of minimising-function (\cref{eq:leastsquaretens}), $\varphi(\mathbf{x})$, to a solution $\mathbf{x}$, given that contamination in the SFLIM measurement, $\mathbf{M}$, is not accounted for in the model of endmember abundances, $\mathcal{A}$
 \begin{equation}
     \varphi(\mathbf{x}) = \big\lvert\big\lvert \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}\big\rvert\big\rvert_{F}^{2}
 \end{equation}
-Ultimately this would yield unreliable and biased fluorophore concentrations. Instead, the affected time period could be masked out and this region is excluded when evaluating the minimising function. While the dark-current could be characterised by fitting a Gaussian or $\sec^{2}h$ for each pixel and then subtracted from the affected histogram but this could result in over-fitting in histograms with low photon counts - increasing sensitivity to noise. 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{figures/ratUCL/MaskedFittedFigure.pdf}
-    \caption{Figure showing line plots with masked and fitted dark current.}
-    \label{fig:maksed-fitteddarkcurrent}
-\end{figure}
-The masking approach however trades of leaving insufficient photons for unmixing when too many time bins are mask, and masking too few bins leaves the histogram still contaminated - biasing the recovered flourophore concentrations a masking window of XX pixels was selected to strike this balance which left on average YY photons used in the unmixing process after masking the dark-current and excluding the first $\approx \num{50}$ time-bins to remove the influence of the temporal response of the SFLIO device.
+Ultimately this would yield unreliable and biased fluorophore concentrations. Instead, the affected time period could be masked out and this region is excluded when evaluating the minimising function. While the dark-current could be characterised by fitting a Gaussian (\cref{eq:gauss}) or $\sec^{2}h$ (\cref{eq:sech}) or the derivative of a sigmoid function \cref{eq:divsigmoid} for each pixel and then subtracted from the affected histogram but this could result in over-fitting in histograms with low photon counts - increasing sensitivity to noise. 
+\begin{align}
+    y(x, A,\mu,\sigma,c) &= A\exp(\frac{-(x-\mu)^{2}}{2\sigma^{2}})+c \label{eq:gauss}\\
+    y(x,x_{0},A,\tau) &= A\text{sech}^{2}\bigg(\frac{x - x_{0}}{\tau}\bigg)+c\label{eq:sech}\\
+    y(x,x_{0}, A, \tau,c) &= \dfrac{d}{dx}\frac{1}{1+\exp(-\tau*(x-x_{0}))}\label{eq:divsigmoid}
+\end{align}
+
+The masking approach however trades of leaving insufficient photons for unmixing when too many time bins are masked, and masking too few bins leaves the histogram still contaminated - biasing the recovered flourophore concentrations a masking window of 30 pixels was selected to strike this balance which left on around \num{1000} photons used in the unmixing process after masking the dark-current and excluding the first $\approx \num{50}$ time-bins to remove the influence of the temporal response of the SFLIO device. This process did result in more instances where the minimiser could not converge to a suitable minima of $\varphi(\mathbf{x})$ which results in a vector of "NaN"'s being returned - which are masked out in the SFLIM unmixing process. 
 \\
-As an aside, after removing these contaminated time-bins and summing the renaming photon counts to produce a fluorescence intensity image did not solve the problem of no resolvable details of the retina in the FLIMera images.
+As an aside, after removing these contaminated time-bins and summing the remaining photon counts to produce a fluorescence intensity image did not solve the problem of no resolvable details of the retina in the FLIMera images.
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/ratUCL/MaskedUnmaskedIntensityImage.pdf}
-    \caption{Example SPAD fluorescence intensity image where the dark-current is masked and not masked. Images will look no different...}
+    \begin{annotatedFigure}{    \includegraphics[width=0.6\textwidth]{figures/ratUCL/DarkFieldMaskFigure.pdf}}
+        \annotatedFigureText{0.04,0.96}{black}{0.3}{a)}
+        \annotatedFigureText{0.46,0.96}{black}{0.3}{b)}
+    \end{annotatedFigure}
+    \caption{When using the fitted Gaussian as a mask to remove the darkfield there is no affect to the structure or spatial variation in the raw SPAD image (a) or the darkfield corrected image (b)}
     \label{fig:masked-unmaskedintensityimage}
 \end{figure}
 \FloatBarrier
@@ -183,25 +189,19 @@ Much like the integrated intensity maps in () these maps of fluorophore concentr
 Trends between the mean retinal fluorophore concentration and changes in oxygenation state can still be established using these unmixed fluorophore maps.
 \subsubsection{Trends in Retinal Fluorophore Concentration Related to Changes in Oxygenation State}
 For each rat, and each oxygenation state, the mean fluorophore concentration was calculated in terms of the number of photons of FAD, AGE, and A2E that were recovered. Now the prediction made at the start of this chapter - that FAD concentrations should decrease at acute hypoxia, relative to normoxic condition - can be evaluated. If this holds true, then it can be concluded that it is likely that retinal FAD has been detected.
-In \cref{fig:rat1session1-trends, fig:rat2session2-trends, fig:rat1session3-trends} these mean concentrations are plotted and shows that in all three imaging sessions, the recovered FAD concentration decreased with acute hypoxia. 
-\begin{figure}
+In \cref{fig:fluorTrendsPhotons}a-c) these mean concentrations are plotted and shows that in all three imaging sessions, the recovered FAD concentration decreased with acute hypoxia. 
+
+\begin{figure}[t]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/ratUCL/FADTrends.png}
-    \caption{\textcolor{red}{place holder graphic}}
-    \label{fig:rat1session1-trends}
-\end{figure}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{figures/ratUCL/AGETrends.png}
+    \begin{annotatedFigure}{\includegraphics[width=0.99\textwidth]{figures/ratUCL/FluorTrends.pdf}}
+        \annotatedFigureText{0.01,0.99}{black}{0.3}{a)}
+        \annotatedFigureText{0.51, 0.99}{black}{0.3}{b)}
+        \annotatedFigureText{0.22, 0.53}{black}{0.3}{c)}
+    \end{annotatedFigure}
     \caption{Caption}
-    \label{fig:rat2session2-trends}
+    \label{fig:fluorTrendsPhotons}
 \end{figure}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{figures/ratUCL/A2ETrends.png}
-    \caption{Caption}
-    \label{fig:rat1session3-trends}
-\end{figure}
+
 This assertion should not be without scrutiny. Error bars were calculated as the standard error of the mean of repeated measurements of mean retina fluorophore concentrations, constructed from splitting the SFLIM measurements into 10 short sub-acquisitions and recovering retinal fluorophores. As can be seen, most of the reduction in FAD between normoxia and hpyoxia can be attributed to variance in the measurements due to low-photon counts and the possibility of the fluorophores becoming bleached. 
 Additionally, it was predicted that when the rat transitions back to normoxia from hypoxia the FAD concentration should return to its previous levels. This is not seen in the the recovered mean concentrations of FAD. In the one instance where the rat was sacrificed and a SFLIM dataset was acquired the FAD concentration does not decay to zero when all metabolic processes cease. A paired student T-test was then carried out on each pair of change in oxygenation to assess whether the trends in retinal fluorophores is due to a change in the oxygenation of the rat or simple variation in the measurements due to high noise.
 
@@ -450,7 +450,7 @@ The plot of PCA transformed spectra show distinct, albeit, highly overlapping re
 \FloatBarrier
 \section{Conclusions}\label{sec:uclconcs}
 
-The SFLIO device (\cref{chap:fliodevice}) was used to record in-vivo SFLIM measurements of anaesthetised rat retina with the goal of detecting changes in FAD concentrations induced by making the rat hypoxic. Clear and focussed images of the retinas could be recorded using the sCMOS / brightfield camera, enabling the $<\qty{10}{\pixel}$ of drift in the retina to be compensated for using the algorithms laid out in \cref{chap:motionreg}. However a focussed, fluorescence image could not be formed on the SPAD resulting in possible information about the variation about the distribution of fluorescent metabolites across the retina could not be recovered using the SFLIM unmixing algorithm developed in \cref{chap:tensSFLIM}. SFLIM unmixing was still performed on the SFLIM measurements recorded of 2 different rats over 3 days / imaging sessions with the attenuated goal of detecting systemic changes in FAD production in the retina. While the results of the unmixing does show that the relative, systemic, concentration of FAD does decrease as a response to hypoxia it did not return to its initial value when returning to normoxia. This trend was present in all 3 imaging sessions but in the rat where SFLIM measurements were recorded after the rat was sacrificed did not show a significant decrease in relative FAD concentration while it was expected that FAD concentration should trend to zero after death and all metabolic functions have ceased. When performing a Paired Student T-test it was found that low $p$-values indicate that a change in the fluorescence emission had been detected that a further analysis of the emission spectra was required. Principal Component Analysis revealed that there was a change in the fluorescence emission spectra but that oxygenations would be prohibitively difficult to discriminate due to the high variation in each measurement being approximately equal to the expected change in location in PCA space. This change in the fluorescence emission spectra could be caused by contamination due to blood in the retinal vasculature and where the absorption spectra does change as a response to hypoxia \addcite. This highlights a significant shortcoming in the model of fluorescence used for the unmixing where it was assumed the three dominant retinal fluorophores would form an additive mixture and no other contaminants, scattering, or interactions caused by other structures in the retina were considered. This leaves significant scope for improvement in the experimental method and improved fluorescence models in the unmixing process among others to be briefly discussed in \cref{sec:ratfadfuture}.
+The SFLIO device (\cref{chap:fliodevice}) was used to record in-vivo SFLIM measurements of anaesthetised rat retina with the goal of detecting changes in FAD concentrations induced by making the rat hypoxic. Clear and focussed images of the retinas could be recorded using the sCMOS / brightfield camera, enabling the $<\qty{10}{\pixel}$ of drift in the retina to be compensated for using the algorithms laid out in \cref{chap:motionreg}. However a focussed, fluorescence image could not be formed on the SPAD resulting in possible information about the variation about the distribution of fluorescent metabolites across the retina could not be recovered using the SFLIM unmixing algorithm developed in \cref{chap:tensSFLIM}. SFLIM unmixing was still performed on the SFLIM measurements recorded of 2 different rats over 3 days / imaging sessions with the attenuated goal of detecting systemic changes in FAD production in the retina. While the results of the unmixing does show that the relative, systemic, concentration of FAD does decrease as a response to hypoxia it did not return to its initial value when returning to normoxia. This trend was present in all 3 imaging sessions but in the rat where SFLIM measurements were recorded after the rat was sacrificed did not show a significant decrease in relative FAD concentration while it was expected that FAD concentration should trend to zero after death and all metabolic functions have ceased. When performing a Paired Student T-test it was found that low $p$-values indicate that a change in the fluorescence emission had been detected that a further analysis of the emission spectra was required. Principal Component Analysis revealed that there was a change in the fluorescence emission spectra but that oxygenations would be prohibitively difficult to discriminate due to the high variation in each measurement being approximately equal to the expected change in location in PCA space. This change in the fluorescence emission spectra could be caused by contamination due to blood in the retinal vasculature and where the absorption spectra does change as a response to hypoxia~\cite{choudhary2013assessment,mackenzie2018oximetry}. This highlights a significant shortcoming in the model of fluorescence used for the unmixing where it was assumed the three dominant retinal fluorophores would form an additive mixture and no other contaminants, scattering, or interactions caused by other structures in the retina were considered. This leaves significant scope for improvement in the experimental method and improved fluorescence models in the unmixing process among others to be briefly discussed in \cref{sec:ratfadfuture}.
 
 
 \section{Future Work and Experimental Improvements}\label{sec:ratfadfuture}
