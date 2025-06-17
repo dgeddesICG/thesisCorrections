@@ -1,5 +1,6 @@
 %\setstretch{2}
 \section{Chapter Summary}
+In this chapter, in-vivo SFLIM images of anaesthetised rat retinas are recorded using the SFLIO device and the relative concentration retinal fluorophores are extracted using the SFLIM unmixing technique. The systemic oxygen consumption of the rat was varied in order to engineer a change in concentration of the fluorescence metabolic marker - FAD. While an image of the retina showing retinal vasculature could not be formed on the SPAD - the concentration of retinal fluorophores are considered across the whole of the retina. Trends are then established between hypoxia and the concentration of FAD and the statistical significance of these changes is estimated using paired Students t-test and found to be inconclusive and inconsistent across multiple rats. Finally, Principle Components Analysis and Spectral Angle Maps are used to determine if there is a meaningful and detectable change in the fluorescence emission spectra 
 \section{FAD as a marker for metabolic health in the retina}\label{sec:FADderivation}
 Mapping the concentration of FAD would enable the diagnosis of retinal disease before physical damage to eyesight develops, at the stage of metabolic dysfunction. FAD is a flavoprotein produced in the body as a by-product of oxygen metabolisation from aerobic respiration (\cref{eq:resp})~\cite{berg2007biochemistry} to create ATP - the bodies source of energy. In the formation of retinal disease, the retina would exhibit abnormal metabolic activity - ATP usage - and would present in the retina as areas with abnormal FAD distribution.
 \begin{equation}\label{eq:resp}
@@ -46,7 +47,7 @@ The volume of FAD in the retina at hypoxia can then be estimated by assuming tha
     \qty{13}{\percent} & \num{2.27} & \num{2.92}\\
     \hline
     \end{tabular}
-    \caption{In \citeauthor{ferretti1997decrease}\cite{ferretti1997decrease}, the maximal rate of oxygen consumption was measured of sedantary subjects and subject with a background in endurance sports for a range of inspired oxygen concentrations (\ce{FiO2}). Reproduced from Table. 1 of \citeauthor{ferretti1997decrease}\cite{ferretti1997decrease}.}
+    \caption{In \citeauthor{ferretti1997decrease}\cite{ferretti1997decrease}, the maximal rate of oxygen consumption was measured of sedentary subjects and subject with a background in endurance sports for a range of inspired oxygen concentrations (\ce{FiO2}). Reproduced from Table.~1 of \citeauthor{ferretti1997decrease}\cite{ferretti1997decrease}.}
     \label{tab:VO2max}
 \end{table}
 The ratio between the hypoxic and normoxic measurements of ${\dot{V}\ce{O2}}_{max}$ are then $\Gamma = \num{0.725}$, and $\Gamma = \num{0.710}$ for sedentary and athletic subjects, receptively. Taking the case of a sedentary subject the volume of FAD at hypoxia is $V_{FAD,hypoxia} = \Gamma V_{FAD, normoxia} = \qty{6.839}{\micro\litre}$ and the concentration of FAD at hypoxia is estimated as $C_{FAD,hypoxia} = \Gamma C_{FAD, normoxia} = \qty{19.164}{\micro\mole\per\litre}$. \\
@@ -72,7 +73,7 @@ The reported imaging experiments were carried out in the labs of Prof. Kenneth J
     \caption{a) and b) The anaesthetised rat is positioned on the imaging platform perpendicular to the SFLIO system to have the rat's retina parallel with the image plane. The fundus camera is moved axially such that the illumination forms a focussed spot on the cornea - evenly illuminating the retina (c).}
     \label{fig:ratsetup}
 \end{figure}
-Two rats were imaged over three days. For each acquisition brightfield images are recorded continuously (\SI{50}{\ms} exposure at \SI{10}{\Hz}) in tandem with the FLIMera operating in raw mode over a two minute acquisition period for all 5 spectral filters. Due to the large file size generated from the FLIMera RAW acquisition around \SI{10}{\minute} is required the build and save the \SI{50}{\giga\byte} stream of photon counts for each spectral channel. This SFLIM acquisition is carried out while the rats are cycled from normoxia to hypoxia (\SI{15}{\percent}\ce{FiO2}) and then back to normoxia again with an $\approx 5$~minute interval between each acquisition. These intervals between spectral filters and oxygenation states minimises any photobleaching and should ensure that metabolic processes and FAD concentration re-stabilise although long periods of hypoxia can cause the rat to die due to oxidative stress. SFLIM images were recorded for the first rat on the second day. As before (\cref{fig:flimerascmossync}), the two detectors are synchronised in time by initially having the laser shutter closed at the start of the acquisition and then opening it after a short period of time and detecting the Heaviside-like change in photon flux. Due to the anaesthetic the nervous response in the rats is suppressed which eliminates any visible saccades in the image sequence. The motion correction algorithm developed in \cref{chap:motionreg} is still utilised to ensure any small movements of the rat over the hour long imaging sessions does not cause misalignment between spectral filters. However due to the no pixel super-sampling was performed (\cref{fig:FLIMerareg}c).
+Two rats were imaged over three days. For each acquisition brightfield images are recorded continuously (\SI{50}{\ms} exposure at \SI{10}{\Hz}) in tandem with the FLIMera operating in raw mode over a two minute acquisition period for all 5 spectral filters. Due to the large file size generated from the FLIMera RAW acquisition around \SI{10}{\minute} is required the build and save the \SI{50}{\giga\byte} stream of photon counts for each spectral channel. This SFLIM acquisition is carried out while the rats are cycled from normoxia to hypoxia (\SI{15}{\percent}\ce{FiO2}) and then back to normoxia again with an $\approx 5$~minute interval between each acquisition. These intervals between spectral filters and oxygenation states minimises any photobleaching and should ensure that metabolic processes and FAD concentration re-stabilise although long periods of hypoxia can cause the rat to die due to oxidative stress. SFLIM images were recorded for the first rat on the second day. As before (\cref{fig:flimerascmossync}), the two detectors are synchronised in time by initially having the laser shutter closed at the start of the acquisition and then opening it after a short period of time and detecting the Heaviside-like change in photon flux. Due to the anaesthetic the nervous response in the rats is suppressed which eliminates any visible saccades in the image sequence. The motion correction algorithm developed in \cref{chap:motionreg} is still utilised to ensure any small movements of the rat over the hour long imaging sessions does not cause misalignment between spectral filters. However, since a clear image of the retina could not be formed the pixel super-sampling process described in \cref{sec:motionreg} was not carried out (\cref{fig:FLIMerareg}c).
 
 \begin{figure}
     \centering
@@ -148,12 +149,15 @@ If not accommodated in the unmixing process, this time-dependent dark current wo
     \varphi(\mathbf{x}) = \big\lvert\big\lvert \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}\big\rvert\big\rvert_{F}^{2}
 \end{equation}
 Ultimately this would yield unreliable and biased fluorophore concentrations. Instead, the affected time period could be masked out and this region is excluded when evaluating the minimising function.
-Programmatically this is implemented through slicing the $\lambda T$ array containing the result of $\mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}$. Mathematically this can be written as excluding of time-bins on the interval $[t_{1}, t_{2}]$:
+Programmatically this is implemented through slicing the $\lambda T$ array containing the result of $\mathbf{\Psi} = \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}$. Mathematically this can be written as excluding time-bins on the intervals $[0, t_{1}]$ and $[t_{2},t_{3}]$:
 \begin{align}
         \varphi(\mathbf{x}) &= \big\lvert\big\lvert \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}\big\rvert\big\rvert_{F}^{2} = \big\lvert\big\lvert\mathbf{\Psi}\big\rvert\big\rvert_{F}^{2}\\
-        &=\sum_{\lambda}\sum_{T}\lvert\mathbf{\psi_{\lambda t}}\rvert^{2} = \sum_{\lambda}\Bigg(\sum_{0}^{t1}\lvert\mathbf{\psi_{\lambda t}}\rvert^{2} + \sum_{t1}^{t2}\lvert\mathbf{\psi_{\lambda t}}\rvert^{2}\Bigg)
+        &=\sum_{\lambda}\sum_{T}\lvert\mathbf{\psi_{\lambda t}}\rvert^{2} = \sum_{\lambda}\Bigg(\sum_{0}^{t_{1}}\lvert\mathbf{\psi_{\lambda t}}\rvert^{2} + \sum_{t_{2}}^{t_{3}}\lvert\mathbf{\psi_{\lambda t}}\rvert^{2}\Bigg)
 \end{align}
-
+Subsequently, the minimising function, $\varphi(\mathbf{x})$ can as the sum of two seperate minimising functions over these intervals such that
+\begin{align}
+    \varphi(\mathbf{x}) = \big\lvert\big\lvert\mathbf{\Psi}\big\rvert\big\rvert_{F}^{2}\bigg\rvert_{t=0}^{t=t_{2}} + \big\lvert\big\lvert\mathbf{\Psi}\big\rvert\big\rvert_{F}^{2}\bigg\rvert_{t=t_{2}}^{t=t_{3}}
+\end{align}
 
 
 
@@ -164,7 +168,7 @@ While the dark-current could be characterised by fitting a Gaussian (\cref{eq:ga
     y(x,x_{0}, A, \tau,c) &= \dfrac{d}{dx}\frac{1}{1+\exp(-\tau*(x-x_{0}))}\label{eq:divsigmoid}
 \end{align}
 
-The masking approach however trades of leaving insufficient photons for unmixing when too many time bins are masked, and masking too few bins leaves the histogram still contaminated - biasing the recovered flourophore concentrations a masking window of 30 pixels was selected to strike this balance which left on around \num{1000} photons used in the unmixing process after masking the dark-current and excluding the first $\approx \num{50}$ time-bins to remove the influence of the temporal response of the SFLIO device. This process did result in more instances where the minimiser could not converge to a suitable minima of $\varphi(\mathbf{x})$ which results in a vector of "NaN"'s being returned - which are masked out in the SFLIM unmixing process. 
+The masking approach however trades of leaving insufficient photons for unmixing when too many time bins are masked, and masking too few bins leaves the histogram still contaminated - biasing the recovered flourophore concentrations a masking window of 30 pixels was selected to strike this balance which left on around \num{1000} photons used in the unmixing process after masking the dark-current and excluding the first $\approx 50$ time-bins to remove the influence of the temporal response of the SFLIO device. This process did result in more instances where the minimiser could not converge to a suitable minima of $\varphi(\mathbf{x})$ which results in a vector of "NaN"'s being returned - which are masked out in the SFLIM unmixing process. 
 \\
 As an aside, after removing these contaminated time-bins and summing the remaining photon counts to produce a fluorescence intensity image did not solve the problem of no resolvable details of the retina in the FLIMera images.
 \begin{figure}
@@ -180,26 +184,30 @@ As an aside, after removing these contaminated time-bins and summing the remaini
 \subsection{Trends in Retinal Fluorophore Concentration as a Response to Acute Hypoxia}\label{subsec:meanfluor}
 The concentrations of the retinal fluorophores, FAD, AGE, and A2E, and can now be estimated from from SFLIM measurements with the SFLIM unmixing algorithm and any trends due to changes in oxygenation state can be established. Before this analysis, the SFLIM data is processed to mask malfunctioning pixels (\cref{sec:pixelmask}), the fluorescence decays are aligned in the time axis (\cref{sec:timealign}), and the time-bins affected by the previously mentioned dark-current are also masked.
 The unmixing algorithm is performed on SFLIM measurements for each functional pixel on the SPAD array to produce images of relative fluorophore concentrations - shown in \cref{fig:rat1session1fluormaps,fig:rat2session1fluormaps,fig:rat1session2fluormaps}. 
-\\
-\begin{figure}
+
+\begin{figure}[b]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/ratUCL/Rat1Session1FlourophoreMaps.pdf}
+    %figure for rat1 session 1
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/ratUCL/Rat1Session1FlourophoreMaps.pdf}
     \caption{Caption}
     \label{fig:rat1session1fluormaps}
 \end{figure}
-\begin{figure}
+\begin{figure}[b]
+    % figure for rat2 session 1
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/ratUCL/Rat2Session1FlourophoreMaps.pdf}
+    \includegraphics[width = 0.8\textwidth]{figures/ratUCL/Rat2Session1FlourophoreMaps.pdf}
     \caption{Caption}
     \label{fig:rat2session1fluormaps}
 \end{figure}
-\begin{figure}
+\begin{figure}[b]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/ratUCL/Rat1Session2FlourophoreMaps.pdf}
+    \includegraphics[width = 0.8\textwidth]{figures/ratUCL/Rat1Session2FlourophoreMaps.pdf}
     \caption{Caption}
     \label{fig:rat1session2fluormaps}
 \end{figure}
-Much like the integrated intensity maps in () these maps of fluorophore concentration show no variation across the image that could be correlated to structures in the retina. It would be expected that there would be a background level of FAD due to blood circulating around the choroid and areas of increased FAD around the arteries. 
+
+Much like the integrated intensity maps in (\cref{fig:rat1session1fluormaps,fig:rat2session1fluormaps,fig:rat1session2fluormaps}) these maps of fluorophore concentration show no variation across the image that could be correlated to structures in the retina. It would be expected that there would be a background level of FAD due to blood circulating around the choroid and areas of increased FAD around the arteries. 
 Trends between the mean retinal fluorophore concentration and changes in oxygenation state can still be established using these unmixed fluorophore maps.
 \subsubsection{Trends in Retinal Fluorophore Concentration Related to Changes in Oxygenation State}
 For each rat, and each oxygenation state, the mean fluorophore concentration was calculated in terms of the number of photons of FAD, AGE, and A2E that were recovered. Now the prediction made at the start of this chapter - that FAD concentrations should decrease at acute hypoxia, relative to normoxic condition - can be evaluated. If this holds true, then it can be concluded that it is likely that retinal FAD has been detected.
@@ -362,7 +370,7 @@ This incongruence between the recovered fluorophore concentrations and what was 
 
 \FloatBarrier
 \subsection{Comparing Detected Changes with PCA and Spectral Angle Maps}\label{subsec:pcarat}
-To reinforce the connection between the recovered FAD concentration and oxygenation state, the technique Principle Components Analysis (PCA) can be used to affirm two hypotheses: that the SFLIM measurements show changes in the spectra and lifetime domain as a response to changing physiology in the rat; and SFLIM unmixing algorithm is capable of uncovering these changes with accuracy and precision sufficient to detect FAD. PCA uses a coordinate transformation to reduce the number of orthonormal bases (dimensions) in a dataset to those which exhibit the most variation or information. This technique is particularly useful for distilling higher-dimensional datasets into typically 2 dimensions that can be visualised by humans and is readily used for identifying unique endmembers in spectral images \addcite. The SFLIM measurements of in-vivo rat retinas can be reduced into spectral images and analysed using PCA to identify the fluorescence emission spectra is changing as a response to hypoxia - with premise being that each oxygenation state will occupy unique regions in the plane of 2 principal components.
+To reinforce the connection between the recovered FAD concentration and oxygenation state, the technique Principle Components Analysis (PCA) can be used to affirm two hypotheses: that the SFLIM measurements show changes in the spectra and lifetime domain as a response to changing physiology in the rat; and SFLIM unmixing algorithm is capable of uncovering these changes with accuracy and precision sufficient to detect FAD. PCA uses a coordinate transformation to reduce the number of orthonormal bases (dimensions) in a dataset to those which exhibit the most variation or information. This technique is particularly useful for distilling higher-dimensional datasets into typically 2 dimensions that can be visualised by humans and is readily used for identifying unique endmembers in spectral images~\cite{chang2018review,nascimento2005vertex}. The SFLIM measurements of in-vivo rat retinas can be reduced into spectral images and analysed using PCA to identify the fluorescence emission spectra is changing as a response to hypoxia - with premise being that each oxygenation state will occupy unique regions in the plane of 2 principal components.
 \subsubsection{PCA Maps of SFLIM Data}
 Before the principal components can be used, the SFLIM measurements are formed into spectral images by summing across the time axis of the $I(x,y,t,\lambda)$ volume and area normalised to form $I'(x,y,t,\lambda)$.
 \begin{equation}
