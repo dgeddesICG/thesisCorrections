@@ -1,19 +1,205 @@
-%\setstretch{2}
-\section{Motivation}
-The human eye is a complex organ capable of forming images over large and short distances as well as being sensitive enough to detect single photons. The eye also is susceptible to many diseases that when left undiagnosed and untreated cause irrecoverable loss of vision. In the case of Age Related Macular Degeneration (AMD) - a retinal disease that affects \SI{20}{\percent} of people - over a \num{12} month period the disease can progress from a patient first presenting with symptoms to permanent loss of some central vision~\cite{lim2012age}. Routine and regular retinal imaging is the most important tool in the early detection of retinal disease and for understanding the pathophysiology of the disease to inform more effective treatments. Retinal imaging modalities typically look at imaging structural abnormalities in the retinal surface with a wide Field-Of-View (FOV) and high spatial resolution. Current state-of-the-art devices are capable of recording images of the retina that cover \SI{82}{\percent} (\SI{20}{\degree} FOV) of the retinal surface (OPTOS Monaco, Silverstone) and using Optical Coherence Tomography (OCT) are able to resolve axial line scans of the retina layers with a \SI{7}{\micro\metre} resolution. These structural techniques currently aid opthalmologists in the diagnosis, and tracking the progression, of many retinal disease such as AMD, Stargardts disease, Macular Telegenticasia, and Diabetic Retinopathy, and retinal detachment. 
+
+
+\setstretch{2}
+\section{Motivation and Project Aims}
+The human eye is capable of forming images over large depth's of field with single photon sensitivity. The eye is also susceptible to disease that often resulting permanent loss of vision if left undiagnosed and untreated. One of the most common retinal diseases, affecting the elderly, Age-Related Macular Degeneration AMD, affects \qty{20}{\percent} of the population and in a \num{12} month period this disease can progress the initial symptoms to permanent loss of some central vision~\cite{lim2012age}. Routine and regular retinal imaging is a key tool in the early detection of retinal disease, and for developing understanding of disease pathophysiology and effective treatment. Current retinal imaging techniques, such as scanning laser ophthalmoscopy (SLO), aim to detect structure abnormalities in images of the retina surface covering \qty{82}{\percent} (\qty{200}{\degree} FOV) of the retinal surface (OPTOS Monaco, Silverstone SLO) and resolution of \qty{15}{\um}~\cite{ashraf2022comparison} to diagnose and track progression of common retinal disease such as AMD, Glaucoma, Diabetic Retinopathy, and retinal detachments.
 \\
-Therein lies an issue with structural imaging - that when abnormalities are detected in the retina any present retinal disease has often sufficiently progressed to the point of limiting treatment options and, in some cases, at stage of some permanent vision loss. If instead the progression of disease can be tracked at the level of local biochemical imbalance, before any physical damage to the retina has occurred, then diseases can be more effectively diagnosed their progression can be better understood. 
-Imaging fluroescent biomarkers gives a more direct look at the metabolic function of the retina. For example the endogenous biomarker FAD is linked to the local metabolic health in the retina, and Advanced Glycation End-Products (AGEs) are linked with the progression of diabetic retinopathy. This technique of fluorescence imaging - referred to as fundus autofluorescence imaging in literature - is widely used, qualitatively, in clinical ophthalmology for resolving reticular drusen, tears in the Retinal Pigment Epithelium (RPE), and retinitis pigmentosa~\cite{yung2016clinical}. Fluorescence imaging of the retina is hindered by several fundamental limitations. Namely, the low intensity threshold for safe exposure coupled with the feint signal produced from excited fluorophores of interest being polluted by fluorescent clutter results in high noise images with poor contrast and resolution (when compared to wide-field reflectance images). This dominant fluorescent clutter also degrades the ability to quantify the concentration of individual fluorophores and map their distribution across the retina even with advanced spectral imaging techniques.
+Here lies a fundamental issue with current interventions in retinal disease - they occur after physical damage to the retina is detected or changes in vision are reported by the patient. At this stage, treatment options degrade into maintaining and abating permanent loss of vision. If instead, the progression of disease can be tracked at the level of local biochemical imbalances or metabolic dysfunction - before the occurrence of physical damage to vision - disease can be more effectively detected, studied, and treated.
+Naturally Fluorescent biomarkers, can be quantitatively imaged to all metabolic function in the retina to be measured. For example: a biomarker found in the retina, Flavin Adenine Dinucleotide (FAD), is a by-product of the consumption of oxygen and could indicate local metabolic health in the retina; and Advanced Glycation End-products (AGEs) are linked with the progression of diabetic retinopathy \addcite. Fluorescence imaging in the retina - termed fundus autofluorescence imaging in the literature - is widely used, qualitatively, in clinical ophthalmology for resolving markers of AMD progression, drusen, and damage to other retinal structures~\cite{yung2016clinical}. Fluorescence imaging of the retina is hindered by several fundamental limitations. Namely, the low intensity threshold for safe exposure coupled with the feint signal produced from excited fluorophores of interest being polluted by fluorescent clutter results in high noise images with poor contrast and resolution (when compared to wide-field reflectance images). This dominant fluorescent clutter also degrades the ability to quantify the concentration of individual fluorophores and map their distribution across the retina even with advanced spectral imaging techniques.
+\\
+Fluorescence Lifetime Imaging Microscopy (FLIM) is an emergent field of microscopy where the differences in nanosecond-scale time that a fluorophore remains excited for is used a contrast mediums to form images. FLIM brings unique advantages in that the fluorescence lifetime is intrinsic to each fluorophore but is also invariant  to the local concentration or quantum efficiency of the fluorophore. This means that weakly emitting fluorophores of interest can be isolated from complex mixtures  if the limitations of low-photon counts or high shot-noise can be overcome. Commonly, biological structures, or proteins of interest are labelled with dyes to fluoresce much more intensely than the autofluorescence of endogenous fluorophores allowing more complex mechanisms to be exploited: viscosity and tension within tissue can be probed~\cite{ringer2017multiplexing, kashirina2020monitoring}; intramolecular distances can be measured through F\"orster Resonance Energy Transfer~\cite{haenni2013intramolecular}; and even sub-diffraction limit volumetric imaging can be achieved ~\cite{shtengel2009interferometric}. In the retina, endogenous fluorophores of interest exhibit high-overlap of their fluorescence emission spectra and fluorescence decay properties introducing additional challenges.
+\\
+The techniques of FLIM have recently been adapted for clinical ophthalmology in the field of Fluorescence lifetime Imaging Ophthalmoscopy (FLIO) to explore the diagnostic use that fluorescence lifetimes may offer~\cite{dysli2017fluorescence}. Fluorescence lifetimes are extracted from histograms of arrival times of fluorescence photons to construct a map of fluorescence lifetimes across the retina. With this device the connection between measured fluorescence lifetimes and retinal disease progression was explored by qualitatively comparing lifetime maps of age and gender matched healthy patients with patients exhibiting a retinal disease such as AMD, Diabetic Retinopathy, and Stargardts disease~\cite{zinkernagel2019fluorescence}. These \textit{in-vivo} studies focus on qualitative comparisons in part due to the relative youth of the field as well as the poor understanding of the specific biochemical imbalances that occur in the retina, and the body, at the onset of retinal disease.
 \\
 Fluorescence Lifetime Imaging (FLI) is a relatively new field of microscopy where the picosecond - nanosecond fluorescence lifetime - the average time a fluorophore remains excited - is used as a contrast medium to form images similar to how the number of detected photons is used in conventional fluorescence intensity imaging. FLI brings unique advantages in that the fluorescence lifetime is intrinsic to each fluorophore but is also invariant to the local fluorophore concentration and quantum efficiency of the fluorophore but can also reveal information about the local pH, temperature, and the local embedding matrix in cellular organisms. This in principle means that weakly fluorescent fluorophores of interest can be isolated from complex mixtures but the noise induced by low photon counts inherent to autofluorescence imaging affect the accuracy and precision of this unmixing process.
 To overcome the low signal produced by endogenous fluorophore, in practice, FLI is commonly performed on samples labelled with dyes with the fluorescence lifetime, excitation and emission spectra, and the binding site specifically engineered for each application. This enables more complex dynamics and processes to be investigated such as staining specific cellular structures~\cite{maibohm2019syncrgb}, measuring viscosity and tension in tissues~\cite{ringer2017multiplexing, kashirina2020monitoring}, probing intramolecular distances and interactions using F\"orster Resonance Energy Transfer~\cite{haenni2013intramolecular}, and volumetric super-resolution imaging~\cite{shtengel2009interferometric}.
 \\
-In retinal imaging the emergent field of Fluorescence Lifetime Imaging Ophthalmoscopy has begun investigating the potential applications that fluorescence lifetime imaging could have in the diagnosing of retinal disease. In the literature a modified SLO records arrival times of photons from the excited fluorescence over a period of \SI{90}{s} are imaged onto two single pixel Single Photon Avalanche Diode's (SPAD), to cover two separated spectral bands, using a technique called Time Correlated Single Photon Counting~\cite{dysli2017fluorescence}. The fluorescence lifetimes are then extracted from histograms of photon arrival times to construct a map of fluorescence lifetimes across the retina. With this device the connection between measured fluorescence lifetimes and retinal disease progression was explored by qualitatively comparing lifetime maps of age and gender matched healthy patients with patients exhibiting a retinal disease such as AMD, Diabetic Retinopathy, and Stargardts disease~\cite{zinkernagel2019fluorescence}. These \textit{in-vivo} studies focus on qualitative comparisons in part due to the relative youth of the field as well as the poor understanding of the specific biochemical imbalances that occur in the retina, and the body, at the onset of retinal disease.
-\\
 A key deficiency in current retinal imaging modalities is the ability to quantitatively assess retinal health. Previously, measurements of vascular oxygen concentrations in retinal vasculature have been reported~\cite{stefansson2019retinal,mordant2011spectral} - using the spectral properties of oxygenated and un-oxygenated haemoglobin - however the uncertainties in the measurements of $O_{2}$ concentrations are larger than the variability that would typically be experienced throughout the progression of a retinal disease, or chronic disease such as Multiple Sclerosis. There is potential for the added dimension of the fluorescence lifetime to facilitate a similar quantitative approach to monitoring retinal metabolic health but the efficient use of the available signal will be paramount for ensuring this technology can be feasibly implemented into current diagnostic practises.
+\\
+In this thesis, a Commercial-Of-The-Shelf (COTS) fundus camera is modified to enable spectrally resoled FLIM measurements of the retina,  and a new method of recovering fluorophore concentrations from SFLIM measurements is developed. Using this new instrument and algorithm, the feasibility of measuring retinal FAD concentrations in the retina is assessed by inducing changes in oxygen consumption anathematised rat and measuring commensurate changes in retinal FAD concentrations.
+\FloatBarrier
+\section{Morphology The Eye and \\Common Retinal Diseases}
+\FloatBarrier
+\subsection{Morphology of the Eye}
+\FloatBarrier
+\subsection{Common Retinal diseases - Their Indicators \\and Progression}
+\FloatBarrier
+\subsection{Current Retinal Imaging Devices \\ and Modalities}
+\FloatBarrier
+\section{Concepts of Fluorescence and \\ Fluorescence Lifetime Imaging}
+\FloatBarrier
+\subsection{Mechanics of Fluorescence Lifetimes}
+Fluorescence is radiative process where photons are emitted from a substance due to the excitation and subsequent relaxation of electronic singlet states in a substance. This process is commonly visualised using a Jablonski diagram (~\cref{figintro:jablonski}):
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/introduction/JablonskiDiagram.pdf}
+    \caption{Jablonski diagram of the mechanics behind fluorescence. $S_{0}, S_{1}, S_{2}$, denoted by bold lines, represent the ground and the first two excited singlet states. Non-radiative processes such as internal conversion between vibrational states (grey dashed) and inter-system crossing (purple) allow for the emission of a fluorescence photon ($S_{1}\rightarrow S_{0}$, shown in green, or a phosphorescence photon ($ S_{1}\rightarrow T_{1}\rightarrow S_{0} $), shown in red}
+    \label{figintro:jablonski}
+\end{figure}
 
-In this thesis new methods of quantitatively assessing retinal and metabolic health will be explored using temporally, and/or spectrally resolved fluorescence images of the retina recorded with a modified high-street fundus camera retrofitted with new generation SPAD arrays to pave a route to lower cost regular monitoring retinal metabolic health. In addition, other novel applications of TCSPC are explored. Specifically, the material dependent temporal broadening experienced by a reflected laser pulse is explored for the purpose of discriminating materials in a scene.
+Absorption of impinged photons promote an electron from the ground electronic singlet state $S_{0}$, to a vibrational state within a higher electronic state, $S_{1},S_{2}$ etc. Non-radiative internal conversion relax the electron in the fluorphore back into the $S_{1}$ state. The electron can then decay back into the $S_{0}$ state by emitting a fluorescence photon or undergo an inter-system crossing to the first triplet-state, $T_{1}$, and then decay to the ground state to produce a phosphorescence photon. 
+These radiative and no-radiative processes occur over different time scales: absorption occurs over \qty{e-15}{\second}; internal conversions and inter-system crossings occur \qty{e-12}{\second}; phospoherscence decays take place over time-scales of \qtyrange{e-7}{e-3}{\second}~\cite{lakowicz2013fluorescencespectroscopybook}. Of key interest in this thesis is the decay times due to fluorescne which occur over a few nanoseconds~\cite{lakowicz2013fluorescencespectroscopybook}.
+The process of fluorescence is random i.e within a single unit-area the excited state of every electron is not depopulated at the same time. It is thus more useful to consider the average time the fluorophore remains in the excited state, $S_{1}$ - this is the fluorescence lifetime. The time-dependent intensity of fluorescence can then be modelled from the rate-of-change of concentration of fluorophores in the excited state [$S_{1}$]:
+\begin{equation}
+    \frac{d}{dt}[S_{1}] = -\Gamma [S_{1}]
+    \label{eqintro:conc}
+\end{equation}
+Where $\Gamma$ is the rate at which fluorescence photons are produced and is the inverse of the fluorescence lifetime ($\Gamma = \nicefrac{1}{\tau}$). By then associating the measured time evolved intensity of with the concentration $[S_{1}]$ the fluorescence decay can be modelled:
+\begin{align}
+    \frac{d}{dt}I(t) &= -\Gamma I(t)\\
+    \implies I(t) &= I_{0}\exp(-\nicefrac{t}{\tau})
+    \label{eqintro:lifetime}
+\end{align}
+For mixtures of fluorophores, and fluorophores with specific molecular properties, multi-exponential decays with $N$ fluorescence lifetimes are described using:
+\begin{equation}
+    I(t) = I_{0}\sum_{n>0}^{N}\alpha_{n}\exp(-\nicefrac{t}{\tau_{n}})
+    \label{eqintro:multiexp}
+\end{equation}
+\subsection{Stokes Shifts and Spectral Emission Characteristics}
+The vibrational states of $S_{1}$ reachable through absorption of a excitation photon and the subsequent relaxation into the different vibrational states of $S_{0}$ incurs a small energy loss and results in a phenomena called the "Stokes Shift" where the emitted fluorescence photon is always of a lower energy and longer wavelength than the excitation photon. When measuring the comparatively weak fluorescence signal the Stoke's Shift means that any reflected light originating from the excitation source can be filtered out.
+\FloatBarrier
+\subsection{Detection Schemes for FLIM}
+Before a fluorescence lifetime can be recovered first the time resolved decay must be recorded. Typically one of two methods are used for this: ``time dome'' or ``Frequency Domain'' FLIM. Each method has its benefits and unique methods for recovering the fluorescence lifetime.
+\FloatBarrier
+\subsubsection{Time Domain FLIM}
+\paragraph*{Time-Correlated Single Photon Counting FLIM}
+\paragraph*{Time Gated FLIM}
+\FloatBarrier
+\subsubsection{Frequency Domain FLIM}
+\FloatBarrier
+\subsection{Fluorescence Lifetime Recovery Methods}
+\FloatBarrier
+\subsection{Spectral-FLIM}
+\FloatBarrier
+\section{Fluorescence Lifetime Imaging Ophthalmoscopy}
+\FloatBarrier
+\section{FAD As An Indicator of Metabolic Health}
+\FloatBarrier
+\section{Methods of Measuring Metabolic Function // in the Retina}
+\FloatBarrier
 
+
+\subsubsection{Time Domain FLIM}
+Time domain FLIM techniques typically involve exciting fluorescence with a picosecond pulsed laser source and then recording flux of fluorescence photons as the fluorophore decays in time. In this section two methods will be discussed: Time Correlated Single Photon Counting where fluorescence lifetimes are extracted from histograms of photon arrival times detected with single photon sensitive detectors; and a Gated detection scheme where fluorescence photons are counted during two acquisition windows and the fluorescence lifetimes are recovered using a statistical approach.
+\paragraph*{Time Correlated Single Photon Counting\\}
+In the Time Correlated Single Photon Counting scheme the full fluorescence decay is resolved typically with a resolution of \qtyrange{5}{50}{\pico\second} utilising single photon sensitive detectors, and pulsed laser sources to time tag detected fluorescence photons to the laser pulse that produce them. to excite fluorescence in a sample. In Figure \ref{introfig:tcspc} the forward counting mode is illustrated and the scheme operates as follows: a timer is started when a pulse is emitted from the laser; when the first photon is detected the timer stops and the photon event is time tagged; this process is repeated to build up a histogram of photon arrival times resolving the fluorescence decay. In photon starved conditions, where each laser pulse doesn't always yield a fluorescence photon, a backward counting method can be used which now starts the timer when a photon is detected and the next laser pulse stop the timer. After the histogram has been constructed the fluorescence lifetime can be extracted using one of the methods that will be described in Chapter \ref{chap:flimanalysis} such as reconvolution based fitting, phasor analysis or rapid lifetime analysis.
+The technology used in TCPSC FLIM implementations typically consist of a single pixel SPAD paired with a Time-to-Digital-Converter (TDC) to correlate the photon events generated by a \si{\mega\hertz} pulsed laser source with sub \SI{100}{\pico\second} pulse width that scanned across the sample. While TCSPC in principle limits the photon counting rate to one photon per pulse, SPADs also exhibit a dwell time in excess of a single laser period causing even more photons to be discarded (PicoQuant TimeHarp260) reducing photon counting efficiency and lengthening image acquisition times.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/introduction/TCSPCDiagram.pdf}
+    \caption{Diagram demonstrating the principle of Time Correlated Single Photon Counting in forward mode. The photon arrival time is recorded by starting a timer when a laser pulse is emitted and is stopped when the first photon is detected. Any subsequent photon incident on the detector during its dwell time are not recorded.}
+    \label{introfig:tcspc}
+\end{figure}
+
+The nature of single pixel detectors restricts fluorescence lifetime imaging platforms to either costly scanning systems~\cite{sanders1995quantitative}, or lengthy singe-pixel compressive sensing techniques for effective~\cite{yao2019net}. New generation SPAD arrays have become available which feature on-chip, and per-pixel, TDCs allowing for 
+recording fluorescence lifetime images in a snap shot. The limit of these new detectors is still their low resolution and low fill factor - for the example the Horiba Flimera, used in this project, has a resolution of \numproduct{128 x 192}\si{\pixel} with time bin width of
+\qtyrange{33}{47}{\pico\second} and fill factor of \SI{13}{\percent}~\cite{henderson2019192}. The low fill factor of these SPADs is due to each pixel of the SPAD contains the active detector area as well as the TDC on the same layer silicon. Raising the fill factor, and thus increasing photon detection efficiency is achievable through multiple methods such as implementing micro lens arrays; optimisation of TDC, and SPAD electronic; and multi-layer fabrication where the top layer of silicon is devoted to to being the active area of the detector and lower layers host the TDC and other necessary components.
+
+
+\paragraph*{Time Gated FLIM\\}\label{sec:gatedflim}
+In Time-Gated FLIM, fluorescence is excited in the same way as TCSPC FLIM but now the fluorescence decay is recorded with a gated camera capturing successive exposures with width $\Delta t \approx\qtyrange{1}{2}{\ns}$.
+Unlike TCPSC-FLIM which resolves the entire decay, Gated FLIM samples the fluorescence decay over multiple contiguous windows and uses the statistics of the measured photon counts to the recover the fluorescence lifetime. As in TCSPC, the fluorophore sample is excited using a pulsed laser source but now a synchronised gated camera (emCCD, gated image intensifier), with single photon sensitivity, records the number of photons within a two or more gates of width, $\Delta t$. The number of gates used determines the number of lifetimes that can resolved, for fluorophores exhibiting a mono-exponential decay 2 gates are required (Fig. \ref{subfigintro:tgflim}), and for bi-exponential decays (Fig. \ref{subfigintro:tgflimbi}) but reports of gating schemes for resolving more complex decay models could not be found in this review of literature. This is likely due to the requirement of more fixed-width gates recording fewer photons with a lower SNR - relative to detection schemes with fewer gates - unsustainably increasing the error in recovered lifetimes for higher order exponential decays. Time Gated FLIM, fundamentally, already trades off precision in recovered fluorescence lifetimes, compared to TCSPC FLIM, for high image throughput and widefield imaging meaning it likely not a suitable technique for studying complex mixtures of fluorophores and accurately unmixing their relative concentrations and lifetimes~\cite{ballew1989error, sharman1999error}.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.47\textwidth}
+        \centering
+        \includegraphics[width = \textwidth]{figures/introduction/TimeGatedFlim.pdf}
+        \caption{}
+        \label{subfigintro:tgflim}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.47\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/introduction/TimeGatedFlimBiExp.pdf}
+        \caption{}
+        \label{subfigintro:tgflimbi}
+    \end{subfigure}
+    \caption{Detection schemes used for resolving single exponential (\subref{subfigintro:tgflim})  and biexponential (\subref{subfigintro:tgflimbi}) using the Time Gated FLIM method. Each acquisition window, $T_{n}$, has equal integration time, $\Delta t$ and is synchronised to the laser pulse that excites fluorescence.}
+    \label{figintro:tgflim}
+\end{figure}
+\begin{equation}
+    \tau = \frac{\Delta t}{\ln(T_{1}/T_{2})} \quad 
+    \label{eqintro:rld}
+\end{equation}
+
+
+
+\subsubsection{Frequency Domain FLIM}
+\FloatBarrier
+Frequency Domain FLIM extracts fluorescence lifetime from the apparent phase shift and amplitude modulation exhibited by a fluorophore that is excited by an intensity modulated light source~\cite{verveer2009frequency}. In this detection scheme, typically, an Acousto-Optic Modulator is used to modulate the intensity of a continuous wave laser or LED source with a fundamental frequency, $\omega$, to excite fluorescence in a single pixel for a scanned system or flood illuminated sample for widefield imaging. A gated image intensifier then records images over different phase intervals such that the modulation frequency is Nyquist sampled (i.e $\omega_{s} > 2 \omega$).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.6\textwidth]{figures/introduction/FDflim.pdf}
+    \caption{Example of principle of Frequency Domain FLIM. A continuous wave source (black line) is intensity modulated with a frequency, $\omega = \SI{80}{\mega\hertz}$. A fluorophore with lifetime, $\tau = \SI{5}{\nano\second}$, causes a lifetime dependent phase, $\phi$, and amplitude, $M$, modulation in the recorded fluorescence intensity.}
+    \label{figintro:fdflim}
+\end{figure}
+The fluorescence lifetime is determined from the phase modulation (Eq. \ref{eqintro:fdlifetime}) or the amplitude modulation (Eq. \ref{eqintro:fdmodulation}. These parameters can be recovered by fitting the sampled modulation to a sinusoidal function or estimating the phase modulation with a Fourier transform. In the case of a well calibrated FD-FLIM system and a fluorophore expressing a single exponential decay the estimated phase angle, $\phi$, and the amplitude modulation, $M$, should be equal but in the case of multi-exponential decays multiple modulation frequencies are used to enable discrimination[citation needed], or methods such as Phasor analysis [citation needed] can be used (discussed further in Chapter \ref{chap:flimanalysis}).
+\begin{equation}
+    \tau = \frac{1}{\omega}\tan(\phi)
+    \label{eqintro:fdlifetime}
+\end{equation}
+\begin{equation}
+    M = \frac{1}{\sqrt{1 + \omega^{2}\tau^{2}}}
+    \label{eqintro:fdmodulation}
+\end{equation}
+
+\section{Outline}
+\begin{itemize}
+    \item Motivation / Philosophy
+        \begin{itemize}
+            \item Eye is susceptible to disease. Early detection improves patient outcomes and reduces permanent damage to sight. 
+            \item Routine imaging is an important tool for early detection of disease
+            \item Current imaging techniques detect physical damage to the retina
+            \item Being able to detect metabolic dysfunction in the retina could allow for diseases to be detected before physical damage occurs
+        \end{itemize}
+    \item The Eye and Retinal Disease
+    \begin{itemize}
+        \item Anatomy of the Eye
+        \begin{itemize}
+            \item Overview of constituent parts lens, humours, retina, choroid etc. and a description of what they do
+            \item Description of the layers behind the RPE and retina - briefly describe biological function
+        \end{itemize}
+        \item Common Retinal Diseases - their indicators and progressions
+            \begin{itemize}
+                \item AMD
+                \item Diabetic Retinopathy
+                \item Glaucoma
+                \item Stargardt's Disease
+            \end{itemize}
+        \item Current Retinal Imaging Techniques
+        \begin{itemize}
+            \item Fundus Camera
+            \item Scanning Laser Ophthalmoscope
+            \item Optical Coherence Tomography
+            \item Other Modalities
+        \end{itemize}
+    \end{itemize}
+    \item Fluorescence and Fluorescence Lifetime Imaging
+    \begin{itemize}
+        \item Requirement / motivation for doing FLIM
+        \item Description of what fluorescence lifetimes are
+        \item Detection Schemes for FLIM
+        \item Lifetime recovery and discrimination methods
+        \item Spectral FLIM
+    \end{itemize}
+    \item Fluorescence Lifetime Imaging Ophthalmoscopy
+    \begin{itemize}
+        \item Overview of Dysli device
+        \item Diseases studied and interpretation of results - how do they fit in with understanding disease ,early detection
+    \end{itemize}
+    \item FAD as in indicator for metabolic health and metabolic activity of the retina
+    \begin{itemize}
+        \item summarise what FAD is
+        \item some biology papers tracking FAD - UCL halos one
+        \item some FLIM and FAD papers
+        \item some papers on measureing metabolic activity in the retina
+    \end{itemize}
+\end{itemize}
+
+
+% shite that needs to be reqritten
 \section{Background}
 \subsection{Morphology of the Eye}
 The human eye is a complex organ, typically \SI{24}{\milli\metre} in diameter, capable of an angular resolving power of around \ang{;1;} and detecting single photons~\cite{tinsley2016direct} with a topology similar to a front side illuminated sensor. The eye is composed of many different components:
