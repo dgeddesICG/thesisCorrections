@@ -12,6 +12,95 @@
 % A key deficiency in current retinal imaging modalities is the ability to quantitatively assess retinal health. Previously, measurements of vascular oxygen concentrations in retinal vasculature have been reported~\cite{stefansson2019retinal,mordant2011spectral} - using the spectral properties of oxygenated and un-oxygenated haemoglobin - however the uncertainties in the measurements of $O_{2}$ concentrations are larger than the variability that would typically be experienced throughout the progression of a retinal disease, or chronic disease such as Multiple Sclerosis. There is potential for the added dimension of the fluorescence lifetime to facilitate a similar quantitative approach to monitoring retinal metabolic health but the efficient use of the available signal will be paramount for ensuring this technology can be feasibly implemented into current diagnostic practises.
 
 % In this thesis new methods of quantitatively assessing retinal and metabolic health will be explored using temporally, and/or spectrally resolved fluorescence images of the retina recorded with a modified high-street fundus camera retrofitted with new generation SPAD arrays to pave a route to lower cost regular monitoring retinal metabolic health. In addition, other novel applications of TCSPC are explored. Specifically, the material dependent temporal broadening experienced by a reflected laser pulse is explored for the purpose of discriminating materials in a scene.
+% \section{Diabetic Retinopathy}
+
+% Diabetes is a condition that presents in two main categories, Type 1 and Type 2, but exhibit the same overall symptoms - the inability to regulate the uptake of glucose in the body due to a deficiency in insulin production resulting in having an elevated concentration of glucose in the blood. In Type 1, this deficiency in insulin production stems from a autoimmune response destroying the insulin producing cells in the pancreas. For Type 2 increased insulin resistance or decreased efficiency of insulin uptake results in chronic hyperglycemia without treatment. In both types of diabetes a common complication arising of chronic hyperglycemia is the development of diabetic retinopathy which can result in permanent loss of vision through retinal detachments and macular oedemas~\cite{wang2018diabetic}.
+% Chronic hyperglycemia - prolonged periods of elevated glucose concentrations in the blood - leads to the formation and Advanced Glycation Endproducts (AGEs) and increased oxidative stress causing cumulative damage to the retinal vasculature and the structures that support retinal capillaries. Damage to vasuclature structures causes a deficiency in oxygenated blood within the retina which the body responds with by growing abnormal blood vessels often through the retina surface. Other common signifiers of retinopathy include the formation of exudates in retina, areas of ischemia, micro-anuerysms and haemorrhages into the vitreous humour, and retinal detachments
+% Since diabetic retinopathy is a progressive disease it is classified into two broad categories - Non-Proliferative Diabetic Retinopathy (NPDR), and Proliferative Diabetic Retinopathy. In NPDR patients often do not present with changes in their vision but retinal imaging, as depicted in Fig.~\ref{figintro:NPDR}, reveals these micro-anuerysms, exudates, and abnormal vessels. In cases of severe NPDR areas of haemorrhaging are clearly evident and, exudates are resolvable, as well as early signs of abnormal intraretinal vascualture growing to compensate for the inadequate supply of oxygenated blood (Fig. \ref{subfigintro:NPDR-2}) which is used to denote the progression of NPDR into PDR.
+% \begin{figure}[htbp]
+%     \centering
+%     \begin{subfigure}[b]{0.65\textwidth}
+%         \centering
+%         \includegraphics[width = \textwidth]{figures/introduction/stitt2016NPDRfigure.jpg}
+%         \subcaption{}
+%         \label{subfigintro:NPDR-1}
+%     \end{subfigure}
+%     \begin{subfigure}[b]{0.246\textwidth}
+%         \centering
+%         \includegraphics[width = \textwidth]{figures/introduction/DanisDavisPDRFigureCropped.pdf}
+%         \subcaption{}
+%         \label{subfigintro:NPDR-2}
+%     \end{subfigure}
+%     \caption{Retinal images recorded of two patients presenting with mild, and severe Non-Proliferative retinopathy.~\subref{subfigintro:NPDR-1}) colour fundus image (left) shows the formation of exudates (small white specks), and micro-aneurysms (cloudy areas surrounding the vessels and arteries). The fluorescence image recorded using fluorescein as a contrast agent (right) better shows these areas of micro-aneurysms as clusters of white surrounding the sharp white vasculature as well as an areas displaying restricted blood flow (white arrow). Subfigure~(\subref{subfigintro:NPDR-1}) and~(\subref{subfigintro:NPDR-2}) from~\citeauthor{stitt2016progress}~\cite{stitt2016progress} and~\citeauthor{danis2008proliferative}~\cite{danis2008proliferative}, respectively.}
+%     \label{figintro:NPDR}
+% \end{figure}
+% When diabetic retinopathy enters the proliferative stage the high risk of vision loss is not only from these malformed intraretinal networks of blood vessels puncturing the retina and haemorrhaging (macular oedemas) but also from the motion of this vessel network causing tractional retinal detachments or 'macular dragging'. Treatment for macular oedemas is typically a virectomy where the haemorrhaged fluid is removed with a syringe and replaced with saline solution to maintain intraocular pressure the sites of these oedemas are then photocoagulated with a laser~\cite{newman2010surgical}.
+
+% % \begin{figure}[htbp]
+% %     \centering
+% %     \begin{subfigure}[b]{0.325\textwidth}
+% %         \centering
+% %         \includegraphics[width = \textwidth]{figures/introduction/DanisDavisPDRFigureA.pdf}
+% %         \subcaption{}
+% %         \label{subfigintro:PRDa}
+% %     \end{subfigure}
+% %     \hfill
+% %     \begin{subfigure}[b]{0.325\textwidth}
+% %         \centering
+% %         \includegraphics[width = \textwidth]{figures/introduction/DanisDavisPDRFigureB.pdf}
+% %         \subcaption{}
+% %         \label{subfigintro:PRDb}
+% %     \end{subfigure}
+% %     \hfill
+% %     \begin{subfigure}[b]{0.325\textwidth}
+% %         \centering
+% %         \includegraphics[width = \textwidth]{figures/introduction/DanisDavisPDRFigureC.pdf}
+% %         \subcaption{}
+% %         \label{subfigintro:PRDc}
+% %     \end{subfigure}
+% %     \caption{Caption. Figure adapted from~\citeauthor{danis2008proliferative}\cite{danis2008proliferative}}
+% %     \label{figintro:PDR}
+% % \end{figure}
+
+
+% \begin{figure}[htbp]
+%     \centering
+%     \begin{subfigure}[b]{0.3\textwidth}
+%         \centering
+%         \begin{annotatedFigure}
+%             {\includegraphics[width=\textwidth]{figures/introduction/DanisDavisPDRFigureA.pdf}}
+%             \annotatedFigureBox{0.6,0.45}{0.72,0.26}{2}{0.72,0.250}
+%             \annotatedFigureBox{0.115,0.51}{0.370,0.430}{1}{0.38,0.420}
+%         \end{annotatedFigure}
+%         \subcaption{}
+%         \label{subfigintro:PDRA}
+%     \end{subfigure}
+%     %
+%     \hfill
+%     %
+%     \begin{subfigure}[b]{0.3\textwidth}
+%         \centering
+%         \begin{annotatedFigure}
+%             {\includegraphics[width=\textwidth]{figures/introduction/DanisDavisPDRFigureB.pdf}}
+%         \end{annotatedFigure}
+%         \subcaption{}
+%         \label{subfigintro:PDRB}
+%     \end{subfigure}
+%     %
+%     \hfill
+%     %
+%     \begin{subfigure}[b]{0.3\textwidth}
+%         \centering
+%         \begin{annotatedFigure}
+%             {\includegraphics[width=\textwidth]{figures/introduction/DanisDavisPDRFigureC.pdf}}
+%         \end{annotatedFigure}
+%         \subcaption{}
+%         \label{subfigintro:PDRC}
+%     \end{subfigure}
+%     \caption{Images recorded of a patient with Proliferative Diabetic Retinopathy. (\subref{subfigintro:PDRA}) shows severe a site of preretinal haemorrhage (1), and transretinal vessels near the optic disc (2).   }
+%     \label{figintro:PDR}
+% \end{figure}
+
 
 
 % Fluorescence is radiative process where photons are emitted from a substance due to the excitation and subsequent relaxation of electronic singlet states in a substance. This process is commonly visualised using a Jablonski diagram (Fig.~\ref{figintro:jablonski}):
@@ -105,3 +194,15 @@
 %     M = \frac{1}{\sqrt{1 + \omega^{2}\tau^{2}}}
 %     \label{eqintro:fdmodulation}
 % \end{equation}
+
+
+
+
+% \begin{annotatedFigure}
+%     {\includegraphics[width=1.0\linewidth]{black-demo.png}}
+%     \annotatedFigureBox{0.084,0.614}{0.394,0.804}{A}{0.084,0.614}%bl
+%     \annotatedFigureBox{0.222,0.284}{0.3743,0.4934}{B}{0.3743,0.4934}%tr
+%     \annotatedFigureBox{0.555,0.784}{0.6815,0.874}{C}{0.555,0.784}%bl
+%     \annotatedFigureBox{0.557,0.322}{0.8985,0.5269}{D}{0.8985,0.5269}%tr
+% \end{annotatedFigure}
+

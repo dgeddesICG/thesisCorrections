@@ -51,16 +51,130 @@ The eye also contains two humours: the aqueous humour that occupies the volume b
 The retina is a \qty{250}{\micro\metre} thick photo sensitive multi-layer slice of tissue located at the rear of the eyeball with blood vessels on the surface supply oxygenated blood to the eye. The top layers of the retina contain the arteries and veins that supply oxygenated blood to the tissue, fed by the ophthalmic artery, and the photoreceptors as well as the inner, and outer, nuclear layers which are responsible for detecting incident photons and and converting them into neuronal activity which is transmitted down the optic nerve through a small gap, devoid of photoreceptors called the optic disk. Around the optic disk the density of photoreceptors varies to make up the different types vision. The macula and fovea contain the highest concentrations of photoreceptors to make up the central vision - $\approx \SI{60}{\degree}$ FOV - with the rest of the retinal surface making up peripheral vision~\cite{bringmann2021fovea}. 
 Behind the photoreceptors exists the Retinal Pigment Epithelium (RPE) - referred to as the pigment epithelium in~\cref{figintro:eyeanatomy} - which serves as a support structure for the front most layers of the retina as well as choroid and Bruch's membrane whose main purpose is to provide blood and nutrients to the RPE and photoreceptors.
 
-\textcolor{red}{add some more text about the layers behind the retina and the choroid}
 \FloatBarrier
-\subsection{Common Retinal diseases - Their Indicators \\and Progression}
+\subsection{Common Retinal diseases - \\ Their Indicators and Progression}
+\FloatBarrier
+\subsubsection{Age-Related Macular Degeneration}\label{subsubsec:intro-amd}
+AMD is progressive disease which results with permanent loss of central vision. Initially, patients present as asymptomatic but in retinal images show the formation of small yellowish deposits in the RPE referred to as ``drusen’’ and progresses as one of two types - ``wet’’ and ``dry’’ AMD. Wet AMD causes abnormal blood vessels to form in the choroid with rupture the RPE and leak blood into the retina, culminating in retinal scarring and permanent vision loss~\cite{abdelsalam1999drusen,bressler2002early}. Dry AMD also progresses towards permanent vision loss where the photoreceptors atrophy – referred to as Geographic Atrophy - but with regular screening this type can be treated with intra-retinal injections~\cite{lim2012age,bressler2002early}. Progression of AMD is usually monitored by tracking the change in drusen and any areas of Geographic Atrophy, as shown in~\cref{fig:introAMD}.
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width = 0.95\textwidth]{figures/introduction/AMD-progressionFigure.pdf}}
+        \annotatedFigureText{0.02,0.84}{white}{0.3}{a)}
+        \annotatedFigureText{0.35,0.84}{white}{0.3}{b)}
+        \annotatedFigureBox{0.5,0.65}{0.54,0.5}{1}{0.547,0.47}
+        \annotatedFigureBox{0.7,0.7}{0.85,0.1}{2}{0.69,0.72}
+        \annotatedFigureText{0.67,0.84}{white}{0.3}{c)}
+    \end{annotatedFigure}
+    \caption{Progression of AMD. In a) a healthy retina of an elderly patient, with no signs of AMD, is shown. b) Retina showing signs of AMD with intermediate sized drusen (\cref{tab:drusen}) denoted as (1). c) shows a retina in the advanced stages of AMD displaying an large area of Geographic Atrophy (2). Adapted from~\citeauthor{guymer2023age}~\cite{guymer2023age}.}
+    \label{fig:introAMD}
+\end{figure}
+
+Drusen deposits are classified into ``soft’’ and ``hard’’ densities where hard drusen tend to be smaller in size and present a lower risk of vision loss than soft drusen. Soft drusen has been hypothesised to be the results of hard drusen breaking down~\cite{sarks1994evolution} and are detected in fluorescence images of the retina~\cite{yung2016clinical}. In~\cref{tab:drusen}, the criteria for characterising the size of drusen are described where small drusen tend to grow into larger drusen.
+\begin{table}[htp]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Category & Diameter (\unit{\um})\\
+        \hline
+        Small & $<63$\\
+        Intermediate &\numrange{63}{124}\\
+        Large & $\geq\num{125}$\\
+        \hline
+    \end{tabular}
+    \caption{Criteria for categorising retinal drusen based on average diameter as described in~\citeauthor{guymer2023age}\cite{guymer2023age}.}
+    \label{tab:drusen}
+\end{table}
+\FloatBarrier
+\subsubsection{Diabetic Retinopathy}\label{subsubsec:intro-dr}
+Diabetic retinopathy is a complication of diabetes affecting nearly all Type diabetic and over \qty{60}{\percent} of Type 2 diabetics within two decades of receiving a diagnosis of diabetes~\cite{fong2004retinopathy}. Chronic high concentrations glucose in the blood – hyperglycaemia and large fluctuations in this blood-glucose concentration result in dysfunction in the retinal vasculature. As shown in~\cref{fig:introNPDR}, Blood vessels can swell and cause macular oedemas and micro-aneurysms into the vitreous humour around the macula~\cite{kowluru2007oxidative,mohamed2007management}.
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.65\textwidth}
+        \centering
+        \includegraphics[width = \textwidth]{figures/introduction/stitt2016NPDRfigure.jpg}
+        \subcaption{}
+        \label{subfigintro:NPDR-1}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.246\textwidth}
+        \centering
+        \includegraphics[width = \textwidth]{figures/introduction/DanisDavisPDRFigureCropped.pdf}
+        \subcaption{}
+        \label{subfigintro:NPDR-2}
+    \end{subfigure}
+    \caption{Retinal images recorded of two patients presenting with mild, and severe Non-Proliferative retinopathy.~\subref{subfigintro:NPDR-1}) colour fundus image (left) shows the formation of exudates (small white specks), and micro-aneurysms (cloudy areas surrounding the vessels and arteries). The fluorescence image recorded using fluorescein as a contrast agent (right) better shows these areas of micro-aneurysms as clusters of white surrounding the sharp white vasculature as well as an areas displaying restricted blood flow (white arrow). Both ~(\subref{subfigintro:NPDR-1}) and~(\subref{subfigintro:NPDR-2}) are adapted from from~\citeauthor{stitt2016progress}~\cite{stitt2016progress} and~\citeauthor{danis2008proliferative}~\cite{danis2008proliferative}, respectively.}
+    \label{fig:introNPDR}
+\end{figure}
+ In the more advanced stages of the disease the lack of sufficient blood flow to the choroid causes new irregular vessels to grow – sometimes through the retina itself~\cite{kowluru2007oxidative}. This latter stage of disease progress is known as proliferative diabetic retinopathy.  Through routine imaging, signs of proliferation in the retinal vasculature and signs of oedemas are monitored with the progression of the disease being classified into proliferative (PDR), and non-proliferative (NPDR), diabetic retinopathy. 
+ \begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \begin{annotatedFigure}
+            {\includegraphics[width=\textwidth]{figures/introduction/DanisDavisPDRFigureA.pdf}}
+            \annotatedFigureBox{0.6,0.45}{0.72,0.26}{2}{0.72,0.250}
+            \annotatedFigureBox{0.115,0.51}{0.370,0.430}{1}{0.38,0.420}
+        \end{annotatedFigure}
+        \subcaption{}
+        \label{subfigintro:PDRA}
+    \end{subfigure}
+    %
+    \hfill
+    %
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \begin{annotatedFigure}
+            {\includegraphics[width=\textwidth]{figures/introduction/DanisDavisPDRFigureB.pdf}}
+        \end{annotatedFigure}
+        \subcaption{}
+        \label{subfigintro:PDRB}
+    \end{subfigure}
+    %
+    \hfill
+    %
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \begin{annotatedFigure}
+            {\includegraphics[width=\textwidth]{figures/introduction/DanisDavisPDRFigureC.pdf}}
+        \end{annotatedFigure}
+        \subcaption{}
+        \label{subfigintro:PDRC}
+    \end{subfigure}
+    \caption{Images recorded of a patient with Proliferative Diabetic Retinopathy. \subref{subfigintro:PDRA}) shows severe a site of pre-retinal haemorrhage (1), and trans-retinal vessels near the optic disc (2).~\subref{subfigintro:PDRB}) show the same retina three weeks after the photo-coagulation surgery - after imaging the haemorrhaged blood was removed from the vitreous humour in a vitrectomy. \subref{subfigintro:PDRC}) shows the patient 8 weeks after the photo-coagulation and vitrectomy where visual acuity has improved from 20/60 pre-intervention to 20/30 in this image. At a 4 year follow-up vision has improved to 20/20. Figure adapted from Fig.~5 of~\citeauthor{danis2008proliferative}~\cite{danis2008proliferative}.}
+    \label{figintro:PDR}
+\end{figure}
+ Treatment of Diabetic retinopathy is normally two-fold: the patient can improve control of blood-glucose concentration and reduce fluctuations and events of hyperglycaemia and hypoglycaemia; and through surgical interventions to reduce the loss of vision due to oedemas. Laser photo coagulation to ablate, and seal, any leaking vessels and any haemorrhaged blood is removed and a follow up surgery to remove any haemorrhaged blood and replace the missing vitreous humour with saline. These surgeries can slow the effects of PDR but the best intervention is still tight glycaemic control and regular retinal screening with sufficient sensitivity to diabetic retinopathy in its non-proliferative stage~\cite{chan2010resistance}. Tightening glycaemic control – has been shown to reduce the risk of developing diabetic retinopathy by \qty{35}{\percent}~\cite{fong2004retinopathy}.
+\FloatBarrier
+\subsubsection{Stargardts Disease}\label{subsubsec:intro-stargardt}
+Stargardts Disease is a heritable form of macular degeneration cause by a mutation of the ABCA4 gene on chromosome 1. Affecting around 1 in \numrange{8000}{10000}~\cite{tanna2017stargardt,monica1999analysis,tsang2018stargardt}, retinal images show the formation, and build-up of yellowish flecks in the RPE, centred on the fovea, and presenting as hypo-fluorescent regions in autofluorescence images. These characteristic ``flecks’’ are similar in appearance to drusen but over time cause dysfunction in the RPE leading to irrecoverable loss of central vision~\cite{mcbain2012progression}.
+\begin{figure}
+    \centering
+    \begin{annotatedFigure}{\includegraphics[width=0.95\textwidth]{figures/introduction/StargardtsFigure.pdf}}
+        \annotatedFigureText{0.17,0.92}{white}{0.3}{a)}
+        \annotatedFigureText{0.51,0.92}{white}{0.3}{b)}
+
+        \annotatedFigureBox{0.18,0.52}{0.28,0.38}{1}{0.285,0.375}
+        \annotatedFigureBox{0.70,0.70}{0.765,0.63}{2}{0.77,0.625}
+    \end{annotatedFigure}
+
+    \caption{Fluorescence images of the retina showing: a) a patient with advanced Stargardts disease where a large area of the macula has atrophied (1) - showing no fluorsecence; and b) A cluster of hypofluorescence ``flecks'', denoted by the red highlighted region (2), that are a common marker of Stargardts disease. Adapted from~\citeauthor{tsang2018stargardt}~\cite{tsang2018stargardt}.}
+    \label{fig:stargardts}
+\end{figure}
+
+ Currently there are no published treatments for slowing the progression of the disease or literature on the process by which the clusters of flecks form and grow~\cite{huang2022stargardt}. Currently, Stargardts Disease is diagnosed using fundus autofluorescence imaging where ``flecks’’ have already begun forming and growing. The development of an imaging technique that can detect the formation of this earlier in its progression could be vital for researching the pathophysiology of the disease and informing treatments.
 \FloatBarrier
 \subsection{Current Retinal Imaging Devices \\ and Modalities}
+\subsubsection{Fundus Camera}
+\subsubsection{Scanning Laser Ophthalmoscopy}
+\subsubsection{Optical Coherence Tomography}
+
+
 \FloatBarrier
 \section{Concepts of Fluorescence and \\ Fluorescence Lifetime Imaging}
+
+
 \FloatBarrier
 \subsection{Mechanics of Fluorescence Lifetimes}
-Fluorescence is radiative process where photons are emitted from a substance due to the excitation and subsequent relaxation of electronic singlet states in a substance. This process is commonly visualised using a Jablonski diagram (~\cref{figintro:jablonski}):
+Fluorescence is radiative process where photons are emitted from a substance due to the excitation and subsequent relaxation of electronic singlet states in a substance. This process is commonly visualised using a Jablonski diagram  in~\cref{figintro:jablonski}:
 \begin{figure}[htbp]
     \centering
     \includegraphics[width = 0.8\textwidth]{figures/introduction/JablonskiDiagram.pdf}
@@ -68,9 +182,9 @@ Fluorescence is radiative process where photons are emitted from a substance due
     \label{figintro:jablonski}
 \end{figure}
 
-Absorption of impinged photons promote an electron from the ground electronic singlet state $S_{0}$, to a vibrational state within a higher electronic state, $S_{1},S_{2}$ etc. Non-radiative internal conversion relax the electron in the fluorophore back into the $S_{1}$ state. The electron can then decay back into the $S_{0}$ state by emitting a fluorescence photon or undergo an inter-system crossing to the first triplet-state, $T_{1}$, and then decay to the ground state to produce a phosphorescence photon. 
+Absorption of impinged photons promote an electron from the ground electronic singlet state $S_{0}$, to a vibrational state within a higher electronic state, $S_{1}, S_{2}$ etc. Non-radiative internal conversion relax the electron in the fluorophore back into the $S_{1}$ state. The electron can then decay back into the $S_{0}$ state by emitting a fluorescence photon or undergo an inter-system crossing to the first triplet-state, $T_{1}$, and then decay to the ground state to produce a phosphorescence photon. 
 These radiative and no-radiative processes occur over different time scales: absorption occurs over \qty{e-15}{\second}; internal conversions and inter-system crossings occur \qty{e-12}{\second}; phosphorescence decays take place over time-scales of \qtyrange{e-7}{e-3}{\second}~\cite{lakowicz2013fluorescencespectroscopybook}. Of key interest in this thesis is the decay times due to fluoresce which occur over a few nanoseconds~\cite{lakowicz2013fluorescencespectroscopybook}.
-The process of fluorescence is random i.e within a single unit-area the excited state of every electron is not depopulated at the same time. It is thus more useful to consider the average time the fluorophore remains in the excited state, $S_{1}$ - this is the fluorescence lifetime. The time-dependent intensity of fluorescence can then be modelled from the rate-of-change of concentration of fluorophores in the excited state [$S_{1}$]:
+The process of fluorescence is random i.e. within a single unit-area the excited state of every electron is not depopulated at the same time. It is thus more useful to consider the average time the fluorophore remains in the excited state, $S_{1}$ - this is the fluorescence lifetime. The time-dependent intensity of fluorescence can then be modelled from the rate-of-change of concentration of fluorophores in the excited state [$S_{1}$]:
 \begin{equation}
     \frac{d}{dt}[S_{1}] = -\Gamma [S_{1}]
     \label{eqintro:conc}
@@ -212,12 +326,13 @@ Phasor analysis has also seen usage beyond standard FLIM imaging. For spectrally
 \FloatBarrier
 \subsection{Spectral-FLIM}
 \FloatBarrier
-\section{Fluorescence Lifetime Imaging Ophthalmoscopy}
+\section{FLIO -Fluorescence Lifetime \\ Imaging Ophthalmoscopy}
 \FloatBarrier
 \section{FAD As An Indicator of Metabolic Health}
 \FloatBarrier
-\section{Methods of Measuring Metabolic Function // in the Retina}
+\section{Methods of Measuring Metabolic Function \\ in the Retina}
 \FloatBarrier
+\section{Objectives of Research}\label{sec:objresearch}
 
 \section{Outline}
 \begin{itemize}
@@ -239,7 +354,6 @@ Phasor analysis has also seen usage beyond standard FLIM imaging. For spectrally
             \begin{itemize}
                 \item AMD
                 \item Diabetic Retinopathy
-                \item Glaucoma
                 \item Stargardt's Disease
             \end{itemize}
         \item Current Retinal Imaging Techniques
@@ -272,18 +386,17 @@ Phasor analysis has also seen usage beyond standard FLIM imaging. For spectrally
     \end{itemize}
 \end{itemize}
 
-Ma
 % shite that needs to be reqritten
-\section{Background}
-\subsection{Morphology of the Eye}
-The human eye is a complex organ, typically \SI{24}{\milli\metre} in diameter, capable of an angular resolving power of around \ang{;1;} and detecting single photons~\cite{tinsley2016direct} with a topology similar to a front side illuminated sensor. The eye is composed of many different components:
-\subsubsection{Anterior Segment}
-The cornea protrudes at the front of the eye - making it non-spherical - and is responsible for providing protection for the lens, as well as contributing more than half of the refractive power of the eye. The pigmented iris and pupil form the aperture of the eye and continuously is adjustable from diameters of \SI{2}{\milli\metre} to \SI{8}{\milli\metre} to account for variable ambient light levels. The eyes crystalline lens has a diameter of \SI{8}{\milli\metre} to \SI{10}{\milli\metre} is then responsible for fine focusing, and forming aberration free images onto the retina covering up to around a \SI{200}{\degree} FOV (with both eyes working as a pair).
-The eye also contains two humours: the aqueous humour that resides between the cornea and the lens, and the vitreuos humour which fills the volume behind the lens to retina. These humours continuously flow in and out of the eye and ensure tissues in the eye are fed with nutrients and most importantly maintain the eyes shape.
+% \section{Background}
+% \subsection{Morphology of the Eye}
+% The human eye is a complex organ, typically \SI{24}{\milli\metre} in diameter, capable of an angular resolving power of around \ang{;1;} and detecting single photons~\cite{tinsley2016direct} with a topology similar to a front side illuminated sensor. The eye is composed of many different components:
+% \subsubsection{Anterior Segment}
+% The cornea protrudes at the front of the eye - making it non-spherical - and is responsible for providing protection for the lens, as well as contributing more than half of the refractive power of the eye. The pigmented iris and pupil form the aperture of the eye and continuously is adjustable from diameters of \SI{2}{\milli\metre} to \SI{8}{\milli\metre} to account for variable ambient light levels. The eyes crystalline lens has a diameter of \SI{8}{\milli\metre} to \SI{10}{\milli\metre} is then responsible for fine focusing, and forming aberration free images onto the retina covering up to around a \SI{200}{\degree} FOV (with both eyes working as a pair).
+% The eye also contains two humours: the aqueous humour that resides between the cornea and the lens, and the vitreuos humour which fills the volume behind the lens to retina. These humours continuously flow in and out of the eye and ensure tissues in the eye are fed with nutrients and most importantly maintain the eyes shape.
 
-\subsubsection{Posterior Segment}
-The retina is a \SI{250}{\micro\metre} thick photo sensitive multi-layer slice of tissue located at the rear of the eyeball that also houses the vasculature that supplies oxygenated blood to the eye. The top layers of the retina contain the arteries and veins that supply oxygenated blood to the tissue, fed by the ophthalmic artery, and the photoreceptors as well as the inner, and outer, nuclear layers which are responsible for detecting incident photons and and converting them into neuronal activity which is transmitted down the optic nerve through a small gap, devoid of photoreceptors called the optic disk. Around the optic disk the density of photoreceptors varies to make up the different types vision. The macula and fovea contain the highest concentrations of photoreceptors to make up the central vision - $\approx \SI{60}{\degree}$ FOV - with the rest of the retinal surface making up peripheral vision\cite{bringmann2021fovea}. 
-Behind the photoreceptors exists the Retinal Pigment Epithelium (RPE) - referred to as the pigment epithelium in Fig.~\ref{figintro:eyeanatomy} - which serves as a support structure for the front most layers of the retina as well as choroid and Bruch's membrane whose main purpose is to provide blood and nutrients to the RPE and photoreceptors.
+% \subsubsection{Posterior Segment}
+% The retina is a \SI{250}{\micro\metre} thick photo sensitive multi-layer slice of tissue located at the rear of the eyeball that also houses the vasculature that supplies oxygenated blood to the eye. The top layers of the retina contain the arteries and veins that supply oxygenated blood to the tissue, fed by the ophthalmic artery, and the photoreceptors as well as the inner, and outer, nuclear layers which are responsible for detecting incident photons and and converting them into neuronal activity which is transmitted down the optic nerve through a small gap, devoid of photoreceptors called the optic disk. Around the optic disk the density of photoreceptors varies to make up the different types vision. The macula and fovea contain the highest concentrations of photoreceptors to make up the central vision - $\approx \SI{60}{\degree}$ FOV - with the rest of the retinal surface making up peripheral vision\cite{bringmann2021fovea}. 
+% Behind the photoreceptors exists the Retinal Pigment Epithelium (RPE) - referred to as the pigment epithelium in Fig.~\ref{figintro:eyeanatomy} - which serves as a support structure for the front most layers of the retina as well as choroid and Bruch's membrane whose main purpose is to provide blood and nutrients to the RPE and photoreceptors.
 
 
 
@@ -317,136 +430,9 @@ There exists multitudes of different diseases that can affect the retina. For th
 % Understanding of the pathophysiology, or how and why a disease progresses can be used to enhance treaments through more effective therapeutics and a detection methods.
 % Often in the retina the pathophysiology of disease is not completely understood meaning that patients report of loss / change in vision motivate further examination where diagnosis of retinal disease is made based upon the presence of tell-tale markers of specific diseases.
 
-\subsubsection{Age-related Macular Degeneration}\label{intro:AMD}
-\FloatBarrier
-\subsubsection{Diabetic Retinopathy}
-\FloatBarrier
-% \begin{itemize}
-%     \item Diabetes is a chronic condition that presents with two main types of pathophysiology but both exhibit the same symptoms - the body can no longer self-regulate the concentration of glucose in the blood due to a deficiency / complete lack of insulin production.
-%     \item Even with sufficent medication, wild and prolonged fluctuations in blood - glucose concentrations results often lead to complications such as neuropathy, and retinopathy - the focus of this section.
-%     \item DR is driven by two main risk factors - hyperglycemia, and hypertension.
-%     \begin{itemize}
-%         \item High blood glucose, hyperglycemia, causes higher oxidative stress and formation of AGE's
-%         \item 
-%         \item Hypertension places increases stress on the microvasucalture (i.e the retinal vasculature)     
-%     \end{itemize}
-%     \item Macular oedema - blood from the choroid leaks into the vitreous humour. Treatment for this involves removing the oedema with a syringe and replacing lost fluid with saline to maintain intraocular pressure. The site of the oedema is then cauterised with a laser resulting in a dark spot of vision in this area. 
-% \end{itemize}
-
-Diabetes is a condition that presents in two main categories, Type 1 and Type 2, but exhibit the same overall symptoms - the inability to regulate the uptake of glucose in the body due to a deficiency in insulin production resulting in having an elevated concentration of glucose in the blood. In Type 1, this deficiency in insulin production stems from a autoimmune response destroying the insulin producing cells in the pancreas. For Type 2 increased insulin resistance or decreased efficiency of insulin uptake results in chronic hyperglycemia without treatment. In both types of diabetes a common complication arising of chronic hyperglycemia is the development of diabetic retinopathy which can result in permanent loss of vision through retinal detachments and macular oedemas~\cite{wang2018diabetic}.
-Chronic hyperglycemia - prolonged periods of elevated glucose concentrations in the blood - leads to the formation and Advanced Glycation Endproducts (AGEs) and increased oxidative stress causing cumulative damage to the retinal vasculature and the structures that support retinal capillaries. Damage to vasuclature structures causes a deficiency in oxygenated blood within the retina which the body responds with by growing abnormal blood vessels often through the retina surface. Other common signifiers of retinopathy include the formation of exudates in retina, areas of ischemia, micro-anuerysms and haemorrhages into the vitreous humour, and retinal detachments
-Since diabetic retinopathy is a progressive disease it is classified into two broad categories - Non-Proliferative Diabetic Retinopathy (NPDR), and Proliferative Diabetic Retinopathy. In NPDR patients often do not present with changes in their vision but retinal imaging, as depicted in Fig.~\ref{figintro:NPDR}, reveals these micro-anuerysms, exudates, and abnormal vessels. In cases of severe NPDR areas of haemorrhaging are clearly evident and, exudates are resolvable, as well as early signs of abnormal intraretinal vascualture growing to compensate for the inadequate supply of oxygenated blood (Fig. \ref{subfigintro:NPDR-2}) which is used to denote the progression of NPDR into PDR.
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}[b]{0.65\textwidth}
-        \centering
-        \includegraphics[width = \textwidth]{figures/introduction/stitt2016NPDRfigure.jpg}
-        \subcaption{}
-        \label{subfigintro:NPDR-1}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.246\textwidth}
-        \centering
-        \includegraphics[width = \textwidth]{figures/introduction/DanisDavisPDRFigureCropped.pdf}
-        \subcaption{}
-        \label{subfigintro:NPDR-2}
-    \end{subfigure}
-    \caption{Retinal images recorded of two patients presenting with mild, and severe Non-Proliferative retinopathy.~\subref{subfigintro:NPDR-1}) colour fundus image (left) shows the formation of exudates (small white specks), and micro-aneurysms (cloudy areas surrounding the vessels and arteries). The fluorescence image recorded using fluorescein as a contrast agent (right) better shows these areas of micro-aneurysms as clusters of white surrounding the sharp white vasculature as well as an areas displaying restricted blood flow (white arrow). Subfigure~(\subref{subfigintro:NPDR-1}) and~(\subref{subfigintro:NPDR-2}) from~\citeauthor{stitt2016progress}~\cite{stitt2016progress} and~\citeauthor{danis2008proliferative}~\cite{danis2008proliferative}, respectively.}
-    \label{figintro:NPDR}
-\end{figure}
-When diabetic retinopathy enters the proliferative stage the high risk of vision loss is not only from these malformed intraretinal networks of blood vessels puncturing the retina and haemorrhaging (macular oedemas) but also from the motion of this vessel network causing tractional retinal detachments or 'macular dragging'. Treatment for macular oedemas is typically a virectomy where the haemorrhaged fluid is removed with a syringe and replaced with saline solution to maintain intraocular pressure the sites of these oedemas are then photocoagulated with a laser~\cite{newman2010surgical}.
-
-% \begin{figure}[htbp]
-%     \centering
-%     \begin{subfigure}[b]{0.325\textwidth}
-%         \centering
-%         \includegraphics[width = \textwidth]{figures/introduction/DanisDavisPDRFigureA.pdf}
-%         \subcaption{}
-%         \label{subfigintro:PRDa}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}[b]{0.325\textwidth}
-%         \centering
-%         \includegraphics[width = \textwidth]{figures/introduction/DanisDavisPDRFigureB.pdf}
-%         \subcaption{}
-%         \label{subfigintro:PRDb}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}[b]{0.325\textwidth}
-%         \centering
-%         \includegraphics[width = \textwidth]{figures/introduction/DanisDavisPDRFigureC.pdf}
-%         \subcaption{}
-%         \label{subfigintro:PRDc}
-%     \end{subfigure}
-%     \caption{Caption. Figure adapted from~\citeauthor{danis2008proliferative}\cite{danis2008proliferative}}
-%     \label{figintro:PDR}
-% \end{figure}
-
-
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \begin{annotatedFigure}
-            {\includegraphics[width=\textwidth]{figures/introduction/DanisDavisPDRFigureA.pdf}}
-            \annotatedFigureBox{0.6,0.45}{0.72,0.26}{2}{0.72,0.250}
-            \annotatedFigureBox{0.115,0.51}{0.370,0.430}{1}{0.38,0.420}
-        \end{annotatedFigure}
-        \subcaption{}
-        \label{subfigintro:PDRA}
-    \end{subfigure}
-    %
-    \hfill
-    %
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \begin{annotatedFigure}
-            {\includegraphics[width=\textwidth]{figures/introduction/DanisDavisPDRFigureB.pdf}}
-        \end{annotatedFigure}
-        \subcaption{}
-        \label{subfigintro:PDRB}
-    \end{subfigure}
-    %
-    \hfill
-    %
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \begin{annotatedFigure}
-            {\includegraphics[width=\textwidth]{figures/introduction/DanisDavisPDRFigureC.pdf}}
-        \end{annotatedFigure}
-        \subcaption{}
-        \label{subfigintro:PDRC}
-    \end{subfigure}
-    \caption{Images recorded of a patient with Proliferative Diabetic Retinopathy. (\subref{subfigintro:PDRA}) shows severe a site of preretinal haemorrhage (1), and transretinal vessels near the optic disc (2).   }
-    \label{figintro:PDR}
-\end{figure}
 
 
 
-% \begin{annotatedFigure}
-%     {\includegraphics[width=1.0\linewidth]{black-demo.png}}
-%     \annotatedFigureBox{0.084,0.614}{0.394,0.804}{A}{0.084,0.614}%bl
-%     \annotatedFigureBox{0.222,0.284}{0.3743,0.4934}{B}{0.3743,0.4934}%tr
-%     \annotatedFigureBox{0.555,0.784}{0.6815,0.874}{C}{0.555,0.784}%bl
-%     \annotatedFigureBox{0.557,0.322}{0.8985,0.5269}{D}{0.8985,0.5269}%tr
-% \end{annotatedFigure}
-
-
-
-
-\subsubsection{Stargardts Disease}
-\FloatBarrier
-% \subsection{FAD as a Marker For Retinal Disease}
-
-% The mechanism for this begins with the fundamental process where ATP (Adenosine TriPhosphate) is produced by the consumption of oxygen through aerobic respiration \cref{eq:resp} and when this ATP is consumed by metabolic process - FAD amongst other fluorescence flavoproteins are also produced. For the eye, this means that the disruption of metabolic processes and the consumption oxygen, at the genesis of retinal disease, would result in abnormal distributions of FAD across the retina. In the case of diabetic retinopathy this could be used to diagnose proliferation earlier than conventional imaging techniques \addcite where areas of the retina with decreased FAD concentration - brought about by the choroid not supplying the retina with oxygenated blood - could be signify future proliferation. 
-
-
-% The mechanism for this lies with the process of aerobic respiration \cref{eq:resp} in that when ATP (Adenosine TriPhosphate) is consumed - FAD as well as other flavo-proteins are produced as a byproduct\cite{berg2007biochemistry} and under oxygen starved - hypoxic - conditions (\SI{<15}{\percent} \ce{FiO2}) the concentration of FAD would be lower than when respirating room-air - normoxic conditions (\SI{21}{\percent}\ce{FiO2}). 
-% \begin{equation}\label{eq:resp}
-%     \ce{C6H12O6 + 6O2 -> 6CO2 + 6H2O + ATP}
-% \end{equation}
-% After death the concentration of FAD would eventually go to zero when all metabolic processes have ceased and as reported by \citeauthor{martinez2017understanding} in the case of a rats cerebral cortex the FAD leaks into the surrounding tissue forming what was dubbed 'halos', further it was thought that in the case of upon returning to normoxic conditions after a period of hypoxia the metabolic system overproduces FAD - increasing the concentration of FAD above that of standard normoxic conditions. 
-\FloatBarrier
-\subsection{Retinal Imaging Modalities}
 
 % \FloatBarrier
 % \subsection{Fluorescence Theory}
