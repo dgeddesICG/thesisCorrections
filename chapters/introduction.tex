@@ -166,12 +166,9 @@ Stargardts Disease is a heritable form of macular degeneration cause by a mutati
 \subsubsection{Fundus Camera}
 \subsubsection{Scanning Laser Ophthalmoscopy}
 \subsubsection{Optical Coherence Tomography}
-
-
 \FloatBarrier
 \section{Concepts of Fluorescence and \\ Fluorescence Lifetime Imaging}
-
-
+In this section basic concepts of fluorescence, and the fluorescence lifetime, will be described and techniques in the field of Fluorescence lifetime imaging will be discussed.
 \FloatBarrier
 \subsection{Mechanics of Fluorescence Lifetimes}
 Fluorescence is radiative process where photons are emitted from a substance due to the excitation and subsequent relaxation of electronic singlet states in a substance. This process is commonly visualised using a Jablonski diagram  in~\cref{figintro:jablonski}:
@@ -315,18 +312,48 @@ A key convenience of the phasor transform is the ability to easily segment image
     \caption{Depiction of unmixing a combination fluorophores using phasor analysis. For this mixture of 2 fluorophores the pure endmembers are represented as single exponential decays (black circle and green star) and thus have phasors lying on the unit circle. A third phasor consisting of a mixture of two fluorophores, with relative abundances $\alpha_{1}$ and $\alpha_{2}$, lies upon a line intersecting both endmember phasors. The relative abundances are recovered using the fractional lengths $f_{1}$ and $f_{2}$ : $\alpha_{1} = \frac{f_{1}}{f_{1} + f_{2}}$, $\alpha_{2} = \frac{f_{2}}{f_{1} + f_{2}}$ }
     \label{fig:phasorbiunmix}
 \end{figure}
+\FloatBarrier
 \subsubsection{Compensating for the IRF in Phasor FLIM}
-The IRF of the FLIM imaging system can be accounted for in phasor analysis quite simply by expressing the phasor-coordinates, $(g,s)$ of a TCSPC histogram, and the IRF, in polar-form $(m = \sqrt{g^{2} + s^{2}}, \varphi = \arctan({\nicefrac{s}{g}}) )$. In phasor-space the IRF has the effect of applying a rotation, around the origin, and stretching of a phasor representing a pure mono-exponential decay $(m_{DECAY}, \varphi_{DECAY})$. \cref{eq:intro-phasorirf}, demonstrates how the IRF, ($m_{IRF}, \varphi_{IRF}$), can be compensated for in a measurement $(m_{TCSPC}, \varphi_{TCSPC})$ to yield the phasor representing the fluorescence decay.
+The IRF of the FLIM imaging system can be accounted for in phasor analysis quite simply by expressing the phasor-coordinates, $(g,s)$ of a TCSPC histogram, and the IRF, in polar-form $(m = \sqrt{g^{2} + s^{2}}, \varphi = \arctan({\nicefrac{s}{g}}) )$. In phasor-space the IRF has the effect of applying a rotation, around the origin, and stretching of a phasor representing a pure mono-exponential decay $(m_{DECAY}, \varphi_{DECAY})$.~\cref{eq:intro-phasorirf}, demonstrates how the IRF, ($m_{IRF}, \varphi_{IRF}$), can be compensated for in a measurement $(m_{TCSPC}, \varphi_{TCSPC})$ to yield the phasor representing the fluorescence decay.
 \begin{align}\label{eq:intro-phasorirf}
     m_{DECAY} &= \frac{m_{TCSPC}}{m_{IRF}}\\
     \varphi_{DECAY} &= \varphi_{TCSPC} - \varphi_{IRF}
 \end{align}
+\FloatBarrier
 \subsubsection{Phasor Analysis Beyond FLIM}\label{subsubsec:into-phasorbeyond}
-Phasor analysis has also seen usage beyond standard FLIM imaging. For spectrally-resolved FLIM measurements it has been adapted for unmixing of mixtures of fluorophores - to be explored in \cref{sec:phasor-sflim} - for samples with stained structures. In Fluorescence microscopy, phasor analysis has also seen use as a computational analysis technique for fluorescence spectroscopy~\cite{fereidouni2012spectral} and implemented as an optical analysis technique~\cite{wang2023single,hedde2021phasor}. For the latter case a, a beamsplitter and pair of fluorescence emission filters with sinusoidal and co-sinusoidal transmission functions allow images of the $s$, and $g$ phasor-coordinates to be directly recorded. Finally, it should be highlighted that phasor analysis was previously, and still is, a common technique for analysing AC electronic circuits and signals \cite{semmlow2005circuits}.
+Phasor analysis has also seen usage beyond standard FLIM imaging. For spectrally-resolved FLIM measurements it has been adapted for unmixing of mixtures of fluorophores - to be explored in \cref{sec:phasor-sflim} - for samples with stained structures. In Fluorescence microscopy, phasor analysis has also seen use as a computational analysis technique for fluorescence spectroscopy~\cite{fereidouni2012spectral} and implemented as an optical analysis technique~\cite{wang2023single,hedde2021phasor}. For the latter case, a beamsplitter and pair of fluorescence emission filters with sinusoidal and co-sinusoidal transmission functions allow images of the $s$, and $g$ phasor-coordinates to be directly recorded. Finally, it should be highlighted that phasor analysis was previously, and still is, a common technique for analysing AC electronic circuits and signals~\cite{semmlow2005circuits}.
 \FloatBarrier
 \subsection{Spectral-FLIM}
 \FloatBarrier
-\section{FLIO -Fluorescence Lifetime \\ Imaging Ophthalmoscopy}
+\section{FLIO - Fluorescence Lifetime \\ Imaging Ophthalmoscopy}
+Fluorescence Lifetime Imaging Ophthalmoscopy (FLIO) has emerged in past 20 years with the goal of exploiting the heightened ability of FLIM to discriminate fluorophores and fluorescent biomarkers that may signal the presence of retinal disease or be a useful marker of disease progression. The following section describes this FLIO imaging device and summarises current efforts in establishing links between the indicators of retinal disease and the distribution of fluorescence lifetimes in the retina.
+\FloatBarrier
+\subsection{Description of the Heidelberg - Fluorescence Lifetime Imaging Ophthalmoscope}
+In most of the literature in FLIO, a single class of device is used throughout produced as a research prototype based on a commercial SLO~\cite{dysli2017fluorescence,dysli2014quantitative,dysli2017AMDfluorescence,sauer2018patterns,dysli2016autofluorescence,schmidt2017fundus, dysli2016Stargardtfluorescence,solberg2019retinal}. The Heidelberg Spectralis is a confocal SLO with additional capabilities of performing OCT imaging and has been modified to allow for fluorescence lifetime imaging over two spectral bands. Fluorescence is excited by a \qty{200}{\pico\watt} laser source (\qty{86}{\ps} at \qty{80}{\mega\hertz} repetition rate) at a wavelength of \qty{460}{\nm} and the fluorescence is split into a short wavelength channel (\qtyrange{500}{560}{\nm}) and a long wavelength channel (\qty{560}{\nm}) using a pair of PMT’s with TCSPC electronic to record photon arrival times. These two spectral channels were influenced by~\citeauthor{schweitzer2007towards} to more effectively discriminate fluorescence from the fluorophores AGE, and FAD, from lipofuscin~\cite{schweitzer2007towards}. Lipofuscin is the dominant source of fluorescence in wavelengths above \qty{560}{\nm} and is thus the dominant fluorescence lifetime present in the long wavelength channel.
+With the Heidelberg FLIO system, a~\numproduct{256 x 256} pixel fluorescence-lifetime image is recorded of the retina over an FOV of \qty{30}{\degree} over an acquisition window of upwards of \qty{60}{\second}. Due to the long integration time required to collect a sufficient number of photons in FLIO imaging, the comparatively faster, natural movements of the eye (\qtyrange{25}{1000}{\ms} – see~\cref{sec:motionreg}) would degrade the image and introduce motion artefacts and blurring. This is motion is then compensated for using blood vessels in IR images of the retina recorded, at video-rate, with an additional IR source and PMT detector.
+\FloatBarrier
+\subsection{Connections between Retinal Disease and Fluorescence Lifetime}
+\FloatBarrier
+\subsubsection{Fluorescence Lifetimes in AMD}
+AMD presents as an attractive candidate to study using the FLIO technique given that is one of the most prevalent retinal diseases and outcomes from treatment improve greatly when detected early enough~\cite{clemons2005risk}.~\citeauthor{dysli2017AMDfluorescence} used FLIO to assess whether there are any discernible correlations between fluorescence lifetimes and the progression of AMD. Of a cohort of 64 patients, they found that drusen displayed longer fluorescence lifetimes than the surrounding tissues, and that in general the lifetimes of retinas showing signs of AMD are longer than age, and sex, matched healthy retinas \cite{dysli2017AMDfluorescence}. Further, \citeauthor{sauer2018patterns} found that in ``dry’’ AMD patients presented with a ring of shorter lifetimes (see \cref{fig:flioamd}) in the long-spectral channel $>\qty{560}{\nm}$ around the macula although \qty{36}{\percent} or imaged patients without AMD also displayed this characteristic ring~\cite{sauer2018patterns}. In both publications the authors posited that since this change is fluorescence is only seen in the long-spectral channel then it could be due to changes in lipofuscin distribution, or the accumulation of bisretinoids in the RPE~\cite{sauer2018patterns}. A shortcoming of these publications is that individual drusen could not be distinguished using FLIO alone where OCT imaging was required to confirm the presence of drusen.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/introduction/AMDFLIOFigure.pdf}
+    \caption{Fundus autofluorescence, and fluorescence lifetimes images recorded of patients that are health, with non-exudative AMD, and advanced Geographic Atrophy. Images of retinas with AMD, and GA both show rings of increased fluorescence lifetimes compared to the surrounding tissue - \qty{500}{\ps} in the affected area, and \qty{300}{\ps} in the surrounding retinal tissue. Figure adapted from Figure 1 and 6 of \citeauthor{sauer2018patterns}\cite{sauer2018patterns}}
+    \label{fig:flioamd}
+\end{figure}
+Areas of Geographic atrophy in the advanced stage of dry AMD show increased fluorescence lifetimes when compared to surrounding retinal tissue and as shown in~\cref{fig:flioamd}, these areas of longer lifetimes form unique patterns dependent on the nature of the macular atrophy~\cite{dysli2016autofluorescence}.~\citeauthor{dysli2016autofluorescence} reported that in the short spectral channel, lifetimes are \qty{152}{\percent} longer, and in the long spectral channel, the increase is \qty{83}{\percent} over a cohort of 41 patients with varying forms of advanced AMD~\cite{dysli2016autofluorescence}. While this is a promising result for FLIO this stage of disease progression still presents with permanent vision loss.
+
+\FloatBarrier
+\subsubsection{Fluorescence Lifetimes in Diabetic Retinopathy}
+In diabetic retinopathy the ability to detect abnormalities in the retinal vasculature before visual symptoms occur is critical for preventing permanent vision loss. The progression of diabetic retinopathy has been linked to the accumulation of Advanced Glycation Endproducts – a dominant fluorophore found in the retina and lens~\cite{schweitzer2007towards}. Discriminating AGEs in standard fundus autofluorescence images is prohibitively difficult due to high overlap of fluorescence emission spectra of retinal fluorophores. Quantification of AGEs using FLIO would enable diabetic retinopathy to be diagnosed earlier in its progression allowing for more effective treatments.~\citeauthor{schweitzer2015fluorescence,schmidt2017fundus} showed type 2 diabetics show increased fluorescence lifetimes compared to healthy volunteers even without showing signs of diabetic retinopathy~\cite{schweitzer2015fluorescence}. They suggested that repeated events of hyperglycaemia would lead AGEs accumulating in the lens and the neuronal layer of the retina. Later,~\citeauthor{schmidt2017fundus} showed that fluorescence lifetimes in the lens can be used discriminate non-proliferative diabetic retinopathy from healthy volunteers. They demonstrated high sensitivity of \qty{90.9}{\percent}, and specificity of \qty{71.4}{\percent}, by adjusting the focal plane of the FLIO device onto the eye’s lens~\cite{schmidt2017fundus}.
+\FloatBarrier
+\subsubsection{Fluorescence Lifetimes in Stargardts Disease}
+\FloatBarrier
+\subsection{Limitations of Qualitative Assessment for Understanding Disease Pathophysiology}
+
+
+
 \FloatBarrier
 \section{FAD As An Indicator of Metabolic Health}
 \FloatBarrier
@@ -350,11 +377,11 @@ Phasor analysis has also seen usage beyond standard FLIM imaging. For spectrally
             \item Overview of constituent parts lens, humours, retina, choroid etc. and a description of what they do
             \item Description of the layers behind the RPE and retina - briefly describe biological function
         \end{itemize}
-        \item Common Retinal Diseases - their indicators and progressions
+        \item Common Retinal Diseases - their indicators and progressions -X
             \begin{itemize}
-                \item AMD
-                \item Diabetic Retinopathy
-                \item Stargardt's Disease
+                \item AMD - X
+                \item Diabetic Retinopathy - X
+                \item Stargardt's Disease - X
             \end{itemize}
         \item Current Retinal Imaging Techniques
         \begin{itemize}
@@ -366,15 +393,14 @@ Phasor analysis has also seen usage beyond standard FLIM imaging. For spectrally
     \end{itemize}
     \item Fluorescence and Fluorescence Lifetime Imaging
     \begin{itemize}
-        \item Requirement / motivation for doing FLIMX
+        \item Requirement / motivation for doing FLIMX -X
         \item Description of what fluorescence lifetimes are - X
         \item Detection Schemes for FLIM - X
         \item Lifetime recovery and discrimination methods - X
-        \item Spectral FLIM
     \end{itemize}
     \item Fluorescence Lifetime Imaging Ophthalmoscopy
     \begin{itemize}
-        \item Overview of Dysli device
+        \item Overview of Dysli device - X
         \item Diseases studied and interpretation of results - how do they fit in with understanding disease ,early detection
     \end{itemize}
     \item FAD as in indicator for metabolic health and metabolic activity of the retina
