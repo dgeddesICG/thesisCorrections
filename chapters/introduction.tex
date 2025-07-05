@@ -1,7 +1,5 @@
-
-
 %\setstretch{2}
-\section{Motivation and Project Aims}
+\section{Motivation and Project Aims}\label{sec:motivation}
 The human eye is capable of forming images over large depth's of field with single photon sensitivity. The eye is also susceptible to disease that often resulting permanent loss of vision if left undiagnosed and untreated. One of the most common retinal diseases, affecting the elderly, Age-Related Macular Degeneration AMD, affects \qty{20}{\percent} of the population and in a \num{12} month period this disease can progress the initial symptoms to permanent loss of some central vision~\cite{lim2012age}. Routine and regular retinal imaging is a key tool in the early detection of retinal disease, and for developing understanding of disease pathophysiology and effective treatment. Current retinal imaging techniques, such as scanning laser ophthalmoscopy (SLO), aim to detect structure abnormalities in images of the retina surface covering \qty{82}{\percent} (\qty{200}{\degree} FOV) of the retinal surface (OPTOS Monaco, Silverstone SLO) and resolution of \qty{15}{\um}~\cite{ashraf2022comparison} to diagnose and track progression of common retinal disease such as AMD, Glaucoma, Diabetic Retinopathy, and retinal detachments.
 \\
 Here lies a fundamental issue with current interventions in retinal disease - they occur after physical damage to the retina is detected or changes in vision are reported by the patient. At this stage, treatment options degrade into maintaining and abating permanent loss of vision. If instead, the progression of disease can be tracked at the level of local biochemical imbalances or metabolic dysfunction - before the occurrence of physical damage to vision - disease can be more effectively detected, studied, and treated.
@@ -61,7 +59,6 @@ In Time-Correlated Single-Photon Counting (TCSPC) FLIM, fluorescence is excited 
 Additionally, the nature of TCSPC leads to a behaviour known in the literature as ``photon pile-up'' where the fluorescence decay histograms are biased towards early arrival times due to high intensity laser pulses causing multiple photons to impinge on the detector within a single laser period. Since only the first photon can be counted the rest are discarded and early arriving photons will be over-represented  in the histogram. The intensity of the laser source should then be tuned to prevent this ``photon pile-up''.
 \\
 As will be discussed in,~\cref{sec:intro-lifetimemethods}, the fluorescence lifetime is normally recovered from the photon arrival histograms using a non-linear least-squares fitting routine.
-\textcolor{red}{Add better figure on TCSPC}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width = 0.8\textwidth]{figures/introduction/TCSPCDiagram.pdf}
@@ -134,12 +131,22 @@ Within the histograms recorded with TCPSC-FLIM setups the fluorescence decay is 
 The IRF can be characterised by measuring backscattered light through the system by placing a silver mirror at the sample plane. Other methods involve imaging a fluorophore with fluorescence lifetimes shorter than a single time-bin - meaning the second term in the convolution approximates a Dirac-Delta function~\cite{margineanu2025calibration}. Rigorous characterisation of the IRF is not required for the fitting method to be discussed next - however some knowledge of the width of the IRF is beneficial for Tail-fitting.
 \FloatBarrier
 \subsubsection{Tail-Fitting}\label{subsubsec:tailfitting}
-The tail-fitting approach to recovering fluorescence lifetimes avoids the need to rigorously characterise the IRF of the FLIM imaging system by adjusting the window over which the histogram is fitted. The fitting window is usually chosen such it starts when the IRF decreases to an SNR approaches 1 and the fitting window ends when the SNR of the decay approaches 1. The fitting window, and multi-exponential model is then tuned until the $\chi^{2}$, or goodness-of-fit - is satisfactory. In histograms with low numbers of photons, small adjustments of this fitting window can introduce significant changes in the fitted lifetime - inviting the opportunity for the experimenter to bias the fit towards lifetimes that are in good agreement with known lifetimes rather than what is actually observed. 
-\textcolor{red}{make a figure showing tail fitting}
+The tail-fitting approach to recovering fluorescence lifetimes avoids the need to rigorously characterise the IRF of the FLIM imaging system by adjusting the window over which the histogram is fitted. The fitting window is usually chosen such it starts when the IRF decreases to an SNR approaches 1 and the fitting window ends when the SNR of the decay approaches 1. The fitting window, and multi-exponential model is then tuned until the $\chi^{2}$, or goodness-of-fit - is satisfactory. In histograms with low numbers of photons, small adjustments of this fitting window can introduce significant changes in the fitted lifetime - biasing the fit towards lifetimes that are in good agreement with the decay within the fitting window rather than the histogram as a whole. 
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/introduction/tailfittingfigure.pdf}
+    \caption{Tail-fitting can be used to recover fluorescence lifetimes from TCSPC histograms without prior knowledge of the IRF. A chosen multi-exponential decay is fitted within a window (region bounded by the vertical orange lines). A TCSPC histogram of a Gaussian IRF with FWHM of \qty{750}{\ps} convolved with a single lifetime component of \qty{2.4}{\ns} with Poissonian noise applied equivalent to detecting 1000 photons. Tail-fitting yielded a recovered lifetime of \qty{2.1}{\ns}}
+    \label{fig:introtailfit}
+\end{figure}
 \FloatBarrier
 \subsubsection{Re-convolution Based Fitting}\label{subsubsec:reconv}
-If the IRF of the FLIM has been sufficiently characterised, then re-convolution based fitting can be used to more accurately determine fluorescence lifetimes. For this approach the fitting model is modified from the multi-exponential decay in~\cref{eqintro:multiexp} to the model in~\cref{eq:irf} which includes the convolution of the IRF with the the decay function. This type of fitting allows more accurate recovery of fluorescence lifetimes, given sufficient photon counts, with lesser bias.
-\textcolor{red}{add in figure about reconv. fitting}
+If the IRF of the FLIM has been sufficiently characterised, then re-convolution based fitting can be used to more accurately determine fluorescence lifetimes. For this approach the fitting model is modified from the multi-exponential decay in~\cref{eqintro:multiexp} to the model in~\cref{eq:irf} which includes the convolution of the IRF with the the decay function. From the simulations shown in \cref{fig:introreconv} and \cref{fig:introtailfit}, this type of fitting allows more accurate recovery of fluorescence lifetimes, given sufficient photon counts, with lesser bias. 
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/introduction/reconvfittingfigure.pdf}
+    \caption{Reconvolution fitting incorporates the IRF by convolving the IRF (green line) with the chosen fitting model and minimising the differences between this convolution and the TCSPC histogram (grey line) to produce a line of best fit (red line). With 1000 photons a lifetime of \qty{2.2}{\ns} is recovered from a simulated decay with lifetime of \qty{2.4}{\ns} convolved with a Gaussian IRF with FWHM of \qty{750}{\ps}. Reconvolution fitting was performed using the \textit{FLIMlib} python package - the same fitting engine as the popular FLIMJ ImageJ plug-in~\cite{gao2020flimj}}
+    \label{fig:introreconv}
+\end{figure}
 \FloatBarrier
 \subsection{Rapid-Lifetime Determination}\label{subsec:intro-rapidlifetime}
 The fitting based techniques described in~\cref{subsubsec:tailfitting} and~\cref{subsubsec:reconv}, are often computationally intensive often requiring $>\qty{5}{\minute}$ to fit a typical FLIM image consisting of $\approx50,000$ pixels, and in the case of reconvolution-based fitting an additional measurement of the IRF is required. To address this, Rapid-Lifetime Determination (RLD) methods were developed predominately for time-gated FLIM detection schemes but are equally applicable to TCPSC based FLIM. Lifetimes are recovered in exactly the same way as described in \cref{sec:intro-gatedFLIM} but now the two time-gated images are formed by summing time-bins in the fluorescence histograms.
@@ -173,8 +180,6 @@ The IRF of the FLIM imaging system can be accounted for in phasor analysis quite
 \FloatBarrier
 \subsubsection{Phasor Analysis Beyond FLIM}\label{subsubsec:into-phasorbeyond}
 Phasor analysis has also seen usage beyond standard FLIM imaging. For spectrally-resolved FLIM measurements it has been adapted for unmixing of mixtures of fluorophores - to be explored in \cref{sec:phasor-sflim} - for samples with stained structures. In Fluorescence microscopy, phasor analysis has also seen use as a computational analysis technique for fluorescence spectroscopy~\cite{fereidouni2012spectral} and implemented as an optical analysis technique~\cite{wang2023single,hedde2021phasor}. For the latter case, a beamsplitter and pair of fluorescence emission filters with sinusoidal and co-sinusoidal transmission functions allow images of the $s$, and $g$ phasor-coordinates to be directly recorded. Finally, it should be highlighted that phasor analysis was previously, and still is, a common technique for analysing AC electronic circuits and signals~\cite{semmlow2005circuits}.
-
-
 
 \FloatBarrier
 \section{Morphology The Eye and \\Common Retinal Diseases}
@@ -325,7 +330,7 @@ Stargardts Disease is a heritable form of macular degeneration cause by a mutati
 \subsubsection{Fundus Camera}
 The most common device for routine assessments of retinal health is the fundus camera. The Fundus camera records images by flood illuminating, and imaging, the retina over a FOV of \qtyrange{50}{80}{\degree}. Annular illumination is used to improve image quality by utilising the Gulstrand principle by separating illumination and imaging light~\cite{gullstrand1910neue}. The key advantage of the fundus camera is the variety of imaging modalities. While brightfield imaging and autofluorescence imaging are popular techniques such as Fluorescein Angiography (FA) and Indo-Cyanine Green imaging are used for monitoring blood flow in the retina. FA and ICG involve intravenously injecting the patient with fluorescent dye which then circulates throughout the retinal vasculature thus revealing areas of the retina with low-circulation and at risk of damage~\cite{stanga2003indocyanine,bennett2001fundamentals,spaide2015retinal}.  Despite being a flexible imaging platform fundus cameras are limited by the FOV they can image – covering only \qty{15}{\percent} of the retina – which can lead to conditions such as peripheral retinal detachments being undiagnosed until loss of central vision occurs.
 \subsubsection{Scanning Laser Ophthalmoscopy}
-Instead of flood illuminating the retina and recording an image with an array-detector, the Scanning Laser Ophthalmoscope (SLO) raster scans a laser source across the retina and record fluctuations in reflected intensity with a single-pixel detector (PMT) \cite{webb1980flying}. Optos SLO systems use a pair of elliptical mirrors to increase the angle of the laser illumination through the pupil to achieve illumination over a \qty{220}{\degree} FOV or \qty{97}{\percent} of the retina without the need to dilate the pupil~\cite{keane2014retinal}. Contrast in retinal imaging and some optical sectioning can also be achieved using a confocal aperture at the detector that conjugate to the retina by removing out of focus light~\cite{webb1980flying}. SLO systems do come with the significant drawback of being significantly more expensive than fundus cameras. This limits the adoption of SLOs motivating the need for a low-cost imaging device with an equivalent ability for earlier diagnosis of retina disease.
+Instead of flood illuminating the retina and recording an image with an array-detector, the Scanning Laser Ophthalmoscope (SLO) raster scans a laser source across the retina and record fluctuations in reflected intensity with a single-pixel detector (PMT) \cite{webb1980flying}. Optos SLO systems use a pair of elliptical mirrors to increase the angle of the laser illumination through the pupil to achieve illumination over a \qty{220}{\degree} FOV or \qty{82}{\percent} of the retina without the need to dilate the pupil~\cite{ashraf2022comparison,keane2014retinal}. Contrast in retinal imaging and some optical sectioning can also be achieved using a confocal aperture at the detector that conjugate to the retina by removing out of focus light~\cite{webb1980flying}. SLO systems do come with the significant drawback of being significantly more expensive than fundus cameras. This limits the adoption of SLOs motivating the need for a low-cost imaging device with an equivalent ability for earlier diagnosis of retina disease.
 \subsubsection{Optical Coherence Tomography}
 Optical Coherence Tomography (OCT) leverages the principles of Michelson Interferometry to allow axial imaging of the retina. In OCT reflected light from the retina is interfered with the illumination beam and the intensity of the resultant intensity pattern is recorded. The path length of the illumination beam can them be tuned thus interfering with deeper layers of the retina – forming a depth profile of a single point with sub-micron layer resolution as shown in~\cref{fig:octfig}. Typically, the beam is scanned across the retina to build up line scanned images through features of interest~\cite{huang1991optical,podoleanu2012optical}. OCT is most effective for studying structural changes in the retina such as Age-Related Macular Degeneration~\cite{yehoshua2011natural}
 \begin{figure}
@@ -380,244 +385,8 @@ From these two publications, FLIO appears to be a good candidate for longitudina
 
 \FloatBarrier
 \subsection{Limitations of Qualitative Assessment for Understanding Disease Pathophysiology}
-While FLIO is still a young field, there is lack of quantitative analyses on fluorophore concentrations. In most of the literature the connected between disease and fluorescence lifetimes are spoken of in terms of relative changes in lifetime when compared with either healthy retinas or the surrounding retinal tissue. In some of the published works there are hypothesis offered for why fluorescence lifetimes change \cite{solberg2019retinal,dysli2017AMDfluorescence,schmidt2017fundus} but it is clear that quantitative measurements of retinal fluorophores would enable deeper research into the biochemical changes that occur in the retina during the formation and progression of retinal disease. The use of lifetime fitting, would not be the most effective method of quantifying fluorophore concentrations. Mixtures of common retinal fluorophores would exhibit fluorescence decay models requiring at least $>\numrange{1e6}{1e7}$ photons (see~\cref{sec:lifeunmix}) motivating the need for a new method of unmixing fluorescent endmembers from their fluorescence decay profile.
+While FLIO is still a young field, there is lack of quantitative analyses on fluorophore concentrations. In most of the literature the connected between disease and fluorescence lifetimes are spoken of in terms of relative changes in lifetime when compared with either healthy retinas or the surrounding retinal tissue. In some of the published works there are hypothesis offered for why fluorescence lifetimes change~\cite{solberg2019retinal,dysli2017AMDfluorescence,schmidt2017fundus} but it is clear that quantitative measurements of retinal fluorophores would enable deeper research into the biochemical changes that occur in the retina during the formation and progression of retinal disease. The use of lifetime fitting, would not be the most effective method of quantifying fluorophore concentrations. Mixtures of common retinal fluorophores would exhibit fluorescence decay models requiring at least $>\numrange{1e6}{1e7}$ photons (see~\cref{sec:lifeunmix}) motivating the need for a new method of unmixing fluorescent endmembers from their fluorescence decay profile.
 \FloatBarrier
-\section{Methods of Measuring Metabolic Function \\ in the Retina}
-
+\section{Methods of Measuring Metabolic Function \\ in the Retina}\label{sec:retinaoximetry}
 \FloatBarrier
-\section{Objectives of Research}\label{sec:objresearch}
-
-\section{Outline}
-\begin{itemize}
-    \item Motivation / Philosophy - X
-        \begin{itemize}
-            \item Eye is susceptible to disease. Early detection improves patient outcomes and reduces permanent damage to sight. 
-            \item Routine imaging is an important tool for early detection of disease
-            \item Current imaging techniques detect physical damage to the retina
-            \item Being able to detect metabolic dysfunction in the retina could allow for diseases to be detected before physical damage occurs
-        \end{itemize}
-    \item The Eye and Retinal Disease
-    \begin{itemize}
-        \item Anatomy of the Eye  - X
-        \begin{itemize}
-            \item Overview of constituent parts lens, humours, retina, choroid etc. and a description of what they do
-            \item Description of the layers behind the RPE and retina - briefly describe biological function
-        \end{itemize}
-        \item Common Retinal Diseases - their indicators and progressions -X
-            \begin{itemize}
-                \item AMD - X
-                \item Diabetic Retinopathy - X
-                \item Stargardt's Disease - X
-            \end{itemize}
-        \item Current Retinal Imaging Techniques
-        \begin{itemize}
-            \item Fundus Camera -X
-            \item Scanning Laser Ophthalmoscope -X
-            \item Optical Coherence Tomography -X
-            \item Other Modalities -X
-        \end{itemize}
-    \end{itemize}
-    \item Fluorescence and Fluorescence Lifetime Imaging -X
-    \begin{itemize}
-        \item Requirement / motivation for doing FLIMX -X
-        \item Description of what fluorescence lifetimes are - X
-        \item Detection Schemes for FLIM - X
-        \item Lifetime recovery and discrimination methods - X
-    \end{itemize}
-    \item Fluorescence Lifetime Imaging Ophthalmoscopy - X
-    \begin{itemize}
-        \item Overview of Dysli device - X
-        \item Diseases studied and interpretation of results - how do they fit in with understanding disease ,early detection
-    \end{itemize}
-    \item Current efforts in measuring retinal metabolic health in the retina
-    \begin{itemize}
-        \item retinal oximitery
-        \item Fluorescein angiography and ICG imaging for measuring blood flow and estimated oxygen usage and distribution in the retina
-
-        
-    \end{itemize}
-
-\end{itemize}
-
-% shite that needs to be reqritten
-% \section{Background}
-% \subsection{Morphology of the Eye}
-% The human eye is a complex organ, typically \SI{24}{\milli\metre} in diameter, capable of an angular resolving power of around \ang{;1;} and detecting single photons~\cite{tinsley2016direct} with a topology similar to a front side illuminated sensor. The eye is composed of many different components:
-% \subsubsection{Anterior Segment}
-% The cornea protrudes at the front of the eye - making it non-spherical - and is responsible for providing protection for the lens, as well as contributing more than half of the refractive power of the eye. The pigmented iris and pupil form the aperture of the eye and continuously is adjustable from diameters of \SI{2}{\milli\metre} to \SI{8}{\milli\metre} to account for variable ambient light levels. The eyes crystalline lens has a diameter of \SI{8}{\milli\metre} to \SI{10}{\milli\metre} is then responsible for fine focusing, and forming aberration free images onto the retina covering up to around a \SI{200}{\degree} FOV (with both eyes working as a pair).
-% The eye also contains two humours: the aqueous humour that resides between the cornea and the lens, and the vitreuos humour which fills the volume behind the lens to retina. These humours continuously flow in and out of the eye and ensure tissues in the eye are fed with nutrients and most importantly maintain the eyes shape.
-
-% \subsubsection{Posterior Segment}
-% The retina is a \SI{250}{\micro\metre} thick photo sensitive multi-layer slice of tissue located at the rear of the eyeball that also houses the vasculature that supplies oxygenated blood to the eye. The top layers of the retina contain the arteries and veins that supply oxygenated blood to the tissue, fed by the ophthalmic artery, and the photoreceptors as well as the inner, and outer, nuclear layers which are responsible for detecting incident photons and and converting them into neuronal activity which is transmitted down the optic nerve through a small gap, devoid of photoreceptors called the optic disk. Around the optic disk the density of photoreceptors varies to make up the different types vision. The macula and fovea contain the highest concentrations of photoreceptors to make up the central vision - $\approx \SI{60}{\degree}$ FOV - with the rest of the retinal surface making up peripheral vision\cite{bringmann2021fovea}. 
-% Behind the photoreceptors exists the Retinal Pigment Epithelium (RPE) - referred to as the pigment epithelium in Fig.~\ref{figintro:eyeanatomy} - which serves as a support structure for the front most layers of the retina as well as choroid and Bruch's membrane whose main purpose is to provide blood and nutrients to the RPE and photoreceptors.
-
-
-
-
-
-% \begin{itemize}
-%     \item Morphology
-%     \begin{itemize}
-%         \item Mention the capabilities of the eye  - resolving single photons, diameter of eye ball, pupil, lens etc. FOV, foveated detection
-%         \item Discuss the different layers and their role
-%         \begin{itemize}
-%             \item Cornea protective cover for the lens
-%             \item Lens - 8-10mm in diameter - continuously adjusts to vary focal length, and control aberations. 
-%             \item pupil + iris - adjustable aperture to allow resolving of images over longer distances, and variable light levels
-%             \item retina - photosensitive part which translates images into signal that are readable by the brain. fovea covers approx. 15degrees with higher spatial resolution than the rest of the retina. The retina also has constituent parts
-%             \begin{itemize}
-%                 \item photoreceptors composed of rods and cones which are responsible for converting photons into neuronal activity. Rods are the more sensitive that cones with rods being able to the respond to a stimuli of 1-10 photons and ficilitating vision in low light conditions. Cones are responsible for sight in the day time.
-%                 \item The eye has a variable density of photoreceptors. The macula forms the central area of vision with the fovea being the most sensitive. 
-%                 \item The signals detected by the rods and cones are transmitted down the optic nerve which runs through a small gap, devoid of photo recpeotors, called the optic disk or optic nerve head.
-%                 \item RPE - Retinal Pigment Epithelium supports the photo receptors
-%                 \item Oxygenated blood is carried to the different parts of the eye via a multi layer network of arteries and veins, fed by the main ophthalmic artery that runs along the optic nerve, located above the photoreceptive layers. 
-%                 \item Choroid feeds the RPE, and photo receptors, and retina with blood and nutrients.
-%                 \item Use \citep{bringmann2021fovea}\cite{bringmann2021fovea}
-%             \end{itemize}
-%         \end{itemize}
-%     \end{itemize}
-% \end{itemize}
-
-% Understanding of the pathophysiology, or how and why a disease progresses can be used to enhance treaments through more effective therapeutics and a detection methods.
-% Often in the retina the pathophysiology of disease is not completely understood meaning that patients report of loss / change in vision motivate further examination where diagnosis of retinal disease is made based upon the presence of tell-tale markers of specific diseases.
-
-
-
-
-
-% \FloatBarrier
-% \subsection{Fluorescence Theory}
-% \FloatBarrier
-% Fluorescence is radiative process where photons are emitted from a substance due to the excitation and subsequent relaxation of electronic singlet states in a substance. This process is commonly visualised using a Jablonski diagram (Fig.~\ref{figintro:jablonski}):
-
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width = 0.8\textwidth]{figures/introduction/JablonskiDiagram.pdf}
-%     \caption{Jablonski diagram of the mechanics behind fluorescence. $S_{0}, S_{1}, S_{2}$, denoted by bold lines, represent the ground and the first two excited singlet states. Non-radiative processes such as internal conversion between vibrational states (grey dashed) and inter-system crossing (purple) allow for the emission of a fluorescence photon ($S_{1}\rightarrow S_{0}$, shown in green, or a phosphorescence photon ($ S_{1}\rightarrow T_{1}\rightarrow S_{0} $), shown in red}
-%     \label{figintro:jablonski}
-% \end{figure}
-% More specifically, absorption of impinged photons promotes a electron from the ground electronic singlet state, $S_{0}$, to a vibrational state within a higher electronic state, $S_{1},S_{2}$ etc. Non-radiative internal conversions relax the fluorophore back into the $S_{1}$ state. The fluorophore can then decay back into the $S_{0}$ state emitting a fluorescence photon or undergo the process of inter-system crossing to the first triplet state, $T_{1}$ and then subsequently decay back to the ground state producing a phosphorescence photon.
-% These radiative and non-radiative processes occur over different time scales: absorption occurs over \SI{e-15}{s}; internal conversion and intersystem crossing occur over \SI{e-12}{\second}; phosphorescence occurs over times scales from \qtyrange{e-7}{e-3}{\second}; and of key interest in this thesis, fluorescence occurs over a time range of a few nanoseconds~\cite{lakowicz2013fluorescencespectroscopybook}. 
-% Since fluorescence is random process - the excited state isn't depopulated at the exact same time - it is more useful to consider the average time that
-% the fluorophore remains in the excited state or the fluorescence lifetime. This fluorescence lifetime is intrinsic to the fluorophore and is described in terms of the concentration of fluorophores in the excited state, $S_{1}$:
-% \begin{equation}
-%     \frac{d}{dt}[S_{1}] = -\Gamma [S_{1}]
-%     \label{eqintro:conc}
-% \end{equation}
-% Where $\Gamma$ is the rate at which fluorescence photons are produced and is the inverse of the fluorescence lifetime ($\Gamma = \nicefrac{1}{\tau}$). By then associating the measured time evolved intensity of with the concentration $[S_{1}]$ the fluorescence decay can be modelled:
-% \begin{align}
-%     \frac{d}{dt}I(t) &= -\Gamma I(t)\\
-%     \implies I(t) &= I_{0}\exp(-\nicefrac{t}{\tau})
-%     \label{eqintro:lifetime}
-% \end{align}
-% For mixtures of fluorophores, and fluorophores with specific molecular properties, multi-exponential decays with mutliple fluorescence lifetimes are exhibited:
-% \begin{equation}
-%     I(t) = I_{0}\sum_{n>0}^{N}\alpha_{n}\exp(-\nicefrac{t}{\tau_{n}})
-%     \label{eqintro:multiexp}
-% \end{equation}
-
-% \subsubsection{Stoke's Shift / Spectral Characteristics}
-% The vibrational states of $S_{1}$ reachable through absorption of a excitation photon and the subsequent relaxation into the different vibrational states of $S_{0}$ incurs a small energy loss and results in a phenomena called the "Stokes Shift" where the emitted fluorescence photon is always of a lower energy and longer wavelength than the excitation photon. When measuring the comparatively weak fluorescence signal the Stoke's Shift means that any reflected light originating from the excitation source can be filtered out.
-% \textcolor{blue}{Add in paragraph about emission spectra being largely independent of excitation, graph of}
-
-%     \item show some excitation and emission spectra for retinal fluorophores
-% \subsection{Principles of Fluorescence Lifetime Imaging}
-% To extract the fluorescence lifetime from a sample the \qtyrange{10}{20}{\nano\second} long decay must first be resolved. Numerous methods exists using differing excitation sources and detection schemes to accomplish this but they be generally categorised into "Time Domain", and "Frequency Domain".
-% \subsubsection{Time Domain FLIM}
-% Time domain FLIM techniques typically involve exciting fluorescence with a picosecond pulsed laser source and then recording flux of fluorescence photons as the fluorophore decays in time. In this section two methods will be discussed: Time Correlated Single Photon Counting where fluorescence lifetimes are extracted from histograms of photon arrival times detected with single photon sensitive detectors; and a Gated detection scheme where fluorescence photons are counted during two acquisition windows and the fluorescence lifetimes are recovered using a statistical approach.
-% \paragraph*{Time Correlated Single Photon Counting\\}
-% In the Time Correlated Single Photon Counting scheme the full fluorescence decay is resolved typically with a resolution of \qtyrange{5}{50}{\pico\second} utilising single photon sensitive detectors, and pulsed laser sources to time tag detected fluorescence photons to the laser pulse that produce them. to excite fluorescence in a sample. In Figure \ref{introfig:tcspc} the forward counting mode is illustrated and the scheme operates as follows: a timer is started when a pulse is emitted from the laser; when the first photon is detected the timer stops and the photon event is time tagged; this process is repeated to build up a histogram of photon arrival times resolving the fluorescence decay. In photon starved conditions, where each laser pulse doesn't always yield a fluorescence photon, a backward counting method can be used which now starts the timer when a photon is detected and the next laser pulse stop the timer. After the histogram has been constructed the fluorescence lifetime can be extracted using one of the methods that will be described in Chapter \ref{chap:flimanalysis} such as reconvolution based fitting, phasor analysis or rapid lifetime analysis.
-% The technology used in TCPSC FLIM implementations typically consist of a single pixel SPAD paired with a Time-to-Digital-Converter (TDC) to correlate the photon events generated by a \si{\mega\hertz} pulsed laser source with sub \SI{100}{\pico\second} pulse width that scanned across the sample. While TCSPC in principle limits the photon counting rate to one photon per pulse, SPADs also exhibit a dwell time in excess of a single laser period causing even more photons to be discarded (PicoQuant TimeHarp260) reducing photon counting efficiency and lengthening image acquisition times.
-
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width = 0.8\textwidth]{figures/introduction/TCSPCDiagram.pdf}
-%     \caption{Diagram demonstrating the principle of Time Correlated Single Photon Counting in forward mode. The photon arrival time is recorded by starting a timer when a laser pulse is emitted and is stopped when the first photon is detected. Any subsequent photon incident on the detector during its dwell time are not recorded.}
-%     \label{introfig:tcspc}
-% \end{figure}
-
-% The nature of single pixel detectors restricts fluorescence lifetime imaging platforms to either costly scanning systems~\cite{sanders1995quantitative}, or lengthy singe-pixel compressive sensing techniques for effective~\cite{yao2019net}. New generation SPAD arrays have become available which feature on-chip, and per-pixel, TDCs allowing for 
-% recording fluorescence lifetime images in a snap shot. The limit of these new detectors is still their low resolution and low fill factor - for the example the Horiba Flimera, used in this project, has a resolution of \numproduct{128 x 192}\si{\pixel} with time bin width of
-% \qtyrange{33}{47}{\pico\second} and fill factor of \SI{13}{\percent}~\cite{henderson2019192}. The low fill factor of these SPADs is due to each pixel of the SPAD contains the active detector area as well as the TDC on the same layer silicon. Raising the fill factor, and thus increasing photon detection efficiency is achievable through multiple methods such as implementing micro lens arrays; optimisation of TDC, and SPAD electronic; and multi-layer fabrication where the top layer of silicon is devoted to to being the active area of the detector and lower layers host the TDC and other necessary components.
-
-
-% \paragraph*{Time Gated FLIM\\}\label{sec:gatedflim}
-% In Time-Gated FLIM, fluorescence is excited in the same way as TCSPC FLIM but now the fluorescence decay is recorded with a gated camera capturing successive exposures with width $\Delta t \approx\qtyrange{1}{2}{\ns}$.
-% Unlike TCPSC-FLIM which resolves the entire decay, Gated FLIM samples the fluorescence decay over multiple contiguous windows and uses the statistics of the measured photon counts to the recover the fluorescence lifetime. As in TCSPC, the fluorophore sample is excited using a pulsed laser source but now a synchronised gated camera (emCCD, gated image intensifier), with single photon sensitivity, records the number of photons within a two or more gates of width, $\Delta t$. The number of gates used determines the number of lifetimes that can resolved, for fluorophores exhibiting a mono-exponential decay 2 gates are required (Fig. \ref{subfigintro:tgflim}), and for bi-exponential decays (Fig. \ref{subfigintro:tgflimbi}) but reports of gating schemes for resolving more complex decay models could not be found in this review of literature. This is likely due to the requirement of more fixed-width gates recording fewer photons with a lower SNR - relative to detection schemes with fewer gates - unsustainably increasing the error in recovered lifetimes for higher order exponential decays. Time Gated FLIM, fundamentally, already trades off precision in recovered fluorescence lifetimes, compared to TCSPC FLIM, for high image throughput and widefield imaging meaning it likely not a suitable technique for studying complex mixtures of fluorophores and accurately unmixing their relative concentrations and lifetimes~\cite{ballew1989error, sharman1999error}.
-
-% \begin{figure}[htbp]
-%     \centering
-%     \begin{subfigure}[b]{0.47\textwidth}
-%         \centering
-%         \includegraphics[width = \textwidth]{figures/introduction/TimeGatedFlim.pdf}
-%         \caption{}
-%         \label{subfigintro:tgflim}
-%     \end{subfigure}
-%     \begin{subfigure}[b]{0.47\textwidth}
-%         \centering
-%         \includegraphics[width=\textwidth]{figures/introduction/TimeGatedFlimBiExp.pdf}
-%         \caption{}
-%         \label{subfigintro:tgflimbi}
-%     \end{subfigure}
-%     \caption{Detection schemes used for resolving single exponential (\subref{subfigintro:tgflim})  and biexponential (\subref{subfigintro:tgflimbi}) using the Time Gated FLIM method. Each acquisition window, $T_{n}$, has equal integration time, $\Delta t$ and is synchronised to the laser pulse that excites fluorescence.}
-%     \label{figintro:tgflim}
-% \end{figure}
-% \begin{equation}
-%     \tau = \frac{\Delta t}{\ln(T_{1}/T_{2})} \quad 
-%     \label{eqintro:rld}
-% \end{equation}
-
-
-
-% \subsubsection{Frequency Domain FLIM}
-% \FloatBarrier
-% Frequency Domain FLIM extracts fluorescence lifetime from the apparent phase shift and amplitude modulation exhibited by a fluorophore that is excited by an intensity modulated light source~\cite{verveer2009frequency}. In this detection scheme, typically, an Acousto-Optic Modulator is used to modulate the intensity of a continuous wave laser or LED source with a fundamental frequency, $\omega$, to excite fluorescence in a single pixel for a scanned system or flood illuminated sample for widefield imaging. A gated image intensifier then records images over different phase intervals such that the modulation frequency is Nyquist sampled (i.e $\omega_{s} > 2 \omega$).
-
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width = 0.6\textwidth]{figures/introduction/FDflim.pdf}
-%     \caption{Example of principle of Frequency Domain FLIM. A continuous wave source (black line) is intensity modulated with a frequency, $\omega = \SI{80}{\mega\hertz}$. A fluorophore with lifetime, $\tau = \SI{5}{\nano\second}$, causes a lifetime dependent phase, $\phi$, and amplitude, $M$, modulation in the recorded fluorescence intensity.}
-%     \label{figintro:fdflim}
-% \end{figure}
-% The fluorescence lifetime is determined from the phase modulation (Eq. \ref{eqintro:fdlifetime}) or the amplitude modulation (Eq. \ref{eqintro:fdmodulation}. These parameters can be recovered by fitting the sampled modulation to a sinusoidal function or estimating the phase modulation with a Fourier transform. In the case of a well calibrated FD-FLIM system and a fluorophore expressing a single exponential decay the estimated phase angle, $\phi$, and the amplitude modulation, $M$, should be equal but in the case of multi-exponential decays multiple modulation frequencies are used to enable discrimination[citation needed], or methods such as Phasor analysis [citation needed] can be used (discussed further in Chapter \ref{chap:flimanalysis}).
-% \begin{equation}
-%     \tau = \frac{1}{\omega}\tan(\phi)
-%     \label{eqintro:fdlifetime}
-% \end{equation}
-% \begin{equation}
-%     M = \frac{1}{\sqrt{1 + \omega^{2}\tau^{2}}}
-%     \label{eqintro:fdmodulation}
-% \end{equation}
-
-% \subsubsection{Applications of FLIM}
-% \FloatBarrier
-% In fluorescence intensity imaging the low signal and low contrast inherent to autofluorescence imaging hinders attempts to study cellular microsctructures and cellular dynamics of biological samples. Instead these microstructures are often labelled with multiple dyes designed to bind to specific sites with exhibit desirable fluorescence characteristics such as common peak excitation wavelengths, orthogonal emission spectra, and high quantum yield. Multiple dyes, and thus multiple types of cellular microstructures, can then be discriminated using spectral imaging techniques.
-
-
-% % fluorescence lifetime is invariant to fluorophore concentration
-% % bulk of FLIM imaging involves labelled samples
-% % low return signal, compared to reflectance imaging, means that cellular strucutures can be difficult to resolve / discriminate solely using fluorsescence intensity imaging. 
-% % Spectral imaging can help resolve this but this requires carefully choosing dyes that can bind to the required sites, share a similar peak excitation wavelength whilst also having a well seperable fluorescence emission spectra. Spectral imaging also comes with several other challenges
-% % Recording images over mutliple spectral bands reduces SNR for both widefield and scanned systems or requires longer integration times
-% % For widefield imaging spectral images are recorded sequentially at bands - this limiting the cellular dynamics that can be resolved
-% % Scanning laser based systems can either record images sequentially or use line detectors arrays / multiple PMT's and diffraction grating / prism for broader spectral resolution (but higher noise), or the fewer detectors over wider bands chosen for each application/dye
-% % Since the fluorescence lifetiem is invariant to local fluorophore concentration then FLIM can be used to resolve these cellular dynamics and probe other molecular interactions using dyes now seperated in lifetime rather than spectra. This eliminates the burden of choosing dyes with seperable spectra, similar excitations spectra etc. 
-% % This means multiple dyes in a scene can be resolved in a snapshot / single image acquisition and enables the probing of faster cellular dynamic
-% % The fluorescence lifetime is also dependent on local molecular interaction such as the metabolic biomarkers NADH, and FAD. In their redox pairs NAD / NADH and FAD / FADH they expresss different lifetimes for their oxidised and reduced states (put numbers in table w/ citation) and has been applied to imaging scenario X, Y, Z for autofluorescence imaging. By examing the ratio of lifetimes for these redox pairs the local metabolic health uptake of oxygent in a biological sample can be inferred which has applications in probing cellular dysfunction and idagnostic medicine
-% % fluorescence lifetime is also dependent on pH
-% % In fluorescence lifetime imaging these dyes can also be engineered such that the FL varies with a specific parameter that is being probed. Molecular tension / torsion, viscosity, 
-% % FRET is also an aspect of FLIM that has seen applications in cellular imaging. In FRET two fluorescence probes are used, a donor, and an acceptor,  (both with different fluorescence lifetimes) in a process known as the Foerster Resonance Energy Transfer where a donor fluorophore is excited, and donates its energy to a nearby acceptor causing it to fluorescence. The ratio donor fluorescence to acceptor fluorescence or the FRET efficiency can be used to probe molecular distances and other cellular dynamics such as X,Y,Z
-% %
-
-
-% \section{Phasor Analysis}\label{sec:phasoranalysis}
-
-% Phasor analysis presents as a fit-free analysis tool for easy segmentation of flourophores but is a technique predominantly used for FLIM imaging of stained samples. To unmix combinations of fluorphores, the linear addition of phasors can be exploited such that the relative abundance of $N$ fluorophores can be unmixed using a technique akin to vertex component analysis where the phasors of the pure endmembers form the vertices of an $N$-polygon and the phasor of a fluorophore to be unmixed lies within that $N$-polygon as is illustrated in (\cref{fig:phasorbiunmix} for the case of unmixing 2 fluorophores. The robustness of this method suffers from the same issues that plague lifetime based unmixing - sensitivity to noise and similarity in endmember lifetime model.
-
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[width = 0.7\textwidth]{figures/sflim/phasor-unmixing/PhasorUnmix.pdf}
-%     \caption{Depiction of unmixing a combination fluorophores using phasor analysis. For this mixture of 2 fluorophores the pure endmembers are represented as single exponential decays (black circle and green star) and thus have phasors lying on the unit circle. A third phasor consisting of a mixture of two fluorophores, with relative abundances $\alpha_{1}$ and $\alpha_{2}$, lies upon a line intersecting both endmember phasors. The relative abundances are recovered using the fractional lengths $f_{1}$ and $f_{2}$ : $\alpha_{1} = \frac{f_{1}}{f_{1} + f_{2}}$, $\alpha_{2} = \frac{f_{2}}{f_{1} + f_{2}}$ }
-%     \label{fig:phasorbiunmix}
-% \end{figure}
+One of the key aims in this thesis is utilise time-resolved fluorescence to map metabolic activity across the retina and so the existing techniques should also be discussed. Retinal oximetry is the most widely used technique for measuring metabolic activity in the retina where the differences in the absorption spectra between oxygenated and deoxygenated haemoglobin can be leveraged to infer the oxygen saturation in the retinal vasculature. Implementations of retinal oximetry utilise a standard fundus camera but with a modified detection path where two detectors record spectral images, in parallel, with bands chosen to coincide with: the isobestic point $\approx \qty{550}{\nm}$ where the absorption of oxygenation and deoxygenated haemoglobin is equal; and an oxygen sensitive band where the two spectra are maximally different~\cite{smith1999optimum,rilven2017retinal}. Similar implementations involve using three spectral bands but retinal oximetry using 8 spectral bands has also been demonstrated using image-replicating spectrometer (IRIS) for snapshot oximetry using a single detector yielding high-spectral resolution, and sensitivity to changes in oxygenation~\cite{mackenzie2016vivo, mackenzie2018oximetry,choudhary2013assessment}. While the changes between normal and oxygen deprived conditions (hypoxia) can be easily measured. the systematic errors due to multi-path reflection on vessels~\cite{beach2024potential}, skin and fundus pigmentation~\cite{hirsch2023dual}, and patient-to-patient variability, make it unsuitable for measuring small changes in oxygenation thought to occur with onset and slow progression of retina disease~\cite{told2018method}.
