@@ -51,7 +51,7 @@ For this application only the Mode-3 product between a tensor and vector is cons
 \FloatBarrier
 \subsubsection{Transposes of an Odd Third-Order Tensor}\label{subsec:tenstrans}
 For Vectors and Matrices the transpose is well defined since there is only one permutation of a matrix or a vectors indices. However for an $N$ - dimensional tensor there are $N!$ permutations of the indices and therefore $N!$ valid transposes. For example an order-3 tensor has \num{6} different possible transposes (\cref{tab:trans}). In~\citeauthor{brazell2013solving}\cite{brazell2013solving}, they define the appropriate transposes for different multilinear systems of equations for the application for SFLIM unmixing the first entry of \cref{tab:trans} is used for $\mathcal{A} \in \mathbb{R}^{t \times \lambda \times \sigma}$, $\mathbf{M}\in\mathbb{R}^{t \times \lambda}$, and $\mathbf{x} \in \mathbb{R}^{\sigma}$.  
-\begin{table}
+\begin{table}[htp]
     \centering
     \begin{tabular}{|c|c|c|c|}
         \hline
