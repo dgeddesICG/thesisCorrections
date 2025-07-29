@@ -1,4 +1,4 @@
-\setstretch{2}
+
 \FloatBarrier
 \section{Chapter Summary}
 In this chapter the process of modifying an COTS fundus camera for Spectral-Fluorescence Lifetime Imaging of the retina, is described. Fluorescence lifetime images are recorded using a Horiba FLIMera SPAD-array and a secondary science (sCMOS) camera is used for compensation of eye movements. Fluorescence is excited using a pulsed white-light super-continuum laser source filtered using an AOTF to \qtyrange{460}{467}{\nm}. The modifications to existing illumination optics of the fundus camera to couple the filtered laser source are also described. A safety assessment is described which outlines safe operating procedures for imaging \textit{in-vivo} human retinas. The SFLIO device is then calibrated and characterised to ensure key retinal features can be discriminated and fluorophore concentrations can be optimally recovered. The spectral response of the instrument is then measured and the process of calibrating the malfunction pixels and temporally misalignment between pixels of the FLIMera are described. Finally, the spatial resolution of the instrument is measured using the slanted edge test giving a resolution of \qty{50}{\um} for the sCMOS detector and \qty{214}{\um} for the brightfield detector and FLIMera. The resolution of recorded fluorescence lifetime images would then be sufficient to resolve large drusen with an average diameter and retinal vasculature.
@@ -16,7 +16,7 @@ For the proposed SFLIO device, the excitation and imaging bands are be optimised
 The S-FLIO device, shown in~\cref{fig:sflioopticsfull}, developed in this project uses an off-the-shelf fundus camera to simplify the design and construction process allowing more time to be spent developing methods of chemical quantification in the retina using SFLIM. %This approach also allows for the SFLIO system to be more readily integrated into OPTOS's existing product lines where it could be sold as a stand-alone system or a modification for existing fundus camera.
 \begin{figure}[htp]
     \centering
-    \includegraphics[width = 0.5\textwidth]{figures/sflio-device/SFLIOdevicePhoto.pdf}
+    \includegraphics[width = 0.8\textwidth]{figures/sflio-device/SFLIOdevicePhoto.pdf}
     \caption{Photograph of the SFLIO device showing the modifications made to the imaging and illumination paths to facilitate SFLIM imaging. The modified imaging paths (red highlighted region) uses a Thorlabs Kiralux sCMOS detector for recording brightfield of fluorescence images for compensating for motion of the retina (see~\cref{chap:motionreg}). The green highlighted region shows the modifications to the illumination arm to allow illumination of the retina using the AOTF-filtered pulsed super-continuum source. Ray diagrams of the illumination and imaging optics are shown in~\cref{fig:sfliooptics} and~\cref{fig:imagingoptics}, respectively.}
     \label{fig:sflioopticsfull}
 \end{figure}
@@ -24,7 +24,7 @@ The fundus camera can record images over the fields-of-view \qtylist{20;35;50}{\
 \begin{figure}[htp]
     \centering
     \includegraphics[width = 0.7\textwidth]{figures/sflio-device/AnnularIlluminationDiagram.pdf}
-    \caption{The retina is evenly illuminated through an annulus (green) leaving the centre of the pupil unobstructed to image through (red). Adapted from~\citeauthor{terry2022trans}\cite{terry2022trans}}
+    \caption{The retina is evenly illuminated through an annulus (green) leaving the centre of the pupil unobstructed to image through (red). Reproduced from Fig.~4 of~\citeauthor{terry2022trans}\cite{terry2022trans}}
     \label{fig:annularillumination}
 \end{figure}
 
@@ -204,7 +204,7 @@ The FLIMera is a \qtyproduct{192 x 126}{\pixel} array of Single Photon Avalanche
 \begin{figure}
     \centering
     \includegraphics[width= 0.5\textwidth]{figures/sflio-device/SPADarchitecture.png}
-    \caption{Schematic layout of the architecture used to produce the FLIMera sensor. The FLIMera features \qtyproduct{192 x 126}{\pixel} individual SPADs each with its own Time-to-Digital-Converter enabling TCSPC measurements with a pixel pitch of \qtyproduct{18.4 x 9.2}{\um} or equivalently a pixel aspect ratio of 2:1. Reproduced from~\citeauthor{henderson2019192}\cite{henderson2019192}}
+    \caption{Schematic layout of the architecture used to produce the FLIMera sensor. The FLIMera features \qtyproduct{192 x 126}{\pixel} individual SPADs each with its own Time-to-Digital-Converter enabling TCSPC measurements with a pixel pitch of \qtyproduct{18.4 x 9.2}{\um} or equivalently a pixel aspect ratio of 2:1. Reproduced from Fig.~2 of~\citeauthor{henderson2019192}\cite{henderson2019192}}
     \label{fig:SPADarch}
 \end{figure}
 Although this fill-factor is low when compared to traditional imagers it does improve upon the state-of-the-art in TCPSC imagers~\cite{cusini2022historical,gersbach2010high,ulku2018512} where the FLIMera boasts a higher fill-factor, and a scalable pixel architecture - providing a route to a mega-pixel FLIM imager.
@@ -308,7 +308,7 @@ In~\citeauthor{mordant2011validation}\cite{mordant2011validation} the spatial re
     \annotatedFigureText{0.035,0.90}{white}{0.3}{a)}
     \annotatedFigureText{0.52,0.90}{black}{0.3}{b)}
     \end{annotatedFigure}
-    \caption{The line profile through a \qty{150}{\um} capillary tube filled with arterial blood and mounted in an eye phantom is shown in a) and b) record using a similar imaging system to the SFLIO device where an off-the-shelf fundus camera (Canon CF-60Z) is modified for hyper-spectral imaging for the purposes of measuring oxygen saturation of blood in the retina. In b), the number of pixels to transition from black-to-white or the rise-time, $\tau_{rise}$, is denoted by the solid black lines and was computed as $\tau_{rise} \cong \qty{30}{\um}$. a) Reproduced from Fig. 3A of~\citeauthor{mordant2011validation}\cite{mordant2011validation}.}
+    \caption{The line profile through a \qty{150}{\um} capillary tube filled with arterial blood and mounted in an eye phantom is shown in a) and b) record using a similar imaging system to the SFLIO device where an off-the-shelf fundus camera (Canon CF-60Z) is modified for hyper-spectral imaging for the purposes of measuring oxygen saturation of blood in the retina. In b), the number of pixels to transition from black-to-white or the rise-time, $\tau_{rise}$, is denoted by the solid black lines and was computed as $\tau_{rise} \cong \qty{30}{\um}$. Figure~a) reproduced from Fig.~3A of~\citeauthor{mordant2011validation}\cite{mordant2011validation}.}
     \label{fig:MordauntResolitionFigure}
 \end{figure}
 
