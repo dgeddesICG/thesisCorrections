@@ -1,4 +1,4 @@
-\setstretch{2}
+\FloatBarrier
 \section{Motivation and Project Aims}\label{sec:motivation}
 The human eye is capable of forming images over large depth's of field with single photon sensitivity. The eye is also susceptible to disease that often resulting permanent loss of vision if left undiagnosed and untreated. One of the most common retinal diseases, affecting the elderly, Age-Related Macular Degeneration (AMD), affects \qty{20}{\percent} of the population and in a \num{12} month period this disease can progress the initial symptoms to permanent loss of some central vision~\cite{lim2012age}. Routine and regular retinal imaging is a key tool in the early detection of retinal disease, and for developing understanding of disease pathophysiology and effective treatment. Current retinal imaging techniques, such as scanning laser ophthalmoscopy (SLO), aim to detect structure abnormalities in images of the retina surface covering \qty{82}{\percent}) of the retinal surface (OPTOS Monaco, Silverstone SLO) and resolution of \qty{15}{\um}~\cite{ashraf2022comparison} to diagnose and track progression of common retinal disease such as AMD, Glaucoma, Diabetic Retinopathy, and retinal detachments.
 \\
@@ -13,7 +13,7 @@ A key deficiency in current retinal imaging techniques is the ability to quantit
 \\
 In this thesis, a Commercial-Of-The-Shelf (COTS) fundus camera is modified to enable spectrally resoled FLIM measurements of the retina,  and a new method of recovering fluorophore concentrations from SFLIM measurements is developed. Using this new instrument and algorithm, the feasibility of measuring retinal FAD concentrations in the retina is assessed by inducing changes in oxygen consumption anathematised rat and measuring commensurate changes in retinal FAD concentrations.
 \FloatBarrier
-\section{Concepts of Fluorescence and Fluorescence Lifetime Imaging}
+\section{Concepts of Fluorescence and \\ Fluorescence Lifetime Imaging}
 In this section basic concepts of fluorescence, and the fluorescence lifetime, will be described and techniques in the field of Fluorescence lifetime imaging will be discussed.
 \FloatBarrier
 \subsection{Mechanics of Fluorescence Lifetimes}
@@ -29,10 +29,10 @@ Absorption of photons promote an electron from the ground electronic singlet sta
 These radiative and non-radiative processes occur over different time scales: absorption occurs over \qty{e-15}{\second}; internal conversions and inter-system crossings occur \qty{e-12}{\second}; phosphorescence decays take place over time-scales of \qtyrange{e-7}{e-3}{\second}~\cite{lakowicz2013fluorescencespectroscopybook}. Of key interest in this thesis is the decay times due to fluorescence which occur over a few nanoseconds~\cite{lakowicz2013fluorescencespectroscopybook}.
 The process of fluorescence is random i.e. within a single unit-area the excited state of every electron is not depopulated at the same time. It is thus more useful to consider the average time the fluorophore remains in the excited state, $S_{1}$ - this is the fluorescence lifetime. The time-dependent intensity of fluorescence can then be modelled from the rate-of-change of concentration of fluorophores in the excited state $S_{1}$ is [$S_{1}$]:
 \begin{equation}
-    \frac{d}{dt}[S_{1}] = -\Gamma [S_{1}]
+    \frac{d}{dt}[S_{1}] = -\Gamma [S_{1}]\,,
     \label{eqintro:conc}
 \end{equation}
-Where $\Gamma$ is the rate at which fluorescence photons are produced and is the inverse of the fluorescence lifetime ($\Gamma = \nicefrac{1}{\tau}$). By then associating the measured time evolved intensity of with the concentration $[S_{1}]$ the fluorescence decay can be modelled:
+where $\Gamma$ is the rate at which fluorescence photons are produced and is the inverse of the fluorescence lifetime ($\Gamma = \nicefrac{1}{\tau}$). By then associating the measured time evolved intensity of with the concentration $[S_{1}]$ the fluorescence decay can be modelled:
 \begin{align}
     \frac{d}{dt}I(t) &= -\Gamma I(t)\\
     \implies I(t) &= I_{0}\exp(-\nicefrac{t}{\tau})
@@ -81,11 +81,11 @@ For Time-Gated FLIM detection schemes the sample to be imaged is also exited usi
     \caption{Detection schemes used for resolving single exponential (\subref{subfigintro:tgflim})  and bi-exponential (\subref{subfigintro:tgflimbi}) using the Time Gated FLIM method. Each acquisition window, $T_{n}$, has equal integration time, $\Delta t$ and is synchronised to the laser pulse that excites fluorescence.}
     \label{figintro:tgflim}
 \end{figure}
-For mono-exponential decays, the fluorescence lifetime, $\tau$, is then recovered using \cref{eqintro:rld} based upon the ratio of the number of photons detected in each image and the length of exposure for each image
+For mono-exponential decays, the fluorescence lifetime, $\tau$, is then recovered using \cref{eqintro:rld} based upon the ratio of the number of photons detected in each image and the length of exposure for each image:
 \begin{equation}\label{eqintro:rld}
-    \tau = \frac{\Delta t}{\ln(T_{1}/T_{2})} \quad 
+    \tau = \frac{\Delta t}{\ln(T_{1}/T_{2})}\,,
 \end{equation}
-Where $\Delta T$ is the width of the gates, and $T_{1}$ and $T_{2}$ are the number of photons detected in each image. For fluorophores exhibiting a bi-exponential decay the both fluorescence lifetimes can still be resolved albeit now 4 gated images are required (\cref{subfigintro:tgflimbi}). For contiguous gates this means each gate is narrower in time leading to each image exhibiting higher noise. This can be compensated for by overlapping the gates. The model for recovering both lifetime components, $\tau_{1}$ and $\tau_{2}$, and relative concentrations, $a_{1}$ and $a_{2}$, is much more verbose and for brevity is not listed here but can be found in Eq.~16-25 of~\citeauthor{sharman1999error} where it is defined for both contiguous and overlapping gates~\cite{sharman1999error}.
+where $\Delta T$ is the width of the gates, and $T_{1}$ and $T_{2}$ are the number of photons detected in each image. For fluorophores exhibiting a bi-exponential decay the both fluorescence lifetimes can still be resolved albeit now 4 gated images are required (\cref{subfigintro:tgflimbi}). For contiguous gates this means each gate is narrower in time leading to each image exhibiting higher noise. This can be compensated for by overlapping the gates. The model for recovering both lifetime components, $\tau_{1}$ and $\tau_{2}$, and relative concentrations, $a_{1}$ and $a_{2}$, is much more verbose and for brevity is not listed here but can be found in Eq.~16-25 of~\citeauthor{sharman1999error} where it is defined for both contiguous and overlapping gates~\cite{sharman1999error}.
 \\
 The key attractions of Time-Gated FLIM lie in its capability for fast and efficient recording and determination of fluorescence lifetimes - with video-rate Wide-field FLIM being reported~\cite{elson2004real,ulku2020wide}. This does come at the expense of being limited to resolving fewer than 2 fluorescence lifetimes with reduced accuracy when compared to SPAD-TCSPC detection schemes~\cite{ballew1989error}. For this thesis it was deemed this decreased lifetime resolution rendered it unsuitable for attempting to discriminate, and quantify, retinal fluorophores.
 \FloatBarrier
@@ -98,15 +98,16 @@ Fluorescence lifetime imaging can also be achieved in the frequency domain by ei
     \label{figintro:fdflim}
 \end{figure}
 \paragraph*{Recovering Lifetimes in Frequency-Domain FLIM}
-The fluorescence lifetime, $\tau$, can then be recovered from the measured phase-shift, $\phi$, using~\cref{eqintro:fdlifetime}, given the laser modulation frequency $\omega$ converted to units of \unit{\radian\per\second}
+The fluorescence lifetime, $\tau$, can then be recovered from the measured phase-shift, $\phi$:
 \begin{equation}\label{eqintro:fdlifetime}
-    \tau = \frac{1}{\omega}\tan(\phi)
+    \tau = \frac{1}{\omega}\tan(\phi)\,,
 \end{equation}
-Or from the relative change in the amplitude from in the recorded fluorescence signal, $M$, using~\cref{eqintro:fdmodulation}.
+where $\omega$ is the laser modulation frequency expressed in units of \unit{\radian\per\second}
+Or from the relative change in the amplitude from in the recorded fluorescence signal, $M$:
 \begin{equation}\label{eqintro:fdmodulation}
-    M = \frac{1}{\sqrt{1 + \omega^{2}\tau^{2}}}
+    M = \frac{1}{\sqrt{1 + \omega^{2}\tau^{2}}}\,,
 \end{equation}
-Where the modulation $M$ is equivalent to ratio of the amplitude of the recorded fluorescence signal, $m_{F}$, and the amplitude of the laser modulation signal, $m_{L}$.
+where the modulation $M$ is equivalent to ratio of the amplitude of the recorded fluorescence signal, $m_{F}$, and the amplitude of the laser modulation signal, $m_{L}$.
 \\
 Lifetime components from mixtures of fluorophores can also be recovered by using multiple modulation frequencies where typically for $n$-lifetimes a signal with $n$-harmonics of a sinusoid with frequency, $w$, are required. In the limit, a signal composed of only the odd-ordered harmonics now approaches a simple square-wave modulation although now the fluorescence signal must now be Nyquist sampled at $w_{l} > 2n\omega_{s}$.~\citeauthor{squire2000multiple} demonstrated this square-wave modulation in a frequency-domain FLIM experiment where structures inside HeLa cells were stained: with green fluorescence-protein staining the Golgi, an organelle responsible for distributing proteins outwith the cell; and yellow fluorescent-protein staining the cells nucleus. Despite the these structures physically overlapping each other - Golgi surround the nuclei - both stains were successfully unmixed with images of fluorophore concentration and lifetime being commensurate with what was present in literature.
 \FloatBarrier
@@ -114,17 +115,19 @@ Lifetime components from mixtures of fluorophores can also be recovered by using
 In this project a TCPSC-SPAD array is used, the Horiba FLIMera, (described in more detail in~\cref{subsec:flimeradetails}), and for this detection scheme there are various methods of recovering fluorescence lifetimes from the histograms of photon arrival times -each with their own unique capabilities and drawbacks. Mainly, these techniques can be broken down into fitting-based techniques, and purported ``fit-free'' techniques. Fitting based techniques tend to be computationally intensive but more accurate whereas ``fit-free'' techniques tend to trade-off accuracy in recovering lifetimes for a lowered computational burden or gimmicky visualisations. This section will cover the 4 most common FLIM analysis techniques although it should be noted the recovering of the fluorescence lifetime was not extensively used in favour of the bespoke SFLIM unmixing technique developed in~\cref{chap:tensSFLIM}.
 \FloatBarrier
 \subsection{Least-Squares Fitting Based Techniques}\label{subsec:intro-lsqfitting}
-Fitting based techniques will typically use an iterative approach where the difference between a chosen fitting model - typically a mono-exponential or bi-exponential decay~\cref{eq:multiexp} - and the acquired photon histograms is minimised. 
+Fitting based techniques will typically use an iterative approach where the difference between a chosen fitting model typically a mono-exponential or bi-exponential decay,
 \begin{equation}\label{eq:multiexp}
-    I(t) = A\sum_{n=0}^{N}a_{n}\exp\bigg(\frac{-(t-t_{0})}{\tau_{n}}\bigg) + c
+    I(t) = A\sum_{n=0}^{N}a_{n}\exp\bigg(\frac{-(t-t_{0})}{\tau_{n}}\bigg) + c\,,
 \end{equation}
+and the measured histogram is then minimised.
 In most popular least-squares fitting routines the Levemberg-Marquadt Algorithm where the parameter space - in this case $\{\tau_{n}, a_{n}\}\rvert_{n=0}^{N}$, is iteratively traversed in the direction which approaches a global-minima the fastest given a initial estimate of the fitting parameters. The number of exponentials chosen for the fitting model is normally chosen given some prior knowledge of the number of fluorophores in the sample and their reported lifetimes. 
 \FloatBarrier
 \subsubsection{The Instrument Response Function}
-Within the histograms recorded with TCPSC-FLIM setups the fluorescence decay is contaminated by the non-zero width of the pulse from the excitations source, dispersion from optics in the imaging system, and the temporal response of the SPAD-TCSPC array itself. This temporal response is known as the Instrument Response Function (IRF) The measured histogram is then represented as a convolution of the IRF with the multi-exponential decay model with the effect of biasing the recovered fluorescence lifetimes~\cite{trinh2021biochemical}.
+Within the histograms recorded with TCPSC-FLIM setups the fluorescence decay is contaminated by the non-zero width of the pulse from the excitations source, dispersion from optics in the imaging system, and the temporal response of the SPAD-TCSPC array itself. This temporal response is known as the Instrument Response Function (IRF):
 \begin{equation}\label{eq:irf}
     I(t) = IRF(t) \circledast  A\sum_{n=0}^{N}a_{n}\exp\bigg(\frac{-(t-t_{0})}{\tau_{n}}\bigg) +c 
 \end{equation}
+The measured histogram is then represented as a convolution of the IRF with the multi-exponential decay model with the effect of biasing the recovered fluorescence lifetimes~\cite{trinh2021biochemical}.
 The IRF can be characterised by measuring backscattered light through the system by placing a silver mirror at the sample plane. Other methods involve imaging a fluorophore with fluorescence lifetimes shorter than a single time-bin - meaning the second term in the convolution approximates a Dirac-Delta function~\cite{margineanu2025calibration}. Rigorous characterisation of the IRF is not required for the tail-fitting method to be discussed next - however some indication of the approximate width of the IRF is beneficial.
 \FloatBarrier
 \subsubsection{Tail-Fitting}\label{subsubsec:tailfitting}
@@ -149,13 +152,13 @@ If the IRF of the FLIM has been sufficiently characterised, then re-convolution 
 The fitting based techniques described in~\cref{subsubsec:tailfitting} and~\cref{subsubsec:reconv}, are often computationally intensive often requiring $>\qty{5}{\minute}$ to fit a typical FLIM image consisting of $\approx50,000$ pixels, and in the case of reconvolution-based fitting an additional measurement of the IRF is required. To address this, Rapid-Lifetime Determination (RLD) methods were developed predominately for time-gated FLIM detection schemes but are equally applicable to TCPSC based FLIM. Lifetimes are recovered in exactly the same way as described in \cref{sec:intro-gatedFLIM} but now the two time-gated images are formed by summing time-bins in the fluorescence histograms.
 \FloatBarrier
 \subsection{Phasor Analysis}\label{subsec:intro-phasor}
-Phasor analysis is a computationally cheap, Fourier-based, method for recovering fluorescence lifetimes from histograms recorded with a TSCPC Time-Domain FLIM detection scheme. Computationally, the phasor transform can be implemented Fast-Fourier Transform to enable real-time determination of lifetimes~\cite{levitt2020quantitative,sorrells2021real}. The phasor transform, shown in~\cref{eq:intro-phasortransform} maps each area-normalised histogram, $I(t)$, to a point in phasor-space, $(g,s)$, where $f$ refers to the repetition rate of the pulsed excitation source when $t$ is in units of time. 
-
+Phasor analysis is a computationally cheap, Fourier-based, method for recovering fluorescence lifetimes from histograms recorded with a TSCPC Time-Domain FLIM detection scheme. Computationally, the phasor transform can be implemented Fast-Fourier Transform to enable real-time determination of lifetimes~\cite{levitt2020quantitative,sorrells2021real}. The phasor transform maps each area-normalised histogram, $I(t)$, to a point in phasor-space, $(g,s)$,
 \begin{align}{\label{eq:intro-phasortransform}}
     g &= \int_{0}^{T}I(t)\cos(2\pi ft)dt = real(\mathcal{F}\{I(t)\}\rvert_{n=1})\\
     s &= \int_{0}^{T}I(t)\sin(2\pi ft)dt = imag(\mathcal{F}\{I(t)\}\rvert_{n=1})
 \end{align}
-For mono-exponential decay lifetime,$\tau$, can then be recovered from these phasor coordinates using~\cref{eq:intro-phasorlifetime}
+where $f$ refers to the repetition rate of the pulsed excitation source when $t$ is in units of time. 
+For mono-exponential decay lifetime,$\tau$, can then be recovered from these phasor coordinates using:
 \begin{equation}\label{eq:intro-phasorlifetime}
     \tau = \frac{1}{2\pi f}\bigg(\frac{s}{g}\bigg)
 \end{equation}
@@ -169,11 +172,12 @@ A key convenience of the phasor transform is the ability to easily segment image
 \end{figure}
 \FloatBarrier
 \subsubsection{Compensating for the IRF in Phasor FLIM}
-The IRF of the FLIM imaging system can be accounted for in phasor analysis quite simply by expressing the phasor-coordinates, $(g,s)$ of a TCSPC histogram, and the IRF, in polar-form $(m = \sqrt{g^{2} + s^{2}}, \varphi = \arctan({\nicefrac{s}{g}}) )$. In phasor-space the IRF has the effect of applying a rotation, around the origin, and stretching of a phasor representing a pure mono-exponential decay $(m_{DECAY}, \varphi_{DECAY})$.~\cref{eq:intro-phasorirf}, demonstrates how the IRF, ($m_{IRF}, \varphi_{IRF}$), can be compensated for in a measurement $(m_{TCSPC}, \varphi_{TCSPC})$ to yield the phasor representing the fluorescence decay.
+The IRF of the FLIM imaging system can be accounted for in phasor analysis quite simply by expressing the phasor-coordinates, $(g,s)$ of a TCSPC histogram, and the IRF, in polar-form $(m = \sqrt{g^{2} + s^{2}}, \varphi = \arctan({\nicefrac{s}{g}}) )$. In phasor-space the IRF has the effect of applying a rotation, around the origin, and stretching of a phasor representing a pure mono-exponential decay $(m_{DECAY}, \varphi_{DECAY})$:
 \begin{align}\label{eq:intro-phasorirf}
     m_{DECAY} &= \frac{m_{TCSPC}}{m_{IRF}}\\
     \varphi_{DECAY} &= \varphi_{TCSPC} - \varphi_{IRF}
 \end{align}
+where now the IRF, ($m_{IRF}, \varphi_{IRF}$), can be compensated for in a measurement \\ $(m_{TCSPC}, \varphi_{TCSPC})$ to yield the phasor representing the fluorescence decay.
 \FloatBarrier
 \subsubsection{Phasor Analysis Beyond FLIM}\label{subsubsec:into-phasorbeyond}
 Phasor analysis has also seen usage beyond standard FLIM imaging. For spectrally-resolved FLIM measurements it has been adapted for unmixing of mixtures of fluorophores - to be explored in \cref{sec:phasor-sflim} - for samples with stained structures. In Fluorescence microscopy, phasor analysis has also seen use as a computational analysis technique for fluorescence spectroscopy~\cite{fereidouni2012spectral} and implemented as an optical analysis technique~\cite{wang2023single,hedde2021phasor}. For the latter case, a beamsplitter and pair of fluorescence emission filters with sinusoidal and co-sinusoidal transmission functions allow images of the $s$, and $g$ phasor-coordinates to be directly recorded. Finally, it should be highlighted that phasor analysis was previously, and still is, a common technique for analysing AC electronic circuits and signals~\cite{semmlow2005circuits}.

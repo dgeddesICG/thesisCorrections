@@ -1,29 +1,23 @@
-\setstretch{2}
 \section{Chapter Summary}
-In this chapter, a technique for unmixing fluorophores from SFLIM measurements is developed using a least-squares solver for multi-linear systems of equations published in literature~\cite{brazell2013solving}. Next, the detection bands for this unmixing technique are optimised for measuring FAD concentrations in the retina from SFLIM measurements using the condition number. The unmixing performance of the tensor-based method is characterised with simulated mixtures of retinal fluorophores showing decreased errors in recovered FAD concentration when compared to spectral unmixing for equivalent  photon flux. Generalised simulations of dyes with overlapping spectra and distinct lifetimes show that this technique that benefits from the inclusion of lifetime measurements. Further, simulations of gate-SFLIM measurements show it to be a more photon efficient detection scheme than TCSPC-SFLIM for unmixing fluorophores at equivalent photon fluxes.
-
+Motivated by the poor performance of existing lifetime-based techniques for unmixing retinal fluorophores, a technique for unmixing fluorophores from SFLIM measurements is developed, and explored, in this chapter using a least-squares solver for multi-linear systems of equations published in literature~\cite{brazell2013solving}. Next, the detection bands for this unmixing technique are optimised to accurately measure FAD concentrations in the retina from SFLIM measurements using the condition number as an indicator. The unmixing performance of the tensor-based method is characterised with simulated mixtures of retinal fluorophores showing decreased errors in recovered FAD concentration when compared to spectral unmixing for equivalent  photon flux. Generalised simulations of dyes with overlapping spectra and distinct lifetimes show that this technique benefits from the inclusion of lifetime measurements. Further, simulations of gated-SFLIM measurements show it to be more accurate in fluorophore unmixing than TCSPC-SFLIM for equivalent photon fluxes.
 \FloatBarrier
-\section{A Multi-Linear Least-Squares Solver for Unmixing Retinal Fluorophore Concentrations From SFLIM Measurements}
-In the previous chapter, existing methods for recovering FAD concentrations from SFLIM measurements were investigated and found to be unsuitable even in low-noise scenarios. For both the fitting based and phasor S-FLIM method their limitations lie with the high overlap of retinal fluorophores in the spectral and lifetime domain.
+\section{A Multi-Linear Least-Squares Solver for \\ Unmixing Retinal Fluorophore Concentrations \\ From SFLIM Measurements}
+In the previous chapter, the phasor-SFLIM method for recovering FAD concentrations from SFLIM measurements was investigated and due to high overlap between endmembers in phasor space the high-error in recovered fluorophore concentration - regardless of noise. This rendered the technique unsuitable for \textit{in-vivo} measurements of retinal FAD in humans to monitor metabolic health in the eye. For both the fitting based and phasor-SFLIM method their challenges lie with the high overlap of retinal fluorophores in the spectral and lifetime domain.
 \\
-To address this, a new method has been developed which treats the temporal domain of SFLIM data as a pseudo-`spectra' and extends the matrix inversion approach of standard spectral unmixing to include the temporal domain. This combines the decay profile and emission spectra of the fluorophore to minimise the effects of this high overlap in both domains. The existing Moore-Penrose inverses used in the matrix inversion unmixing technique are only well defined for matrices – endmember tensor in~\cref{fig:tensor} cannot be inverted. To extend this technique for unmixing fluorophore concentration from SFLIM data the work of~\citeauthor{brazell2013solving}\cite{brazell2013solving} was adapted. In their work an algorithm for solving multi-linear systems of equations is described using Moore-Penrose inversions of third-order tensors.
-
-
+To address this, a new method has been developed which treats the temporal domain of SFLIM data as pseudo-`spectra' and extends the matrix inversion approach of standard spectral unmixing to include the temporal domain. This combines the decay profile and emission spectra of the fluorophore to reduce the effects of this high overlap in both domains. The existing Moore-Penrose inverses used in the matrix inversion unmixing technique are well defined only for matrices – tensors cannot be inverted. To extend this technique for unmixing fluorophore concentration from SFLIM data the work of~\citeauthor{brazell2013solving}\cite{brazell2013solving} was adapted. In their work an algorithm for solving multi-linear systems of equations is described using Moore-Penrose inversions of third-order tensors.
 \FloatBarrier
 \subsection{Mathematical Aside - Definitions and Nomenclature of Tensor Algebra}\label{subsec:tensdef}
-\textcolor{red}{Should this be an appendix?}
 \subsubsection{Tensor Notation}\label{subsec:tensnom}
-A tensor is a mathematical object that can have more than 2 dimensions and is invariant to changes of coordinate systems. The dimensional of a tensor is referred to as its order where an order-$n$ tensor has $n$-dimensions e.g. an order-$0$ tensor is a scalar, and order-$1$ tensor is a vector or array, and a order-$2$ tensor is a matrix. An order-$3$ tensor, $\mathcal{D}$ of real numbers with dimensions of length $I$,$J$, and $K$ would be notated as $\mathcal{D} \in \mathbb{R}^{I \times J \times K}$ and its individual entries are addressed using lowercase notation for the object and its indices: $\mathbf{d}_{ijk}$. Likewise, order-$1$ tensors are notated as lowercase bold and matrices, order-$2$ tensors, are notated with uppercase bold symbols but their individual entries are notated in the same way as order-$3$ tensors.
-Operations between tensors are generalised using the Einstein summation or Einstein notation conventions by summing over ``free'' indices which appear only once in an expression and element wise multiplications of entries in ``dummy'' indices that are repeated within an expression. To illustrate this the example in~\cref{eq:matmul,eq:matmulein} show multiplication of two matrices, $\mathbf{A} \in \mathbb{R}^{I \times J}$ and $\mathbf{B} \in \mathbb{R}^{J \times K}$ using standard indexed summations and Einstein notation where summation symbols are conventionally omitted for simplicity and brevity.
+A tensor is a mathematical object that can have more than 2 dimensions and is invariant to changes of coordinate systems. The dimensionality of a tensor is referred to as its order where an order-$n$ tensor has $n$-dimensions e.g. an order-$0$ tensor is a scalar, and order-$1$ tensor is a vector or array, and a order-$2$ tensor is a matrix. An order-$3$ tensor, $\mathcal{D}$ of real numbers with dimensions of length $I$,$J$, and $K$ would be notated as $\mathcal{D} \in \mathbb{R}^{I \times J \times K}$ and its individual entries are addressed using lowercase notation for the object and its indices: $\mathbf{d}_{ijk}$. Likewise, order-$1$ tensors are notated as lowercase bold and matrices, order-$2$ tensors, are notated with uppercase bold symbols but their individual entries are notated in the same way as order-$3$ tensors.
+Operations between tensors are generalised using the Einstein summation or Einstein notation conventions by summing over ``free'' indices which appear only once in an expression and element wise multiplications of entries in ``dummy'' indices that are repeated within an expression. For the example of the multiplication of two matrices this can be represented using index summations notation:
 \begin{align}
-    \mathbf{C}_{ik} = (\mathbf{A}\mathbf{B}_{ik}) = \sum_{j= 1}^{N}\mathbf{A}_{ij}\mathbf{B}_{jk}\label{eq:matmul}
+    \mathbf{C}_{ik} = (\mathbf{A}\mathbf{B}_{ik}) = \sum_{j= 1}^{N}\mathbf{A}_{ij}\mathbf{B}_{jk}\,,\label{eq:matmul}
 \end{align}
+where $\mathbb{A}$, and $\mathbf{B}$, are two matrices such that $\mathbf{A} \in \mathbb{R}^{I \times J}$ and $\mathbf{B} \in \mathbb{R}^{J \times K}$ giving the resultant matrix, $\mathbf{A} \in \mathbb{R}^{I \times J}$. Using the simplified Einstein summation notation the summation symbol is omitted for convenience:
 \begin{align}
-    \mathbf{C}\indices{_i_k} = \mathbf{A}\indices{_i_j}\mathbf{B}\indices{_j_k}\label{eq:matmulein}
+    \mathbf{C}\indices{_i_k} = \mathbf{A}\indices{_i_j}\mathbf{B}\indices{_j_k}\,,\label{eq:matmulein}
 \end{align}
-Here, ``j'' is the dummy index and is summed over, and element-wise multiplication is performed on the``i'' and ``k''  indices. 
-
-
+where ``j'' is the dummy index and is summed over, and element-wise multiplication is performed on the``i'' and ``k'' indices. 
 \FloatBarrier
 \subsubsection{Einstein Products}\label{subsec:einprod}
 Einstein products (or contracted product) between two tensors can be used to contract specific indices. For example the Einstein $N$-Product contracts $N$ indices for two arbitrary tensors
@@ -31,26 +25,25 @@ $\mathcal{A} \in \mathbb{R}^{I_{i}\times\cdot\times I_{L}\times K_{1}\times\cdot
 \begin{align}
     \bigg(\mathcal{A} \ast_{N} \mathcal{B}\bigg)_{i_{1}\cdots i_{L}j_{1}\cdots j_{M}} &=\sum\limits_{k_{1}\cdots k_{N}}\mathbf{a}_{i_{1}\cdots i_{L}k_{1}\cdots k_{N}}\mathbf{b}_{k_{1}\cdots k_{N}j_{1}\cdots j_{M}}
 \end{align}
-For the implementation of the Tensor based SFLIM unmixing technique only the `$\ast_{2}$' product is needed. For an example SFLIM endmember tensor, $\mathcal{D}\in \mathbb{R}^{t \times \lambda \times \sigma}$, with $t$ - time bins, $\lambda$ - spectral channels, $\sigma$ - endmembers and a corresponding SFLIM measurement, $\mathbf{M}\in\mathbb{R}^{t \times \lambda}$, one of the contracted products used in the calculation of the estimator in the least-squares minimisation process is shown in \cref{eq:einprodex}:
+For the implementation of the Tensor-based SFLIM unmixing technique only the `$\ast_{2}$' product is needed. For an example SFLIM endmember tensor, $\mathcal{D}\in \mathbb{R}^{t \times \lambda \times \sigma}$, with $t$ - time bins, $\lambda$ - spectral channels, $\sigma$ - endmembers and a corresponding SFLIM measurement, $\mathbf{M}\in\mathbb{R}^{t \times \lambda}$, one of the contracted products used in the calculation of the estimator in the least-squares minimisation process is shown:
 \begin{align}\label{eq:einprodex}
 \big(\mathcal{D}^{T}\ast_{2}\mathcal{D}\big)_{\tilde{\sigma}\sigma}=\sum_{t,\lambda} &= \hat{\mathbf{d}}_{\tilde{\sigma}t\lambda}\mathbf{d}_{\sigma t \lambda}
 \end{align}
-To simplify notation, the elements of the tensor transpose,~$\mathcal{D}^{T}$, is notated as $\hat{\mathbf{d}}$ and for indices that are twinned they are denoted as $\tilde{\sigma}$ where they has same length but are not to be treated as ``dummy'' indices.
+To simplify notation, the elements of the tensor transpose,~$\mathcal{D}^{T}$, is notated as $\hat{\mathbf{d}}$ and for indices that are twinned they are denoted as $\tilde{\sigma}$ where they have same length but are not to be treated as ``dummy'' indices.
 
 
 \FloatBarrier
 \subsubsection{Tucker N-Mode Product}\label{subsec:tuckprod}
 The Tucker N-Mode product is an extension of the Einstein Product in that it is simply a contracted sum (Einstein 1-Product) over a defined Mode of a Tensor but is now denoted using $\bullet_{N}$ instead of $\ast_{N}$. For a Tensor $\mathcal{T} \in \mathbb{R}^{I \times J \times K}$ then Mode 1 is the $i$-direction, Mode 2 is the $j$-direction, and Mode 3 is the $k$-direction.
 \\
-For this application only the Mode-3 product between a tensor and vector is considered and using the same tensor, $\mathcal{D}\in \mathbb{R}^{t \times \lambda \times \sigma}$, as above the mode 3 product with the vector $\mathbf{x} \in \mathbb{R}^{\sigma}$, denoted as $\bullet_{3}$  also evaluates to a vector (\cref{eq:tuckmodeex}) and is akin to the dot product between a matrix and a vector.
+For this application, only the mode-3 product between a tensor and vector is considered and using the same tensor, $\mathcal{D}\in \mathbb{R}^{t \times \lambda \times \sigma}$, as above the mode-3 product with the vector $\mathbf{x} \in \mathbb{R}^{\sigma}$, denoted as $\bullet_{3}$: 
 \begin{align}
-   \big(\mathcal{D}\bullet_{3}\mathbf{x}\big)_{\sigma} &= \sum_{t, \lambda}\mathbf{d}_{t \lambda \sigma}\mathbf{x}_{\sigma} \label{eq:tuckmodeex}
+   \big(\mathcal{D}\bullet_{3}\mathbf{x}\big)_{\sigma} &= \sum_{t, \lambda}\mathbf{d}_{t \lambda \sigma}\mathbf{x}_{\sigma}, \label{eq:tuckmodeex}
 \end{align}
-
-
+where,  $\big(\mathcal{D}\bullet_{3}\mathbf{x}\big)_{\sigma}$, also evaluates to a vector and is akin to the dot product between a matrix and a vector.
 \FloatBarrier
 \subsubsection{Transposes of an Odd Third-Order Tensor}\label{subsec:tenstrans}
-For Vectors and Matrices the transpose is well defined since there is only one permutation of a matrix or a vectors indices. However for an $N$ - dimensional tensor there are $N!$ permutations of the indices and therefore $N!$ valid transposes. For example an order-3 tensor has \num{6} different possible transposes (\cref{tab:trans}). In~\citeauthor{brazell2013solving}\cite{brazell2013solving}, they define the appropriate transposes for different multilinear systems of equations for the application for SFLIM unmixing the first entry of \cref{tab:trans} is used for $\mathcal{A} \in \mathbb{R}^{t \times \lambda \times \sigma}$, $\mathbf{M}\in\mathbb{R}^{t \times \lambda}$, and $\mathbf{x} \in \mathbb{R}^{\sigma}$.  
+For Vectors and Matrices the transpose is well defined since there is only one permutation of a matrix or a vectors indices. However for an $N$ - dimensional tensor there are $N!$ permutations of the indices and therefore $N!$ valid transposes. For example an order-3 tensor has \num{6} different possible transposes. 
 \begin{table}[htp]
     \centering
     \begin{tabular}{|c|c|c|c|}
@@ -74,16 +67,17 @@ For Vectors and Matrices the transpose is well defined since there is only one p
 
         \hline
     \end{tabular}
-    \caption{Third order tensor transposes for various forms of multilinear systems. Reproduced from \citeauthor{brazell2013solving}\cite{brazell2013solving}}
+    \caption{Third-order tensor transposes for various forms of multilinear systems. Reproduced from \citeauthor{brazell2013solving}\cite{brazell2013solving}}
     \label{tab:trans}
 \end{table}
-
+In~\citeauthor{brazell2013solving}\cite{brazell2013solving}, they define the appropriate transposes for different multilinear systems of equations for the application for SFLIM unmixing the first entry of \cref{tab:trans} is used for $\mathcal{A} \in \mathbb{R}^{t \times \lambda \times \sigma}$, $\mathbf{M}\in\mathbb{R}^{t \times \lambda}$, and $\mathbf{x} \in \mathbb{R}^{\sigma}$.  
 \FloatBarrier
 \subsection{Implementation of Multi-Linear Least-Squares Solver for SFLIM Unmixing}
-In this new approach a similar linear mixing model (\cref{eq:tensmix}) is used. However, now a third-order tensor, $\mathcal{A}$, contains the spectral and decay properties of the endmember and a matrix, $\mathbf{M}$, contains the SFLIM measurements. The endmember abundances are still a vector, $\mathbf{x}$, where the endmember abundances all sum to unity.
+In this new approach a similar linear mixing model is used:
 \begin{align}
-    \mathcal{A}\bullet_{3}\mathbf{x} &= \mathbf{M} \label{eq:tensmix}
+    \mathcal{A}\bullet_{3}\mathbf{x} &= \mathbf{M} \label{eq:tensmix},
 \end{align}
+where now, a third-order tensor, $\mathcal{A}$, contains the spectral and decay properties of the endmember and a matrix, $\mathbf{M}$, contains the SFLIM measurement i.e. spectrally and temporally resolved fluorescence - . A representation of this endmember tensor is shown in~\cref{fig:tensor}. The endmember abundances are still a vector, $\mathbf{x}$, where the endmember abundances all sum to unity.
 
 \begin{figure}[htbp]
 \centering
@@ -123,37 +117,36 @@ In this new approach a similar linear mixing model (\cref{eq:tensmix}) is used. 
    -- ([xshift=-1ex]mC.south west) node[midway,above,rotate=90] {n};
   
 \end{tikzpicture}
-
 \caption{Visualisation of the $\mathcal{A}$ tensor in Eq.~\ref{eq:tensmix} composed of, $n$, unique endmembers with known spectra ($\lambda$ - axis) and fluorescence decay profiles ($t$ - axis).}
 \label{fig:tensor}
 \end{figure}
-In this section the SFLIM unmixing algorithm is now described. The concept of the multi-linear least-squares solver was published ~\citeauthor{brazell2013solving} and the below description is adapted from the literature~\cite{brazell2013solving}. For the endmember tensors, $\mathcal{A}\in \mathbb{R}^{I \times J \times K}$, matrix of SFLIM measurements, $\mathbf{M}$, with, $I$ time bins, $J$, spectral measurements, and $K$ endmembers the optimal recovered relative abundances, $\mathbf{x}\in \mathbb{R}^{K}$, would satisfy the following minimisation:
+In this section the SFLIM unmixing algorithm is now described. The concept of the multi-linear least-squares solver was published by ~\citeauthor{brazell2013solving} and the below description is adapted from~\cite{brazell2013solving}. For the endmember tensors, $\mathcal{A}\in \mathbb{R}^{I \times J \times K}$, matrix of SFLIM measurements, $\mathbf{M}$, with, $I$ time bins, $J$, spectral measurements, and $K$ endmembers the optimal recovered relative abundances, $\mathbf{x}\in \mathbb{R}^{K}$, would satisfy the following minimisation:
 \begin{equation}\label{eq:leastsquaretens}
-    \mathbf{x} = \textit{min}\bigg\{\lvert\lvert \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M} \rvert\rvert_{F} \bigg\}
+    \mathbf{x} = \text{min}\bigg\{\lvert\lvert \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M} \rvert\rvert_{F} \bigg\}.
 \end{equation}
-For a least-squares method (\cref{eq:leastsquaretens}) there is then the minimising function ,$\varphi(\mathbf{x}) = \big\lvert\big\lvert \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}\big\rvert\big\rvert_{F}^{2}$, with a Jacobian, $\nabla\varphi(\mathbf{x})$. An estimator of the relative abundances, $\bar{\mathbf{x}}$ can then be found at the critical point where $\nabla\varphi(\bar{\mathbf{x}}) = 0$ - the local minimum.
-First, an analytical expression for the Jacobian, $\nabla\varphi(\mathbf{x})$ is found by expanding $\varphi(\mathbf{x})$ using the identity of the Frobenius norm for order-2 tensors - $\big\lvert\big\lvert \mathbf{B} \big\rvert\big\rvert_{F}^{2} = \langle \mathbf{B}, \mathbf{B}\rangle \equiv \mathbf{B}^{T}\mathbf{B}$.
+A function, $\varphi(\mathbf{x}) = \big\lvert\big\lvert \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}\big\rvert\big\rvert_{F}^{2}$, with Jacobian, $\nabla\varphi(\mathbf{x})$, can then be defined to satisfy the minimisation in \cref{eq:leastsquaretens}. An estimator of the relative abundances, $\bar{\mathbf{x}}$ can then be found at the critical point where $\nabla\varphi(\bar{\mathbf{x}}) = 0$ - a local minimum.
+First, an analytical expression for the Jacobian, $\nabla\varphi(\mathbf{x})$ is found by expanding $\varphi(\mathbf{x})$ using the identity of the Frobenius norm for order-2 tensors - $\big\lvert\big\lvert \mathbf{B} \big\rvert\big\rvert_{F}^{2} = \langle \mathbf{B}, \mathbf{B}\rangle \equiv \mathbf{B}^{T}\mathbf{B}$:
 \begin{align}
     \varphi(\mathbf{x}) &= \langle\mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}, \mathcal{A}\bullet_{3}\mathbf{x} - \mathbf{M}\rangle \\
-    &= (\mathcal{A}\bullet_{3}\mathbf{x})^{T}(\mathcal{A}\bullet_{3}\mathbf{x}) - 2\mathbf{M}^{T}(\mathcal{A}\bullet_{3}\mathbf{x}) +  \mathbf{M}^{T}\mathbf{M}
+    &= (\mathcal{A}\bullet_{3}\mathbf{x})^{T}(\mathcal{A}\bullet_{3}\mathbf{x}) - 2\mathbf{M}^{T}(\mathcal{A}\bullet_{3}\mathbf{x}) +  \mathbf{M}^{T}\mathbf{M}\,,
 \end{align}
-The Jacobian, $\nabla\varphi(\bar{\mathbf{x}})$ is then found: 
+and now using $\varphi(\bar{\mathbf{x}})$ ,the Jacobian, $\nabla\varphi(\bar{\mathbf{x}})$ is then found: 
 \begin{align}
-    \nabla\varphi(\mathbf{x}) = \pdv{\varphi(\mathbf{x})}{\mathbf{x}} = 2\mathcal{A}^{T} \ast_{2} \mathcal{A}\bullet_{3}\mathbf{x} - 2\mathcal{A}^{T}\ast_{2}\mathbf{M} \label{eq:jacfunc}
+    \nabla\varphi(\mathbf{x}) = \pdv{\varphi(\mathbf{x})}{\mathbf{x}} = 2\mathcal{A}^{T} \ast_{2} \mathcal{A}\bullet_{3}\mathbf{x} - 2\mathcal{A}^{T}\ast_{2}\mathbf{M}. \label{eq:jacfunc}
 \end{align}
-Next, using this expression for $\nabla\varphi(\mathbf{x})$, and the assumption that $(\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}$ is square and non-singular i.e its inverse exists,  the estimator is then found by solving  $\nabla\varphi(\bar{\mathbf{x}}) = 0$:
+Next, using this expression for $\nabla\varphi(\mathbf{x})$, and the assumption that $(\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}$ is square and non-singular i.e. its inverse exists,  the estimator is then found by solving  $\nabla\varphi(\bar{\mathbf{x}}) = 0$:
 \begin{align}
     \nabla\varphi(\bar{\mathbf{x}}) = 0 &= \mathcal{A}^{T} \ast_{2} \mathcal{A}\bullet_{3}\bar{\mathbf{x}} - \mathcal{A}^{T}\ast_{2}\mathbf{M}\\
     \mathcal{A}^{T} \ast_{2} \mathcal{A}\bullet_{3}\bar{\mathbf{x}} &= \mathcal{A}^{T}\ast_{2}\mathbf{M}\\
-    (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}(\mathcal{A}^{T} \ast_{2} \mathcal{A})\bullet_{3}\bar{\mathbf{x}} &= (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}\ast_{2}\mathbf{M}
+    (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}(\mathcal{A}^{T} \ast_{2} \mathcal{A})\bullet_{3}\bar{\mathbf{x}} &= (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}\ast_{2}\mathbf{M}\,,
 \end{align}
 For $\mathbf{B} = \mathcal{A}^{T} \ast_{2} \mathcal{A}$, $\mathbf{B}$ is a matrix as thus has the property: $\mathbf{B}^{-1}\ast_{2}\mathbf{B} = \mathbb{I}_{K} $ yielding a final expression for $\bar{\mathbf{x}}$:
 \begin{align}
         \mathbb{I}\bullet_{3}\bar{\mathbf{x}} &= (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}\ast_{2}\mathbf{M}\\
-        \implies \bar{\mathbf{x}} &= (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}\ast_{2}\mathbf{M} \label{eq:xbar}
+        \implies \bar{\mathbf{x}} &= (\mathcal{A}^{T} \ast_{2} \mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}\ast_{2}\mathbf{M}\,, \label{eq:xbar}
 \end{align}
 
-Using this mathematical framework the above SFLIM unmixing method, shown in \cref{alg:sflim} is implemented in \textit{python} using a least-squares minimiser and Einstein Summations to represent the Einstein Products, $\ast_{2}$, and the Tucker Mode Products, $\bullet_{3}$. Using the Jacboian (\cref{eq:jacfunc}) and Estimator function (\cref{eq:xbar}) ensure convergence in fewer iterations to the best-fit parameters and higher confidence the solution represents a global-minima and not a local-minima. Further, this helps compensate for the similarity of endmembers in $\mathcal{A}$, and the influence of noise. For well-conditioned and low-noise problems the estimator $\bar{\mathbf{x}}$ can be evaluated directly to recover the relative abundance of endmembers without the need for the least-squares minimisation step.
+Using this mathematical framework the above SFLIM unmixing method, shown in \cref{alg:sflim} is implemented in \textit{python} using a least-squares minimiser and Einstein Summations to represent the Einstein Products, $\ast_{2}$, and the Tucker Mode Products, $\bullet_{3}$. Using the Jacboian (\cref{eq:jacfunc}) and Estimator function (\cref{eq:xbar}) ensure convergence, in fewer iterations, to the best-fit parameters and higher confidence the solution represents a global-minima and not a local-minima. Further, this helps compensate for the similarity of endmembers in $\mathcal{A}$, and the influence of noise. For well-conditioned and low-noise problems the estimator $\bar{\mathbf{x}}$ can be evaluated directly to recover the relative abundance of endmembers without the need for the least-squares minimisation step. This approach has the key advantage in that it should, in principle, cope well in scenarios where the endmembers have: significant overlap in either the spectral or temporal domain: or moderate overlap in the both the spectral and temporal domain. In both of these scenarios the unmixing techniques discussed in \cref{chap:appFAD} would give inaccurate fluorophore concentrations. If suitable reference fluorescence emission spectra and fluorescence decays of the pure endmembers can be measured then this minimisation approach does not require a heuristically chosen fitting model to approximate the fluorescence decay.
 
 \begin{algorithm}
     \caption{Algorithm for recovering endmember abundances from spectral FLIM data for a single spatial pixel}
@@ -187,23 +180,28 @@ Using this mathematical framework the above SFLIM unmixing method, shown in \cre
 \end{algorithm}
 
 \FloatBarrier
-\section{Optimising Spectral Detection Bands for SFLIM Unmixing of Retinal Fluorophores}\label{sec:tensband}
-
+\section{Optimising Spectral Detection Bands  \\ for SFLIM Unmixing of Retinal Fluorophores}\label{sec:tensband}
 The efficacy of this SFLIM unmixing method was then investigated after re-optimising the spectral detection bands. Since this new method now incorporates the fluorescence decay, this gives another dimension to discriminate with – fluorophores with high spectral overlap but dissimilar fluorescence lifetimes can now be separated. 
 For this optimisation process, the catalogue of bandpass filters (blocking $>\qty{99.9}{\percent}$ outside the pass-band) from Edmund Optics was exhaustively searched to find the optimal set of \num{6} filters from a total \num{43} ($~\approx\num{6e6}$ combination) different filters using 3 different Figures-of-Merit (FoMs). The filters have a range of central wavelengths from \qtyrange{500}{700}{\nano\metre} and with bandwidths from \qtyrange{14}{84}{\nano\metre}. The best 100 filter sets from each FoM was then evaluated for sensitivity to fluorophore concentration using the abundance maps with shot-noise equivalent to \num{e5} photons and the combination with the lowest RMS error in unmixed FAD was selected. 
 
-\subsection{Figures of Merit for Identifying Optimal Spectral Detection Bands}
-The tensor condition number, $\kappa$, was used for these FoMs and was also weighted to consider optical throughput. These additional metrics~$\nicefrac{\sqrt{BW}}{\kappa}$ and $\nicefrac{BW}{\kappa}$ represent the shot-noise and read-noise limited noise scenario where $BW$ is an estimation of the optical throughput by simply calculating the fraction of the spectra covered by the filter set. The tensor condition number is directly comparable to the matrix condition number described previously (\cref{eq:matcondnum}) but now the Frobenius norm is used for a third-order tensor rather than a matrix. For the order-$3$ tensor, $\mathcal{A}\in\mathbb{R}^{I \times J \times K}$,  this norm and condition number is calculated using~\cref{eq:tensorfrob,eq:tensorcondnum} and the Moore-Penrose inverses, $\mathcal{A}^{+} = (\mathcal{A}^{T}\ast_{2}\mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}$
+\subsection{Figures of Merit for Identifying Optimal Spectral \\ Detection Bands}
+The tensor condition number, $\kappa$, was used for these FoMs and was also weighted to consider optical throughput. These additional metrics~$\nicefrac{\sqrt{BW}}{\kappa}$ and $\nicefrac{BW}{\kappa}$ represent the shot-noise and read-noise limited noise scenario where $BW$ is an estimation of the optical throughput by calculating the fraction of the spectra covered by the filter set. The tensor condition number is directly comparable to the matrix condition number described previously (\cref{eq:matcondnum}) but now the Frobenius norm is used for a third-order tensor rather than the $L^{2}$ norm used in calculating the matrix condition number. For the order-$3$ tensor, $\mathcal{A}\in\mathbb{R}^{I \times J \times K}$, the Frobenius norm is:
 \begin{equation}\label{eq:tensorfrob}
-    \lvert\lvert \mathcal{A} \rvert\rvert_{F} = \sqrt{\sum_{i = 1}^{m}\sum_{j = 1}^{n}\sum_{k = 1}^{p}\lvert\mathbf{a}_{ijk}\rvert^{2}}
+    \lvert\lvert \mathcal{A} \rvert\rvert_{F} = \sqrt{\sum_{i = 1}^{m}\sum_{j = 1}^{n}\sum_{k = 1}^{p}\lvert\mathbf{a}_{ijk}\rvert^{2}}\,,
 \end{equation}
+and the condition number can then be calucated:
 \begin{equation}\label{eq:tensorcondnum}
-    \kappa(\mathcal{A}) = \lvert\lvert \mathcal{A} \rvert \rvert_{F} \lvert\lvert \mathcal{A}^{+} \rvert \rvert_{F}
+    \kappa(\mathcal{A}) = \lvert\lvert \mathcal{A} \rvert \rvert_{F} \lvert\lvert \mathcal{A}^{+} \rvert \rvert_{F}\,,
 \end{equation}
-\subsection{Assessing Sensitivity of the Tensor-SFLIM Unmixing Technique to Changes in Fluorophore Concentration}
-The best filter combination for each metric shown in~\cref{fig:tensoptband}a-c shows overlapping, redundant spectral bands which provided minimal gains in unmixing accuracy at the penalty of increased integration time. These overlapping filters were consolidated to give sets of 4 wider band filters - keeping the 3 narrow bands between \qty{500}{\nm} and \qty{575}{\nm}. The location of this fourth band was then re-optimised using the condition number and $\nicefrac{\sqrt{BW}}{\kappa}$ which gives the result in \cref{fig:tensoptband}d-e. Whilst this does increase the RMS error in recovered FAD from  $\epsilon_{FAD} = 0.618$ for 6 bands to $\epsilon_{FAD} = 0.724$ it is still lower than the 5 band system previously optimised for spectral imaging and as shown in \cref{fig:SFLIM-RetFluor-1e5photons}. The sensitivity to relative fluorophore concentration follows a similar trend where unmixing errors are highest at low concentrations. Further, by using fewer, wider bands, this higher optical throughput can either be exploited for shorter SFLIM integration times whilst maintaining a similar SNR to the previous 6 band system or be used to increase the integration time per filter to yield an overall increased SNR per spectral channel, again, when compared to the 6-band system.
- 
-\begin{figure}
+where $\mathcal{A}^{+}$, is the Moore-Penrose inverse for the order-$3$ tensor such that:
+\begin{equation}\label{eq:tensorMoorePenrose}
+    \mathcal{A}^{+} = (\mathcal{A}^{T}\ast_{2}\mathcal{A})^{-1}\ast_{2}\mathcal{A}^{T}
+\end{equation}
+
+\FloatBarrier
+\subsection{Assessing Sensitivity of the SFLIM Unmixing Technique to Changes in Fluorophore Concentration}
+Using these FoMs the best filter that minimises the condition number , $\kappa$, and maximised the other FoMs $BW/\kappa$ and $\sqrt{BW}/\kappa$ are shown in \cref{fig:tensoptband}
+\begin{figure}[htp]
     \centering
         \begin{annotatedFigure}{\includegraphics[width = \textwidth]{figures/sflim/tensor-unmixing/SFLIMOptimisedBands.pdf}}
             \annotatedFigureText{0.01,0.95}{black}{0.3}{a)}
@@ -215,7 +213,9 @@ The best filter combination for each metric shown in~\cref{fig:tensoptband}a-c s
     \caption{Sets of 6 filters optimised for SFLIM unmixing using 3 different performance metrics: $\kappa$ the tensor condition number (a); $\nicefrac{BW}{\kappa}$ which weights the condition number inversely the bandwidth of the filter set - mimicking a read-noise limited scheme (b); and $\nicefrac{\sqrt{BW}}{\kappa}$ where the condition number is now weighted with the square root of the bandwidth representing a shot-noise limited scheme (c). In d) and e) these 6 filters were further optimised to two sets of 4 filters by consolidating overlapping filters into a single wider band filter and re-optimising using the aforementioned performance metrics.}
     \label{fig:tensoptband}
 \end{figure}
-\begin{table}
+It was observed that best filter combination for each metric shown in~\cref{fig:tensoptband}a-c shows overlapping, redundant spectral bands which provided minimal gains in unmixing accuracy at the penalty of increased integration time through having to record more spectral bands. These overlapping filters were consolidated to give sets of four wider band filters - keeping the three narrow bands between \qty{500}{\nm} and \qty{575}{\nm}. The location of this fourth band was then re-optimised using the condition number and $\nicefrac{\sqrt{BW}}{\kappa}$ which gives the result in \cref{fig:tensoptband}d-e.
+Whilst this does increase the average RMS error in recovered FAD: from $\epsilon_{FAD} = 0.618$ for six bands to $\epsilon_{FAD} = 0.724$, for the same \num{e5} detected photons. As shown in \cref{tab:SFLIMRMSerrors}, it is still lower than the five band system previously optimised for spectral imaging and as shown in \cref{fig:SFLIM-RetFluor-1e5photons}.
+\begin{table}[htp]
     \centering
     \begin{tabular}{|c|c|c|c|c|}
         \hline
@@ -234,18 +234,20 @@ The best filter combination for each metric shown in~\cref{fig:tensoptband}a-c s
     \caption{RMS error values - normalised between 0 to 1 for filter sets consisting of 6 and 4 spectral bands obtained from optimising: condition number - $\kappa$; bandwidth weighted with condition number - $\nicefrac{BW}{\kappa}$ to mimic a read-noise limited detection scheme; and bandwidth weighted with condition number modified to represent the case of shot-noise limited detection schemes -$\nicefrac{\sqrt{BW}}{\kappa}$.}
     \label{tab:SFLIMRMSerrors}
 \end{table}
+The sensitivity to relative fluorophore concentration follows a similar trend where unmixing errors are highest at low concentrations. Further, by using fewer, wider bands, this higher optical throughput can either be exploited for shorter SFLIM integration times whilst maintaining a similar SNR to the previous 6 band system or be used to increase the integration time per filter to yield an overall increased SNR per spectral channel, again, when compared to the six band system.
 
-\begin{figure}
+\begin{figure}[htp]
     \centering
     \includegraphics[width = 0.8\textwidth]{figures/sflim/tensor-unmixing/SFLIM-4BandConfig-UnmixingResults.pdf}
-    \caption{The sensitivity to relative fluorophores concentration was examined for unmixing retinal fluorophores using the SFLIM unmixing algorthim and the optimised 4 spectral band configuration for with shot-noise equivalent to that of \num{e5} emitted photons. The ground truth abundance is shown in the top row ranging from \numrange{0}{1} (blue to yellow) and the unmixed abundances are shown in the middle row. The bottom row shows the relative error in this unmixing quantified using~\cref{eq:recerror}.}
+    \caption{The sensitivity to relative fluorophores concentration was examined for unmixing retinal fluorophores using the SFLIM unmixing algorithm and the optimised 4 spectral band configuration for with shot-noise equivalent to that of \num{e5} emitted photons. The ground truth abundance is shown in the top row ranging from \numrange{0}{1} (blue to yellow) and the unmixed abundances are shown in the middle row. The bottom row shows the relative error in this unmixing quantified using~\cref{eq:recerror}.}
     \label{fig:SFLIM-RetFluor-1e5photons}
 \end{figure}
+A shortcoming of the presented assessment of performance is the lack of relationship to actual concentrations of retinal fluorophores found in the retina. Here, the model of fluorescence emitted from the is simplified to a an additive mixture of only three fluorophores - where more than ten have been observed~\cite{schweitzer2007towards} - and that this fluorescence is not contaminated by blood and lens autofluorescnece or scattered by vasculature. But these assessment do show that using the same tests of efficacy for each of the discussed technique does allow conclusions to be made about their relative performance.
 
 \FloatBarrier
 \section{Comparing Noise Sensitivity of the SFLIM Unmixing Technique for Different SFLIM Detection Schemes}
-While the SFLIM unmixing method described in chapter was developed for measuring concentrations of retinal FAD it could still prove useful in other SFLIM imaging scenarios. A set of dyes with Gaussian fluorescence emission spectra and mono-exponential decay profiles was simulated for varying spectral bands and unmixing methods: spectral unmixing, SFLIM unmixing for a TCPSC detection scheme, and SFLIM unmixing for Gated-FLIM. The condition number was calculated for each scenario from 3 spectral bands to 15 spectral bands without the inclusion of photon noise. For the gated FLIM examples, 2 contiguous gates of width, \qty{2}{\ns}, were used.
-In the first set of dyes, the emission spectra were simulated to be highly overlapping with a FWHM of \qty{15}{\nm} and central wavelengths only differing by \qty{2}{\nm} (CWL = \qtylist{548;550;552}{\nm}) and the respective fluorescence lifetimes were well separable - $\tau = \qtylist{1.50;2.00;2.50}{\ns}$. The spectral bands were simulated with "$n$" evenly-spaced rectangular filters between \qtyrange{520}{580}{\nm} to minimise the number of bands covering areas of the spectra with zero flux and thus give a better constraint on the condition number. When examining the condition numbers in this scenario (see \cref{fig:sflimunmixingoverlapspectra}), the high spectral overlap results in the spectral unmixing method exhibiting a $\approx 4$-times larger condition number when compared to the SFLIM unmixing indicating that the temporal domain does aid the unmixing process.
+While the SFLIM unmixing method described in chapter was developed for measuring concentrations of retinal FAD it could still prove useful in other SFLIM imaging scenarios. A set of dyes with Gaussian fluorescence emission spectra and mono-exponential decay profiles was simulated for varying spectral bands and unmixing methods: spectral unmixing, SFLIM unmixing for a TCPSC detection scheme, and SFLIM unmixing for the gated detection scheme discussed at the beginning of this thesis in \cref{sec:intro-gatedFLIM}. The condition number was calculated for each scenario from three spectral bands to fifteen spectral bands without the inclusion of photon noise. For the gated FLIM examples, two contiguous gates of width, \qty{2}{\ns}, were used instead of the, \num{250}, \qty{47}{\ps} wide, time-bins used for the TSCPC detection scheme.
+In the first set of dyes, the emission spectra were simulated to be highly overlapping with a FWHM of \qty{15}{\nm} and central wavelengths only differing by \qty{2}{\nm} (CWL = \qtylist{548;550;552}{\nm}) and the respective fluorescence lifetimes were well separable - $\tau = \qtylist{1.50;2.00;2.50}{\ns}$. The spectral bands were simulated with ``$n$'' evenly-spaced rectangular filters between \qtyrange{520}{580}{\nm} to minimise the number of bands covering areas of the spectra with zero flux and thus give a better constraint on the condition number. When examining the condition numbers in this scenario (see \cref{fig:sflimunmixingoverlapspectra}), the high spectral overlap results in the spectral unmixing method exhibiting a $\approx 4$-times larger condition number when compared to the SFLIM unmixing indicating that the temporal domain does aid the unmixing process.
 \begin{figure}
     \centering
     \begin{annotatedFigure}{\includegraphics[width = 0.85\textwidth]{figures/sflim/tensor-unmixing/SFLIM-ConditionNumber-ComparisonGaussian1.pdf}}
@@ -259,7 +261,7 @@ In the first set of dyes, the emission spectra were simulated to be highly overl
 \end{figure}
 
 
-Similarly for the second scenario (\cref{fig:sflimunmixingoverlaplifetime}, the spectra were simulated to be well-separable with central wavelengths of \qtylist{550;600;650}{\nm} with a FWHM of \qty{15}{\nm} but now the lifetimes were separated by just \qty{100}{\ps} ($\tau = \qtylist{1.50;1.60;1.70}{\ns}$) which would ordinarily be difficult to segment by fitting fluorescence lifetimes. From this simulation, the condition numbers for all three methods are equal across all spectral band numbers indicating that majority of the variation in the signal is in the spectral domain but that also that the SFLIM unmixing algorithm is not adversely affected by low variation in lifetime.
+Similarly for the second scenario, shown in~\cref{fig:sflimunmixingoverlaplifetime}, the spectra were simulated to be well-separable with central wavelengths of \qtylist{550;600;650}{\nm} with a FWHM of \qty{15}{\nm} but now the lifetimes were separated by just \qty{100}{\ps} ($\tau = \qtylist{1.50;1.60;1.70}{\ns}$) which would ordinarily be difficult to segment by fitting fluorescence lifetimes. From this simulation, the condition numbers for all three methods are equal across all spectral band numbers indicating that majority of the seperability in the signal is in the spectral domain but that also that the SFLIM unmixing algorithm is not adversely affected by low variation in lifetime.
 
 
 \begin{figure}
@@ -270,14 +272,15 @@ Similarly for the second scenario (\cref{fig:sflimunmixingoverlaplifetime}, the 
         \annotatedFigureText{0.41,0.96}{black}{0.3}{c)}
     \end{annotatedFigure}
     
-    \caption{A set of 3 Gaussian spectra (a) with mono-exponential lifetimes (b) were simulated and in (c) the condition number of Spectral Unmixing, SFLIM unmixing, and gated-SFLIM unmixing were plotted as a function of the number of contiguous spectral bands.}
+    \caption{A set of three Gaussian spectra (a) with mono-exponential lifetimes (b) were simulated and in (c) the condition number of Spectral Unmixing, SFLIM unmixing, and gated-SFLIM unmixing were plotted as a function of the number of contiguous spectral bands.}
     \label{fig:sflimunmixingoverlaplifetime}
 \end{figure}
 \FloatBarrier
 \section{Conclusions} \label{sec:sflim-conc}
-In this chapter a new method for unmixing FAD concentrations from SFLIM measurements of the retina was developed and the optimal spectral bands for recording these SFLIM measurements were found. The SFLIM unmixing technique is adapted from the Jacobian based minimisation procedure described by~\citeauthor{brazell2013solving}\cite{brazell2013solving}.
-After optimising the location and number of spectral bands the performance of the SFLIM unmixing algorithm was then shown to imprFiniove capabilities of quantifying retinal FAD, compared to spectral unmixing, by exhibiting a reduced RMS error - \qty{72.4}{\percent} for SFLIM unmixing opposed to \qty{91.8}{\percent} for spectral unmixing - for equivalent photon fluxes. Finally, the flexibility of the SFLIM unmixing algorithm was briefly explored by comparing the condition number of spectral unmixing, to SFLIM unmixing, and gated-SFLIM unmixing computed when unmixing sets of Gaussian spectra simulated to have either high spectral overlap or highly similar fluorescence lifetimes. These simulations demonstrated a limitation of TCSPC-based SFLIM methods where SFLIM exhibits a lower SNR than a spectral imaging system simply due to the same photon flux being distributed over more shot-noise and read-noise affected measurements. Despite this, the SFLIM unmixing algorithm does outperform traditional spectral unmixing in recovering FAD concentrations with a lower RMS error. A possible solution to this noise issue could be to use a time-gated detection scheme where the $>250$ time bins spanning \qty{47}{\ps} are replaced by two or more \qty{2}{\ns} wide gates. This has the effect of increasing SNR at the cost of temporal resolution but as shown in \cref{fig:sflimunmixingoverlapspectra,fig:sflimunmixingoverlaplifetime} this would not necessarily culminate in poorer unmixing performance. In principle, gated detection schemes also address the two of the major challenges of using TCPSC-SPAD arrays for FLIM: photon-pileup where only one photon can be detected per excitation pulse; and the low-pixel count of the FLIMera where megapixel gated SPAD detectors have been reported~\cite{morimoto2020megapixel}.
+In this chapter, a new unmixing method is described for the purpose of recovering retinal FAD concentrations from SFLIM measurements of retinal autofluorescence. A set spectral bands were then found to minimise the error in recovered FAD using hte SFLIM unmixing from simulations of additive mixtures of retinal fluorophores AGE, A2E, and FAD. The SFLIM unmixing technique is adapted from the Jacobian based minimisation procedure described by~\citeauthor{brazell2013solving}\cite{brazell2013solving}.
+After optimising the location and number of spectral bands the performance of the SFLIM unmixing algorithm was then shown to improve capabilities of quantifying retinal FAD, compared to spectral unmixing, by exhibiting a reduced RMS error - $\epsilon = \num{0.724}$  in recovered FAD concentrations for SFLIM unmixing opposed to $\epsilon = \num{0.918}$ for spectral unmixing - for equivalent photon fluxes. Finally, the flexibility of the SFLIM unmixing algorithm was briefly explored by comparing the condition number of spectral unmixing, to SFLIM unmixing, and gated-SFLIM unmixing computed when unmixing sets of Gaussian spectra simulated to have either high spectral overlap or highly similar fluorescence lifetimes. These simulations demonstrated a limitation of TCSPC-based SFLIM methods where SFLIM exhibits a lower SNR than a spectral imaging system simply due to the same photon flux being distributed over more shot-noise and read-noise affected measurements. Despite this, the SFLIM unmixing algorithm does outperform traditional spectral unmixing in recovering FAD concentrations with a lower RMS error. A possible solution to this noise issue could be to use a time-gated detection scheme where the $>250$ time bins spanning \qty{47}{\ps} are replaced by two or more \qty{2}{\ns} wide gates. This has the effect of increasing SNR at the cost of temporal resolution but this with a lower condition number, as shown in \cref{fig:sflimunmixingoverlapspectra,fig:sflimunmixingoverlaplifetime}, this would not necessarily culminate in poorer unmixing performance. In principle, gated detection schemes also address two of the major challenges of using TCPSC-SPAD arrays for FLIM: photon-pileup where only one photon can be detected per excitation pulse; and the low-pixel count of the FLIMera whereas only single megapixel gated SPAD detectors have been reported~\cite{morimoto2020megapixel}.
 \FloatBarrier
 \section{Future Work}\label{sec:sflim-future}
-The SFLIM unmixing algorithm presented in this thesis represents the adaptation of the simplest technique in the spectral unmixing to the field of SFLIM. There is scope to also adapt the concepts of Non-negative Matrix Factorisation (NMF) ~\cite{pauca2006nonnegative}, VCA~\cite{nascimento2005vertex}, Auto-encoder networks~\cite{su2019daen} as well as other spectral unmixing techniques to account for spectral contamination from blood in retinal vasculature and lens fluorescence by blindly recovering their abundance and spectra in the retina. Further, these "blind" unmixing methods would also test the assumption made in this thesis and reported in~\citeauthor{schweitzer2007towards} that AGE, A2E, and FAD are the dominant chromophores in the retina~\cite{schweitzer2007towards}.
+The SFLIM unmixing algorithm presented in this thesis represents the adaptation of the simplest technique in the spectral unmixing to the field of SFLIM. There is scope to also adapt the concepts of Non-negative Matrix Factorisation (NMF)~\cite{pauca2006nonnegative}, VCA~\cite{nascimento2005vertex}, Auto-encoder networks~\cite{su2019daen} as well as other spectral unmixing techniques to account for spectral contamination from blood in retinal vasculature and lens fluorescence by blindly recovering their abundance and spectra in the retina. Further, these "blind" unmixing methods would also test the assumption made in this thesis and reported in~\citeauthor{schweitzer2007towards} that AGE, A2E, and FAD are the dominant chromophores in the retina~\cite{schweitzer2007towards}.
+The addition of \textit{in-vitro} experiments would strengthen the conclusions of this chapter. Mixtures of retinal fluorophores could be prepared in capillary tubes and mounted into an eye phantom. The concentration of each fluorophore could then be varied across multiple SFLIM measurements, imaged with the SFLIO device. This would serve as a more rigours way to measure what the smallest change in FAD concentration that can be detected using the SFLIM unmixing algorithm and existing spectral unmixing techniques. Due to time constraints, this experiment was regrettably not carried out.
 Finally, a key demonstration of the SFLIM unmixing technique, beyond that of retinal imaging, would be in the scenario of a stained biological sample where different micro-structures are labelled with dyes that can be tailored for minimal spectral and temporal overlap.
