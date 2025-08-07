@@ -248,7 +248,7 @@ A shortcoming of the presented assessment of performance is the lack of relation
 \section{Comparing Noise Sensitivity of the SFLIM Unmixing Technique for Different SFLIM Detection Schemes}
 While the SFLIM unmixing method described in chapter was developed for measuring concentrations of retinal FAD it could still prove useful in other SFLIM imaging scenarios. A set of dyes with Gaussian fluorescence emission spectra and mono-exponential decay profiles was simulated for varying spectral bands and unmixing methods: spectral unmixing, SFLIM unmixing for a TCPSC detection scheme, and SFLIM unmixing for the gated detection scheme discussed at the beginning of this thesis in \cref{sec:intro-gatedFLIM}. The condition number was calculated for each scenario from three spectral bands to fifteen spectral bands without the inclusion of photon noise. For the gated FLIM examples, two contiguous gates of width, \qty{2}{\ns}, were used instead of the, \num{250}, \qty{47}{\ps} wide, time-bins used for the TSCPC detection scheme.
 In the first set of dyes, the emission spectra were simulated to be highly overlapping with a FWHM of \qty{15}{\nm} and central wavelengths only differing by \qty{2}{\nm} (CWL = \qtylist{548;550;552}{\nm}) and the respective fluorescence lifetimes were well separable - $\tau = \qtylist{1.50;2.00;2.50}{\ns}$. The spectral bands were simulated with ``$n$'' evenly-spaced rectangular filters between \qtyrange{520}{580}{\nm} to minimise the number of bands covering areas of the spectra with zero flux and thus give a better constraint on the condition number. When examining the condition numbers in this scenario (see \cref{fig:sflimunmixingoverlapspectra}), the high spectral overlap results in the spectral unmixing method exhibiting a $\approx 4$-times larger condition number when compared to the SFLIM unmixing indicating that the temporal domain does aid the unmixing process.
-\begin{figure}
+\begin{figure}[htp]
     \centering
     \begin{annotatedFigure}{\includegraphics[width = 0.85\textwidth]{figures/sflim/tensor-unmixing/SFLIM-ConditionNumber-ComparisonGaussian1.pdf}}
         \annotatedFigureText{0.01,0.96}{black}{0.3}{a)}
@@ -259,12 +259,10 @@ In the first set of dyes, the emission spectra were simulated to be highly overl
     \caption{A set of 3 Gaussian spectra (a) with mono-exponential lifetimes (b) were simulated and in (c) the condition number of Spectral Unmixing, SFLIM unmixing, and gated-SFLIM unmixing were plotted as a function of the number of contiguous spectral bands.}
     \label{fig:sflimunmixingoverlapspectra}
 \end{figure}
-
-
+\\
 Similarly for the second scenario, shown in~\cref{fig:sflimunmixingoverlaplifetime}, the spectra were simulated to be well-separable with central wavelengths of \qtylist{550;600;650}{\nm} with a FWHM of \qty{15}{\nm} but now the lifetimes were separated by just \qty{100}{\ps} ($\tau = \qtylist{1.50;1.60;1.70}{\ns}$) which would ordinarily be difficult to segment by fitting fluorescence lifetimes. From this simulation, the condition numbers for all three methods are equal across all spectral band numbers indicating that majority of the seperability in the signal is in the spectral domain but that also that the SFLIM unmixing algorithm is not adversely affected by low variation in lifetime.
-
-
-\begin{figure}
+\\
+\begin{figure}[htp]
     \centering
     \begin{annotatedFigure}{\includegraphics[width = 0.85\textwidth]{figures/sflim/tensor-unmixing/SFLIM-ConditionNumber-ComparisonGaussian2.pdf}}
         \annotatedFigureText{0.01,0.96}{black}{0.3}{a)}
